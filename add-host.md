@@ -1,4 +1,4 @@
-How to Add a new Host
+How to Add a New Host
 =====================
 
 (Note: Each step should be run on either the new virtual machine -- VM -- or on the management system -- MANAGE)
