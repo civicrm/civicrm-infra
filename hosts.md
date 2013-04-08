@@ -16,42 +16,42 @@ Hosts
       <td>biryani</td>
       <td>Physical</td>
       <td>Ubuntu 10.4 LTS (Lucid Lynx)</td>
-      <td>X</td>
+      <td>140.211.166.57</td>
       <td>Smorgasbord</td>
     </tr>
     <tr>
       <td>sushi</td>
       <td>Physical</td>
       <td>Ubuntu 8.04 LTS (Hardy Heron)</td>
-      <td>X</td>
+      <td>140.211.166.55</td>
       <td>Smorgasbord</td>
     </tr>
     <tr>
       <td>java-prod</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.141</td>
       <td>(TODO) Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
       <td>java-test</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>40.211.167.143</td>
       <td>(TODO) Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
       <td>manage</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.144</td>
       <td>Puppet Master, slapd -- firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
     </tr>
     <tr>
       <td>svn</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.145</td>
       <td>(TODO) Apache, SVN</td>
     </tr>
     <tr>
@@ -65,42 +65,42 @@ Hosts
       <td>test-master</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.147</td>
       <td>(TODO) Jenkins (Master)</td>
     </tr>
     <tr>
       <td>test-ubu1204-1</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.149</td>
       <td>(TODO) Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
       <td>test-ubu1210-1</td>
       <td>Virtual</td>
       <td>Ubuntu 12.10</td>
-      <td>X</td>
+      <td>140.211.167.150</td>
       <td>(TODO) Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
       <td>www-demo</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.151</td>
       <td>(TODO) Apache, MySQL, Drupal, Joomla, WordPress, CiviCRM</td>
     </tr>
     <tr>
       <td>www-prod</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.152</td>
       <td>(TODO) Apache, MySQL, Drupal/Drush, SMF, alert.civicrm.org</td>
     </tr>
     <tr>
       <td>www-training</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>X</td>
+      <td>140.211.167.153</td>
       <td>(TODO) Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
     </tr>
   </tbody>
