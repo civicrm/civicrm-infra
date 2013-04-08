@@ -33,16 +33,24 @@ VM: Submit key
 puppetd --test -v
 ```
 
-MANAGE: Create node config file under /etc/puppet/manifests/node/
+MANAGE: Create node config file under /etc/puppet/manifests/node/, e.g.
+```
+node "NEWHOSTNAME" {
+  include civicrmorg::baseline
+  include civicrmorg::client
+  include civicrmorg::www
+}
+```
+
 MANAGE: Make sure new file is loaded
 ```
 /etc/init.d/puppetmaster restart
 ```
 
-MANAGE: Accept key
+MANAGE: Accept the key
 ```
 puppetca --list
-puppetca --sign NEWNAME.civicrm.osuosl.org
+puppetca --sign NEWHOSTNAME.civicrm.osuosl.org
 ```
 
 VM: Activate new setup
