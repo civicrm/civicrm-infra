@@ -100,8 +100,8 @@ Hosts
       <td>www-training</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>(TODO) Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
       <td>X</td>
+      <td>(TODO) Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
     </tr>
   </tbody>
 </table>
