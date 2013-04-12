@@ -57,3 +57,9 @@ VM: Activate new setup
 ```
 puppetd --test -v
 ```
+
+VM: Enable puppet on system start
+```
+vi /etc/default/puppet
+/etc/init.d/puppet start
+```
