@@ -33,16 +33,19 @@ VM: Submit key
 puppetd --test -v
 ```
 
-MANAGE: Create node config file under /etc/puppet/manifests/node/, e.g.
+MANAGE: Create node configuration under /etc/puppet/manifests/node/. You
+might add another in the misc.pp file or create a new file.  A new file
+wouuld look like:
 ```
 node "NEWHOSTNAME" {
   include civicrmorg::baseline
-  include civicrmorg::client
+  include civicrmorg::access
+  include civicrmorg::ldapclient
   include civicrmorg::www
 }
 ```
 
-MANAGE: Make sure new file is loaded
+MANAGE: If you created a new file, then make sure it's loaded
 ```
 /etc/init.d/puppetmaster restart
 ```
