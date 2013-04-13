@@ -66,7 +66,7 @@ Hosts
       <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Debian Squeeze</td>
-      <td>X</td>
+      <td>140.211.167.146</td>
       <td>(TODO) Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
     </tr>
     <tr>
