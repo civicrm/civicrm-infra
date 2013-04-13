@@ -5,6 +5,7 @@ Hosts
   <thead>
     <tr>
       <th>Host</th>
+      <th>Domain</th>
       <th>Type</h>
       <th>OS</th>
       <th>IP</th>
@@ -14,6 +15,7 @@ Hosts
   <tbody>
       <tr>
       <td>biryani</td>
+      <td>osuosl.org</td>
       <td>Physical</td>
       <td>Ubuntu 10.4 LTS (Lucid Lynx)</td>
       <td>140.211.166.57</td>
@@ -21,6 +23,7 @@ Hosts
     </tr>
     <tr>
       <td>sushi</td>
+      <td>osuosl.org</td>
       <td>Physical</td>
       <td>Ubuntu 8.04 LTS (Hardy Heron)</td>
       <td>140.211.166.55</td>
@@ -28,6 +31,7 @@ Hosts
     </tr>
     <tr>
       <td>java-prod</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.141</td>
@@ -35,6 +39,7 @@ Hosts
     </tr>
     <tr>
       <td>java-test</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>40.211.167.143</td>
@@ -42,6 +47,7 @@ Hosts
     </tr>
     <tr>
       <td>manage</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.144</td>
@@ -49,13 +55,15 @@ Hosts
     </tr>
     <tr>
       <td>svn</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.145</td>
       <td>(TODO) Apache, SVN</td>
     </tr>
     <tr>
-      <td>test-debian6</td>
+      <td>test-debian6-1</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Debian Squeeze</td>
       <td>X</td>
@@ -63,6 +71,7 @@ Hosts
     </tr>
     <tr>
       <td>test-master</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.147</td>
@@ -70,6 +79,7 @@ Hosts
     </tr>
     <tr>
       <td>test-ubu1204-1</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.149</td>
@@ -77,6 +87,7 @@ Hosts
     </tr>
     <tr>
       <td>test-ubu1210-1</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.10</td>
       <td>140.211.167.150</td>
@@ -84,6 +95,7 @@ Hosts
     </tr>
     <tr>
       <td>www-demo</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.151</td>
@@ -91,6 +103,7 @@ Hosts
     </tr>
     <tr>
       <td>www-prod</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.152</td>
@@ -98,6 +111,7 @@ Hosts
     </tr>
     <tr>
       <td>www-training</td>
+      <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.153</td>
