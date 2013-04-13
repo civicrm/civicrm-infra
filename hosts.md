@@ -51,7 +51,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.144</td>
-      <td>Puppet Master, slapd -- firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
+      <td>Puppet Master, slapd, phpldapadmin -- all firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
     </tr>
     <tr>
       <td>svn</td>
