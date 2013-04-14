@@ -38,8 +38,8 @@ one of the following (as appropriate):
   * To grant SSH+sudo access to one specific VM:
     * Login to the target VM via SSH
     * Run "sudo nss_updatedb ldap" (Note: This step is run automatically every ~10min. Manual invocation is only necessary if you're impatient.)
-    * Run "sudo adduser sudo"
+    * Run "sudo adduser <NEWUSER> sudo"
   * To grant SSH access (but NOT sudo access) to one specific VM:
     * Login to the target VM via SSH
     * Run "sudo nss_updatedb ldap" (Note: This step is run automatically every ~10min. Manual invocation is only necessary if you're impatient.)
-    * Run "sudo adduser ssh-user"
+    * Run "sudo adduser <NEWUSER> ssh-user"
