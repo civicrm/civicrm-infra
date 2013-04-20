@@ -1,13 +1,13 @@
-= Introduction =
+# Introduction
 
 Continuous integration (CI) is the practice of automating build, testing,
 and release during development.  Jenkins is a job-management system focused
 on CI – and provides a large library of plugins for source-code management,
 quality-assurance, etc.  More information, see http://jenkins-ci.org/ .
 
-= Master Node Installation =
+# Setup master node
 
-=== Install Tomcat with Jenkins ===
+### Install Tomcat with Jenkins
 
 (Note: I was unable to get the Jenkins Debian package to work with HTTPS
 under Ubuntu 12.04 -- even with various configurations of
@@ -39,7 +39,7 @@ service tomcat6 start
 
 See also: https://wiki.jenkins-ci.org/display/JENKINS/Tomcat
 
-=== Configure authentication / authorization ===
+### Configure authentication / authorization
 
  * Visit http://my-server.example.com:8080/configureSecurity
  * Enable LDAP:
@@ -54,7 +54,7 @@ See also: https://wiki.jenkins-ci.org/display/JENKINS/Tomcat
  * Visit http://my-server.example.com:8080/configureSecurity (again)
  * Set "Authorization" to "Matrix-based security" and use an administrative group from LDAP
 
-=== Setup Master SSH Credentials ===
+### Setup master SSH credentials
 
 ```bash
 root@test-master:~# cd /var/lib/jenkins/
@@ -72,12 +72,12 @@ In Jenkins, navigate to "Manage Jenkins => Manage Credentials" and add:
  * Username: jenkins
  * Private Key: File on Jenkins master: /var/lib/jenkins/id_rsa
 
-=== Disable jobs on Master ===
+### Disable jobs on Master
 
 Jobs should always run on slaves. Navigate to "Manage Jenkins => Manage
 Nodes => master" and set the "# of executors" to 0.
 
-=== ulimit ===
+### ulimit
 
 ulimit: Extend the file open limit in "/etc/security/limits.conf", e.g.:
 
@@ -89,11 +89,11 @@ ulimit: Extend the file open limit in "/etc/security/limits.conf", e.g.:
 Note: Omitting this step will lead to startup errors when doing the startup over SSH.
 Note: Omitting this step has been circumstantially implicated in very quirky behavior (i.e. disappearing information)
 
-= Slave Node Installation =
+# Setup slave node
 
 See also: https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds
 
-=== Create User on Slave VM ===
+### Create user on slave
 
 ```bash
 root@test-ubu1204-1:~# adduser --system --home /var/lib/jenkins --shell /bin/bash jenkins
@@ -129,7 +129,7 @@ ssh jenkins@test-ubu1204-1.civicrm.osuosl.org
 git config -l
 ```
 
-=== Register Slave on Master VM ===
+### Register slave on master
 
  * In master's CLI, run: ssh-copy-id -i /var/lib/jenkins/id_rsa.pub jenkins@test-ubu1204-1.civicrm.osuosl.org
  * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some notable settings:
@@ -139,7 +139,7 @@ git config -l
    * Launch method: ...Unix machine via SSH
    * Credentials: jenkins
 
-=== MySQL Ramdisk ===
+### MySQL ramdisk
 
 The test process for CiviCRM will frequently truncate or reinitialize the
 MySQL database.  Because we don't need to keep the databases long but do
@@ -163,7 +163,7 @@ fi
 
  * Reboot system and make sure MySQL comes back online
 
-=== Drupal/Apache ===
+### Drupal/Apache
 
 Each test of CiviCRM will require creating a Drupal site. If there are
 concurrent tests (e.g.  concurrent "executors"), then each each executor
@@ -209,11 +209,13 @@ will need its own Drupal site.  We'll prepare a pool.
  * Note: There is no need to create a database for each site – DBs will be automatically dropped and created.
  * Install Drush via PEAR: http://drupal.org/project/drush
 
-=== Selenium/Xvfb ===
+### Selenium/Xvfb
 
 TODO
  
-= Upgrade Notes =
+# Upgrade notes #
+
+(Not yet tested)
 
 ```
 [ -f /var/backups/jenkins/ROOT.war ] && rm -f /var/backups/jenkins/ROOT.war
@@ -225,6 +227,6 @@ wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war -O ROOT.war
 service tomcat6 start
 ```
 
-= Job Configuration Notes =
+# Job configuration notes
 
 TODO
