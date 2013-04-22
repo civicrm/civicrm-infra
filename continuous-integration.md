@@ -60,8 +60,8 @@ See also: https://wiki.jenkins-ci.org/display/JENKINS/Tomcat
 root@test-master:~# cd /var/lib/jenkins/
 root@test-master:/var/lib/jenkins# ssh-keygen -f id_rsa
 Generating public/private rsa key pair.
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
 root@test-master:/var/lib/jenkins# chown tomcat6.tomcat6 id_rsa*
 root@test-master:/var/lib/jenkins# chmod 600 id_rsa*
 ```
@@ -100,14 +100,12 @@ root@test-ubu1204-1:~# adduser --system --home /var/lib/jenkins --shell /bin/bas
 Adding system user `jenkins' (UID 107) ...
 Adding new user `jenkins' (UID 107) with group `nogroup' ...
 Creating home directory `/var/lib/jenkins' ...
-root@test-ubu1204-1:~# makepasswd 
+root@test-ubu1204-1:~# makepasswd
 ranDOmlYg3N3rAteD
 root@test-ubu1204-1:~# passwd jenkins
 Enter new UNIX password: ranDOmlYg3N3rAteD
 Retype new UNIX password: ranDOmlYg3N3rAteD
 passwd: password updated successfully
-root@test-ubu1204-1:~# cp /root/.my.cnf /var/lib/jenkins/.my.cnf
-root@test-ubu1204-1:~# chown jenkins /var/lib/jenkins/.my.cnf
 root@test-ubu1204-1:~# adduser jenkins ssh-user
 root@test-ubu1204-1:~# sudo -u jenkins -H vi /var/lib/jenkins/.gitconfig
 ```
@@ -115,29 +113,39 @@ root@test-ubu1204-1:~# sudo -u jenkins -H vi /var/lib/jenkins/.gitconfig
 And setup an identity:
 
 ```
-[color] 
+[color]
         ui = true
 [user]
         name = Jenkins
         email = jenkins@test-ubu1204-1.civicrm.osuosl.org
 ```
 
-And finally test the new username and password:
+Finally, use the new username and password to grant Jenkins access to SSH
+the new system -- and test that it works:
 
 ```bash
-ssh jenkins@test-ubu1204-1.civicrm.osuosl.org
-git config -l
+me@localhost:~$ ssh test-master.civicrm.osuosl.org
+me@test-master:~$ sudo ssh-copy-id -i /var/lib/jenkins/id_rsa.pub jenkins@HOSTNAME.civicrm.osuosl.org
+[sudo] password for me:
+The authenticity of host 'HOSTNAME.civicrm.osuosl.org (111.111.111.111)' can't be established.
+RSA key fingerprint is 11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'HOSTNAME.civicrm.osuosl.org' (RSA) to the list of known hosts.
+jenkins@HOSTNAME.civicrm.osuosl.org's password:
+Now try logging into the machine, with "ssh 'jenkins@HOSTNAME.civicrm.osuosl.org'", and check in:
+
+  ~/.ssh/authorized_keys
+
+to make sure we haven't added extra keys that you weren't expecting.
+me@test-master:~$ sudo ssh -i /var/lib/jenkins/id_rsa jenkins@HOSTNAME.civicrm.osuosl.org
+jenkins@HOSTNAME:$ git config -l
 ```
 
-### Register slave on master
+### File ACLs
 
- * In master's CLI, run: ssh-copy-id -i /var/lib/jenkins/id_rsa.pub jenkins@test-ubu1204-1.civicrm.osuosl.org
- * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some notable settings:
-   * # of executors: 3
-   * Labels: ubuntu ubuntu1204 php53
-   * Remote FS Root: /var/lib/jenkins
-   * Launch method: ...Unix machine via SSH
-   * Credentials: jenkins
+In /etc/fstab, add option "acl" to the root partition (or whichever partition contains /var/www).
+
+Remount the partiation (e.g. "mount -o remount /")
 
 ### MySQL ramdisk
 
@@ -147,7 +155,7 @@ need frequent, heavy changes, it makes sense to put the the databases into a
 ramdisk.  The process is loosely:
 
  * Install Debian's mysql-server (version 5.1+)
- * Perform some basic administration (e.g. set passwords for admin users; add /root/.my.cnf)
+ * Perform some basic administration (e.g. set passwords for admin users; add /root/.my.cnf and /var/lib/jenkins/.my.cnf with proper owner/permissions)
  * Shutdown the database
  * Make a snapshot of the raw DB files for use after reboots – "rsync -va /var/lib/mysql to /var/lib/mysql.tmpl"
  * Mount /var/lib/mysql using tmpfs in /etc/fstab – "none    /var/lib/mysql  tmpfs   size=768m,mode=1777     0 0"
@@ -169,7 +177,7 @@ Each test of CiviCRM will require creating a Drupal site. If there are
 concurrent tests (e.g.  concurrent "executors"), then each each executor
 will need its own Drupal site.  We'll prepare a pool.
 
- * Download and extract a Drupal tar ball. Rename it to /var/www/drupal
+ * Download and extract a Drupal tar ball. Rename it to /var/www/drupal. Make sure "jenkins" has read/write access to this dir.
  * In /etc/hosts, add aliases for 127.0.0.1 called "jenkins-0.localhost jenkins-1.localhost jenkins-2.localhost jenkins-3.localhost jenkins-4.localhost"
  * In /etc/apache2, add a vhost with "ServerName jenkins-0.localhost" and "SeverAlias" options for every other hostname.
 
@@ -207,12 +215,30 @@ will need its own Drupal site.  We'll prepare a pool.
 
  * a2enmod rewrite
  * Note: There is no need to create a database for each site – DBs will be automatically dropped and created.
- * Install Drush via PEAR: http://drupal.org/project/drush
+ * Install Drush and Console_Table via PEAR: http://drupal.org/project/drush
 
 ### Selenium/Xvfb
 
-TODO
- 
+Puppet should have already installed xvfb and created a script for launching
+Selenium with xvfb.  You must manually install a browser and launch the
+script:
+
+```bash
+me@host:~$ sudo -H screen
+root@host:/home/me$ apt-get install firefox
+root@host:/home/me$ sudo -u selenium -H /home/selenium/bin/selenium-node.sh
+```
+
+### Register slave on master
+
+ * In master's CLI, run: ssh-copy-id -i /var/lib/jenkins/id_rsa.pub jenkins@test-ubu1204-1.civicrm.osuosl.org
+ * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
+   * # of executors: 3
+   * Labels: ubuntu ubuntu1204 php53
+   * Remote FS Root: /var/lib/jenkins
+   * Launch method: ...Unix machine via SSH
+   * Credentials: jenkins
+
 # Upgrade notes #
 
 (Not yet tested)
