@@ -231,7 +231,6 @@ root@host:/home/me$ sudo -u selenium -H /home/selenium/bin/selenium-node.sh
 
 ### Register slave on master
 
- * In master's CLI, run: ssh-copy-id -i /var/lib/jenkins/id_rsa.pub jenkins@test-ubu1204-1.civicrm.osuosl.org
  * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
    * # of executors: 3
    * Labels: ubuntu ubuntu1204 php53
