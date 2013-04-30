@@ -67,7 +67,7 @@ Hosts
       <td>Virtual</td>
       <td>Debian Squeeze</td>
       <td>140.211.167.146</td>
-      <td>(TODO) Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
+      <td>Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
     </tr>
     <tr>
       <td>test-master</td>
@@ -75,7 +75,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.147</td>
-      <td>(TODO) Jenkins (Master)</td>
+      <td>Jenkins (Master), Apache (for HTTPS), Tomcat (for AJP)</td>
     </tr>
     <tr>
       <td>test-ubu1204-1</td>
@@ -83,7 +83,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.149</td>
-      <td>(TODO) Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
+      <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
       <td>test-ubu1210-1</td>
@@ -91,7 +91,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.10</td>
       <td>140.211.167.150</td>
-      <td>(TODO) Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
+      <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
       <td>www-demo</td>
