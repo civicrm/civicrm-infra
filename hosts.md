@@ -110,6 +110,14 @@ Hosts
       <td>(TODO) Apache, MySQL, Drupal/Drush, SMF, alert.civicrm.org</td>
     </tr>
     <tr>
+      <td>www-test</td>
+      <td>civicrm.osuosl.org</td>
+      <td>Virtual</td>
+      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>140.211.167.160</td>
+      <td>(TODO) Apache, MySQL, Drupal/Drush</td>
+    </tr>
+    <tr>
       <td>www-training</td>
       <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
