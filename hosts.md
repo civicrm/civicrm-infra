@@ -42,7 +42,7 @@ Hosts
       <td>civicrm.osuosl.org</td>
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>40.211.167.143</td>
+      <td>140.211.167.143</td>
       <td>(TODO) Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
