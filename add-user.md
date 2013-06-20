@@ -20,7 +20,7 @@ The text file provides additional instructions. Once the LDAP web interface is o
    * GID: choose "domainuser"
    * Shell: choose /bin/bash
    * User ID and Home: Make sure these match (e.g. user ID "dave" corresponds to home directory "/home/dave")
-   * Password: You can choose 'clear' from the drop down list and add as plain text.
+   * Password: Leave the default "md5" in the drop down list and type the password as plain text. (It will be automatically hashed before saving.)
 
 After creating the user in phpldapadmin, the user ID will become valid on
 all VMs within 10 minutes.  (Each VM maintains a cached list of users and
