@@ -51,6 +51,9 @@ put the site back on.
 
 If you have copied from an existing job, this section should be prepopulated and can be tweaked as required.
 ```
+
+The script should mostly configure the site per requirements. However in case you need to access UI to do some configuration, you might want to save a pristine copy of DB (on www-demo) and adjust the script to load it.
+
 Click save.
 
 Log in to the node (e.g www-demo) to make sure apache conf file used in the script, exist. If not manually copy and create from an existing one.
