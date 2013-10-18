@@ -1,5 +1,6 @@
 How to setup a new demo on jenkins
 ======================================
+TODO: We should setup up demos on the www-demo server -- and let jenkins handle the resets.
 
 Lets say we want to create a new demo (e.g civihr.demo.civicrm.org) similar to an existing job (e.g civihr-auto.dev.civicrm.org). 
 (Note: We will proceed with civihr.demo example but the steps can be applied to any demo you might want to create.)
