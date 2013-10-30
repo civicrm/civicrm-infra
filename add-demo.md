@@ -52,7 +52,7 @@ put the site back on.
 If you have copied from an existing job, this section should be prepopulated and can be tweaked as required.
 ```
 
-The script should mostly configure the site per requirements. However in case you need to access UI to do some configuration, you might want to save a pristine copy of DB (on www-demo) and adjust the script to load it.
+The script should mostly configure the site per requirements. However in case you need to access UI to do some configuration, you might want to save a pristine copy of DB (on www-demo) and adjust the script to load it. Pristine copy can be stored as /home/webeditor/sql-dumps/*.sql. For e.g /home/webeditor/sql-dumps/civihr.demo.civicrm.org.pristine.sql.
 
 Click save.
 
