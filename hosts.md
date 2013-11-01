@@ -35,7 +35,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.141</td>
-      <td>(TODO) Confluence, JIRA, MySQL, Apache</td>
+      <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
       <td>java-test</td>
@@ -43,7 +43,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.143</td>
-      <td>(TODO) Confluence, JIRA, MySQL, Apache</td>
+      <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
       <td>manage</td>
