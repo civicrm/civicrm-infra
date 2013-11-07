@@ -38,7 +38,7 @@ Specify Local subdirectory for repo - e.g civicrm/tools/extensions/civihr
 
 Configure "build triggers"
 ```
-Use "Build periodically" and "Poll SCM" options.
+Use "Build periodically" or "Poll SCM" options.
 ```
 
 Configure "Build"
