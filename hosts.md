@@ -99,7 +99,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.151</td>
-      <td>(TODO) Apache, MySQL, Drupal, Joomla, WordPress, CiviCRM</td>
+      <td>Apache, MySQL, Drupal, Joomla, WordPress, CiviCRM</td>
     </tr>
     <tr>
       <td>www-prod</td>
@@ -107,7 +107,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.152</td>
-      <td>(TODO) Apache, MySQL, Drupal/Drush, SMF, alert.civicrm.org</td>
+      <td>Nginx, MySQL, Drupal/Drush, SMF, alert.civicrm.org</td>
     </tr>
     <tr>
       <td>www-test</td>
@@ -115,7 +115,7 @@ Hosts
       <td>Virtual</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.160</td>
-      <td>(TODO) Apache, MySQL, Drupal/Drush</td>
+      <td>Nginx, MySQL, Drupal/Drush</td>
     </tr>
     <tr>
       <td>www-training</td>
