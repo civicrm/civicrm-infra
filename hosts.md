@@ -128,7 +128,6 @@ Physical Servers
     <tr>
       <th>Host</th>
       <th>Domain</th>
-      <th>Type</h>
       <th>OS</th>
       <th>IP</th>
       <th>Resources</th>
@@ -139,7 +138,6 @@ Physical Servers
     <tr>
       <td>biryani</td>
       <td>osuosl.org</td>
-      <td>Physical</td>
       <td>Ubuntu 10.4 LTS (Lucid Lynx)</td>
       <td>140.211.166.57</td>
       <th>cores=2 ram=4gb hdd=200gb (updated: 2013-11-27)</th>
@@ -148,7 +146,6 @@ Physical Servers
     <tr>
       <td>sushi</td>
       <td>osuosl.org</td>
-      <td>Physical</td>
       <td>Ubuntu 8.04 LTS (Hardy Heron)</td>
       <td>140.211.166.55</td>
       <th>cores=2 (Xeon 5148) ram=8gb hdd=270gb (updated: 2013-11-27)</th>
@@ -157,54 +154,47 @@ Physical Servers
     <tr>
       <td>civicrm1</td>
       <td></td>
-      <td>Physical</td>
+      <td>?? (Ganeti)</td>
       <td></td>
-      <td></td>
-      <th>
+      <td>
 <pre>
 CPU: 2 x Intel Xeon E5-2407, 2.2GHz (4-Core, 10MB Cache, 80W) 32nm
 RAM: 48GB (6 x 8GB DDR3-1600 ECC Registered 2R DIMMs) Operating at 1600 MT/s Max
 NIC: Dual Intel 82574L Gigabit Ethernet Controllers - Integrated
 Management: Integrated IPMI 2.0 & KVM over LAN
-Controller: 8 Ports 3Gb/s SAS, 2 Ports 6Gb/s SATA, and 4 Ports 3Gb/s SATA via Intel C606 Chipset PCIe 3.0 x16: No Item Selected
-NOTE: Hot-swap drives will be connected to onboard SATA controller unless otherwise specified 
 Hot-Swap Drive - 1: 500GB Western Digital VelociRaptor (6Gb/s, 10K RPM, 64MB Cache) 3.5" SATA 
 Hot-Swap Drive - 2: 500GB Western Digital VelociRaptor (6Gb/s, 10K RPM, 64MB Cache) 3.5" SATA 
 Hot-Swap Drive - 3: 500GB Western Digital VelociRaptor (6Gb/s, 10K RPM, 64MB Cache) 3.5" SATA 
 Hot-Swap Drive - 4: 180GB Intel 520 Series MLC (6Gb/s) 2.5" SATA SSD
 Optical Drive: No Drive
 Power Supply: Redundant 400W Power Supply with PMBus and I2C
-Rail Kit: Quick-Release Rail Kit for Square Holes, Outer Slide Extendable Length 25.6 - 33.05 Inches OS: No Item Selected
+Selected
 Warranty: Std 3-Yr Warranty + 3-Yr Expanded Warranty, Next Business Day On Site - Spare Parts Req
 </pre>
-      </th>
-      <td>Ganeti Node</td>
+      </td>
+      <td></td>
     </tr>
     <tr>
       <td>civicrm2</td>
       <td></td>
-      <td>Physical</td>
+      <td>?? (Ganeti)</td>
       <td></td>
-      <td></td>
-      <th>
+      <td>
 <pre>
 CPU: 2 x Intel Xeon E5-2407, 2.2GHz (4-Core, 10MB Cache, 80W) 32nm
 RAM: 48GB (6 x 8GB DDR3-1600 ECC Registered 2R DIMMs) Operating at 1600 MT/s Max
 NIC: Dual Intel 82574L Gigabit Ethernet Controllers - Integrated
 Management: Integrated IPMI 2.0 & KVM over LAN
-Controller: 8 Ports 3Gb/s SAS, 2 Ports 6Gb/s SATA, and 4 Ports 3Gb/s SATA via Intel C606 Chipset PCIe 3.0 x16: No Item Selected
-NOTE: Hot-swap drives will be connected to onboard SATA controller unless otherwise specified 
 Hot-Swap Drive - 1: 500GB Western Digital VelociRaptor (6Gb/s, 10K RPM, 64MB Cache) 3.5" SATA 
 Hot-Swap Drive - 2: 500GB Western Digital VelociRaptor (6Gb/s, 10K RPM, 64MB Cache) 3.5" SATA 
 Hot-Swap Drive - 3: 500GB Western Digital VelociRaptor (6Gb/s, 10K RPM, 64MB Cache) 3.5" SATA 
 Hot-Swap Drive - 4: 180GB Intel 520 Series MLC (6Gb/s) 2.5" SATA SSD
 Optical Drive: No Drive
 Power Supply: Redundant 400W Power Supply with PMBus and I2C
-Rail Kit: Quick-Release Rail Kit for Square Holes, Outer Slide Extendable Length 25.6 - 33.05 Inches OS: No Item Selected
 Warranty: Std 3-Yr Warranty + 3-Yr Expanded Warranty, Next Business Day On Site - Spare Parts Req
 </pre>
-      </th>
-      <td>Ganeti Node</td>
+      </td>
+      <td></td>
     </tr>
   </tbody>
 </table>
