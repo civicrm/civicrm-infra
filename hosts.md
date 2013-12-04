@@ -131,7 +131,6 @@ Physical Servers
       <th>OS</th>
       <th>IP</th>
       <th>Resources</th>
-      <th>Comments</th>
     </tr>
   </thead>
   <tbody>
@@ -141,7 +140,6 @@ Physical Servers
       <td>Ubuntu 10.4 LTS (Lucid Lynx)</td>
       <td>140.211.166.57</td>
       <th>cores=2 ram=4gb hdd=200gb (updated: 2013-11-27)</th>
-      <td>Smorgasbord</td>
     </tr>
     <tr>
       <td>sushi</td>
@@ -149,7 +147,6 @@ Physical Servers
       <td>Ubuntu 8.04 LTS (Hardy Heron)</td>
       <td>140.211.166.55</td>
       <th>cores=2 (Xeon 5148) ram=8gb hdd=270gb (updated: 2013-11-27)</th>
-      <td>Smorgasbord</td>
     </tr>
     <tr>
       <td>civicrm1</td>
@@ -172,7 +169,6 @@ Selected
 Warranty: Std 3-Yr Warranty + 3-Yr Expanded Warranty, Next Business Day On Site - Spare Parts Req
 </pre>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td>civicrm2</td>
@@ -194,7 +190,6 @@ Power Supply: Redundant 400W Power Supply with PMBus and I2C
 Warranty: Std 3-Yr Warranty + 3-Yr Expanded Warranty, Next Business Day On Site - Spare Parts Req
 </pre>
       </td>
-      <td></td>
     </tr>
   </tbody>
 </table>
