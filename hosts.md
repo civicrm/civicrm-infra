@@ -107,7 +107,7 @@ Virtual Servers
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.160</td>
       <th>cores=2 ram=3gb hdd=15gb (updated: 2013-11-27)</th>
-      <td>Nginx, MySQL, Drupal/Drush</td>
+      <td>http auth: civicrm/civicrm<br />Nginx, MySQL, Drupal/Drush</td>
     </tr>
     <tr>
       <td>www-training</td>
