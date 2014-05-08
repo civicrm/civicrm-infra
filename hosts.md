@@ -115,7 +115,7 @@ Virtual Servers
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.153</td>
       <th>cores=2 ram=4gb hdd=16gb (updated: 2013-11-27)</th>
-      <td>(TODO) Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
+      <td>Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
     </tr>
   </tbody>
 </table>
