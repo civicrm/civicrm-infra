@@ -12,7 +12,7 @@ wget ${SOME_MIRROR}/4.7.2/solr-4.7.2.tgz
 tar xvzf solr-4.7.2.tgz
 wget ${SOME_MIRROR}/apachesolr-7.x-1.6.tar.gz
 tar xvzf apachesolr-7.x-1.6.tar.gz
-rsync -va /srv/www/solr/drupal-apachesolr/solr-conf/solr-4.x/./ /srv/www/solr/solr-4.7.2/example/solr/collection1/conf/./
+rsync -va apachesolr/solr-conf/solr-4.x/./ solr-4.7.2/example/solr/collection1/conf/./
 vi ~/solr-4.7.2/example/solr/collection1/conf/solrconfig.xml
 ## fix duplicate tags: <useCompoundFile> <ramBufferSizeMB> <mergeFactor>
 ```
