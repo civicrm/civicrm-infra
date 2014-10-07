@@ -5,6 +5,16 @@ and release during development.  Jenkins is a job-management system focused
 on CI – and provides a large library of plugins for source-code management,
 quality-assurance, etc.  More information, see http://jenkins-ci.org/ .
 
+# Maintenance
+
+### If Jenkins is not responding
+
+Restart Tomcat on test.civicrm.org:
+
+    sudo service tomcat6 restart
+
+It will take a few minutes to start. You may at first see a 503 "service not available", then eventually Jenkins will show that it is in the process of starting.
+
 # Setup master node
 
 ### Install Tomcat with Jenkins
