@@ -18,7 +18,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.141</td>
-      <th>cores=2 ram=4gb hdd=29gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4gb root=25gb (updated: 2014-10-27)</th>
       <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
@@ -34,7 +34,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.144</td>
-      <th>cores=2 ram=2gb hdd=9gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=2gb root=15gb (updated: 2014-10-27)</th>
       <td>Puppet Master, slapd, phpldapadmin -- all firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
     </tr>
     <tr>
@@ -50,7 +50,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Debian Squeeze</td>
       <td>140.211.167.146</td>
-      <th>cores=2 ram=4gb hdd=12gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
     </tr>
     <tr>
@@ -58,7 +58,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.147</td>
-      <th>cores=2 ram=3gb hdd=15gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=3gb root=12gb (updated: 2014-10-27)</th>
       <td>Jenkins (Master), Apache (for HTTPS), Tomcat (for AJP)</td>
     </tr>
     <tr>
@@ -66,7 +66,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.149</td>
-      <th>cores=2 ram=4 hdd=15 (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4 root=20gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
@@ -74,7 +74,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.149</td>
-      <th>cores=2 ram=4gb hdd=16gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
@@ -82,7 +82,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.10</td>
       <td>140.211.167.150</td>
-      <th>cores=2 ram=4gb hdd=12gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
@@ -90,7 +90,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.151</td>
-      <th>cores=2 ram=4gb hdd=16gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
       <td>Apache, MySQL, Drupal, Joomla, WordPress, CiviCRM</td>
     </tr>
     <tr>
@@ -98,7 +98,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.152</td>
-      <th>cores=2 ram=6gb hdd=29gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=6gb root=25gb (updated: 2014-10-27)</th>
       <td>Nginx, MySQL, Drupal/Drush, SMF, alert.civicrm.org</td>
     </tr>
     <tr>
@@ -106,7 +106,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.160</td>
-      <th>cores=2 ram=3gb hdd=15gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=3gb root=15gb (updated: 2014-10-27)</th>
       <td>http auth: civicrm/civicrm<br />Nginx, MySQL, Drupal/Drush</td>
     </tr>
     <tr>
@@ -114,7 +114,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.153</td>
-      <th>cores=2 ram=4gb hdd=16gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
       <td>Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
     </tr>
   </tbody>
