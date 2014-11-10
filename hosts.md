@@ -137,16 +137,16 @@ Physical Servers
     <tr>
       <td>biryani</td>
       <td>osuosl.org</td>
-      <td>Ubuntu 10.4 LTS (Lucid Lynx)</td>
+      <td>Ubuntu 12.4 LTS (Precise Pangolin)</td>
       <td>140.211.166.57</td>
-      <th>cores=2 ram=4gb hdd=200gb (updated: 2013-11-27)</th>
+      <th>cores=2 ram=4gb lvmvg=175gb (updated: 2014-11-09)</th>
     </tr>
     <tr>
       <td>sushi</td>
       <td>osuosl.org</td>
       <td>Ubuntu 8.04 LTS (Hardy Heron)</td>
       <td>140.211.166.55</td>
-      <th>cores=2 (Xeon 5148) ram=8gb hdd=270gb (updated: 2013-11-27)</th>
+      <th>cores=2 (Xeon 5148) ram=8gb lvmvg=340gb (updated: 2014-11-09)</th>
     </tr>
     <tr>
       <td>civicrm1</td>
