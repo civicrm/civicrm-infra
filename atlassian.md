@@ -17,7 +17,6 @@ Note that java services are sometimes rather slow to restart.  Hence you should
  * execute the shutdown command
  * kill any lagging process (which you can find with, for example 'ps uax|grep confluence' or 'ps uax|grep atlassian')
  * execute the startup command
- * startup
  * hold your breath for 5 minutes
 Then the wiki should be back to normal.
 
