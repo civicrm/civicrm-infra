@@ -14,9 +14,11 @@
  * Start Confluence: sudo -u confluence -H /srv/www/confluence/atlassian-confluence-4.1.3/bin/startup.sh
 
 Note that java services are sometimes rather slow to restart.  Hence you should
- * execute the shutdown command
- * kill any lagging process (which you can find with, for example 'ps uax|grep confluence' or 'ps uax|grep atlassian')
- * execute the startup command
+ * execute the appropriate shutdown command (described above)
+ * kill any lagging process, e.g.
+   * 'ps uax|grep confluence' or 'ps uax|grep jira' then 'sudo kill -9 [pid]'
+   * launch 'top' as root, find the processes and kill them with 'k' then type the PID
+ * execute the appropriate startup command (described above)
  * hold your breath for 5 minutes
 Then the wiki should be back to normal.
 
