@@ -4,7 +4,9 @@ All demo sites are built with buildkit (https://github.com/civicrm/civicrm-build
 
 Demo sites are rebuilt nightly. The rebuilds are triggered via https://test.civicrm.org/view/Sites/job/demo.civicrm.org/.
 
-## Ad hoc rebuild of a demo site (useful when it has been trashed too much and you can wait up to 24 hours).
+## Ad hoc rebuild of a demo site
+
+Useful when it has been trashed too much and you can wait up to 24 hours.
 
 * navigate to https://test.civicrm.org/view/Sites/job/demo.civicrm.org/ and
 * choose “Build with Parameters” and check/uncheck the target sites.
