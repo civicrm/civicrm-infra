@@ -1,61 +1,68 @@
-How to setup a new demo on jenkins
-======================================
-TODO: We should setup up demos on the www-demo server -- and let jenkins handle the resets.
+# How to setup a new demo site
 
-Lets say we want to create a new demo (e.g civihr.demo.civicrm.org) similar to an existing job (e.g civihr-auto.dev.civicrm.org). 
-(Note: We will proceed with civihr.demo example but the steps can be applied to any demo you might want to create.)
+The demo sites are constructed when Jenkins periodically calls buildkit's [civibuild](https://github.com/civicrm/civicrm-buildkit/blob/master/doc/civibuild.md) command. Sites follow a naming convention, e.g.
 
-Login to test.civicrm.org
+ * _Build description_: Drupal ("d") with CiviCRM 4.4.
+ * _Build type / build alias_: d44
+ * _URL_: http://d44.demo.civicrm.org
 
-Create a "new job" (e.g civihr.demo.civicrm.org) and use "copy existing job" (e.g civihr-auto.dev.civicrm.org) option if new job is similar to an existing one.
+Creating a new demo site falls into a few steps. For this document, we'll assume that you want to add a demo for Drupal with Civi v9.9 ("d99" aka "d99.demo.civicrm.org").
 
-On configure screen: Specify the node/slave as "Label Expression". This is generally auto populated if you have copied from an existing job.
+## 1. Make sure there's a build-alias or build-type.
 
-Configure "Source Code Management"
-```
-Use "Multiple SCMs" option to say specify git repos:
+Build aliases are defined in [src/civibuild.aliases.sh](https://github.com/civicrm/civicrm-buildkit/blob/master/src/civibuild.aliases.sh). Build types are defined in [app/config](https://github.com/civicrm/civicrm-buildkit/tree/master/app/config).
 
-Add git repo for core civicrm
-Set Repository URL - e.g git://github.com/civicrm/civicrm-core.git
-Set Branch Specifier - e.g 4.4
-Specify Local subdirectory for repo - e.g civicrm
+If it's not already present, add "d99" to civibuild.aliases.sh. You should probably test the new build-alias locally to ensure that it works:
 
-Add another git repo for say drupal 
-Set Repository URL - e.g git://github.com/civicrm/civicrm-drupal.git
-Set Branch Specifier - e.g 7.x-4.4
-Specify Local subdirectory for repo - e.g civicrm/drupal
-
-Add another git repo for say packages
-Set Repository URL - e.g git://github.com/civicrm/civicrm-packages.git
-Set Branch Specifier - e.g 4.4
-Specify Local subdirectory for repo - e.g civicrm/packages
-
-Add another git repo for civihr extension
-Set Repository URL - e.g https://github.com/civicrm/civihr.git
-Set Branch Specifier - e.g 1.0
-Specify Local subdirectory for repo - e.g civicrm/tools/extensions/civihr
+```bash
+civibuild create d99 --url http://d99.localhost
 ```
 
-Configure "build triggers"
-```
-Use "Build periodically" or "Poll SCM" options.
-```
+Submit and merge any changes to buildkit.
 
-Configure "Build"
-```
-Use "Execute Shell" option to write down a bash script which basically:
-puts site in offline mode
-builds a drupal site along with civicrm
-install extension of required
-put the site back on.
+## 2. Deploy latest buildkit
 
-If you have copied from an existing job, this section should be prepopulated and can be tweaked as required.
+If you've made changes to the build aliases or build types, then:
+
+```
+ssh www-demo.civicrm.osuosl.org
+sudo -u webeditor -H bash
+cd /srv/buildkit
+git pull
+bin/civi-download-tools
 ```
 
-The script should mostly configure the site per requirements. However in case you need to access UI to do some configuration, you might want to save a pristine copy of DB (on www-demo) and adjust the script to load it. Pristine copy can be stored as /home/webeditor/sql-dumps/*.sql. For e.g /home/webeditor/sql-dumps/civihr.demo.civicrm.org.pristine.sql.
+## 3. Setup vhost
 
-Click save.
+Make sure DNS for d99.demo.civicrm.org points to the www-demo server.
 
-Log in to the node (e.g www-demo) to make sure apache conf file used in the script, exist. If not manually copy and create from an existing one.
+```bash
+nslookup www-demo.civicrm.osuosl.org
+nslookup d99.demo.civicrm.org
+```
 
-Make sure DNS points to the site being rebuilt.
+And make vhost files:
+
+```bash
+ssh www-demo.civicrm.osuosl.org
+sudo bash
+cd /etc/apache2/sites-available/
+cp {d44,d99}.demo.civicrm.org.offline
+cp {d44,d99}.demo.civicrm.org.online
+vi d99.demo.civicrm.org.{online,offline}
+```
+
+## 4. Configure Jenkins
+
+ * Navigate to [the demo job on test.civicrm.org](https://test.civicrm.org/view/Sites/job/demo.civicrm.org/).
+ * Click "Configure"
+ * In the BLDNAME axis, add a row for "d99"
+ * Save
+
+## 5. (Suggested) Try a manual build
+
+The job on Jenkins should run periodically by itself, but you may want test it manually:
+
+ * Click "Build with parameters"
+ * Check "d99". Uncheck everything else.
+ * Run the build. Watch the console to make sure it works.
