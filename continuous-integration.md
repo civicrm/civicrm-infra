@@ -239,6 +239,10 @@ root@host:/home/me$ apt-get install firefox
 root@host:/home/me$ sudo -u selenium -H /home/selenium/bin/selenium-node.sh
 ```
 
+NOTE: We sometimes experience problems with Selenium failing to support new
+versions of Firefox. For Ubuntu servers, one can manually download a
+specific deb (e.g. for Firefox v37) from [sourceforge](http://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/).
+
 ### Register slave on master
 
  * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
