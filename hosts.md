@@ -99,7 +99,7 @@ Virtual Servers
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.152</td>
       <th>cores=2 ram=6gb root=25gb (updated: 2014-10-27)</th>
-      <td>Nginx, MySQL, Drupal/Drush, SMF, alert.civicrm.org</td>
+      <td>Nginx, MySQL, Drupal/Drush, SMF/forum.civicrm.org, alert.civicrm.org, docs.civicrm.org</td>
     </tr>
     <tr>
       <td>www-test</td>
@@ -131,22 +131,25 @@ Physical Servers
       <th>OS</th>
       <th>IP</th>
       <th>Resources</th>
+      <th>Comments</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>biryani</td>
       <td>osuosl.org</td>
-      <td>Ubuntu 12.4 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.166.57</td>
-      <th>cores=2 ram=4gb lvmvg=175gb (updated: 2014-11-09)</th>
+      <td>cores=2 ram=4gb lvmvg=175gb (updated: 2014-11-09)</td>
+      <td>Releaser. L10n processor. download.civicrm.org, latest.civicrm.org.</td>
     </tr>
     <tr>
       <td>sushi</td>
       <td>osuosl.org</td>
       <td>Ubuntu 8.04 LTS (Hardy Heron)</td>
       <td>140.211.166.55</td>
-      <th>cores=2 (Xeon 5148) ram=8gb lvmvg=340gb (updated: 2014-11-09)</th>
+      <td>cores=2 (Xeon 5148) ram=8gb lvmvg=340gb (updated: 2014-11-09)</td>
+      <td></td>
     </tr>
     <tr>
       <td>civicrm1</td>
