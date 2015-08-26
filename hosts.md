@@ -43,7 +43,7 @@ Virtual Servers
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.145</td>
       <th>cores=2 ram=2gb hdd=10gb (updated: 2013-11-27)</th>
-      <td>(TODO) Apache, SVN</td>
+      <td>Apache, SVN (read only), ViewVC</td>
     </tr>
     <tr>
       <td>test-debian6-1</td>
