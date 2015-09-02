@@ -1,5 +1,5 @@
 [botdylan](https://github.com/botdylan/botdylan) is a small framework for writing Github bots in NodeJS. 
-[civirm-botdylan](https://github.com/civicrm/civicrm-botdylan) extends botdylan to add a few features, eg:
+[civicrm-botdylan](https://github.com/civicrm/civicrm-botdylan) extends botdylan to add a few features, eg:
 
  * Detect JIRA references in Github issues. Post bidirectional links between Github and JIRA.
  * Flag PR's to indicate their target branch.
@@ -13,8 +13,10 @@ To check on it, use `screen -ls`, note the relevant terminal, and then `screen -
 
 If the system gets rebooted, you can restart it by saying:
 
+```
 $ sudo bash
 $ screen
 $ su - co
 $ cd ~/civicrm-botdylan
 $ bash docker-run.sh
+```
