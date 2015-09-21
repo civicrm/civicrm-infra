@@ -86,6 +86,14 @@ Virtual Servers
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
+      <td>www-cxn-2</td>
+      <td>civicrm.osuosl.org</td>
+      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>140.211.167.175</td>
+      <th>cores=2 ram=1.5gb root=10gb (updated: 2015-09-20)</th>
+      <td>Apache, MySQL</td>
+    </tr>
+    <tr>
       <td>www-demo</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
