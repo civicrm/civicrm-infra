@@ -30,6 +30,14 @@ Virtual Servers
       <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
+      <td>log</td>
+      <td>civicrm.osuosl.org</td>
+      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>140.211.167.189</td>
+      <th>cores=2 ram=2gb hdd=39gb (updated: 2015-09-25)</th>
+      <td>Logstash</td>
+    </tr>
+    <tr>
       <td>manage</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
