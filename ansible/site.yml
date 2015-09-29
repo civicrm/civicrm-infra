@@ -1,0 +1,7 @@
+---
+- hosts: logstash-servers
+  sudo: yes
+  roles:
+    - common-all
+    - sslcerts
+    - logstash

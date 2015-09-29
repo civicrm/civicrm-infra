@@ -1,0 +1,9 @@
+# list of all managed servers
+log.civicrm.osuosl.org ansible_ssh_user=deploy
+
+# Servers per-role
+[logstash-servers]
+log.civicrm.osuosl.org
+
+[nginx-servers]
+log.civicrm.osuosl.org

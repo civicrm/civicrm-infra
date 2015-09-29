@@ -1,0 +1,73 @@
+---
+- apt_key:
+    url=https://packages.elasticsearch.org/GPG-KEY-elasticsearch
+    state=present
+
+- apt_repository:
+    repo='deb http://packages.elastic.co/elasticsearch/1.7/debian stable main'
+    state=present
+    update_cache=yes
+
+- apt_repository:
+    repo='deb http://packages.elasticsearch.org/logstash/1.5/debian stable main'
+    state=present
+    update_cache=yes
+
+# Ubuntu 12.05 LTS only has openjdk 7
+- apt: pkg=openjdk-7-jre state=installed
+  when: ansible_distribution == "Ubuntu" and ansible_lsb.major_release == "12"
+
+# Debian Jessie
+- apt: pkg=openjdk-8-jre state=installed
+  when: ansible_distribution == "Debian"
+
+- apt: pkg=logstash state=installed
+- apt: pkg=elasticsearch state=installed
+
+- name: Restart Elastic Search.
+  service: name=elasticsearch state=restarted
+
+- name: Restart Logstash.
+  service: name=logstash state=restarted
+
+# Kibana (fixme: use a variable for the Kibana version)
+- name: Download Kibana
+  get_url:
+    url=https://download.elastic.co/kibana/kibana/kibana-4.1.2-linux-x64.tar.gz
+    dest=/opt/kibana-4.1.2-linux-x64.tar.gz
+    mode=0644
+
+- name: Unpack Kibana archive
+  unarchive: src=/opt/kibana-4.1.2-linux-x64.tar.gz dest=/opt copy=no
+
+- name: Kibana old-school init script (NB we do not auto-start for now).
+  get_url:
+    url=https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
+    dest=/etc/init.d/kibana4
+
+- file: path=/etc/init.d/kibana4 mode=0755
+
+# - name: Auto-start Kibana 
+#   shell: update-rc.d kibana4 defaults 96 9
+
+# Nginx configuration
+- apt: pkg=nginx state=installed
+- apt: pkg=python-passlib state=installed
+- apt: pkg=pwgen state=installed
+
+- name: Check if a htpasswd was already created.
+  stat: path=/root/kibana-password
+  register: kibana_password_file
+
+- name: Generate a password for the htpasswd restriction.
+  shell: pwgen 15 1 > /root/kibana-password
+  when: kibana_password_file.stat.exists == False
+
+- name: Read the password and store in variable.
+  shell: cat {{ "/root/kibana-password" }}
+  register: kibana_password
+
+- htpasswd:
+    path=/etc/nginx/htpasswd-kibana.users
+    name=civicrm password={{ kibana_password.stdout }}
+    owner=root group=www-data mode=0640

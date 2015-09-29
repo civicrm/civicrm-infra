@@ -1,0 +1,3 @@
+logstash_server_name: log.example.org
+logstash_server_cert_key: wildcard.example.org.key
+logstash_server_cert_ca: cacert.crt

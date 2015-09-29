@@ -1,0 +1,7 @@
+sslcertificates:
+    - wildcard.civicrm.org
+
+logstash_server_name: log.civicrm.org
+logstash_server_ssl_key: wildcard.civicrm.org
+logstash_server_ssl_crt: wildcard.civicrm.org
+logstash_server_ssl_ca: wildcard.civicrm.org
