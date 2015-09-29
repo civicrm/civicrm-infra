@@ -1,10 +1,13 @@
+#
+# {{ ansible_managed }}
+#
 server {
   listen        *:443;
   listen        [::]:443;
 
   server_name {{ logstash_server_name }};
 
-  ssl_certificate     /etc/ssl/private/{{ logstash_server_ssl_crt }}.bundle.crt;
+  ssl_certificate     /etc/ssl/private/{{ logstash_server_ssl_crt }}.bundled.crt;
   ssl_certificate_key /etc/ssl/private/{{ logstash_server_ssl_key }}.key;
 
   # Source:

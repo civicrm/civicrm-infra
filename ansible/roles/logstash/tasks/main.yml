@@ -71,3 +71,15 @@
     path=/etc/nginx/htpasswd-kibana.users
     name=civicrm password={{ kibana_password.stdout }}
     owner=root group=www-data mode=0640
+
+- name: Deploy the nginx vhost configuration.
+  template:
+    src: "nginx-vhost.j2"
+    dest: "/etc/nginx/sites-available/{{ logstash_server_name }}"
+    owner: "root"
+    group: "root"
+    mode: 0644
+
+- name: Enable the vhost (create a symlink).
+  file: src=/etc/nginx/sites-available/{{ logstash_server_name }} dest=/etc/nginx/sites-enabled/{{ logstash_server_name }} state=link
+  notify: restart nginx
