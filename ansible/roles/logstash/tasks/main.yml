@@ -40,6 +40,9 @@
 - name: Unpack Kibana archive
   unarchive: src=/opt/kibana-4.1.2-linux-x64.tar.gz dest=/opt copy=no
 
+- name: Kibana symlink from /opt/kibana-4.1.2-linux-x64 to /opt/kibana
+  file: src=/opt/kibana-4.1.2-linux-x64 dest=/opt/kibana state=link
+
 - name: Kibana old-school init script (NB we do not auto-start for now).
   get_url:
     url=https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4

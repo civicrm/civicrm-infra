@@ -2,8 +2,7 @@
 # {{ ansible_managed }}
 #
 server {
-  listen        *:443;
-  listen        [::]:443;
+  listen        *:443 ssl;
 
   server_name {{ logstash_server_name }};
 
