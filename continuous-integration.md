@@ -167,7 +167,7 @@ ramdisk.  The process is loosely:
  * Install Debian's mysql-server (version 5.1+)
  * Perform some basic administration (e.g. set passwords for admin users; add /root/.my.cnf and /var/lib/jenkins/.my.cnf with proper owner/permissions)
  * Shutdown the database
- * Make a snapshot of the raw DB files for use after reboots – "rsync -va /var/lib/mysql to /var/lib/mysql.tmpl"
+ * Make a snapshot of the raw DB files for use after reboots – "rsync -va /var/lib/mysql/./ /var/lib/mysql.tmpl/./"
  * Mount /var/lib/mysql using tmpfs in /etc/fstab – "none    /var/lib/mysql  tmpfs   size=768m,mode=1777     0 0"
  * In /etc/init.d/mysql (Debian) or /etc/init/mysql (Ubuntu), add these steps to the startup process:
 
@@ -187,45 +187,13 @@ Each test of CiviCRM will require creating a Drupal site. If there are
 concurrent tests (e.g.  concurrent "executors"), then each each executor
 will need its own Drupal site.  We'll prepare a pool.
 
- * Download and extract a Drupal tar ball. Rename it to /var/www/drupal. Make sure "jenkins" has read/write access to this dir.
- * In /etc/hosts, add aliases for 127.0.0.1 called "jenkins-0.localhost jenkins-1.localhost jenkins-2.localhost jenkins-3.localhost jenkins-4.localhost"
- * In /etc/apache2, add a vhost with "ServerName jenkins-0.localhost" and "SeverAlias" options for every other hostname.
-
-```
-<VirtualHost *:80>
-        ServerAdmin webmaster@localhost
-        ServerName jenkins-0.localhost
-        ServerAlias jenkins-1.localhost
-        ServerAlias jenkins-2.localhost
-        ServerAlias jenkins-3.localhost
-        ServerAlias jenkins-4.localhost
-        ServerAlias jenkins-5.localhost
-
-        DocumentRoot /var/www/drupal
-        <Directory />
-                Options FollowSymLinks
-                AllowOverride None
-        </Directory>
-        <Directory /var/www/drupal/>
-                Options Indexes FollowSymLinks MultiViews
-                AllowOverride FileInfo AuthConfig Limit Indexes Options
-                Order allow,deny
-                allow from all
-        </Directory>
-
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-
-        # Possible values include: debug, info, notice, warn, error, crit,
-        # alert, emerg.
-        LogLevel warn
-
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-```
+ * Install buildkit to `/srv/buildkit` as user `jenkins`.
+ * In /etc/hosts, add aliases for 127.0.0.1 called "build-0.l build-1.l build-2.l build-3.l build-4.l build-5.l build-6.l"
+ * As `jenkins`, create vhost templates `for n in 1 2 3 4 5 6 ; do /srv/buildkit/bin/civibuild create build-${n} --type empty --url http://build-${n}.l; done`
+ * As `root`, copy over the vhost templates (e.g. `cat /var/lib/jenkins/.amp/apache.d/*conf > /etc/apache2/sites-available/build-N.l.conf`) and activate the new site.
 
  * a2enmod rewrite
  * Note: There is no need to create a database for each site – DBs will be automatically dropped and created.
- * Install Drush and Console_Table via PEAR: http://drupal.org/project/drush
 
 ### Selenium/Xvfb
 
