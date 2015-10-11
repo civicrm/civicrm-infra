@@ -24,6 +24,41 @@
 - apt: pkg=logstash state=installed
 - apt: pkg=elasticsearch state=installed
 
+# To generate maps of the clientips.
+- apt: pkg=geoip-database state=installed
+
+- name: Logstash conf.d configurations
+  template:
+    src: "{{ item }}"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - 01-lumberjack-input.conf
+    - 10-syslog.conf
+    - 11-nginx.conf
+    - 30-lumberjack-output.conf
+
+- name: Create the logstash pattern directory
+  file: path=/opt/logstash/patterns state=directory mode=0755 owner=logstash group=logstash
+
+- name: Deploy nginx patterns for logstash
+  copy:
+    src: "patterns/{{ item }}"
+    dest: "/opt/logstash/patterns/{{ item }}"
+    owner: logstash
+    group: logstash
+    mode: 0644
+  with_items:
+    - nginx
+- name: Open the lumberjack port for our machines only
+  ufw: proto=tcp port=5000 rule=allow src={{ item }}
+  with_items: logstash_server_allow_ips
+
+- name: Add logstash user to the ssl-cert group.
+  user: name=logstash groups="ssl-cert" append=yes
+
 - name: Restart Elastic Search.
   service: name=elasticsearch state=restarted
 
@@ -36,22 +71,31 @@
     url=https://download.elastic.co/kibana/kibana/kibana-4.1.2-linux-x64.tar.gz
     dest=/opt/kibana-4.1.2-linux-x64.tar.gz
     mode=0644
+  register: get_kibana
+
+- debug:
+    msg="Kibana4 was downloaded/upgraded."
+  when: get_kibana|changed
 
 - name: Unpack Kibana archive
   unarchive: src=/opt/kibana-4.1.2-linux-x64.tar.gz dest=/opt copy=no
+  when: get_kibana|changed
 
 - name: Kibana symlink from /opt/kibana-4.1.2-linux-x64 to /opt/kibana
   file: src=/opt/kibana-4.1.2-linux-x64 dest=/opt/kibana state=link
 
 - name: Kibana old-school init script (NB we do not auto-start for now).
-  get_url:
-    url=https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
-    dest=/etc/init.d/kibana4
+  template:
+    src: "kibana4"
+    dest: "/etc/init.d/kibana4"
+    mode: 0755
 
-- file: path=/etc/init.d/kibana4 mode=0755
+- name: Auto-start Kibana
+  shell: update-rc.d kibana4 defaults 96 9
 
-# - name: Auto-start Kibana 
-#   shell: update-rc.d kibana4 defaults 96 9
+- name: Restart Kibana if the code base has changed
+  service: name=kibana4 state=restarted
+  when: get_kibana|changed
 
 # Nginx configuration
 - apt: pkg=nginx state=installed
@@ -66,6 +110,8 @@
   shell: pwgen 15 1 > /root/kibana-password
   when: kibana_password_file.stat.exists == False
 
+# Password protect access to Kibana using htpasswd.
+# Password will be stored on the server, in /root/kibana-password.
 - name: Read the password and store in variable.
   shell: cat {{ "/root/kibana-password" }}
   register: kibana_password

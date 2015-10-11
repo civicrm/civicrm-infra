@@ -1,3 +1,11 @@
 logstash_server_name: log.example.org
-logstash_server_cert_key: wildcard.example.org.key
-logstash_server_cert_ca: cacert.crt
+
+# Assumes that you're using the sslcerts role to deploy ssl certificates.
+# (because of the paths and file name extensions).
+logstash_server_sslcert: log.example.org
+
+# Assumes ufw is installed and used to manage your firewall.
+# We only expose logstash to IPs we trust, otherwise people could send junk logs.
+logstash_server_allow_ips:
+- 10.0.0.0/8
+- 192.168.1.0/24
