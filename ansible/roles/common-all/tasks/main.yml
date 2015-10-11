@@ -18,8 +18,18 @@
 - name: Allow ssh
   ufw: proto=tcp port=22 rule=allow
 
+- name: Allow http
+  ufw: proto=tcp port=80 rule=allow
+
 - name: Allow https
   ufw: proto=tcp port=443 rule=allow
 
+- name: Allow Munin to munin servers and monitoring servers
+  ufw: proto=tcp port=4949 rule=allow src={{ item }}
+  with_items: ufw_munin_allow_src
+
 - name: Set ufw policy
   ufw: state=enabled direction=incoming policy=deny
+
+- name: Restart ufw
+  service: name=ufw state=restarted
