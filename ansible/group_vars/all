@@ -4,5 +4,8 @@ logstash_forwarder_server_port: 5000
 logstash_ssl_ca_cert: /etc/ssl/private/gandi.crt
 
 ufw_munin_allow_src:
-  - 162.13.43.63
-  - 192.171.60.60
+  - 162.13.43.63/32
+  - 192.171.60.60/32
+
+ufw_nrpe_allow_src:
+  - 162.13.43.63/32
