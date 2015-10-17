@@ -11,3 +11,11 @@ logstash_forwarder_files:
       - /var/log/nginx/access.log
     fields:
       type: nginx-access
+
+ufw_extra:
+  sympamysql:
+    proto: tcp
+    port: 3306
+    src: 208.90.215.70/16
+    rule: allow
+    description: "Allows Sympa mailing-lists to connect to MySQL, see sympa.md."
