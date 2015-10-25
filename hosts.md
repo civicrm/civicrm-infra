@@ -133,6 +133,14 @@ Virtual Servers
       <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
       <td>Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
     </tr>
+    <tr>
+      <td>backup-1</td>
+      <td>Google Cloud</td>
+      <td>Ubuntu 14.04 LTS (Trusty Tahr)</td>
+      <td>107.178.223.170</td>
+      <th>cores=1 ram=1.7gb root=25gb (updated: 2015-10-10)</th>
+      <td>Backups</td>
+    </tr>
   </tbody>
 </table>
 
