@@ -25,13 +25,14 @@ www-prod.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
 
 [apache-servers]
+biryani.osuosl.org
 www-demo.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
 
 [backup-servers]
 backups-1.civicrm.org
-sushi.osuosl.org
+# sushi.osuosl.org # needs an upgrade first.
 
 [unclassified-servers]
 manage.civicrm.osuosl.org
@@ -54,4 +55,3 @@ backups-1.civicrm.org
 # test-ubu1210-1.civicrm.osuosl.org
 # www-cxn-2.civicrm.osuosl.org
 # www-training.civicrm.osuosl.org
-# biryani.osuosl.org
