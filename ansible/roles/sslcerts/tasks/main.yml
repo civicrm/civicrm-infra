@@ -1,19 +1,22 @@
 ---
-- debug: msg="sslcertificates={{sslcertificates}}"
 - name: Make sure that the ssl-cert group exists.
   group: name=ssl-cert state=present
 
 - copy: src=/etc/ansible/files/etc/ssl/private/{{ item }}.crt dest=/etc/ssl/private/{{ item }}.crt owner=root group=ssl-cert mode=0640
   with_items: sslcertificates
+  when: sslcertificates is defined
 
 - copy: src=/etc/ansible/files/etc/ssl/private/{{ item }}.bundled.crt dest=/etc/ssl/private/{{ item }}.bundled.crt owner=root group=ssl-cert mode=0640
   with_items: sslcertificates
+  when: sslcertificates is defined
 
 - copy: src=/etc/ansible/files/etc/ssl/private/{{ item }}.cacert.crt dest=/etc/ssl/private/{{ item }}.cacert.crt owner=root group=ssl-cert mode=0640
   with_items: sslcertificates
+  when: sslcertificates is defined
 
 - copy: src=/etc/ansible/files/etc/ssl/private/{{ item }}.key dest=/etc/ssl/private/{{ item }}.key owner=root group=ssl-cert mode=0640
   with_items: sslcertificates
+  when: sslcertificates is defined
 
 # If using Aegir
 - file: path=/var/aegir/config/ssl.d/{{ item }} state=directory owner=aegir group=aegir mode=0700
