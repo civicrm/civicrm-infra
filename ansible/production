@@ -1,5 +1,19 @@
-# list of all managed servers
-log.civicrm.osuosl.org ansible_ssh_user=deploy
+#
+# All managed servers
+# This is mostly to give a quick overview of the servers we manage.
+#
+# The most generic role at the moment is 'servers', but we want to encourage
+# admins to classify servers so that we have a better idea of what they do.
+#
+log.civicrm.osuosl.org
+backups-1.civicrm.org
+java-prod.civicrm.osuosl.org
+java-test.civicrm.osuosl.org
+manage.civicrm.osuosl.org
+sushi.osuosl.org
+www-prod.civicrm.osuosl.org
+www-demo.civicrm.osuosl.org
+www-test.civicrm.osuosl.org
 
 # Servers per-role
 [logstash-servers]
@@ -7,3 +21,37 @@ log.civicrm.osuosl.org
 
 [nginx-servers]
 log.civicrm.osuosl.org
+www-prod.civicrm.osuosl.org
+www-test.civicrm.osuosl.org
+
+[apache-servers]
+www-demo.civicrm.osuosl.org
+java-prod.civicrm.osuosl.org
+java-test.civicrm.osuosl.org
+
+[backup-servers]
+backups-1.civicrm.org
+sushi.osuosl.org
+
+[unclassified-servers]
+manage.civicrm.osuosl.org
+
+[servers:children]
+apache-servers
+backup-servers
+nginx-servers
+unclassified-servers
+
+[ldap-managed]
+backups-1.civicrm.org
+
+# TODO
+# svn.civicrm.osuosl.org
+# test-debian6-1.civicrm.osuosl.org
+# test-master.civicrm.osuosl.org
+# test-ubu1204-1.civicrm.osuosl.org
+# test-ubu1204-2.civicrm.osuosl.org
+# test-ubu1210-1.civicrm.osuosl.org
+# www-cxn-2.civicrm.osuosl.org
+# www-training.civicrm.osuosl.org
+# biryani.osuosl.org
