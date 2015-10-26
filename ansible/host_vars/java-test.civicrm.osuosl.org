@@ -1,0 +1,14 @@
+sslcertificates:
+    - wildcard.civicrm.org
+
+logstash_forwarder_files:
+  - paths:
+      - /var/log/messages
+      - /var/log/auth.log
+    fields:
+      type: syslog
+  - paths:
+      - /var/log/apache2/issues_access.log
+      - /var/log/apache2/wiki_access.log
+    fields:
+      type: apache-access
