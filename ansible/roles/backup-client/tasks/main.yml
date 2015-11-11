@@ -1,0 +1,34 @@
+---
+# Configure rdiff-backup with backupninja
+
+- apt: update_cache=yes
+- apt: name=backupninja state=present
+- apt: name=rdiff-backup state=present
+
+# TODO
+# - name: Deploy the main Backupninja configuration file.
+#   template:
+#     src: "templates/etc-backupninja.conf"
+#     dest: "/etc/backupninja.conf"
+#     owner: "root"
+#     group: "root"
+#     mode: 0600
+
+# - name: Deploy the rdiff configuration file.
+#   template:
+#     src: "templates/etc-backup.d-90.rdiff"
+#     dest: "/etc/backup.d/90.rdiff"
+#     owner: "root"
+#     group: "root"
+#     mode: 0600
+
+- stat: path=/var/backups/mysql
+  register: st
+
+- name: Ensure mysql backup directory is not world readable.
+  file: path=/var/backups/mysql owner=root group=root mode=0750
+  when: (st.stat.exists == true)
+
+- name: Allow domainadmin access to mysql backups for syncs.
+  shell: "setfacl -m g:sudo:rw- -m g:domainadmin:rw- /var/backups/mysql"
+  when: (st.stat.exists == true)

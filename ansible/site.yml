@@ -5,6 +5,7 @@
     - common-all
     - sslcerts
     - logstash-forwarder
+    - backup-client
 
 - hosts: ldap-managed
   sudo: yes
