@@ -6,13 +6,25 @@
     - sslcerts
     - logstash-forwarder
     - backup-client
+  tags:
+    - minimum
 
 - hosts: ldap-managed
   sudo: yes
   roles:
     - ldap-auth-client
 
+- hosts: icinga-satellite
+  sudo: yes
+  roles:
+    - icinga2
+  tags:
+    - icinga
+    - icinga2
+
 - hosts: logstash-servers
   sudo: yes
   roles:
+    - logstash
+  tags:
     - logstash
