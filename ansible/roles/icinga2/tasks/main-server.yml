@@ -1,0 +1,104 @@
+---
+
+# nb: nagios-plugins-contrib is required for check_ssl_cert
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - icinga2
+    - icinga2-ido-mysql
+    - nsca-ng-server
+    - monitoring-plugins
+    - monitoring-plugins-basic
+    - monitoring-plugins-common
+    - monitoring-plugins-standard
+    - nagios-plugins-contrib
+    - nginx-full
+    - graphite-carbon
+    - graphite-web
+    - uwsgi
+    - uwsgi-plugin-python
+  tags:
+    - packages
+
+- name: Make sure we have a TicketSalt in constants.conf
+  replace: dest=/etc/icinga2/constants.conf regexp='const TicketSalt = ""' replace='const TicketSalt = "{{ icinga2_ticket_salt }}"'
+
+- name: Enable command feature for icingaweb2
+  file: src=/etc/icinga2/features-available/command.conf dest=/etc/icinga2/features-enabled/command.conf state=link
+  notify: restart icinga2
+
+- name: Ensure that the nsca-ng directory exists
+  file: path=/var/run/nsca-ng state=directory owner=nagios group=nagios mode=0775
+
+- name: Permissions on ido-mysql.conf file
+  file: path=/etc/icinga2/features-available/ido-mysql.conf owner=root group=nagios mode=0640
+
+# TODO : ufw open 5668 tcp for NRPE
+
+###
+### PKI setup for satellite setup.
+###
+
+- name: Open the Icinga2 port for our machines only (used for ssl and node communication)
+  ufw: proto=tcp port=5665 rule=allow src={{ item }}
+  with_items: icinga2_allow_ips
+
+# TODO : run pki new-ca ?
+
+# NB: not using "inventory_hostname" because in our case,
+# it is usually a machine name ("sillyname.example.net"), but we name our CA "icinga.example.org".
+- name: Run icinga2 pki new-cert for our host
+  shell: icinga2 pki new-cert --cn {{ icinga2_main_node }} --key /etc/icinga2/pki/{{ icinga2_main_node }}.key --cert /etc/icinga2/pki/{{ icinga2_main_node }}.crt
+  args:
+    creates: /etc/icinga2/pki/{{ icinga2_main_node }}.key
+
+- name: Enable the Icinga2 API
+  shell: icinga2 feature enable api
+  args:
+    creates: /etc/icinga2/features-enabled/api.conf
+  notify: restart icinga2
+
+- template: src=features-available/api.conf dest=/etc/icinga2/features-available/api.conf owner=root group=root mode=0644
+  notify: restart icinga2
+
+###
+### Graphite module setup
+###
+- name: Setup module directory in /var/lib/icingaweb2
+  file: path=/var/lib/icingaweb2 state=directory owner=root group=root mode=0755
+
+- name: Setup module directory in /var/lib/icingaweb2/modules
+  file: path=/var/lib/icingaweb2/modules state=directory owner=root group=root mode=0755
+
+- name: Icingaweb2 symlinks for core modules
+  file: src={{ item.path }} dest={{ item.dest }} owner=root group=root state=link
+  with_items:
+    - { path: '/usr/share/icingaweb2/modules/doc', dest: '/var/lib/icingaweb2/modules/doc' }
+    - { path: '/usr/share/icingaweb2/modules/iframe', dest: '/var/lib/icingaweb2/modules/iframe' }
+    - { path: '/usr/share/icingaweb2/modules/monitoring', dest: '/var/lib/icingaweb2/modules/monitoring' }
+    - { path: '/usr/share/icingaweb2/modules/setup', dest: '/var/lib/icingaweb2/modules/setup' }
+
+- name: Download the graphite module
+  git: repo=https://github.com/findmypast/icingaweb2-module-graphite.git
+       dest=/var/lib/icingaweb2/modules/graphite
+       update=yes
+
+- name: Setup graphite icingaweb2 module configuration in /etc/icingaweb2/modules/graphite
+  file: path=/etc/icingaweb2/modules/graphite state=directory owner=root group=root mode=0755
+
+- name: Deploy graphite icingaweb2 config file
+  template:
+    src=icingaweb2/modules/graphite/config.ini
+    dest=/etc/icingaweb2/modules/graphite/config.ini
+    owner=root group=root mode=0644
+
+- name: Enable the Icinga2 Graphite module
+  shell: icinga2 feature enable graphite
+  args:
+    creates: /etc/icinga2/features-enabled/graphite.conf
+  notify: restart icinga2
+
+- name: Fix permissions on /var/lib/graphite
+  file: path=/var/lib/graphite state=directory owner=_graphite group=_graphite mode=0755
+
+- name: Fix permissions on /var/lib/graphite/whisper
+  file: path=/var/lib/graphite/whisper state=directory owner=_graphite group=_graphite mode=0755

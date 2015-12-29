@@ -1,0 +1,41 @@
+---
+
+- name: Get Debmon Apt Key
+  apt_key:
+    url="http://debmon.org/debmon/repo.key"
+    state=present
+  tags:
+    - packages
+  when: ansible_distribution == "Debian"
+
+- name: Get Debmon Apt Repo
+  apt_repository:
+    repo="deb http://debmon.org/debmon debmon-{{ ansible_distribution_release }} main"
+    update_cache=yes 
+    state=present
+  tags:
+    - packages
+  when: ansible_distribution == "Debian"
+
+- name: Get Ubuntu Apt Key
+  apt_key:
+    url="http://packages.icinga.org/icinga.key"
+    state=present
+  tags:
+    - packages
+  when: ansible_distribution == "Ubuntu"
+
+- name: Get Ubuntu Apt Repo
+  apt_repository:
+    repo="deb http://packages.icinga.org/ubuntu/ icinga-{{ ansible_distribution_release }} main"
+    update_cache=yes 
+    state=present
+  tags:
+    - packages
+  when: ansible_distribution == "Ubuntu"
+
+- include: main-server.yml
+  when: "'icinga-servers' in group_names"
+
+- include: main-node.yml
+  when: "'icinga-servers' not in group_names"

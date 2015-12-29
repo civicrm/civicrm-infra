@@ -1,0 +1,2 @@
+---
+icinga2_ticket_salt: "{{ lookup('password', '/tmp/icinga2-salt length=32') }}"
