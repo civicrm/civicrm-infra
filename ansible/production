@@ -14,6 +14,11 @@ sushi.osuosl.org
 www-prod.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
+www-training.civicrm.osuosl.org
+test-ubu1204-1.civicrm.osuosl.org
+test-ubu1204-2.civicrm.osuosl.org
+# test-debian6-1.civicrm.osuosl.org
+# test-ubu1210-1.civicrm.osuosl.org
 
 # Servers per-role
 [logstash-servers]
@@ -27,8 +32,15 @@ www-test.civicrm.osuosl.org
 [apache-servers]
 biryani.osuosl.org
 www-demo.civicrm.osuosl.org
+www-training.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
+
+[test-servers]
+test-ubu1204-1.civicrm.osuosl.org
+test-ubu1204-2.civicrm.osuosl.org
+# test-debian6-1.civicrm.osuosl.org
+# test-ubu1210-1.civicrm.osuosl.org
 
 [backup-servers]
 backups-1.civicrm.org
@@ -41,17 +53,16 @@ manage.civicrm.osuosl.org
 apache-servers
 backup-servers
 nginx-servers
+test-servers
 unclassified-servers
 
 [ldap-managed]
 backups-1.civicrm.org
 
+[icinga-satellite:children]
+servers
+
 # TODO
 # svn.civicrm.osuosl.org
-# test-debian6-1.civicrm.osuosl.org
 # test-master.civicrm.osuosl.org
-# test-ubu1204-1.civicrm.osuosl.org
-# test-ubu1204-2.civicrm.osuosl.org
-# test-ubu1210-1.civicrm.osuosl.org
 # www-cxn-2.civicrm.osuosl.org
-# www-training.civicrm.osuosl.org
