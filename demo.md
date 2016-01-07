@@ -18,7 +18,7 @@ git pull
 
 ## Ad hoc rebuild of a demo site
 
-Useful when it has been trashed too much and you can wait up to 24 hours.
+Useful when it has been trashed too much and you cannot wait 24 hours.
 
 * navigate to https://test.civicrm.org/view/Sites/job/demo.civicrm.org/ and
 * choose “Build with Parameters” and check/uncheck the target sites.
