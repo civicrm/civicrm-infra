@@ -4,6 +4,18 @@ All demo sites are built with buildkit (https://github.com/civicrm/civicrm-build
 
 Demo sites are rebuilt nightly. The rebuilds are triggered via https://test.civicrm.org/view/Sites/job/demo.civicrm.org/.
 
+## Updating build scripts
+
+If there's been a change to the build scripts in `civicrm-buildkit`, then you may need to update by those by hand.
+
+```
+ssh www-demo.civicrm.osuosl.org
+sudo -u webeditor -H bash
+cd /srv/buildkit/
+git pull
+./bin/civi-download-tools
+```
+
 ## Ad hoc rebuild of a demo site
 
 Useful when it has been trashed too much and you can wait up to 24 hours.
