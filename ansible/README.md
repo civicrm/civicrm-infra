@@ -44,6 +44,40 @@ cd civicrm-infra/ansible/
 ansible-playbook -i production -l log.civicrm.osuosl.org ./site.yml
 ```
 
+### Managing a host in Ansible
+
+1- Ensure that you have the private files in /etc/ansible/files (ex: you are running from manage.c.o.o).
+
+2- Add the host to the 'production' inventory.
+
+3- Run the following setup:
+
+```
+ansible-playbook -l example.civicrm.osuosl.org --become-user=root --ask-become-pass ./setup.yml
+```
+
+### Security model of the deploy user
+
+To manage a host with Ansible, a "deploy" user must be configured. This is
+required by Ansible in order to ssh to the host and "push" configurations
+(unlike Puppet, where the host contacts the puppetmaster at regular intervals,
+in order to pull configurations).
+
+This type of push model requires certain precautions, since a specific account
+uses the same ssh key for all hosts.
+
+* the ssh pubkey for deployment is restricted to specific IP adresses used for management (e.g. IP restrictions in the authorized_keys).
+
+* the ssh private key is encrypted with a passphrase.
+
+In a sense, the security model is equivalent or better to either:
+
+* if the puppetmaster gets hacked, malicious configurations can be deployed to any other host.
+
+* if any LDAP password of an admin is hacked, the attacker can gain privileged access to any host.
+
+Of course, we always aim to improve the security model. This is only a quick overview of the situation to reassure against frequent concerns.
+
 ### Misc that needs proper documentation
 
 * We use a 'deploy' ssh user to connect to all nodes. Currently this is using an ssh key that allows logins only from two specific IP addresses (notably manage.c.o.o).

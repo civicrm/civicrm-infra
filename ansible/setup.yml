@@ -1,0 +1,13 @@
+---
+
+# See README.md for instructions.
+# tl;dr: this is required for the initial setup of a server, where you might have a
+# user login and sudo, but we need to create the deploy account before we can run the
+# rest of the Ansible setup.
+#
+# Ex: ansible-playbook -u bgm -l civicrm-sushi-spare.osuosl.org --become-user=root --ask-become-pass ./setup.yml
+
+- hosts: all
+  sudo: true
+  roles:
+    - ansible-setup
