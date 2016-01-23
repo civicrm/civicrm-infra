@@ -13,6 +13,8 @@
   sudo: yes
   roles:
     - ldap-auth-client
+  tags:
+    - ldap
 
 - hosts: icinga-satellite
   sudo: yes

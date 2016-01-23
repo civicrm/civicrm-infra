@@ -1,0 +1,15 @@
+---
+
+- copy:
+    src=/etc/ansible/files/civicrm/etc/ssl/certs/civicrm-ldap.pem
+    dest=/etc/ssl/certs/civicrm-ldap.pem
+    owner=root group=root mode=0644
+
+- apt: pkg=unscd state=installed
+- apt: pkg=libnss-ldap state=installed
+
+- template: src=ldap.conf.j2 dest=/etc/ldap.conf owner=root group=root mode=0644
+
+# https://help.ubuntu.com/community/LDAPClientAuthentication
+# "Set up /etc/nsswitch.conf to use ldap lookups"
+- shell: auth-client-config -t nss -p lac_ldap
