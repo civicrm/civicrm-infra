@@ -9,4 +9,4 @@
     key="{{ lookup('file', '/etc/ansible/files/civicrm/sshkeys/{{ deploy_user }}.pub') }}"
 
 - name: Sudoers | create deploy sudoers file
-  template: src=sudoers.j2 dest=/etc/sudoers.d/ansible owner=root group=root mode=0600
+  template: src=sudoers.j2 dest=/etc/sudoers.d/ansible owner=root group=root mode=0440
