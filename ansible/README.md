@@ -13,13 +13,15 @@ Installing Ansible:
 sudo apt-get install ansible
 ```
 
+Recommended: install Ansible 1.9 or higher. These playbooks are developed on Ansible 2.0.
+
 Get a copy of this playbook:
 
 ```
 git clone git@github.com:civicrm/civicrm-infra.git
 ```
 
-Get the private files for the CiviCRM infra. The files are in /etc/ansible/ of log.c.o.o.
+Get the private files for the CiviCRM infra. The files are in /etc/ansible/ of manage.c.o.o.
 This includes, for example, SSL certificates. Most of the inventory data is included in this
 playbook ('production' file) because it was already documented publicly in ../hosts.md.
 
