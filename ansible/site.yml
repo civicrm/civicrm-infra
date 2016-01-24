@@ -30,3 +30,17 @@
     - logstash
   tags:
     - logstash
+
+- hosts: all
+  sudo: yes
+  roles:
+    - backup-client
+  tags:
+    - backup-client
+
+- hosts: backup-servers
+  sudo: yes
+  roles:
+    - backup-server
+  tags:
+    - backup-server
