@@ -1,0 +1,33 @@
+#
+# {{ ansible_managed }}
+#
+when = hourly
+
+[source]
+type = remote
+host = {{ inventory_hostname }}
+user = root
+keep = 30D
+
+include = /etc
+include = /var/backups
+include = /var/www
+include = /srv
+
+{% if backups_exclude_extras is defined %}
+# custom excludes from the ansible host_vars
+{% for item in backups_exclude_extras %}
+exclude = {{ item }}
+{% endfor %}
+{% endif %}
+
+{% if backups_include_extras is defined %}
+# custom includes from the ansible host_vars
+{% for item in backups_include_extras %}
+include = {{ item }}
+{% endfor %}
+{% endif %}
+
+[dest]
+type = local
+directory = /srv/backups/{{ inventory_hostname }}/rdiff-backup/

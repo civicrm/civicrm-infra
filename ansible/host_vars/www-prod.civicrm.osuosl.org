@@ -19,3 +19,10 @@ ufw_extra:
     src: 208.90.215.70/16
     rule: allow
     description: "Allows Sympa mailing-lists to connect to MySQL, see sympa.md."
+
+backups_exclude_extras:
+  - /var/www/civicrm-website-org/drupal/sites/default/files/civicrm/ConfigAndLog/*
+  - /var/www/civicrm-website-org/drupal/sites/default/files/civicrm/templates_c/*
+  - /var/www/civicrm-website-org/drupal/sites/default/files/js
+  - /var/www/civicrm-website-org/drupal/sites/default/files/css
+  - /var/www/civicrm-website-org/drupal/sites/default/files/styles

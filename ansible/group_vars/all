@@ -5,6 +5,9 @@ logstash_ssl_ca_cert: /etc/ssl/private/gandi.crt
 
 icinga2_main_node: icinga.bidon.ca
 
+backupserver_hourly: civicrm-sushi-spare.osuosl.org
+backupserver_daily: backups-1.civicrm.org
+
 ufw_munin_allow_src:
   - 162.13.43.63/32
   - 192.171.60.60/32

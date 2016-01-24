@@ -1,27 +1,59 @@
 ---
-# Configure rdiff-backup with backupninja
+# Backups operate in "pull" mode from the backup-server.
+# Therefore, we mostly need to configure the mysqldump on the client,
+# but we also delegate to the backup-server the configuration of
+# a rdiff-backup pull for backupninja.
 
 - apt: update_cache=yes
-- apt: name=backupninja state=present
-- apt: name=rdiff-backup state=present
+  tags:
+    - packages
 
-# TODO
-# - name: Deploy the main Backupninja configuration file.
-#   template:
-#     src: "templates/etc-backupninja.conf"
-#     dest: "/etc/backupninja.conf"
-#     owner: "root"
-#     group: "root"
-#     mode: 0600
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - backupninja
+    - rdiff-backup
+  tags:
+    - packages
 
-# - name: Deploy the rdiff configuration file.
-#   template:
-#     src: "templates/etc-backup.d-90.rdiff"
-#     dest: "/etc/backup.d/90.rdiff"
-#     owner: "root"
-#     group: "root"
-#     mode: 0600
+- name: Backupninja | do not report success
+  replace: dest=/etc/backupninja.conf regexp='^reportsuccess = yes' replace='reportsuccess = no'
 
+# Deploy backupninja rdiff config to hourly backup-server
+- name: Backupninja | deploy rdiff hourly backup template
+  template: src=etc/backup.d/90-hostname-hourly.rdiff dest="/etc/backup.d/{{ inventory_hostname }}.rdiff" mode=0600
+  delegate_to: "{{ backupserver_hourly }}"
+
+- name: Backupninja | ensure that the backup directory exists
+  file: path="/srv/backups/{{ inventory_hostname }}" state=directory owner=root group=root mode=0700
+  delegate_to: "{{ backupserver_hourly }}"
+
+# Deploy root@backup-server ssh pubkey to client
+- name: ssh | Get root ssh public key
+  shell: cat /root/.ssh/id_rsa.pub
+  delegate_to: "{{ backupserver_hourly }}"
+  register: id_rsa_pub
+  changed_when: false
+
+- name: ssh | Add root client public key to authorized_keys
+  authorized_key:
+    user="root"
+    key="{{ id_rsa_pub.stdout }}"
+    key_options='no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty,from="140.211.166.28"'
+
+# Add client host key to known_hosts of backup server (which does pull)
+- name: ssh | Run ssh-keyscan to get client fingerprint
+  shell: "ssh-keyscan -H -T 10 {{ inventory_hostname }}"
+  register: host_fingerprint
+  changed_when: false
+  delegate_to: "{{ backupserver_hourly }}"
+
+- name: ssh | Add client ssh host key fingerprint to known_hosts of server to avoid prompt
+  known_hosts:
+    name="{{ inventory_hostname }}"
+    key="{{ host_fingerprint.stdout }}"
+  delegate_to: "{{ backupserver_hourly }}"
+
+# MySQL permissions check
 - stat: path=/var/backups/mysql
   register: st
 
@@ -30,5 +62,5 @@
   when: (st.stat.exists == true)
 
 - name: Allow domainadmin access to mysql backups for syncs.
-  shell: "setfacl -m g:sudo:rw- -m g:domainadmin:rw- /var/backups/mysql"
+  shell: "setfacl -m g:sudo:r-x -m g:domainadmin:r-x /var/backups/mysql"
   when: (st.stat.exists == true)
