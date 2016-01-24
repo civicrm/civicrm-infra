@@ -1,20 +1,26 @@
 ---
-# Only install basic things which must be everywhere.
-- apt: pkg=etckeeper state=installed update_cache=yes
-- apt: pkg=fail2ban state=installed
-- apt: pkg=vnstat state=installed
-- apt: pkg=git state=installed
-- apt: pkg=libpam-yubico state=installed
-- apt: pkg=ncdu state=installed
-- apt: pkg=ntpdate state=installed
-- apt: pkg=tmux state=installed
-- apt: pkg=unzip state=installed
-- apt: pkg=vim state=installed
+# Install basic things which must be everywhere.
+- apt: update_cache=yes
+  tags:
+    - packages
 
-# Firewall (iptables)
-- name: Install ufw
-  apt: name=ufw
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - etckeeper
+    - fail2ban
+    - vnstat
+    - git
+    - libpam-yubico
+    - ncdu
+    - ntpdate
+    - tmux
+    - ufw
+    - unzip
+    - vim
+  tags:
+    - packages
 
+# Configure the firewall
 - name: Allow ssh
   ufw: proto=tcp port=22 rule=allow
 
