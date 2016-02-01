@@ -66,7 +66,7 @@ root@java-prod$ cd /srv/www/confluence
 root@java-prod$ find ! -user confluence
   -> Just in case there was something funny; looks OK
 
-root@java-prod$ rsync -va --progress /srv/www/confluence/./ confluence@java-test:/srv/www/confluence/./
+root@java-prod$ rsync -Prav --exclude backup --exclude .ssh /srv/www/confluence/./ confluence@java-test:/srv/www/confluence/./
 ```
 
 To transfer the wiki-related databases from java-prod to java-test:
