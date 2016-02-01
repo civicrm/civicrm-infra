@@ -168,9 +168,9 @@ Physical Servers
       <td>Releaser. L10n processor. download.civicrm.org, latest.civicrm.org.</td>
     </tr>
     <tr>
-      <td>sushi</td>
+      <td>sushi (offline 2016-02-01)</td>
       <td>osuosl.org</td>
-      <td>Ubuntu 8.04 LTS (Hardy Heron)</td>
+      <td>Ubuntu 10.04 LTS (Lucid Lynx)</td>
       <td>140.211.166.55</td>
       <td>cores=2 (Xeon 5148) ram=8gb lvmvg=340gb (updated: 2014-11-09)</td>
       <td></td>
