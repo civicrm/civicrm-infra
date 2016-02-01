@@ -81,11 +81,12 @@ root@java-test$ mysql -u root -p
   GRANT ALL PRIVILEGES ON confluence_new.* TO 'confluence_new'@'localhost' IDENTIFIED BY 'pass';
 
 root@java-prod$ mysqldump -u root -p confluence_new \
-  | bzip2 > /srv/www/confluence/YYYY-MM-DD-HH-MM-confluence_new.sql.bz2
-root@java-prod$ chmod og= /srv/www/confluence/YYYY-MM-DD-HH-MM-confluence_new.sql.bz2
-root@java-prod$ rsync -va --progress /srv/www/confluence/./ confluence@java-test:/srv/www/confluence/./
+  | bzip2 > /srv/www/confluence/backup/`date +%Y-%m-%d`-confluence_new.sql.bz2
 
-root@java-test$ bzcat ~confluence/YYYY-MM-DD-HH-MM-confluence_new.sql.bz2 \
+root@java-prod$ chmod og= /srv/www/confluence/`date +%Y-%m-%d`-confluence_new.sql.bz2
+root@java-prod$ rsync -Prav /srv/www/confluence/./ confluence@java-test:/srv/www/confluence/./
+
+root@java-test$ bzcat ~confluence/backup/YYYY-MM-DD-HH-MM-confluence_new.sql.bz2 \
   | mysql -u root -p confluence_new
 ```
 
