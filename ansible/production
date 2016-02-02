@@ -17,6 +17,7 @@ www-test.civicrm.osuosl.org
 www-training.civicrm.osuosl.org
 test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-2.civicrm.osuosl.org
+test-ubu1204-3 ansible_ssh_host=130.211.191.179
 # test-debian6-1.civicrm.osuosl.org
 # test-ubu1210-1.civicrm.osuosl.org
 
@@ -39,6 +40,7 @@ java-test.civicrm.osuosl.org
 [test-servers]
 test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-2.civicrm.osuosl.org
+test-ubu1204-3
 # test-debian6-1.civicrm.osuosl.org
 # test-ubu1210-1.civicrm.osuosl.org
 
