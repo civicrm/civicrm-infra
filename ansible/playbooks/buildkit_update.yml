@@ -1,0 +1,18 @@
+---
+
+# Update the buildkit installation
+# To use it: $ ansible-playbook ./playbooks/buildkit_update.yml
+
+- hosts: test-servers
+  tasks:
+    - name: Update buildkit git repo
+      git: repo=https://github.com/civicrm/civicrm-buildkit dest=/srv/buildkit version=master
+      become: yes
+      become_user: jenkins
+
+    - name: Run civi-download-tools
+      shell: ./civi-download-tools
+      args:
+        chdir: /srv/buildkit/bin
+      become: yes
+      become_user: jenkins
