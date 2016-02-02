@@ -93,10 +93,20 @@ root@java-test$ bzcat ~confluence/backup/YYYY-MM-DD-HH-MM-confluence_new.sql.bz2
 Finally, you can start the new service on java-test.
 
 Note: The new instance can (at time of writing) be addressed as
-"http://java-test.civicrm.osuosl.org:8090/confluence/".  Some pages (such as
+"https://wiki-test.civicrm.org/confluence/".  Some pages (such as
 the administrator's "Plugin" screen) may break due to the URL change – fix
 this by navigating to the Confluence administration area fixing
 "Configuration => General Configuration => Server Base Url".
+
+You can also change the URL in the database directly:
+
+```
+UPDATE BANDANA
+SET BANDANAVALUE = replace(BANDANAVALUE, 'http://wiki.civicrm.org', 'https://wiki-test.civicrm.org')
+WHERE BANDANACONTEXT = '_GLOBAL' and BANDANAKEY = 'atlassian.confluence.settings';
+```
+
+Then restart Confluence.
 
 ## Confluence: Upgrade
 
