@@ -120,3 +120,9 @@ Then restart Confluence.
    * ./atlassian-confluence-4.2.2-x64.bin
  * After running the upgrade, the Confluence web path may have changed from "/confluence" to "/". This can be fixed by editing "server.xml" and to the <Context> tag, e.g.
    *  <Context path="/confluence" ...>
+
+## Confluence: the custom menu at the top of the screen
+
+At the top of the page, there is a menu for other CiviCRM developer resources. This menu is a static html file served from civicrm.org, included as an iframe.
+
+To edit the link, go to Administer > Appearance > Page Layout.
