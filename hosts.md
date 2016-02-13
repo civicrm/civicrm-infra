@@ -24,7 +24,7 @@ Virtual Servers
     <tr>
       <td>java-test</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
       <td>140.211.167.143</td>
       <th>cores=2 ram=2 hdd=27gb (updated: 2013-11-27)</th>
       <td>Confluence, JIRA, MySQL, Apache</td>
@@ -104,7 +104,7 @@ Virtual Servers
     <tr>
       <td>www-demo</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
       <td>140.211.167.151</td>
       <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
       <td>Apache, MySQL, Drupal, Joomla, WordPress, CiviCRM</td>
