@@ -10,7 +10,6 @@ backups-1.civicrm.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
 manage.civicrm.osuosl.org
-sushi.osuosl.org
 www-prod.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
@@ -46,7 +45,6 @@ test-ubu1204-3
 
 [backup-servers]
 backups-1.civicrm.org
-# sushi.osuosl.org # needs an upgrade first.
 
 [unclassified-servers]
 manage.civicrm.osuosl.org
