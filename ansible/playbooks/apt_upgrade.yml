@@ -1,0 +1,12 @@
+---
+
+# Run apt-get upgrade on servers.
+# All servers are configured with unattended-upgrades, but sometimes we want a faster upgrade.
+#
+# To use it: $ ansible-playbook ./playbooks/apt_upgrade.yml
+
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: Run apt-get upgrade
+      apt: upgrade=full
