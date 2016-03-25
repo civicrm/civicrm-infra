@@ -1,0 +1,181 @@
+#* @vtlvariable name="action" type="com.atlassian.confluence.user.actions.LoginAction" *#
+#macro (errorBlock $msg)
+<div class="error" tabindex="0"><p>$msg</p></div>
+#end
+
+#set($showSignup = $action.isShowSignUp() && !$action.isElevatedSecurityCheckRequired())
+
+<html>
+	<head>
+        #requireResource("confluence.web.resources:master-styles")
+        #requireResource("confluence.web.resources:login")
+        #requireResource("confluence.web.resources:aui-forms")
+	    #if( $fromNotPermitted )
+		    <title>$i18n.getText("title.not.permitted")</title>
+	    #else
+		    <title>$action.getActionName($action.getClass().getName())</title>
+		    <content tag="pageTitle"><a href="${req.contextPath}/homepage.action">$action.globalSettings.siteTitle</a></content>
+		#end
+	</head>
+	<body>
+		
+        <content tag="bodyClass">login</content>
+		#if($showSignup)
+		#requireResource("confluence.web.resources:signup")
+		<script>
+			AJS.$('#com-atlassian-confluence.login h1').addClass('unified-header');
+		</script>
+		
+		#end
+
+        <div id="login-container" #if($showSignup)class="unified-container"#end>
+        #parse ('/template/includes/actionerrors.vm')
+        #if ($remoteUser)
+            <p>$i18n.getText('login.logged.in', $remoteUser.name)</p>
+            <p class="last">$i18n.getText('login.logged.in.description')</p>
+        #else
+            #if ($logout)
+                <p class="success-message">$i18n.getText("successful.logout.message")</p>
+            #end
+			<div class="login-section #if($showSignup)unified#end">
+            #applyDecorator("form-aui")
+                #decoratorParam("formName" "loginform")
+                #decoratorParam("submitAction"  "$req.contextPath/dologin.action")
+                #decoratorParam("editAction" "$req.contextPath/login.action")
+                #decoratorParam("editMode" "true")
+                #decoratorParam("formStyle" "login-form-container")
+                
+				#if($showSignup)
+					<h2>
+						$action.getText('login.name')
+					</h2>
+				#end
+				
+                <fieldset class="compact-form-fields">
+                    #assistiveLegend("accessibility.form.login")
+                    #if($action.isElevatedSecurityCheckRequired())
+                        #bodytag( "TextField" "label='username.accesskey'" "name='os_username'" "theme='aui'" "tabindex='1'")
+                            #param("focus" "0")
+                            #param("required" true)
+                        #end
+                        #bodytag( "Password" "label='password.accesskey'" "name='os_password'" "theme='aui'" "tabindex='2'")
+                            #param("required" true)
+                        #end
+                        ## Add tabindex to change the tab flow if the captcha image is visible
+                        ## user->pass->captcha->remember me->admin link->refresh->submit->cancel
+                        <div id="captcha-container" class="field-group">
+                            <div>
+                                <label id="captcha-reponse-label" for="captcha-response">
+                                    ## link in login.elevatedsecuritycheck.assistive has 'tabindex="5"'
+                                    <span class="assistive">$i18n.getText("login.elevatedsecuritycheck.assistive")</span>
+                                    #set($captchaId = $captchaManager.generateCaptchaId())
+                                    #captchaImage($captchaId)
+                                    <a tabindex="6" class="reload" href="${req.contextPath}/dologin.action?os_username=${action.os_username}" tabindex="0" title="$generalUtil.escapeXml($i18n.getText('login.elevatedsecuritycheck.captcha.reload.title'))">
+                                        <img src="${req.contextPath}/images/icons/refresh_grey_16.png" alt="$generalUtil.escapeXml($i18n.getText('login.elevatedsecuritycheck.captcha.reload.alt'))" />
+                                    </a>
+                                </label>
+                            </div>
+                            <div>
+                                <input id="captcha-response" type="text" name="captchaResponse" value="" tabindex="3">
+                            </div>
+                            #fielderror('captcha')
+                        </div>
+                        #bodytag( "Component" "label='remember.accesskey'" "name='os_cookie'" "value='false'" "theme='aui'" "template='onofflist.vm'" "tabindex='4'") #end
+
+                        <div class="field-group form-buttons compact-form-buttons">
+                            <input id="loginButton" name="login" type="submit" value="$i18n.getText('login.button')"  tabindex="7" />
+                            #if ($action.isShowForgottenPasswordHelp())
+                                <a id="forgot-password" href="${req.contextPath}/forgotuserpassword.action" tabindex="8">$i18n.getText("forgot.password")</a>
+                            #end
+                        </div>
+                    #else
+                        ## No Captcha - no tabindex
+                        #bodytag( "TextField" "label='username.accesskey'" "name='os_username'" "theme='aui'")
+                            #param("focus" "0")
+                            #param("required" true)
+                        #end
+                        #bodytag( "Password" "label='password.accesskey'" "name='os_password'" "theme='aui'")
+                            #param("required" true)
+                        #end
+                        #bodytag( "Component" "label='remember.accesskey'" "name='os_cookie'" "value='false'" "theme='aui'" "template='onofflist.vm'") #end
+
+                        <div class="field-group form-buttons compact-form-buttons">
+                            <input id="loginButton" name="login" type="submit" value="$i18n.getText('login.button')" />
+                            #if ($action.isShowForgottenPasswordHelp())
+                                <a id="forgot-password" href="${req.contextPath}/forgotuserpassword.action">$i18n.getText("forgot.password")</a>
+                            #end
+                        </div>
+                    #end
+
+                    <p>This wiki uses the same user accounts as CiviCRM.org. <a href="https://civicrm.org/user/register">Click here to create an account.</a> If you had a wiki-specific account before April 2016, your existing account still works. The above "forgot your password?" link only works for wiki-specific accounts. If you have forgotten your CiviCRM.org password, you can reset it from there.</p>
+
+
+                    <input type="hidden" name="os_destination" value="$!generalUtil.escapeXml($!os_destination)"/>
+                </fieldset>
+                
+            #end
+            </div>
+            
+            #if ($showSignup)
+            <div class="signup-section">
+	            #applyDecorator("form-aui")
+	                #decoratorParam("formName" "signupform")
+	                #decoratorParam("submitAction" "$req.contextPath/dosignup.action")
+	                #decoratorParam("editAction" "$req.contextPath/signup.action")
+	                #decoratorParam("editMode" "true")
+	                #decoratorParam("formStyle" "login-form-container signup")
+	
+	                <h2>
+	                    $action.getText("sign.up")
+	                </h2>
+					
+	                <fieldset class="right-aligned-form-fields">
+	                    #assistiveLegend("accessibility.signup.legend")
+	                    #bodytag( "TextField" "label='fullname.name.bothcaps'" "name='fullName'" "theme='aui'" )
+	                        #param("longField" "true")
+	                    #end
+	                    #bodytag( "TextField" "label='email.name'" "name='email'" "theme='aui'" )
+	                        #param("type" "email")
+	                        #param("longField" "true")
+	                    #end
+	                    #bodytag( "TextField" "label='username.name'" "name='username'" "theme='aui'" )
+	                    #end
+	                    #bodytag( "Password" "label='password.name'" "name='password'" "theme='aui'" )
+	                    #end
+	                    #bodytag( "Password" "label='confirm.password.name'" "name='confirm'" "theme='aui'" )
+	                    #end
+	                    #tag( "Hidden" "name='token'" "value='$!action.token'" )
+	                    #if ($action.captchaManager.showCaptchaForCurrentUser())
+	                        <div class="field-group">
+                                #set($captchaId = $captchaManager.generateCaptchaId())
+                                #captchaImage($captchaId)
+	                            <br/><input type='text' name='captchaResponse' value=''>
+	                        </div>
+	                        #fielderror('captcha')
+	                    #end
+	
+	                    <div class="field-group form-buttons compact-form-buttons">
+	                        #tag ("Submit" "value='sign.up'" "align='center'" "theme='notable'" "template='submit.vm'")
+	                    </div>
+	                </fieldset>
+	            #end
+            #end
+            </div>
+        #end
+        </div>
+        #if ($action.clusterManager.isClustered())
+            <content tag="coherence-copyright">
+                <div class="smalltext" id="coherence-copyright">
+                    $i18n.getText("coherence.copyright.notice", [$buildInfo.buildYear])
+                </div>
+            </content>
+        #end
+        #if ($action.isBrowserLanguageEnabled())
+        <div id="login-language" >
+        #foreach ($lang in $action.getLanguages())
+            <a href="login.action?language=$lang.name">$lang.capitalDisplayName</a>
+        #end
+        </div>
+        #end
+	</body>
+</html>
