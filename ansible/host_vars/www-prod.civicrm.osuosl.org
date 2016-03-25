@@ -19,6 +19,12 @@ ufw_extra:
     src: 208.90.215.70/16
     rule: allow
     description: "Allows Sympa mailing-lists to connect to MySQL, see sympa.md."
+  civildapauth:
+    proto: tcp
+    port: 1389
+    src: 140.211.167.141/32
+    rule: allow
+    description: "Allows Confluence to connec to to LDAPjs, see ldap-websites.md."
 
 backups_exclude_extras:
   - /var/www/civicrm-website-org/drupal/sites/default/files/civicrm/ConfigAndLog/*
