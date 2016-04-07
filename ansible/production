@@ -5,8 +5,10 @@
 # The most generic role at the moment is 'servers', but we want to encourage
 # admins to classify servers so that we have a better idea of what they do.
 #
-log.civicrm.osuosl.org
+biryani.osuosl.org
+padthai.civicrm.org ansible_ssh_host=167.114.158.208
 backups-1.civicrm.org
+log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
 manage.civicrm.osuosl.org
@@ -16,9 +18,10 @@ www-test.civicrm.osuosl.org
 www-training.civicrm.osuosl.org
 test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-2.civicrm.osuosl.org
-test-ubu1204-3 ansible_ssh_host=130.211.191.179
+test-ubu1204-3.civicrm.org ansible_ssh_host=130.211.191.179
 # test-debian6-1.civicrm.osuosl.org
 # test-ubu1210-1.civicrm.osuosl.org
+test-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.131
 
 # Servers per-role
 [logstash-servers]
@@ -39,7 +42,8 @@ java-test.civicrm.osuosl.org
 [test-servers]
 test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-2.civicrm.osuosl.org
-test-ubu1204-3
+test-ubu1204-3.civicrm.org
+test-ubu1604-1.civicrm.org
 # test-debian6-1.civicrm.osuosl.org
 # test-ubu1210-1.civicrm.osuosl.org
 
@@ -48,6 +52,9 @@ backups-1.civicrm.org
 
 [unclassified-servers]
 manage.civicrm.osuosl.org
+
+[kvm-servers]
+padthai.civicrm.org
 
 [servers:children]
 apache-servers
