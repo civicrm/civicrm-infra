@@ -44,3 +44,11 @@
     - backup-server
   tags:
     - backup-server
+
+- hosts: kvm-servers
+  sudo: yes
+  roles:
+    - common-all
+    - kvm-server
+  tags:
+    - kvm-server
