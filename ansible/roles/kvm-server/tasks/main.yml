@@ -1,0 +1,65 @@
+---
+
+# NB: netcat-openbsd us required if using virt-manager GUI (requires -U option).
+
+- apt_key:
+    url=http://zfsonlinux.org/4D5843EA.asc
+    state=present
+
+- apt_repository:
+    repo='deb http://archive.zfsonlinux.org/debian jessie main'
+    state=present
+    update_cache=yes
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - openntpd
+    - kvm
+    - qemu-kvm
+    - libvirt-bin
+    - virtinst
+    - bridge-utils
+    - netcat-openbsd
+    - linux-image-4.4.0-0.bpo.1-amd64
+    - linux-headers-4.4.0-0.bpo.1-amd64
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - debian-zfs
+
+- service: name=openntpd state=started enabled=yes
+
+# TODO:
+# - had to "rm /boot/bzImage-3.14.32-xxxx-grs-ipv6-64" otherwise it would
+#   boot automatically on this kernel, and this causes issues with dkms for ZFS.
+#
+# - /etc/network/interfaces configuration.
+
+# ZFS partition setup
+# - created new extended partition on all 3 disks with cfdisk
+# - created new regular linux partition on all 3 disks (/dev/sdX5) with cfdisk
+# - ran "partprobe"
+# - created new pool: zpool create -f zpadthai raidz /dev/sda5 /dev/sdb5 /dev/sdc5
+# - created new partition: zfs create -V 50G zpadthai/test-ubu1204-3g 
+# - created new partition: zfs create -V 50G zpadthai/test-ubu1604-1 
+
+# Enable IP forwarding in /etc/sysctl.d/99-sysctl.conf by uncommenting:
+# - net.ipv4.ip_forward=1
+# - net.ipv6.conf.all.forwarding=1
+
+# New VM creation:
+# - virt-manager > "New VM"
+# - URL: http://archive.ubuntu.com/ubuntu/dists/precise/main/installer-amd64/
+# - 8192 RAM, 4 CPUs
+# - Disk > existing storage: /dev/zvol/zpadthai/test-ubu1204-3g
+
+# IPv4 allocation for 192.95.2.128/29 (.129 to .134)
+# - padthai.civicrm.org br0:pub = 192.95.2.129
+# - test-ubu1204-3g.civicrm.org = 192.95.2.130
+# - test-ubu1604-1.civicrm.org = 192.95.2.131
+
+# IPv6 allocation for 2607:5300:60:71d0::/64
+# - 2607:5300:60:71d0:100::/72 = test-ubu1204-3g.civicrm.org 
+# - 2607:5300:60:71d0:200::/72 = test-ubu1604-1.civicrm.org  
+# - 2607:5300:60:71d0:300::/72
+# - etc
