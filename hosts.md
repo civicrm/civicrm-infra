@@ -180,7 +180,7 @@ Physical Servers
       <td>civicrm.org</td>
       <td>Debian 8</td>
       <td>167.114.158.208</td>
-      <td>cores=4/8 ram=64gb ssd=3x300gb (updated: 2016-04-07)</td>
+      <td>cores=4/8 (E5-1620v2) ram=64gb ssd=3x300gb (updated: 2016-04-07)</td>
       <td>virt-install</td>
     </tr>
     <tr>
