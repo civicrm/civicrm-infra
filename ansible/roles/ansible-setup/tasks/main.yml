@@ -1,5 +1,11 @@
 ---
 
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - sudo
+  tags:
+    - packages
+
 - name: User | create user
   command: "useradd -m {{ deploy_user }} -G sudo creates=/home/{{ deploy_user }}"
 
