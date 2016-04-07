@@ -17,6 +17,8 @@
     - ufw
     - unzip
     - vim
+    - whois
+    - bind9-host
   tags:
     - packages
 
