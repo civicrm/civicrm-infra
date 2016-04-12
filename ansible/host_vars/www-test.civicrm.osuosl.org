@@ -19,3 +19,9 @@ ufw_extra:
     src: 208.90.215.70/16
     rule: allow
     description: "Allows Sympa mailing-lists to connect to MySQL, see sympa.md."
+  selfsignedvhost:
+    proto: tcp
+    port: 4433
+    src: 0.0.0.0/0
+    rule: allow
+    description: "Fixture for CRM_Utils_HttpClientTest"
