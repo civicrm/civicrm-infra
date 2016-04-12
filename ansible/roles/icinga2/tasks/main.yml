@@ -32,7 +32,7 @@
     state=present
   tags:
     - packages
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version != "16.04"
 
 - include: main-server.yml
   when: "'icinga-servers' in group_names"
