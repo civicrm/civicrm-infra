@@ -1,0 +1,3 @@
+---
+backups_onsite_frequency: "hourly"
+backups_mysqldump: false

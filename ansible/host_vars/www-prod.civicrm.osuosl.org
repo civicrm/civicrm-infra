@@ -32,3 +32,5 @@ backups_exclude_extras:
   - /var/www/civicrm-website-org/drupal/sites/default/files/js
   - /var/www/civicrm-website-org/drupal/sites/default/files/css
   - /var/www/civicrm-website-org/drupal/sites/default/files/styles
+
+backups_mysqldump: true

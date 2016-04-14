@@ -20,3 +20,5 @@ backups_exclude_extras:
   - /srv/www/confluence/confluence-home/plugins-temp
   - /srv/www/confluence/confluence-home/plugins-osgi-cache
   - /srv/www/jira/atlassian-jira/temp
+
+backups_mysqldump: true

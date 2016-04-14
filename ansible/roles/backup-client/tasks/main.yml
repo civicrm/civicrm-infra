@@ -18,14 +18,20 @@
 - name: Backupninja | do not report success
   replace: dest=/etc/backupninja.conf regexp='^reportsuccess = yes' replace='reportsuccess = no'
 
-# Deploy backupninja rdiff config to hourly backup-server
+# Deploy backupninja rdiff config to onsite backup-server
 - name: Backupninja | deploy rdiff hourly backup template
-  template: src=etc/backup.d/90-hostname-hourly.rdiff dest="/etc/backup.d/{{ inventory_hostname }}.rdiff" mode=0600
+  template: src=etc/backup.d/90-hostname.rdiff dest="/etc/backup.d/{{ inventory_hostname }}.rdiff" mode=0600
   delegate_to: "{{ backupserver_hourly }}"
 
 - name: Backupninja | ensure that the backup directory exists
   file: path="/srv/backups/{{ inventory_hostname }}" state=directory owner=root group=root mode=0700
   delegate_to: "{{ backupserver_hourly }}"
+
+- name: Backupninja | deploy mysql backup template
+  template: src=etc/backup.d/20.mysql dest="/etc/backup.d/20.mysql" mode=0600
+  when: backups_mysqldump
+
+# TODO: if no key exists, create one.
 
 # Deploy root@backup-server ssh pubkey to client
 - name: ssh | Get root ssh public key
