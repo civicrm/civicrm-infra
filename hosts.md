@@ -141,6 +141,30 @@ Virtual Servers
       <th>cores=1 ram=1.7gb root=25gb (updated: 2015-10-10)</th>
       <td>Backups</td>
     </tr>
+    <tr>
+      <td>test-ubu1204-5</td>
+      <td>OVH</td>
+      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>192.95.2.130</td>
+      <th>cores=4 ram=20gb root=50gb (updated: 2016-04-22)</th>
+      <td>Tests</td>
+    </tr>
+    <tr>
+      <td>test-ubu1604-1</td>
+      <td>OVH</td>
+      <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
+      <td>192.95.2.131</td>
+      <th>cores=4 ram=8gb root=50gb (updated: 2015-04-22)</th>
+      <td>Tests</td>
+    </tr>
+    <tr>
+      <td>botdylan</td>
+      <td>OVH</td>
+      <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
+      <td>192.95.2.132</td>
+      <th>cores=2 ram=2gb root=25gb (updated: 2015-04-22)</th>
+      <td>Tests</td>
+    </tr>
   </tbody>
 </table>
 
