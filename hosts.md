@@ -14,6 +14,14 @@ Virtual Servers
   </thead>
   <tbody>
     <tr>
+      <td>chat</td>
+      <td>civicrm.org</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
+      <td>140.211.167.153</td>
+      <th>cores=2 ram=2gb root=20gb (updated: 2016-04-23)</th>
+      <td>Mattermost, Nginx</td>
+    </tr>
+    <tr>
       <td>java-prod</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
@@ -124,14 +132,6 @@ Virtual Servers
       <td>140.211.167.160</td>
       <th>cores=2 ram=3gb root=15gb (updated: 2014-10-27)</th>
       <td>http auth: civicrm/civicrm<br />Nginx, MySQL, Drupal/Drush</td>
-    </tr>
-    <tr>
-      <td>www-training</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>140.211.167.153</td>
-      <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
-      <td>Apache, Mysql, Drupal/Drush, alert.dev.civicrm.org</td>
     </tr>
     <tr>
       <td>backup-1</td>
