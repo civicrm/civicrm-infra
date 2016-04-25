@@ -8,8 +8,25 @@
 - apt: pkg=unscd state=installed
 - apt: pkg=libnss-ldap state=installed
 
+# Debian has this in libpam-runtime
+- apt: pkg=auth-client-config state=installed
+  when: ansible_distribution == "Ubuntu"
+
+# Ubuntu ships this as part of libpam stuff
+- apt: pkg=libpam-mklocaluser state=installed
+  when: ansible_distribution == "Debian"
+
+- name: Enable PAM mkhomedir.
+  lineinfile: dest=/etc/pam.d/common-session line="session optional pam_mkhomedir.so" insertafter="# end of pam-auth-update config"
+
 - template: src=ldap.conf.j2 dest=/etc/ldap.conf owner=root group=root mode=0644
+
+- name: Sudoers | create deploy sudoers file for domainadmin
+  template: src=sudoers.j2 dest=/etc/sudoers.d/civicrmorg-domainadmin owner=root group=root mode=0440
 
 # https://help.ubuntu.com/community/LDAPClientAuthentication
 # "Set up /etc/nsswitch.conf to use ldap lookups"
 - shell: auth-client-config -t nss -p lac_ldap
+  when: ansible_distribution == "Ubuntu"
+
+- shell: pam-auth-update --package
