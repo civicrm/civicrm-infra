@@ -1,0 +1,13 @@
+---
+
+sslcertificates:
+    - wildcard.civicrm.org
+
+ufw_extra:
+  mmostgithub:
+    proto: tcp
+    port: 5000
+    src: 192.30.252.0/22
+    rule: allow
+    description: "Allow Github webhooks for PR activity."
+

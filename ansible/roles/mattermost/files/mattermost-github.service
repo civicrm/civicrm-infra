@@ -1,0 +1,13 @@
+[Unit]
+Description=Mattermost Github integration
+After=network.target
+
+[Service]
+User=mattermost
+ExecStart=/usr/bin/python /opt/mattermost-github-integration/server.py config.py
+WorkingDirectory=/opt/mattermost-github-integration
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

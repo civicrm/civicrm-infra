@@ -9,6 +9,7 @@ biryani.osuosl.org
 padthai.civicrm.org ansible_ssh_host=167.114.158.208
 newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28
 backups-1.civicrm.org
+chat.civicrm.org
 log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
@@ -16,7 +17,6 @@ manage.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
-www-training.civicrm.osuosl.org
 test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-2.civicrm.osuosl.org
 test-ubu1204-3.civicrm.org ansible_ssh_host=130.211.191.179
@@ -30,6 +30,7 @@ test-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.131
 log.civicrm.osuosl.org
 
 [nginx-servers]
+chat.civicrm.org
 log.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
@@ -54,6 +55,9 @@ test-ubu1604-1.civicrm.org
 backups-1.civicrm.org
 newsushi.civicrm.osuosl.org
 
+[mattermost-servers]
+chat.civicrm.org
+
 [unclassified-servers]
 manage.civicrm.osuosl.org
 
@@ -68,6 +72,7 @@ test-servers
 unclassified-servers
 
 [ldap-managed]
+chat.civicrm.org
 newsushi.civicrm.osuosl.org
 backups-1.civicrm.org
 padthai.civicrm.org
