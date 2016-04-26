@@ -5,18 +5,13 @@
  * Flag PR's to indicate their target branch.
  * Notify devs about [extremely complex functions](http://wiki.civicrm.org/confluence/display/CRM/Toxic+Code+Protocol).
 
-The bot is deployed on the `svn` host.
-
-It depends on a newer version of libc, so it runs inside a docker container.
-
-To check on it, use `screen -ls`, note the relevant terminal, and then `screen -r [the-screen-id]`
+The bot is deployed on the `botdylan.civicrm.org` host with user `co`.
 
 If the system gets rebooted, you can restart it by saying:
 
 ```
-$ sudo bash
-$ screen
-$ su - co
-$ cd ~/civicrm-botdylan
-$ bash docker-run.sh
+sudo -u co -H bash
+pm2 start /home/co/civicrm-botdylan/civicrm-botdylan.pm2.json
 ```
+
+The `pm2` command also has a number of subcommands for restarting, checking statuses, checking logs, etc.
