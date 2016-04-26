@@ -9,6 +9,7 @@ biryani.osuosl.org
 padthai.civicrm.org ansible_ssh_host=167.114.158.208
 newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28
 backups-1.civicrm.org
+botdylan.civicrm.org
 chat.civicrm.org
 log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
@@ -59,6 +60,7 @@ newsushi.civicrm.osuosl.org
 chat.civicrm.org
 
 [unclassified-servers]
+botdylan.civicrm.org
 manage.civicrm.osuosl.org
 
 [kvm-servers]
@@ -72,6 +74,7 @@ test-servers
 unclassified-servers
 
 [ldap-managed]
+botdylan.civicrm.org
 chat.civicrm.org
 newsushi.civicrm.osuosl.org
 backups-1.civicrm.org

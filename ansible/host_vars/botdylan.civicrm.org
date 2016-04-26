@@ -1,0 +1,7 @@
+ufw_extra:
+  botdylan:
+    proto: tcp
+    port: 5000
+    src: 0.0.0.0/0
+    rule: allow
+    description: "Allow incoming Github hooks to Botdylan"
