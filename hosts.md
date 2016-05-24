@@ -24,9 +24,9 @@ Virtual Servers
     <tr>
       <td>java-prod</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.141</td>
-      <th>cores=2 ram=4gb root=25gb (updated: 2014-10-27)</th>
+      <th>cores=2 ram=6gb root=25gb (updated: 2016-05-24)</th>
       <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
@@ -35,12 +35,12 @@ Virtual Servers
       <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
       <td>140.211.167.143</td>
       <th>cores=2 ram=2 hdd=27gb (updated: 2013-11-27)</th>
-      <td>Confluence, JIRA, MySQL, Apache</td>
+      <td>OFFLINE - Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
       <td>log</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
       <td>140.211.167.189</td>
       <th>cores=2 ram=2gb hdd=39gb (updated: 2015-09-25)</th>
       <td>Logstash</td>
@@ -120,7 +120,7 @@ Virtual Servers
     <tr>
       <td>www-prod</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.152</td>
       <th>cores=2 ram=6gb root=25gb (updated: 2014-10-27)</th>
       <td>Nginx, MySQL, Drupal/Drush, SMF/forum.civicrm.org, alert.civicrm.org, docs.civicrm.org</td>
@@ -128,7 +128,7 @@ Virtual Servers
     <tr>
       <td>www-test</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.160</td>
       <th>cores=2 ram=3gb root=15gb (updated: 2014-10-27)</th>
       <td>http auth: civicrm/civicrm<br />Nginx, MySQL, Drupal/Drush</td>
