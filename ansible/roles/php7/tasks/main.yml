@@ -1,0 +1,46 @@
+---
+
+# These packages have been used with Xenial+buildkit:
+# See also: do_system_xenial
+# https://github.com/civicrm/civicrm-buildkit/blob/master/bin/civi-download-tools#L307
+
+# Currently we are using ondrej's PPA for Ubuntu Xenial:
+# http://ppa.launchpad.net/ondrej/php/
+#
+# Probably not really necessary since Ubuntu 16.04 ships with PHP7 but
+# makes it easier to eventually switch between different versions (ex: 5.6).
+
+- apt_key:
+    url="http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4F4EA0AAE5267A6C"
+    state=present
+
+- apt_repository:
+    repo='deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main'
+    state=present
+    update_cache=yes
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - php7.0-cli
+    - php7.0-common
+    - php7.0-curl
+    - php7.0-fpm
+    - php7.0-gd
+    - php7.0-imap
+    - php7.0-intl
+    - php7.0-json
+    - php7.0-ldap
+    - php7.0-mbstring
+    - php7.0-mcrypt
+    - php7.0-mysql
+    - php7.0-opcache
+    - php7.0-readline
+    - php7.0-recode
+    - php7.0-sqlite3
+    - php7.0-xml
+    - php7.0-xmlrpc
+    - php7.0-xsl
+    - php7.0-zip
+    - php7.0-bcmath
+    - apache2
+    - libapache2-mod-php7.0

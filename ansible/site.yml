@@ -59,3 +59,10 @@
     - mattermost
   tags:
     - mattermost
+
+- hosts: php7-servers
+  sudo: yes
+  roles:
+    - php7
+  tags:
+    - php7

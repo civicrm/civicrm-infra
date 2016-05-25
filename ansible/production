@@ -85,6 +85,9 @@ test-ubu1204-5.civicrm.org
 [icinga-satellite:children]
 servers
 
+[php7-servers]
+test-ubu1604-1.civicrm.org
+
 # TODO
 # svn.civicrm.osuosl.org
 # test-master.civicrm.osuosl.org
