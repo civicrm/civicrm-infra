@@ -194,7 +194,7 @@ Physical Servers
     <tr>
       <td>civicrm-sushi-spare</td>
       <td>osuosl.org</td>
-      <td>Ubuntu 14.04 LTS (Trusty)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.166.28</td>
       <td>cores=2(Pentium 1403v2) ram=32gb hdd=3x600gb(10k,2.5)</td>
       <td>1+3yr wty (2015-2019?)</td>
