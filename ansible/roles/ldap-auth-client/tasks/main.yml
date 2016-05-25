@@ -5,8 +5,11 @@
     dest=/etc/ssl/certs/civicrm-ldap.pem
     owner=root group=root mode=0644
 
-- apt: pkg=unscd state=installed
-- apt: pkg=libnss-ldap state=installed
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - unscd
+    - libnss-ldap
+    - nss-updatedb
 
 # Debian has this in libpam-runtime
 - apt: pkg=auth-client-config state=installed
@@ -20,6 +23,8 @@
   lineinfile: dest=/etc/pam.d/common-session line="session optional pam_mkhomedir.so" insertafter="# end of pam-auth-update config"
 
 - template: src=ldap.conf.j2 dest=/etc/ldap.conf owner=root group=root mode=0644
+
+- template: src="ssh/{{ ansible_distribution }}-{{ ansible_distribution_version }}/sshd_config.j2" dest="/etc/ssh/sshd_config" owner=root group=root mode=0644
 
 - name: Sudoers | create deploy sudoers file for domainadmin
   template: src=sudoers.j2 dest=/etc/sudoers.d/civicrmorg-domainadmin owner=root group=root mode=0440
