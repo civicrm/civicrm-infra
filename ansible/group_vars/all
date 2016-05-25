@@ -15,3 +15,6 @@ ufw_munin_allow_src:
 
 ufw_nrpe_allow_src:
   - 162.13.43.63/32
+
+ufw_icinga2_allow_src:
+  - 192.171.60.60/32
