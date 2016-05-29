@@ -66,3 +66,17 @@
     - php7
   tags:
     - php7
+
+- hosts: php56-servers
+  sudo: yes
+  roles:
+    - php56
+  tags:
+    - php56
+
+- hosts: buildkit-servers
+  sudo: yes
+  roles:
+    - buildkit
+  tags:
+    - buildkit

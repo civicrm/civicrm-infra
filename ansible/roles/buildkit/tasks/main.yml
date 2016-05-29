@@ -1,0 +1,30 @@
+---
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - acl
+    - nodejs
+    - nodejs-legacy
+    - npm
+  tags:
+    - packages
+
+- name: Create the buildkit unix user.
+  user: name=buildkit comment="BuildKit"
+
+- name: Sudoers | create buildkit sudoers file
+  template: src=etc/sudoers.d/buildkit.j2 dest=/etc/sudoers.d/buildkit owner=root group=root mode=0440
+
+- name: Apache | deploy buildkit configuration
+  template: src=etc/apache2/conf-available/buildkit.conf dest=/etc/apache2/conf-available/buildkit.conf owner=root group=root mode=0444
+
+- name: Apache | enable buildkit configuration
+  shell: a2enconf buildkit
+  args:
+    creates: /etc/apache2/conf-enabled/buildkit.conf
+
+- name: packages | Install buildkit from git.
+  git: repo=https://github.com/civicrm/civicrm-buildkit.git
+       dest=/opt/buildkit
+  tags:
+    - packages

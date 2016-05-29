@@ -25,6 +25,7 @@ test-ubu1204-3.civicrm.org ansible_ssh_host=130.211.191.179
 # test-ubu1210-1.civicrm.osuosl.org
 test-ubu1204-5.civicrm.org ansible_ssh_host=192.95.2.130
 test-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.131
+training-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.133
 
 # Servers per-role
 [logstash-servers]
@@ -42,6 +43,7 @@ www-demo.civicrm.osuosl.org
 www-training.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
+training-ubu1604-1.civicrm.org
 
 [test-servers]
 test-ubu1204-1.civicrm.osuosl.org
@@ -81,12 +83,19 @@ backups-1.civicrm.org
 padthai.civicrm.org
 test-ubu1604-1.civicrm.org
 test-ubu1204-5.civicrm.org
+training-ubu1604-1.civicrm.org
 
 [icinga-satellite:children]
 servers
 
 [php7-servers]
 test-ubu1604-1.civicrm.org
+
+[php56-servers]
+training-ubu1604-1.civicrm.org
+
+[buildkit-servers]
+training-ubu1604-1.civicrm.org
 
 # TODO
 # svn.civicrm.osuosl.org

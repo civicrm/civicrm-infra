@@ -6,19 +6,22 @@
 
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
+    - bind9-host
+    - cron-apt
     - etckeeper
     - fail2ban
-    - vnstat
     - git
     - libpam-yubico
     - ncdu
     - ntpdate
     - tmux
     - ufw
+    - unattended-upgrades
     - unzip
     - vim
+    - vnstat
     - whois
-    - bind9-host
+    - zip
   tags:
     - packages
 
