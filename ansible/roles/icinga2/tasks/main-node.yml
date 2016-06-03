@@ -3,7 +3,8 @@
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - icinga2
-    - monitoring-plugins-basic
+    - monitoring-plugins-basic # required for check_mem
+    - libnagios-plugin-perl
   tags:
     - packages
   when: ansible_distribution == "Debian"
@@ -12,6 +13,7 @@
   with_items:
     - icinga2
     - nagios-plugins
+    - libnagios-plugin-perl
   tags:
     - packages
   when: ansible_distribution == "Ubuntu"
@@ -29,18 +31,26 @@
   shell: icinga2 pki new-cert --cn {{ inventory_hostname }} --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt
   args:
     creates: /etc/icinga2/pki/{{ inventory_hostname }}.key
+  tags:
+    - icinga2-cert
 
 - shell: icinga2 pki save-cert --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --host {{ icinga2_main_node }}
   args:
     creates: /etc/icinga2/pki/trusted-master.crt
+  tags:
+    - icinga2-cert
 
 - shell: icinga2 pki ticket --cn {{ inventory_hostname }}
   delegate_to: "{{ icinga2_main_node }}"
   register: ticket
+  tags:
+    - icinga2-cert
 
 - shell: icinga2 pki request --host {{ icinga2_main_node }} --ticket {{ ticket.stdout }} --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --ca /etc/icinga2/pki/ca.crt
   args:
     creates: /etc/icinga2/pki/ca.crt
+  tags:
+    - icinga2-cert
 
 - template: src=zones.conf dest=/etc/icinga2/zones.conf owner=root group=root mode=0644
   notify: restart icinga2
@@ -57,6 +67,8 @@
 - template: src=zones.d/hostzone-for-master.conf dest=/etc/icinga2/zones.d/{{ inventory_hostname }}.conf owner=root group=root mode=0644
   delegate_to: "{{ icinga2_main_node }}"
   notify: restart icinga2
+  tags:
+    - icinga2-cert
 
 - name: Disable Icinga2 notifications
   shell: icinga2 feature disable notification
@@ -66,3 +78,19 @@
 
 - name: Disable satellite local configurations (otherwise disk/load checks will be duplicated)
   replace: dest=/etc/icinga2/icinga2.conf regexp='^include_recursive "conf.d"' replace='# include_recursive "conf.d"'
+
+# This script is from nagios-plugins-contrib
+# but that package pulls in too many dependancies.
+- file: path=/etc/icinga2/conf.d/services state=directory owner=root group=nagios mode=0775
+- file: path=/etc/icinga2/scripts state=directory owner=root group=nagios mode=0775
+
+- name: Deploy check_mem script
+  copy: src=etc/icinga2/scripts/check_memory dest=/etc/icinga2/scripts/check_memory owner=root group=root mode=0755
+  notify: restart icinga2
+
+- name: Deploy check_mem script configuration
+  copy: src=etc/icinga2/conf.d/services/mem.conf dest=/etc/icinga2/conf.d/services/mem.conf owner=root group=root mode=0644
+  notify: restart icinga2
+
+- lineinfile: dest=/etc/icinga2/icinga2.conf line="include_recursive \"conf.d\""
+  notify: restart icinga2
