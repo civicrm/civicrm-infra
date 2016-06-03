@@ -36,6 +36,7 @@
     - php7.0-opcache
     - php7.0-readline
     - php7.0-recode
+    - php7.0-soap
     - php7.0-sqlite3
     - php7.0-xml
     - php7.0-xmlrpc
