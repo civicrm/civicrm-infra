@@ -5,6 +5,9 @@
   with_items:
     - mysql-server
     - nginx
+    - nodejs # for jira-bridge
+    - nodejs-legacy
+    - npm
     - python-mysqldb # required for ansible db config
     - python-flask # required by mattermost-github-integration
     - pwgen # for lazy password generation
@@ -16,9 +19,16 @@
   tags:
     - packages
 
-- name: packages | Install Mattermost Github integration from tar archive.
+- name: packages | Install Mattermost Github integration.
   git: repo=https://github.com/softdevteam/mattermost-github-integration
        dest=/opt/mattermost-github-integration
+  tags:
+    - packages
+
+# TODO: run "npm install", etc
+- name: packages | Install Mattermost JIRA integration.
+  git: repo=https://github.com/vrenjith/jira-matter-bridge.git
+       dest=/opt/jira-matter-bridge
   tags:
     - packages
 
@@ -102,6 +112,8 @@
   with_items:
     - mattermost.service
     - mattermost-github.service
+    - jira-matter-bridge.service
 
 - service: name=mattermost state=started enabled=yes
 - service: name=mattermost-github state=started enabled=yes
+- service: name=jira-matter-bridge state=started enabled=yes
