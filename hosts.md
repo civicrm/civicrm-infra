@@ -40,7 +40,7 @@ Virtual Servers
     <tr>
       <td>log</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.189</td>
       <th>cores=2 ram=2gb hdd=39gb (updated: 2015-09-25)</th>
       <td>Logstash</td>
