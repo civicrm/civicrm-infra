@@ -40,7 +40,6 @@ www-test.civicrm.osuosl.org
 [apache-servers]
 biryani.osuosl.org
 www-demo.civicrm.osuosl.org
-www-training.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
 training-ubu1604-1.civicrm.org
