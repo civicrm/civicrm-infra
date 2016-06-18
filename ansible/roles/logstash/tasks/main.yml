@@ -4,28 +4,34 @@
     state=present
 
 - apt_repository:
-    repo='deb http://packages.elastic.co/elasticsearch/1.7/debian stable main'
+    repo='deb https://packages.elastic.co/elasticsearch/2.x/debian stable main'
     state=present
-    update_cache=yes
 
 - apt_repository:
-    repo='deb http://packages.elasticsearch.org/logstash/1.5/debian stable main'
+    repo='deb https://packages.elastic.co/logstash/2.3/debian stable main'
+    state=present
+
+- apt_repository:
+    repo='deb http://packages.elastic.co/kibana/4.5/debian stable main'
     state=present
     update_cache=yes
 
-# Ubuntu 12.05 LTS only has openjdk 7
-- apt: pkg=openjdk-7-jre state=installed
-  when: ansible_distribution == "Ubuntu" and ansible_lsb.major_release == "12"
+# Ubuntu 16.04 LTS has jdk 8 or 9, but 9 has weirdness with logstash
+- apt: pkg=openjdk-8-jre-headless state=installed
+  when: ansible_distribution == "Ubuntu" and ansible_lsb.major_release == "16"
 
 # Debian Jessie
 - apt: pkg=openjdk-8-jre state=installed
   when: ansible_distribution == "Debian"
 
-- apt: pkg=logstash state=installed
-- apt: pkg=elasticsearch state=installed
-
-# To generate maps of the clientips.
-- apt: pkg=geoip-database state=installed
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - logstash
+    - elasticsearch
+    - kibana
+    - geoip-database # for maps of clientips
+  tags:
+    - packages
 
 - name: Logstash conf.d configurations
   template:
@@ -52,6 +58,7 @@
     mode: 0644
   with_items:
     - nginx
+
 - name: Open the lumberjack port for our machines only
   ufw: proto=tcp port=5000 rule=allow src={{ item }}
   with_items: logstash_server_allow_ips
@@ -64,38 +71,6 @@
 
 - name: Restart Logstash.
   service: name=logstash state=restarted
-
-# Kibana (fixme: use a variable for the Kibana version)
-- name: Download Kibana
-  get_url:
-    url=https://download.elastic.co/kibana/kibana/kibana-4.1.2-linux-x64.tar.gz
-    dest=/opt/kibana-4.1.2-linux-x64.tar.gz
-    mode=0644
-  register: get_kibana
-
-- debug:
-    msg="Kibana4 was downloaded/upgraded."
-  when: get_kibana|changed
-
-- name: Unpack Kibana archive
-  unarchive: src=/opt/kibana-4.1.2-linux-x64.tar.gz dest=/opt copy=no
-  when: get_kibana|changed
-
-- name: Kibana symlink from /opt/kibana-4.1.2-linux-x64 to /opt/kibana
-  file: src=/opt/kibana-4.1.2-linux-x64 dest=/opt/kibana state=link
-
-- name: Kibana old-school init script (NB we do not auto-start for now).
-  template:
-    src: "kibana4"
-    dest: "/etc/init.d/kibana4"
-    mode: 0755
-
-- name: Auto-start Kibana
-  shell: update-rc.d kibana4 defaults 96 9
-
-- name: Restart Kibana if the code base has changed
-  service: name=kibana4 state=restarted
-  when: get_kibana|changed
 
 # Nginx configuration
 - apt: pkg=nginx state=installed
@@ -118,7 +93,7 @@
 
 - htpasswd:
     path=/etc/nginx/htpasswd-kibana.users
-    name=civicrm password={{ kibana_password.stdout }}
+    name=civicrm password="{{ kibana_password.stdout }}"
     owner=root group=www-data mode=0640
 
 - name: Deploy the nginx vhost configuration.
