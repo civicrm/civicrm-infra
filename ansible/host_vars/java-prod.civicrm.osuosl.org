@@ -16,8 +16,7 @@ logstash_forwarder_files:
 backups_exclude_extras:
   - /srv/www/confluence/atlassian-confluence-4.1.3/temp
   - /srv/www/confluence/confluence-home/temp
-  - /srv/www/confluence/confluence-home/index/plugin/usage
-  - /srv/www/confluence/confluence-home/index/didyoumean
+  - /srv/www/confluence/confluence-home/index
   - /srv/www/confluence/confluence-home/plugins-temp
   - /srv/www/confluence/confluence-home/plugins-osgi-cache
   - /srv/www/jira/atlassian-jira/temp
