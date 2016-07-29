@@ -70,6 +70,7 @@ padthai.civicrm.org
 [servers:children]
 apache-servers
 backup-servers
+kvm-servers
 nginx-servers
 test-servers
 unclassified-servers
