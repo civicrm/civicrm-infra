@@ -18,6 +18,8 @@ It helps with starting/stopping/restarting VMs, as well as for accessing the Lin
 Creating a new VM
 -----------------
 
+More documentation on this is available in, for example, ansible/host_vars/padthai.civicrm.org. Short of having good ansible scripts for everything, we should have step by step documentation on how to fully rebuild a server from scratch.
+
 Example:
 
 ```
