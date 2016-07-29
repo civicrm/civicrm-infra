@@ -26,6 +26,8 @@ virt-install --name test-ubu1604-1 --ram 8192 --disk path=/dev/zvol/zpadthai/tes
   --graphics vnc,listen=0.0.0.0 --noautoconsole \
   --location 'http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/'
   --extra-args 'ks=file:/test-ubu1604-1.ks' --initrd-inject=/root/test-ubu1604-1.ks
+
+virsh autostart test-ubu1604-1
 ```
 
 In this case, the /root/test-ubu1604-1.ks file contents is:
@@ -98,3 +100,8 @@ mount /dev/zvol/zpadthai/test-ubu1604-1-part5 /mnt/
 ```
 
 Don't do this while the VM is running! :-)
+
+Known issues
+------------
+
+The IPv6 configuration is kind of weird. OVH uses rather unconventional routing methods (imho). This can be a headache when installing Ubuntu, because the Kickstart option to disable IPv6 during the install does not seem to work. Using the virt-manager console, try to switch to another console, then "ip -6 route del default".
