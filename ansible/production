@@ -18,6 +18,7 @@ manage.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
+svn.civicrm.osuosl.org
 test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-2.civicrm.osuosl.org
 test-ubu1204-3.civicrm.org ansible_ssh_host=130.211.191.179
@@ -42,6 +43,7 @@ biryani.osuosl.org
 www-demo.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
+svn.civicrm.osuosl.org
 training-ubu1604-1.civicrm.org
 
 [test-servers]
@@ -63,6 +65,7 @@ chat.civicrm.org
 [unclassified-servers]
 botdylan.civicrm.org
 manage.civicrm.osuosl.org
+svn.civicrm.osuosl.org
 
 [kvm-servers]
 padthai.civicrm.org
@@ -98,6 +101,5 @@ training-ubu1604-1.civicrm.org
 training-ubu1604-1.civicrm.org
 
 # TODO
-# svn.civicrm.osuosl.org
 # test-master.civicrm.osuosl.org
 # www-cxn-2.civicrm.osuosl.org
