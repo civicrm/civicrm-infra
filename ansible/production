@@ -66,6 +66,7 @@ chat.civicrm.org
 botdylan.civicrm.org
 manage.civicrm.osuosl.org
 svn.civicrm.osuosl.org
+www-cxn-2.civicrm.osuosl.org
 
 [kvm-servers]
 padthai.civicrm.org
@@ -102,4 +103,3 @@ training-ubu1604-1.civicrm.org
 
 # TODO
 # test-master.civicrm.osuosl.org
-# www-cxn-2.civicrm.osuosl.org
