@@ -98,6 +98,12 @@ test-ubu1604-1.civicrm.org
 [php56-servers]
 training-ubu1604-1.civicrm.org
 
+[php53plus-servers]
+test-ubu1204-1.civicrm.osuosl.org
+#test-ubu1204-2.civicrm.osuosl.org
+#test-ubu1204-3.civicrm.org
+test-ubu1204-5.civicrm.org
+
 [buildkit-servers]
 training-ubu1604-1.civicrm.org
 

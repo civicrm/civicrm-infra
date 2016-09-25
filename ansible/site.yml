@@ -74,6 +74,13 @@
   tags:
     - php56
 
+- hosts: php53plus-servers
+  sudo: yes
+  roles:
+    - php53plus
+  tags:
+    - php53plus
+
 - hosts: buildkit-servers
   sudo: yes
   roles:
