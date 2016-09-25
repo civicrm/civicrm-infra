@@ -39,6 +39,13 @@ cd civicrm-infra/ansible/
 ansible-playbook -i production --check -l log.civicrm.osuosl.org ./site.yml
 ```
 
+Run on a specific node with a specific tag
+
+```
+cd civicrm-infra/ansible/
+ansible-playbook -i production --check -l log.civicrm.osuosl.org --tags logstash-servers ./site.yml
+```
+
 Do an actual run (not simulated) on a specific node (you probably never want to run this globally):
 
 ```
