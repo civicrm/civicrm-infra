@@ -38,6 +38,7 @@ log.civicrm.osuosl.org
 [nginx-servers]
 chat.civicrm.org
 log.civicrm.osuosl.org
+test.civicrm.org
 www-prod.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
 
