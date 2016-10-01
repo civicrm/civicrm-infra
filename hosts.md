@@ -70,12 +70,12 @@ Virtual Servers
       <td>Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
     </tr>
     <tr>
-      <td>test-master</td>
+      <td>test</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.147</td>
-      <th>cores=2 ram=3gb root=12gb (updated: 2014-10-27)</th>
-      <td>Jenkins (Master), Apache (for HTTPS), Tomcat (for AJP)</td>
+      <th>cores=2 ram=3gb root=12gb (updated: 2014-10-27) NB: currently on gcloud (test.civicrm.org)</th>
+      <td>Jenkins (Master), Nginx (for HTTPS), Tomcat (for AJP)</td>
     </tr>
     <tr>
       <td>test-ubu1204-1</td>
