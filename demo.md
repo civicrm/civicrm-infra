@@ -1,6 +1,15 @@
 # Demo sites
 
-All demo sites are built with buildkit (https://github.com/civicrm/civicrm-buildkit).  For example, “d44.demo.civicrm.org” is just “civibuild d44 —url d44.demo.civicrm.org”.
+All demo sites are built with buildkit (https://github.com/civicrm/civicrm-buildkit).
+
+For example, “d46.demo.civicrm.org” is build with:
+
+```
+ssh www-demo.civicrm.osuosl.org
+sudo -u webeditor -H bash
+cd /srv/buildkit/
+civibuild d46 --url "http://d46.demo.civicrm.org"
+```
 
 Demo sites are rebuilt nightly. The rebuilds are triggered via https://test.civicrm.org/view/Sites/job/demo.civicrm.org/.
 
