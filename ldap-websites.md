@@ -37,3 +37,8 @@ Parameters are the same as for Confluence (above), except:
 
 * LDAP Permissions > Default group memberships: jira-users.
 * JIRA will warn that some tests failed, but it works anyway.
+
+Disable JIRA account creation:
+
+* Click on the "Gear icon" > System, then click on the "Edit settings" button on the right side of the screen.
+* Change the "Mode" from "public" to "private".
