@@ -10,7 +10,7 @@ This is made possible using the following bits:
 Confluence
 ----------
 
-* Go to Space > Administration, then from the menu click on "user directories".
+* Go to Space > Administration, then from the menu click on "User Directories".
 * Click on "Add directory", select "type = LDAP".
 
 Parameters:
@@ -26,3 +26,19 @@ Parameters:
 * LDAP Authorizations: Default group: confluence-users
 * Schema options: LDAP username RDN: cn
 * Schema options: Password encoding: plaintext
+
+JIRA
+----
+
+* Click on the "Gear icon" > User management, then from the left-hand menu, click on "User Directories".
+* Click on "Add directory", then select "type = LDAP".
+
+Parameters are the same as for Confluence (above), except:
+
+* LDAP Permissions > Default group memberships: jira-users.
+* JIRA will warn that some tests failed, but it works anyway.
+
+Disable JIRA account creation:
+
+* Click on the "Gear icon" > System, then click on the "Edit settings" button on the right side of the screen.
+* Change the "Mode" from "public" to "private".
