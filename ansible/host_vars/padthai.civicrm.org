@@ -6,12 +6,15 @@
 # - test-ubu1604-1.civicrm.org = 192.95.2.131
 # - botdylan.civicrm.org = 192.95.2.132
 # - training-ubu1604-1.civicrm.org = 192.95.2.133
+# - www-test.civicrm.org = 192.95.2.133
 
 # IPv6 allocation for 2607:5300:60:71d0::/64
 # - 2607:5300:60:71d0::1/64 = padthai.civicrm.org
 # - 2607:5300:60:71d0:100::/72 = test-ubu1204-5.civicrm.org
 # - 2607:5300:60:71d0:200::/72 = test-ubu1604-1.civicrm.org  
 # - 2607:5300:60:71d0:300::/72 = botdylan.civicrm.org
+# - 2607:5300:60:71d0:300::/72 = training-ubu1604-1.civicrm.org (not configured)
+# - 2607:5300:60:71d0:500::/72 = www-test.civicrm.org
 
 # ZFS partition setup
 # - created new extended partition on all 3 disks with cfdisk
@@ -21,7 +24,8 @@
 # - created new partitions:
 # - zfs create -V 50G zpadthai/test-ubu1204-3g
 # - zfs create -V 50G zpadthai/test-ubu1604-1
-# - zfs create -V 25G zpadthai/botdylan
+# - zfs create -V 70G zpadthai/training-ubu1604-1
+# - zfs create -V 30G zpadthai/www-test
 
 # New VM creation:
 # test-ubu1205-5:
