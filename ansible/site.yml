@@ -87,3 +87,11 @@
     - buildkit
   tags:
     - buildkit
+
+- hosts: aegir-managed
+  become: yes
+  become_user: root
+  roles:
+    - aegir
+  tags:
+    - aegir

@@ -1,0 +1,49 @@
+# 
+# Install Letsencrypt.sh
+#
+
+- name: LE | Create letsencrypt directory
+  file: path="/var/aegir/config/letsencrypt" state=directory mode=0755 owner=aegir group=aegir
+  tags:
+    - aegir-le
+
+- name: LE | Create letsencrypt.d directory
+  file: path="/var/aegir/config/letsencrypt.d" state=directory mode=0711 owner=aegir group=aegir
+  tags:
+    - aegir-le
+
+- name: LE | Create letsencrypt.d/well-known directory
+  file: path="/var/aegir/config/letsencrypt.d/well-known" state=directory mode=0755 owner=aegir group=aegir
+  tags:
+    - aegir-le
+
+- name: LE | Create letsencrypt.d/well-known/acme-challenge directory
+  file: path="/var/aegir/config/letsencrypt.d/well-known/acme-challenge" state=directory mode=0711 owner=aegir group=aegir
+  tags:
+    - aegir-le
+
+- name: LE | Download letsencrypt.sh
+  become: true
+  become_user: aegir
+  git: repo=https://github.com/lukas2511/dehydrated.git
+       version=v0.3.1
+       dest=/var/aegir/config/letsencrypt/letsencrypt
+       update=yes
+  tags:
+    - aegir-le
+
+- name: LE | Create letsencrypt.sh symlink
+  file: src="/var/aegir/config/letsencrypt/letsencrypt/dehydrated" dest="/var/aegir/config/letsencrypt/letsencrypt.sh" owner=aegir group=aegir state=link
+  tags:
+    - aegir-le
+
+- name: LE | Deploy letsencrypt cli.ini file
+  template: src=var/aegir/config/letsencrypt/config dest=/var/aegir/config/letsencrypt/config owner=aegir group=aegir mode=0444
+  tags:
+    - aegir-le
+
+# - name: LE | Deploy Nginx config file for ACME challenge
+#   template: src=var/aegir/config/server_master/apache/post.d/jvillage-le.conf dest=/var/aegir/config/server_master/apache/post.d/jvillage-le.conf owner=root group=root mode=0644
+#   notify: reload nginx
+#   tags:
+#     - aegir-le

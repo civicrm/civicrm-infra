@@ -1,0 +1,277 @@
+---
+# Installs Aegir3 (http://www.aegirproject.org)
+# Assumes Debian Jessie, with MariaDB, Nginx, php5-fpm
+
+# https://github.com/gaspaio/ansible-devbox/blob/master/roles/mysql/tasks/server.yml
+# Install server using a preseed file to set the root password
+- name: Check for previous MySQL installation
+  shell: "[ -f /root/.my.cnf ]"
+  ignore_errors: True
+  register: mysqlcnf_exists
+  become: true
+  become_user: root
+  tags:
+    - aegir-mysql
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - pwgen
+  tags:
+    - aegir-mysql
+
+- name: mysql | Generate a root password for MySQL
+  shell: pwgen 15 1
+  register: mysql_root_password
+  when: mysqlcnf_exists|failed
+  tags:
+    - aegir-mysql
+
+- name: mysql | Create root .my.cnf
+  template: src=templates/root/my.cnf dest=/root/.my.cnf owner=root group=root mode=0600
+  when: mysqlcnf_exists|failed
+  tags:
+    - aegir-mysql
+
+- name: mysql | Read the mysql root password
+  shell: grep password /root/.my.cnf | cut -f 2 -d '=' | head -1
+  register: mysql_root_password
+  tags:
+    - aegir-mysql
+
+- debug: msg="pass = {{ mysql_root_password }}"
+  tags:
+    - aegir-mysql
+
+- name: Preseed Aegir Debian configurations
+  shell: "{{ item }} | debconf-set-selections"
+  with_items:
+    - echo "mysql-server-5.7 mysql-server/root_password password {{ mysql_root_password }}"
+    - echo "mysql-server-5.7 mysql-server/root_password_again password {{ mysql_root_password }}"
+    - echo "mysql-server-core-5.7 mysql-server/root_password password {{ mysql_root_password }}"
+    - echo "mysql-server-core-5.7 mysql-server/root_password_again password {{ mysql_root_password }}"
+    - echo "debconf aegir/site string {{ inventory_hostname }}"
+    - echo "debconf aegir/db_host string 127.0.0.1"
+    - echo "debconf aegir/db_user string root"
+    - echo "debconf aegir/db_password password `cat /root/.mysql.root`"
+    - echo "debconf aegir/webserver string nginx"
+  tags:
+    - packages
+    - aegir-nginx
+    - aegir-mysql
+
+# "echo debconf aegir/email string $aegir_email | debconf-set-selections"
+# "echo debconf aegir/makefile string $aegir_makefile | debconf-set-selections"
+
+- name: Making sure the drush package is removed (aegir3 installs through composer)
+  apt: pkg=drush state=absent
+
+- apt: update_cache=yes
+  tags:
+    - packages
+
+- apt:
+    name: "{{ item }}"
+    state: present
+    install_recommends: no
+  with_items:
+    - nginx
+  tags:
+    - packages
+    - aegir-nginx
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - pwgen
+    - curl
+    - gettext
+    - php7.0-fpm
+    - php7.0-gd
+    - php7.0-cli
+    - php7.0-curl
+    - php7.0-intl
+    - php7.0-ldap
+    - php7.0-mbstring
+    - php7.0-mcrypt
+    - php7.0-xsl
+    - xauth
+    - xvfb
+    - libxrender1
+    - ttf-mscorefonts-installer
+    - fonts-dejavu-core
+  tags:
+    - packages
+    - aegir-php
+
+# A bit off topic, but too often had the issue where mailname was misconfigured
+- copy: content="{{ inventory_hostname }}" dest=/etc/mailname
+
+- file: path=/etc/mailname owner=root group=root mode=0644
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - mysql-server
+    - mysql-client
+  tags:
+    - packages
+    - aegir
+    - aegir-mysql
+
+- name: Get the Aegir repo key
+  apt_key: url=http://debian.aegirproject.org/key.asc state=present
+  tags:
+    - aegir
+    - aegir-repo
+
+- name: Add the Aegir apt repository
+  apt_repository:
+    repo='deb http://debian.aegirproject.org stable main'
+    state=present
+    update_cache=yes
+  tags:
+    - aegir
+    - aegir-repo
+
+- apt: pkg=aegir3 state=installed
+
+- name: Download provision_symbiotic from Github
+  git: repo=https://github.com/coopsymbiotic/provision_symbiotic.git
+       version=master
+       dest=/var/aegir/.drush/provision_symbiotic
+       update=yes
+  tags:
+    - aegir
+
+- name: Download provision_customhtaccess from Github
+  git: repo=https://github.com/mlutfy/provision_customhtaccess.git
+       version=master
+       dest=/var/aegir/.drush/provision_customhtaccess
+       update=yes
+  tags:
+    - aegir
+
+##
+## Update hosting_civicrm from git
+##
+- name: Get Hostmaster root directory
+  shell: "php -r 'require \"/var/aegir/.drush/hostmaster.alias.drushrc.php\"; echo $aliases[\"hostmaster\"][\"root\"];'"
+  register: hostmaster_root
+  tags:
+    - aegir-hosting-civicrm
+
+# Unless we check if it's already a git repo, in most cases it's static
+# since it has been updated by the aegir3 debian packages.
+- name: hosting_civicrm | Delete the old hosting_civicrm directory
+  file: path="{{ hostmaster_root.stdout }}/profiles/hostmaster/modules/aegir/hosting_civicrm" state=absent
+  become: true
+  become_user: root
+  tags:
+    - aegir-hosting-civicrm
+
+- name: hosting_civicrm | Deploy latest hosting_civicrm from Git
+  git: repo=https://git.drupal.org/project/hosting_civicrm.git
+       version=7.x-3.x
+       dest="{{ hostmaster_root.stdout }}/profiles/hostmaster/modules/aegir/hosting_civicrm"
+       update=yes
+  become: true
+  become_user: aegir
+  tags:
+    - aegir-hosting-civicrm
+
+- name: Flush Hostmaster cache
+  become: true
+  become_user: aegir
+  shell: "drush @hm cc all"
+  tags:
+    - aegir-hosting-civicrm
+
+##
+## Configurations
+##
+- name: Aegir modules | Enable a few extra Aegir modules
+  shell: "drush @hm en hosting_ssl hosting_alias hosting_clone hosting_git hosting_git_pull hosting_tasks_extra hosting_civicrm_cron hosting_civicrm -y"
+  become: true
+  become_user: aegir
+
+- name: Aegir modules | Disable the annoying Drupal overlay
+  shell: "drush @hm dis overlay -y"
+  become: true
+  become_user: aegir
+
+- name: Aegir settings | Enable Aegir queue process
+  shell: "drush @hm vset hosting_feature_queued 1"
+  become: true
+  become_user: aegir
+  tags:
+    - aegir-settings
+
+- name: Aegir settings | Set CiviCRM default cron interval to 15 mins
+  shell: "drush @hm vset hosting_civicrm_cron_default_interval 900"
+  become: true
+  become_user: aegir
+  tags:
+    - aegir-settings
+
+- name: Aegir settings | Misc other settings
+  become: true
+  become_user: aegir
+  shell: "drush @hm vset {{ item.name }} {{ item.value }}"
+  with_items:
+    - { name: 'hosting_feature_git', value: '1' }
+    - { name: 'hosting_feature_git_pull', value: '1' }
+    - { name: 'hosting_feature_http_basic_auth', value: '1' }
+    - { name: 'hosting_feature_migrate', value: '1' }
+    - { name: 'hosting_feature_remote_import', value: '1' }
+    - { name: 'hosting_feature_ssl', value: '1' }
+    - { name: 'hosting_feature_nginx_ssl', value: '1' }
+    - { name: 'hosting_feature_sync', value: '1' }
+    - { name: 'hosting_feature_tasks_extra', value: '1' }
+    - { name: 'hosting_feature_task_gc', value: '1' }
+    - { name: 'hosting_queue_civicrm_cron_enabled', value: '1' }
+    - { name: 'hosting_queue_civicrm_cron_frequency', value: '300' }
+    - { name: 'hosting_queue_civicrm_cron_items', value: '50' }
+  tags:
+    - aegir-settings
+
+- name: Aegir settings | Delete a few settings
+  become: true
+  become_user: aegir
+  shell: "drush @hm vdel {{ item }}"
+  with_items:
+    - update_notify_emails
+
+# TODO
+# - vget hosting_default_web_server, and enable nginx-ssl, then run verify.
+# - enable SSL on the hostmaster site (so that LE can later generate a cert for it)
+
+- name: Restart Aegir hosting queue
+  service: name=hosting-queued state=restarted
+
+- name: Download wkhtmltopdf
+  get_url:
+    url=http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
+    dest=/usr/local/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
+    mode=0644
+  tags:
+    - aegir
+    - aegir-wkhtmltopdf
+
+- unarchive: src=/usr/local/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz dest=/usr/local/ copy=no
+  tags:
+    - aegir
+    - aegir-wkhtmltopdf
+
+- name: Create symlink for wkhtmltopdf
+  file: src=/usr/local/wkhtmltox/bin/wkhtmltopdf dest=/usr/local/bin/wkhtmltopdf state=link
+  tags:
+    - aegir
+    - aegir-wkhtmltopdf
+
+- include: letsencrypt.yml
+- include: settings-php.yml
+- include: settings-mysql.yml
+
+- name: bash | Deploy our .bashrc for the Aegir user.
+  template: src=var/aegir/dot.bashrc dest=/var/aegir/.bashrc owner=aegir group=aegir mode=0644
+
+- name: bash | Deploy our .profile for the Aegir user (required for bashrc to be read).
+  template: src=var/aegir/dot.bashrc dest=/var/aegir/.bashrc owner=aegir group=aegir mode=0644

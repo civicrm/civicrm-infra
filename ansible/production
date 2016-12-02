@@ -30,6 +30,7 @@ test-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.131
 training-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.133
 www-cxn-2.civicrm.osuosl.org
 # www-cxn-1.civicrm.org  # not managed, but www is monitored by icinga
+www-test.civicrm.org
 
 # Servers per-role
 [logstash-servers]
@@ -41,6 +42,7 @@ log.civicrm.osuosl.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
 www-test.civicrm.osuosl.org
+www-test.civicrm.org
 
 [apache-servers]
 biryani.osuosl.org
@@ -93,12 +95,14 @@ padthai.civicrm.org
 test-ubu1604-1.civicrm.org
 test-ubu1204-5.civicrm.org
 training-ubu1604-1.civicrm.org
+www-test.civicrm.org
 
 [icinga-satellite:children]
 servers
 
 [php7-servers]
 test-ubu1604-1.civicrm.org
+# www-test.civicrm.org
 
 [php56-servers]
 training-ubu1604-1.civicrm.org
@@ -111,3 +115,7 @@ test-ubu1204-5.civicrm.org
 
 [buildkit-servers]
 training-ubu1604-1.civicrm.org
+
+[aegir-managed]
+www-prod.civicrm.osuosl.org
+www-test.civicrm.org

@@ -1,0 +1,12 @@
+# FIXME: this should restart php-fpm
+- name: Nginx | Deploy our PHP ini overrides.
+  template:
+    src=etc/php/7.0/mods-available/90-symbiotic.ini
+    dest=/etc/php/7.0/mods-available/90-symbiotic.ini
+    owner=root group=root mode=0644
+  notify: restart nginx
+
+- name: Symlink PHP ini settings for nginx
+  file: src="/etc/php/7.0/mods-available/90-symbiotic.ini" dest="/etc/php/7.0/fpm/conf.d/90-symbiotic.ini"
+        owner=root group=root state=link
+  notify: restart nginx

@@ -1,0 +1,25 @@
+- name: MySQL | Deploy our MySQL configuration overrides
+  template:
+    src=etc/mysql/conf.d/symbiotic.cnf
+    dest=/etc/mysql/conf.d/symbiotic.cnf
+    owner=root group=root mode=0644
+  notify: restart mysql
+  tags:
+    - aegir-mysql
+    - aegir-mariadb
+
+# Apparently the ARCHIVE plugin is enabled by default in MariaDB 10.0, but not 10.1.
+# Required by CiviCRM.
+# - name: MySQL | Check for the ARCHIVE plugin
+#   shell: "echo 'show plugins' | mysql --defaults-file=/etc/mysql/debian.cnf | grep ha_archive.so"
+#   register: mysqld_archive
+#   tags:
+#     - aegir-mysql
+#     - aegir-mariadb
+# 
+# - name: MySQL | Enable the ARCHIVE engine
+#   shell: "echo \"INSTALL PLUGIN archive SONAME 'ha_archive.so'\" | mysql --defaults-file=/etc/mysql/debian.cnf"
+#   when: mysqld_archive.stdout == ""
+#   tags:
+#     - aegir-mysql
+#     - aegir-mariadb
