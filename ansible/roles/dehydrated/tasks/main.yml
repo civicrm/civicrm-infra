@@ -1,0 +1,67 @@
+---
+
+- name: Clone dehydrated repo into configured directory.
+  git:
+    repo: "https://github.com/lukas2511/dehydrated.git"
+    dest: "/usr/local/src/dehydrated"
+    version: "master"
+    update: "yes"
+  tags:
+    - dehydrated
+    - packages
+
+- name: Create executable symlink.
+  file: src="/usr/local/src/dehydrated/dehydrated" dest="/usr/local/bin/dehydrated" owner=root group=root state=link
+  tags:
+    - dehydrated
+
+- name: Create dehydrated etc directory.
+  file: path="/etc/dehydrated" state=directory mode=0755 owner=root group=root
+  tags:
+    - dehydrated
+
+- name: Create dehydrated etc keys directory.
+  file: path="/etc/dehydrated/keys" state=directory mode=0700 owner=root group=root
+  tags:
+    - dehydrated
+
+- name: Deploy dehydrated config file.
+  template: src=etc/dehydrated/config.txt dest=/etc/dehydrated/config.txt owner=root group=root mode=0444
+  tags:
+    - dehydrated
+
+- name: Create dehydrated www directory.
+  file: path="/var/www/dehydrated" state=directory mode=0755 owner=root group=root
+  tags:
+    - dehydrated
+
+- name: Configure dehydrated cron.
+  cron:
+    name="dehydrated"
+    minute="35"
+    hour="9"
+    day="5,25"
+    job="/usr/local/bin/dehydrated -c -f /etc/dehydrated/config.txt -o /etc/dehydrated/keys/ >/dev/null"
+    cron_file="dehydrated"
+    user="root"
+    state=present
+  tags:
+    - dehydrated
+
+- name: Deploy dehydrated hooks.sh script.
+  template: src=etc/dehydrated/hooks.sh dest=/etc/dehydrated/hooks.sh owner=root group=root mode=0755
+  tags:
+    - dehydrated
+
+# TODO nginx?
+
+- name: Deploy dehydrated Apache config file.
+  template: src=etc/apache2/conf-available/dehydrated.conf dest=/etc/apache2/conf-available/dehydrated.conf owner=root group=root mode=0444
+  tags:
+    - dehydrated
+
+- name: Enable Apache dehydrated configuration
+  command: a2enconf dehydrated
+  notify: reload apache2
+  tags:
+    - dehydrated

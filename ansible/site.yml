@@ -95,3 +95,12 @@
     - aegir
   tags:
     - aegir
+
+# Aegir, for example, handles LE/dehydrated already.
+- hosts: dehydrated-manually
+  become: yes
+  become_user: root
+  roles:
+    - dehydrated
+  tags:
+    - dehydrated

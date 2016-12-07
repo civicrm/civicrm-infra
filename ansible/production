@@ -11,6 +11,7 @@ newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28
 backups-1.civicrm.org
 botdylan.civicrm.org
 chat.civicrm.org
+cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42
 log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 java-test.civicrm.osuosl.org
@@ -70,10 +71,11 @@ chat.civicrm.org
 
 [unclassified-servers]
 botdylan.civicrm.org
+cxnapp-2.civicrm.org
 manage.civicrm.osuosl.org
 svn.civicrm.osuosl.org
-www-cxn-2.civicrm.osuosl.org
 test.civicrm.org
+www-cxn-2.civicrm.osuosl.org
 
 [kvm-servers]
 padthai.civicrm.org
@@ -119,3 +121,6 @@ training-ubu1604-1.civicrm.org
 [aegir-managed]
 www-prod.civicrm.osuosl.org
 www-test.civicrm.org
+
+[dehydrated-manually]
+cxnapp-2.civicrm.org
