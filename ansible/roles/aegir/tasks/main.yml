@@ -92,6 +92,7 @@
     - php7.0-ldap
     - php7.0-mbstring
     - php7.0-mcrypt
+    - php7.0-soap
     - php7.0-xsl
     - xauth
     - xvfb
