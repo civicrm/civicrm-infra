@@ -60,5 +60,8 @@ ChallengeResponseAuthentication no
 #KerberosAuthentication no
 #KerberosGetAFSToken no
 
+# Without this, sftp will not work
+Subsystem sftp internal-sftp
+
 # CiviCRM.org infra-specific
-AllowGroups root sudo domainadmin ssh-user osuadmin
+AllowGroups root sudo domainadmin ssh-user osuadmin aegir
