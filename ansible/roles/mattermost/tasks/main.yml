@@ -10,6 +10,7 @@
     - npm
     - python-mysqldb # required for ansible db config
     - python-flask # required by mattermost-github-integration
+    - python-requests # required by mattermost-github-integration
     - pwgen # for lazy password generation
   tags:
     - packages
