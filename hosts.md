@@ -252,3 +252,27 @@ Warranty: Std 3-Yr Warranty + 3-Yr Expanded Warranty, Next Business Day On Site 
     </tr>
   </tbody>
 </table>
+
+IPv6 allocation at OSUOSL
+=========================
+
+For civicrm1 and civicrm2 :
+
+```
+2605:bc80:3010:102:0:3::/96
+
+2605:bc80:3010:102:0:3:0000:0000-
+2605:bc80:3010:102:0:3:ffff:ffff
+
+Meaning that we can assign a /112 per VM, providing 0xffff (65535) IPs per VM:
+
+2605:bc80:3010:102:0:3::/112
+2605:bc80:3010:102:0:3:1::/112 - www-prod.civicrm.osuosl.org
+2605:bc80:3010:102:0:3:2::/112 - java-prod.civicrm.osuosl.org
+2605:bc80:3010:102:0:3:3::/112 - chat.civicrm.osuosl.org
+2605:bc80:3010:102:0:3:4::/112
+[...]
+2605:bc80:3010:0102:0000:0003:ffff::/112
+```
+
+The reverse-DNS is managed by OSUOSL. To change, we need to open a ticket with `support@`.
