@@ -1,0 +1,2 @@
+# {{ ansible_managed }}
+nagios ALL=(root) NOPASSWD: /etc/icinga2/scripts/check_backup -s *

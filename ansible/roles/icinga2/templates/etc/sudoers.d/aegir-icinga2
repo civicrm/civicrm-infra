@@ -1,0 +1,2 @@
+# {{ ansible_managed }}
+nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * cvapi System.check --out=json
