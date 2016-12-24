@@ -10,9 +10,13 @@ user = root
 keep = 30D
 
 include = /etc
+include = /var/aegir
 include = /var/backups
+include = /var/lib/automysqlbackup
 include = /var/www
 include = /srv
+
+exclude = /var/aegir/backups
 
 {% if backups_exclude_extras is defined %}
 # custom excludes from the ansible host_vars
