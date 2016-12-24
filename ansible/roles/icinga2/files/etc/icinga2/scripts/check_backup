@@ -18,7 +18,7 @@
 
 use Getopt::Std;
 
-our $opt_d = "/backup";
+our $opt_d = (-d "/backup" ? "/backup" : "/srv/backups");
 our $opt_c = 48 * 60 * 60;
 our $opt_w = 24 * 60 * 60;
 our $opt_s;
