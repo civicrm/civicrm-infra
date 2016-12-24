@@ -10,18 +10,21 @@
 
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
-    - backupninja
+    - automysqlbackup
     - rdiff-backup
   tags:
     - packages
 
-- name: Backupninja | do not report success
-  replace: dest=/etc/backupninja.conf regexp='^reportsuccess = yes' replace='reportsuccess = no'
+# - name: Backupninja | do not report success
+#   replace: dest=/etc/backupninja.conf regexp='^reportsuccess = yes' replace='reportsuccess = no'
 
 # Deploy backupninja rdiff config to onsite backup-server
 - name: Backupninja | deploy rdiff hourly backup template
   template: src=etc/backup.d/90-hostname.rdiff dest="/etc/backup.d/{{ inventory_hostname }}.rdiff" mode=0600
   delegate_to: "{{ backupserver_hourly }}"
+  tags:
+    - backup-client
+    - backup-client-configuration
 
 - name: Backupninja | ensure that the backup directory exists
   file: path="/srv/backups/{{ inventory_hostname }}" state=directory owner=root group=root mode=0700
@@ -30,6 +33,9 @@
 - name: Backupninja | deploy mysql backup template
   template: src=etc/backup.d/20.mysql dest="/etc/backup.d/20.mysql" mode=0600
   when: backups_mysqldump
+  tags:
+    - backup-client
+    - backup-client-configuration
 
 # TODO: if no key exists, create one.
 
