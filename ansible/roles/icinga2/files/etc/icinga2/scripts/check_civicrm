@@ -1,0 +1,69 @@
+#!/usr/bin/php
+<?php
+
+$host = trim($argv[1]);
+$cms = trim($argv[2]);
+
+if (empty($host)) {
+  echo 'Missing host argument.';
+  exit(3);
+}
+
+$tmp = '';
+
+if ($cms == 'drupal') {
+  exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cvapi System.check --out=json', $tmp);
+}
+else {
+  echo 'Unsupported CMS: ' . $cms;
+  exit(3);
+}
+
+if ($tmp) {
+  $civistatus = json_decode($tmp[0]);
+
+  $check_status = 0;
+  $check_descriptions = array();
+
+  if (empty($civistatus)) {
+    echo 'Failed to check status.';
+    exit(3);
+  }
+
+  if ($civistatus->is_error) {
+    echo 'API call failed: ' . $civistatus->error_message;
+    exit(3);
+  }
+
+  foreach ($civistatus->values as $key => $val) {
+    // Issue was acknowledged (hidden from the Status Check UI).
+    if (!$val->is_visible) {
+      continue;
+    }
+
+    if (in_array($val->severity, ['warning', 'error', 'critical'])) {
+      // We don't want to downgrade an 'error' status to 'warning'.
+      if ($check_status == 0) {
+        $check_status = 1;
+      }
+
+      $check_descriptions[] = $val->title;
+    }
+    elseif ($val->severity == 'error' || $val->severity == 'critical') {
+      $check_status = 2;
+      $check_descriptions[] = $val->title;
+    }
+  }
+
+  if ($check_status == 0) {
+    echo 'OK';
+    exit(0);
+  }
+  else {
+    echo implode(' ', $check_descriptions);
+    exit($check_status);
+  }
+}
+
+echo 'Failed to check status.';
+exit(3);

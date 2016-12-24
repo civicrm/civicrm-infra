@@ -73,7 +73,6 @@
   file: src={{ item.path }} dest={{ item.dest }} owner=root group=root state=link
   with_items:
     - { path: '/usr/share/icingaweb2/modules/doc', dest: '/var/lib/icingaweb2/modules/doc' }
-    - { path: '/usr/share/icingaweb2/modules/iframe', dest: '/var/lib/icingaweb2/modules/iframe' }
     - { path: '/usr/share/icingaweb2/modules/monitoring', dest: '/var/lib/icingaweb2/modules/monitoring' }
     - { path: '/usr/share/icingaweb2/modules/setup', dest: '/var/lib/icingaweb2/modules/setup' }
 

@@ -81,16 +81,44 @@
 
 # This script is from nagios-plugins-contrib
 # but that package pulls in too many dependancies.
-- file: path=/etc/icinga2/conf.d/services state=directory owner=root group=nagios mode=0775
-- file: path=/etc/icinga2/scripts state=directory owner=root group=nagios mode=0775
+- file: path="{{ item }}" state=directory owner=root group=nagios mode=0755
+  with_items:
+    - /etc/icinga2/conf.d/services
+    - /etc/icinga2/conf.d/commands
+    - /etc/icinga2/scripts
+  tags:
+    - icinga2-custom-checks
 
-- name: Deploy check_mem script
-  copy: src=etc/icinga2/scripts/check_memory dest=/etc/icinga2/scripts/check_memory owner=root group=root mode=0755
+- name: Deploy custom checks scripts
+  copy: src="etc/icinga2/scripts/{{ item }}" dest="/etc/icinga2/scripts/{{ item }}" owner=root group=root mode=0755
+  with_items:
+    - check_backup
+    - check_civicrm
+    - check_memory
   notify: restart icinga2
+  tags:
+    - icinga2-custom-checks
 
-- name: Deploy check_mem script configuration
-  copy: src=etc/icinga2/conf.d/services/mem.conf dest=/etc/icinga2/conf.d/services/mem.conf owner=root group=root mode=0644
+- name: Deploy custom checks script configurations
+  copy: src="etc/icinga2/conf.d/commands/{{ item }}.conf" dest="/etc/icinga2/conf.d/commands/{{ item }}.conf" owner=root group=root mode=0644
+  with_items:
+    - backup
+    - civicrm
+    - mem
   notify: restart icinga2
+  tags:
+    - icinga2-custom-checks
+
+- template: src="etc/sudoers.d/{{ item }}" dest="/etc/sudoers.d/{{ item }}" owner=root group=root mode=0644
+  with_items:
+    - aegir-icinga2
+    - backup-icinga2
+  tags:
+    - icinga2-custom-checks
+
+# Remove old location for those configurations
+- file: path=/etc/icinga2/conf.d/services/civicrm.conf state=absent
+- file: path=/etc/icinga2/conf.d/services/mem.conf state=absent
 
 - lineinfile: dest=/etc/icinga2/icinga2.conf line="include_recursive \"conf.d\""
   notify: restart icinga2
