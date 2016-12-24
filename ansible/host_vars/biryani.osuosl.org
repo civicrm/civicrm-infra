@@ -1,8 +1,9 @@
 sslcertificates:
     - wildcard.civicrm.org
 
-backups_onsite_frequency: "daily"
 backups_mysqldump: true
+backups_onsite_frequency:
+    - "daily"
 
 backups_include_extras:
     - /home/releaser/www-data-gpg

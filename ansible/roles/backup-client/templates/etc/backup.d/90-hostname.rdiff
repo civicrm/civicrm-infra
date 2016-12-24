@@ -1,7 +1,9 @@
 #
 # {{ ansible_managed }}
 #
-when = {{ backups_onsite_frequency }}
+{%for item in backups_onsite_frequency %}
+when = {{ item }}
+{% endfor %}
 
 [source]
 type = remote

@@ -1,3 +1,5 @@
 ---
-backups_onsite_frequency: "hourly"
 backups_mysqldump: false
+backups_onsite_frequency:
+  - "everyday at 9"
+  - "everyday at 21"
