@@ -44,4 +44,8 @@
     - php5.6-zip
     - php5.6-bcmath
     - apache2
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
     - libapache2-mod-php5.6
+  when: ("'apache-servers' in group_names")
