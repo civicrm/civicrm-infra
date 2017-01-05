@@ -6,7 +6,7 @@
 # - test-ubu1604-1.civicrm.org = 192.95.2.131
 # - botdylan.civicrm.org = 192.95.2.132
 # - training-ubu1604-1.civicrm.org = 192.95.2.133
-# - www-test.civicrm.org = 192.95.2.133
+# - www-test.civicrm.org = 192.95.2.134
 
 # IPv6 allocation for 2607:5300:60:71d0::/64
 # - 2607:5300:60:71d0::1/64 = padthai.civicrm.org
