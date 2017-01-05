@@ -33,10 +33,15 @@ ufw_extra:
     description: "For https cert testing, part of the test suite, see INFRA-225."
 
 backups_exclude_extras:
-  - /var/www/civicrm-website-org/drupal/sites/default/files/civicrm/ConfigAndLog/*
-  - /var/www/civicrm-website-org/drupal/sites/default/files/civicrm/templates_c/*
-  - /var/www/civicrm-website-org/drupal/sites/default/files/js
-  - /var/www/civicrm-website-org/drupal/sites/default/files/css
-  - /var/www/civicrm-website-org/drupal/sites/default/files/styles
+  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/ConfigAndLog/*
+  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/templates_c/*
+  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/js
+  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/css
+  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/styles
+  - /var/www/civicrm-website-org-DEPRECATED_MOVED_TO_AEGIR
+  - /var/www/civicrm-ac/var/cache
+  - /var/www/civicrm-docs/var/cache
+  - /var/www/civicrm-docs/var/repos
+  - /var/www/civicrm-docs/var/sessions
 
 backups_mysqldump: true
