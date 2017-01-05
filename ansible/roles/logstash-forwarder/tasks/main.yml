@@ -1,20 +1,20 @@
 ---
-- apt_key:
-    url=https://packages.elasticsearch.org/GPG-KEY-elasticsearch
-    state=present
-
-- apt_repository:
-    repo='deb http://packages.elasticsearch.org/logstashforwarder/debian stable main'
-    state=present
-    update_cache=yes
-
-- apt: pkg=logstash-forwarder state=installed
-
-- name: Deploy the logstash-forwarder configuration.
-  template:
-    src: "logstash-forwarder.conf"
-    dest: "/etc/logstash-forwarder.conf"
-    owner: "root"
-    group: "root"
-    mode: 0644
-  notify: restart logstash-forwarder
+# - apt_key:
+#     url=https://packages.elasticsearch.org/GPG-KEY-elasticsearch
+#     state=present
+#
+# - apt_repository:
+#     repo='deb http://packages.elasticsearch.org/logstashforwarder/debian stable main'
+#     state=present
+#     update_cache=yes
+#
+# - apt: pkg=logstash-forwarder state=installed
+#
+# - name: Deploy the logstash-forwarder configuration.
+#   template:
+#     src: "logstash-forwarder.conf"
+#     dest: "/etc/logstash-forwarder.conf"
+#     owner: "root"
+#     group: "root"
+#     mode: 0644
+#   notify: restart logstash-forwarder
