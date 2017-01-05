@@ -40,5 +40,6 @@ Parameters are the same as for Confluence (above), except:
 
 Disable JIRA account creation:
 
-* Click on the "Gear icon" > System, then click on the "Edit settings" button on the right side of the screen.
-* Change the "Mode" from "public" to "private".
+* <strike>Click on the "Gear icon" > System, then click on the "Edit settings" button on the right side of the screen.</strike>
+* <strike>Change the "Mode" from "public" to "private".</strike>
+* Since JIRA doesn't make it easy to customize the instructions on how to create an account (when account creation is disabled), we have an Apache redirection to the account creation page on civicrm.org (`RewriteRule ^/jira/secure/Signup.*jspa$ https://civicrm.org/user/register [NE,L,R=302]`).
