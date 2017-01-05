@@ -1,0 +1,10 @@
+---
+
+# Restart Icinga. Sometimes the satellites do not reconnect after a network outage.
+# To use it: $ ansible-playbook ./hacks/restart_icinga.yml 
+
+- hosts: all
+  tasks:
+    - service: name=icinga2 state=restarted
+  become: true
+  become_user: root
