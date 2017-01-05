@@ -18,12 +18,15 @@
     - packages
   when: ansible_distribution == "Ubuntu"
 
-# Satellites do not need a Salt. It's the private key for CSR auto-signing.
-# - name: Make sure we have a TicketSalt in constants.conf
-#   replace: dest=/etc/icinga2/constants.conf regexp='const TicketSalt = ""' replace='const TicketSalt = "{{ icinga2_ticket_salt }}"'
-
-# REFERENCE:
-# http://docs.icinga.org/icinga2/latest/doc/module/icinga2/chapter/icinga2-client#icinga2-client-installation-client-setup-linux-manual
+- name: Deploy icinga2 basic configuration files
+  template: src="etc/icinga2/{{ item }}" dest="/etc/icinga2/{{ item }}" owner=root group=root mode=0644
+  with_items:
+    - constants.conf
+    - icinga2.conf
+  notify: restart icinga2
+  tags:
+    - icinga2
+    - icinga2-base-configs
 
 - file: path=/etc/icinga2/pki state=directory owner=root group=nagios mode=0770
 

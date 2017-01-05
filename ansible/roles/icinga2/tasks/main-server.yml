@@ -19,8 +19,18 @@
   tags:
     - packages
 
-- name: Make sure we have a TicketSalt in constants.conf
-  replace: dest=/etc/icinga2/constants.conf regexp='const TicketSalt = ""' replace='const TicketSalt = "{{ icinga2_ticket_salt }}"'
+- name: Deploy icinga2 basic configuration files
+  template:
+    src="{{ item }}"
+    dest="/{{ item }}"
+    owner=root group=root mode=0640
+  with_items:
+    - etc/icinga2/constant.conf
+    - etc/icinga2/icinga2.conf
+  notify: restart icinga2
+  tags:
+    - icinga2
+    - icinga2-base-configs
 
 - name: Enable command feature for icingaweb2
   file: src=/etc/icinga2/features-available/command.conf dest=/etc/icinga2/features-enabled/command.conf state=link
@@ -41,6 +51,9 @@
 - name: Open the Icinga2 port for our machines only (used for ssl and node communication)
   ufw: proto=tcp port=5665 rule=allow src={{ item }}
   with_items: icinga2_allow_ips
+  tags:
+    - icinga2
+    - icinga2-ufw
 
 # TODO : run pki new-ca ?
 

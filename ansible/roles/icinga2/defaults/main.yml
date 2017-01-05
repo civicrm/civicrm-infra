@@ -1,5 +1,10 @@
 ---
 icinga2_main_node: icinga.example.org
 
+# generate a long random string and store it in
+# host_vars/[icinga-server]
+# we don't want nodes to have the salt, only the server.
+icinga2_secret_ticketsalt: ""
+
 icinga2_allow_ips:
     - 192.168.1.0/24
