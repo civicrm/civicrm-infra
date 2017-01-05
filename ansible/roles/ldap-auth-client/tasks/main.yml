@@ -8,6 +8,7 @@
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - unscd
+    - ldap-auth-client
     - libnss-ldap
     - nss-updatedb
 
