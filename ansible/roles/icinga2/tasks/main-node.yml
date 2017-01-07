@@ -112,7 +112,7 @@
   tags:
     - icinga2-custom-checks
 
-- template: src="etc/sudoers.d/{{ item }}" dest="/etc/sudoers.d/{{ item }}" owner=root group=root mode=0644
+- template: src="etc/sudoers.d/{{ item }}" dest="/etc/sudoers.d/{{ item }}" owner=root group=root mode=0440
   with_items:
     - aegir-icinga2
     - backup-icinga2
@@ -122,6 +122,3 @@
 # Remove old location for those configurations
 - file: path=/etc/icinga2/conf.d/services/civicrm.conf state=absent
 - file: path=/etc/icinga2/conf.d/services/mem.conf state=absent
-
-- lineinfile: dest=/etc/icinga2/icinga2.conf line="include_recursive \"conf.d\""
-  notify: restart icinga2
