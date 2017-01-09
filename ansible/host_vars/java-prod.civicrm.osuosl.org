@@ -23,3 +23,11 @@ backups_exclude_extras:
   - /srv/www/jira/jira-home/tmp
 
 backups_mysqldump: true
+
+ufw_extra:
+  wikiredirect:
+    proto: tcp
+    port: 8090
+    src: 0.0.0.0/0
+    rule: allow
+    description: "This port redirects people from 8099 to 443, URLs were mistakenly indexed URLs by Google"
