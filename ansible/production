@@ -17,7 +17,6 @@ java-prod.civicrm.osuosl.org
 manage.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
-www-test.civicrm.osuosl.org
 svn.civicrm.osuosl.org
 test.civicrm.org
 test-ubu1204-1.civicrm.osuosl.org
@@ -41,14 +40,12 @@ chat.civicrm.org
 log.civicrm.osuosl.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
-www-test.civicrm.osuosl.org
 www-test.civicrm.org
 
 [apache-servers]
 biryani.osuosl.org
 www-demo.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
-java-test.civicrm.osuosl.org
 svn.civicrm.osuosl.org
 training-ubu1604-1.civicrm.org
 
