@@ -14,7 +14,6 @@ chat.civicrm.org
 cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42
 log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
-java-test.civicrm.osuosl.org
 manage.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
@@ -28,7 +27,7 @@ test-ubu1204-3.civicrm.org ansible_ssh_host=130.211.191.179
 # test-ubu1210-1.civicrm.osuosl.org
 test-ubu1204-5.civicrm.org ansible_ssh_host=192.95.2.130
 test-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.131
-training-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.133
+# training-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.133
 www-cxn-2.civicrm.osuosl.org
 # www-cxn-1.civicrm.org  # not managed, but www is monitored by icinga
 www-test.civicrm.org
