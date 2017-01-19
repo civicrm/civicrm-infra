@@ -1,0 +1,3 @@
+[submodule "ansible/roles/unattended-upgrades"]
+	path = ansible/roles/unattended-upgrades
+	url = https://github.com/jnv/ansible-role-unattended-upgrades.git

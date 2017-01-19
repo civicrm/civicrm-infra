@@ -18,7 +18,7 @@ Recommended: install Ansible 1.9 or higher. These playbooks are developed on Ans
 Get a copy of this playbook:
 
 ```
-git clone git@github.com:civicrm/civicrm-infra.git
+git clone --recursive git@github.com:civicrm/civicrm-infra.git
 ```
 
 Get the private files for the CiviCRM infra. The files are in /etc/ansible/ of manage.c.o.o.

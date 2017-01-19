@@ -8,6 +8,12 @@ icinga2_main_node: icinga.bidon.ca
 backupserver_hourly: civicrm-sushi-spare.osuosl.org
 backupserver_daily: backups-1.civicrm.org
 
+unattended_origins_patterns:
+  - o=${distro_id},n=${distro_codename}
+  - o=${distro_id},n=${distro_codename}-updates
+  - o=${distro_id},n=${distro_codename}-proposed-updates
+  - o=${distro_id},n=${distro_codename},l=${distro_id}-Security
+
 ufw_munin_allow_src:
   - 162.13.43.63/32
   - 192.171.60.60/32
