@@ -8,11 +8,14 @@ icinga2_main_node: icinga.bidon.ca
 backupserver_hourly: civicrm-sushi-spare.osuosl.org
 backupserver_daily: backups-1.civicrm.org
 
+unattended_mail_only_on_error: true
 unattended_origins_patterns:
   - o=${distro_id},n=${distro_codename}
   - o=${distro_id},n=${distro_codename}-updates
   - o=${distro_id},n=${distro_codename}-proposed-updates
   - o=${distro_id},n=${distro_codename},l=${distro_id}-Security
+  - o=MariaDB,l=MariaDB
+  - o=debmon.org,l=debmon.org
 
 ufw_munin_allow_src:
   - 162.13.43.63/32
