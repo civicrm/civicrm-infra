@@ -8,5 +8,8 @@
 - hosts: all
   sudo: yes
   tasks:
+    - name: Ensure that aptitude is installed
+      apt: package=aptitude state=installed
+
     - name: Run apt-get upgrade
       apt: upgrade=full
