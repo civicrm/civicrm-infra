@@ -9,45 +9,26 @@ quality-assurance, etc.  More information, see http://jenkins-ci.org/ .
 
 ### If Jenkins is not responding
 
-Restart Tomcat on test.civicrm.org:
+Jenkins runs behind nginx:
 
-    sudo service tomcat6 restart
+    sudo systemctl status jenkins
+    sudo systemctl restart jenkins
 
-It will take a few minutes to start. You may at first see a 503 "service not available", then eventually Jenkins will show that it is in the process of starting.
+Jenkins takes a minute to fully start. It will display a "please while while Jenkins is starting" type of message during that time.
 
 # Setup master node
 
-### Install Tomcat with Jenkins
+### Install Jenkins
 
-(Note: I was unable to get the Jenkins Debian package to work with HTTPS
-under Ubuntu 12.04 -- even with various configurations of
-/etc/default/jenkins, mod_jk, and mod_proxy_ajp.)
+We are using the Debian packages maintained by Jenkins. c.f. /etc/apt/sources.list.d/jenkins.list
 
 ```
-apt-get install tomcat6 libapache2-mod-jk
-cd /var/lib/tomcat6/webapps/
-service tomcat6 stop
-
-mkdir -p /var/backups/jenkins
-mv ROOT /var/backups/jenkins/ROOT.orig
-wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war -O ROOT.war
-
-mkdir /var/lib/jenkins
-chown tomcat6.tomcat6 /var/lib/jenkins
-echo export JENKINS_HOME=/var/lib/jenkins >> /etc/default/tomcat6
-
-vi /etc/tomcat6/server.xml
-## Enable the AJP connector
-
-vi /etc/libapache2-mod-jk/workers.properties
-## Set tomcat_home and java_home
-
-## In /etc/apache2, setup an Apache VHost as appropriate. Include "JkMount /* ajp13_worker"
-
-service tomcat6 start
+deb http://pkg.jenkins.io/debian-stable binary/
 ```
 
-See also: https://wiki.jenkins-ci.org/display/JENKINS/Tomcat
+Jenkins defaults to port 8080 and nginx proxies https connections (c.f. /etc/nginx/sites-enabled/test.civicrm.org).
+
+In the past (before 2017-01-24), Jenkins used to run using tomcat. More information about that is available in previous git versions of this document.
 
 ### Configure authentication / authorization
 
