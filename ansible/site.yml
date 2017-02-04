@@ -89,6 +89,13 @@
   tags:
     - buildkit
 
+- hosts: mkdocs-servers
+  sudo: yes
+  roles:
+    - mkdocs
+  tags:
+    - mkdocs
+
 - hosts: aegir-managed
   become: yes
   become_user: root

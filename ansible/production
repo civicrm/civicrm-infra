@@ -114,6 +114,9 @@ test-ubu1204-5.civicrm.org
 [buildkit-servers]
 training-ubu1604-1.civicrm.org
 
+[mkdocs-servers]
+www-prod.civicrm.osuosl.org
+
 [aegir-managed]
 www-prod.civicrm.osuosl.org
 www-test.civicrm.org
