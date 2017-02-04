@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+#
+# Provides sudo access to test and reload the nginx configuration
+# once the mkdocs have been rebuilt (which may include new redirects).
+#
+docs ALL=NOPASSWD: /bin/systemctl reload nginx

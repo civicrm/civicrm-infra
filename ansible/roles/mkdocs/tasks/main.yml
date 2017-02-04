@@ -1,0 +1,7 @@
+---
+
+- name: sudo | Allow mkdocs to reload the web server
+  template: src=etc/sudoers.d/civicrmorg-mkdocs dest=/etc/sudoers.d/civicrmorg-mkdocs owner=root group=root mode=0440
+  tags:
+    - mkdocs
+    - mkdocs-sudoers
