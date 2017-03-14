@@ -1,0 +1,21 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description=Jira
+After=network.target
+
+[Service]
+User=jira
+Environment="HOME=/srv/www/jira"
+Environment="JIRA_HOME=/srv/www/jira/jira-home"
+WorkingDirectory=/srv/www/jira
+Type=forking
+
+PIDFile=/srv/www/jira/atlassian-jira/work/catalina.pid
+ExecStart=/srv/www/jira/atlassian-jira/bin/startup.sh
+ExecStop=/srv/www/jira/atlassian-jira/bin/shutdown.sh
+Restart=always
+RestartSec=180
+
+[Install]
+WantedBy=multi-user.target

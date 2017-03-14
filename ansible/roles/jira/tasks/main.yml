@@ -1,0 +1,30 @@
+---
+
+- name: Get Java pseudo repo
+  apt_repository:
+    repo="ppa:webupd8team/java"
+    update_cache=yes 
+    state=present
+  tags:
+    - packages
+
+# https://confluence.atlassian.com/adminjiraserver073/supported-platforms-861253018.html
+# [ML] I haven't really tested this, since I ran it manually
+# and it forced me to accept a EULA, so not sure if it'll work with Ansible.
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - oracle-java8-installer
+  tags:
+    - packages
+    - packages-java
+
+- name: Fix permissions on a few directories
+  file: path="{{ item }}" state=directory owner=jira group=jira mode=0750
+  with_items:
+    - /srv/www/jira/atlassian-jira/logs
+    - /srv/www/jira/atlassian-jira/temp
+    - /srv/www/jira/atlassian-jira/work
+  tags:
+    - jira-permissions
+
+# TODO: deploy the systemd unit file.
