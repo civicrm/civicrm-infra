@@ -21,6 +21,7 @@
 - name: Fix permissions on a few directories
   file: path="{{ item }}" state=directory owner=jira group=jira mode=0750
   with_items:
+    - /srv/www/jira/jira-home/caches/
     - /srv/www/jira/atlassian-jira/logs
     - /srv/www/jira/atlassian-jira/temp
     - /srv/www/jira/atlassian-jira/work
