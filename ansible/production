@@ -12,6 +12,7 @@ backups-1.civicrm.org
 botdylan.civicrm.org
 chat.civicrm.org
 cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42
+lab.civicrm.org
 log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 manage.civicrm.osuosl.org
@@ -68,6 +69,7 @@ chat.civicrm.org
 [unclassified-servers]
 botdylan.civicrm.org
 cxnapp-2.civicrm.org
+lab.civicrm.org
 manage.civicrm.osuosl.org
 svn.civicrm.osuosl.org
 test.civicrm.org
@@ -85,10 +87,11 @@ test-servers
 unclassified-servers
 
 [ldap-managed]
+backups-1.civicrm.org
 botdylan.civicrm.org
 chat.civicrm.org
+lab.civicrm.org
 newsushi.civicrm.osuosl.org
-backups-1.civicrm.org
 padthai.civicrm.org
 test-ubu1604-1.civicrm.org
 test-ubu1204-5.civicrm.org
@@ -117,9 +120,16 @@ training-ubu1604-1.civicrm.org
 [mkdocs-servers]
 www-prod.civicrm.osuosl.org
 
+[jira-servers]
+java-prod.civicrm.osuosl.org
+
+[gitlab-servers]
+lab.civicrm.org
+
 [aegir-managed]
 www-prod.civicrm.osuosl.org
 www-test.civicrm.org
 
 [dehydrated-manually]
 cxnapp-2.civicrm.org
+lab.civicrm.org
