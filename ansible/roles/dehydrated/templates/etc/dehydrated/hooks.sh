@@ -6,14 +6,33 @@
 # and https://github.com/lukas2511/dehydrated/blob/master/docs/examples/hook.sh
 
 deploy_cert() {
+    local DOMAIN="${1}" KEYFILE="${2}" CERTFILE="${3}" FULLCHAINFILE="${4}" CHAINFILE="${5}" TIMESTAMP="${6}"
+
     if [ -x /usr/sbin/apache2ctl ]; then
-      echo " + Hook: Restarting Apache..."
+      echo " + Hook: Reloading Apache configuration..."
       service apache2 reload
+    elif [ -x /usr/sbin/apachectl ]; then
+      # for Plesk (qct)
+      cat /etc/dehydrated/keys/${DOMAIN}/privkey.pem /etc/dehydrated/keys/${DOMAIN}/fullchain.pem > /etc/dehydrated/keys/${DOMAIN}/privkey-and-fullchain.pem
+
+      echo " + Hook: Reloading Apache configuration..."
+      apachectl graceful
     fi
 
     if [ -x /usr/sbin/nginx ]; then
-      echo " + Hook: Restarting Nginx..."
+      echo " + Hook: Reloading Nginx configuration..."
       service nginx reload
+    fi
+
+    if [ -x /usr/sbin/postfix ]; then
+      echo " + Hook: Reloading Postfix configuration..."
+      service postfix reload
+    fi
+
+    if [ -x /usr/bin/doveadm ]; then
+      echo " + Hook: Reloading Dovecot configuration..."
+      # Service has no reload
+      /usr/bin/doveadm reload
     fi
 }
 
@@ -50,6 +69,18 @@ clean_challenge() {
     # files or DNS records that are no longer needed.
     #
     # The parameters are the same as for deploy_challenge.
+}
+
+exit_hook() {
+    echo " + Hook: exit... see you in 60 days!"
+}
+
+invalid_challenge() {
+    echo " + Hook: Challenge is invalid..."
+}
+
+request_failure() {
+    echo " + Hook: Request failed."
 }
 
 HANDLER="$1"; shift

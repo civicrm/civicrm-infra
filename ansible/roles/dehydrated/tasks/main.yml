@@ -1,5 +1,12 @@
 ---
 
+- apt: pkg="{{ item }}" state=installed
+  with_items:
+    - curl
+    - git
+  tags:
+    - packages
+
 - name: Clone dehydrated repo into configured directory.
   git:
     repo: "https://github.com/lukas2511/dehydrated.git"
@@ -30,6 +37,11 @@
   tags:
     - dehydrated
 
+- name: Create www directory.
+  file: path="/var/www" state=directory mode=0755 owner=root group=root
+  tags:
+    - dehydrated
+
 - name: Create dehydrated www directory.
   file: path="/var/www/dehydrated" state=directory mode=0755 owner=root group=root
   tags:
@@ -55,13 +67,47 @@
 
 # TODO nginx?
 
-- name: Deploy dehydrated Apache config file.
+- name: Test this is Apache 2.4 on Debian
+  stat: path=/etc/apache2/conf-available/
+  register: apache24debian
+
+- name: Deploy dehydrated Apache 2.4 config file.
   template: src=etc/apache2/conf-available/dehydrated.conf dest=/etc/apache2/conf-available/dehydrated.conf owner=root group=root mode=0444
+  when: apache24debian.stat.exists
   tags:
     - dehydrated
 
 - name: Enable Apache dehydrated configuration
   command: a2enconf dehydrated
   notify: reload apache2
+  when: apache24debian.stat.exists
   tags:
     - dehydrated
+
+- name: Test this is Apache 2.2 on Debian
+  stat: path=/etc/apache2/conf.d/
+  register: apache22debian
+
+- name: Deploy dehydrated Apache 2.2 config file for Debian.
+  template: src=etc/apache2/conf-available/dehydrated.conf dest=/etc/apache2/conf.d/dehydrated.conf owner=root group=root mode=0444
+  when: apache22debian.stat.exists
+  tags:
+    - dehydrated
+
+- name: Test this is Apache 2.2 on CentOS
+  stat: path=/etc/httpd/conf.d
+  register: apache22centos
+
+- name: Deploy dehydrated Apache 2.2 config file for CentOS.
+  template: src=etc/apache2/conf-available/dehydrated.conf dest=/etc/httpd/conf.d/dehydrated.conf owner=root group=root mode=0444
+  when: apache22centos.stat.exists
+  tags:
+    - dehydrated
+
+- name: Accept the Letsencrypt TOS
+  shell: dehydrated --register --accept-terms -f /etc/dehydrated/config.txt
+  args:
+    creates: /etc/dehydrated/accounts/
+  tags:
+    - dehydrated
+    - dehydrated-tos
