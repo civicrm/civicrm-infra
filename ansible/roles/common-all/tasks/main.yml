@@ -43,25 +43,25 @@
 
 - name: Allow access to munin-node from munin servers
   ufw: proto=tcp port=4949 rule=allow src={{ item }}
-  with_items: ufw_munin_allow_src
+  with_items: "{{ ufw_munin_allow_src }}"
   tags:
     - ufw
 
 - name: Allow access to NRPE from nagios servers
   ufw: proto=tcp port=5666 rule=allow src={{ item }}
-  with_items: ufw_nrpe_allow_src
+  with_items: "{{ ufw_nrpe_allow_src }}"
   tags:
     - ufw
 
 - name: Allow access to icinga2 satellite daemon from main servers
   ufw: proto=tcp port=5665 rule=allow src={{ item }}
-  with_items: ufw_icinga2_allow_src
+  with_items: "{{ ufw_icinga2_allow_src }}"
   tags:
     - ufw
 
 # see https://github.com/ansible/ansible/issues/10047 for why the weird default.
 - ufw: proto={{ item.value.proto }} port={{ item.value.port }} src={{ item.value.src }} rule={{ item.value.rule }}
-  with_dict: ufw_extra | default({})
+  with_dict: "{{ ufw_extra | default({}) }}"
   tags:
     - ufw
 
