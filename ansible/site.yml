@@ -96,6 +96,20 @@
   tags:
     - mkdocs
 
+- hosts: jira-servers
+  sudo: yes
+  roles:
+    - jira
+  tags:
+    - jira
+
+- hosts: gitlab-servers
+  sudo: yes
+  roles:
+    - gitlab
+  tags:
+    - gitlab
+
 - hosts: aegir-managed
   become: yes
   become_user: root
