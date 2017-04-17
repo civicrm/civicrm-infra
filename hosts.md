@@ -7,7 +7,8 @@ Virtual Servers
       <th>Host</th>
       <th>Domain</th>
       <th>OS</th>
-      <th>IP</th>
+      <th>IPv4</th>
+      <th>IPv6</th>
       <th>Resources</th>
       <th>Comments</th>
     </tr>
@@ -18,6 +19,7 @@ Virtual Servers
       <td>civicrm.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.153</td>
+      <td>2605:bc80:3010:102:0:3:3:0</td>
       <th>cores=2 ram=2gb root=20gb (updated: 2016-04-23)</th>
       <td>Mattermost, Nginx</td>
     </tr>
@@ -26,6 +28,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.141</td>
+      <td>2605:bc80:3010:102:0:3:2:0</th>
       <th>cores=2 ram=6gb root=25gb (updated: 2016-05-24)</th>
       <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
@@ -34,6 +37,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
       <td>140.211.167.143</td>
+      <td></td>
       <th>cores=2 ram=2 hdd=27gb (updated: 2013-11-27)</th>
       <td>OFFLINE - Confluence, JIRA, MySQL, Apache</td>
     </tr>
@@ -42,14 +46,16 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.189</td>
+      <td></td>
       <th>cores=2 ram=2gb hdd=39gb (updated: 2015-09-25)</th>
-      <td>Logstash</td>
+      <td>OFFLINE Logstash (uses log.s.c instead)</td>
     </tr>
     <tr>
       <td>manage</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.144</td>
+      <td></td>
       <th>cores=2 ram=2gb root=15gb (updated: 2014-10-27)</th>
       <td>Puppet Master, slapd, phpldapadmin -- all firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
     </tr>
@@ -58,6 +64,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.145</td>
+      <td></td>
       <th>cores=2 ram=2gb hdd=10gb (updated: 2013-11-27)</th>
       <td>Apache, SVN (read only), ViewVC</td>
     </tr>
@@ -66,6 +73,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Debian Squeeze</td>
       <td>140.211.167.146</td>
+      <td></td>
       <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
     </tr>
@@ -74,6 +82,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.147</td>
+      <td></td>
       <th>cores=2 ram=3gb root=12gb (updated: 2014-10-27) NB: currently on gcloud (test.civicrm.org)</th>
       <td>Jenkins (Master), Nginx (for HTTPS), Tomcat (for AJP)</td>
     </tr>
@@ -82,6 +91,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.149</td>
+      <td></td>
       <th>cores=2 ram=4 root=20gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
@@ -90,6 +100,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.149</td>
+      <td></td>
       <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
@@ -98,6 +109,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.10</td>
       <td>140.211.167.150</td>
+      <td></td>
       <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
@@ -106,6 +118,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.175</td>
+      <td></td>
       <th>cores=2 ram=1.5gb root=10gb (updated: 2015-09-20)</th>
       <td>Apache, MySQL</td>
     </tr>
@@ -114,6 +127,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
       <td>140.211.167.151</td>
+      <td></td>
       <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
       <td>Apache, MySQL, Drupal, Joomla, WordPress, CiviCRM</td>
     </tr>
@@ -122,6 +136,7 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.152</td>
+      <td>2605:bc80:3010:102:0:3:1:0</td>
       <th>cores=2 ram=6gb root=25gb (updated: 2014-10-27)</th>
       <td>Nginx, MySQL, Drupal/Drush, SMF/forum.civicrm.org, alert.civicrm.org, docs.civicrm.org</td>
     </tr>
@@ -130,14 +145,16 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.160</td>
+      <td></td>
       <th>cores=2 ram=3gb root=15gb (updated: 2014-10-27)</th>
-      <td>http auth: civicrm/civicrm<br />Nginx, MySQL, Drupal/Drush</td>
+      <td>OFFLINE (see test.civicrm.org on padthai)- http auth: civicrm/civicrm<br />Nginx, MySQL, Drupal/Drush</td>
     </tr>
     <tr>
       <td>backup-1</td>
       <td>Google Cloud</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>107.178.223.170</td>
+      <td></td>
       <th>cores=1 ram=1.7gb root=25gb (updated: 2015-10-10)</th>
       <td>Backups</td>
     </tr>
@@ -146,6 +163,7 @@ Virtual Servers
       <td>OVH</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>192.95.2.130</td>
+      <td></td>
       <th>cores=4 ram=20gb root=50gb (updated: 2016-04-22)</th>
       <td>Tests</td>
     </tr>
@@ -154,6 +172,7 @@ Virtual Servers
       <td>OVH</td>
       <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
       <td>192.95.2.131</td>
+      <td></td>
       <th>cores=4 ram=8gb root=50gb (updated: 2015-04-22)</th>
       <td>Tests</td>
     </tr>
@@ -162,6 +181,7 @@ Virtual Servers
       <td>OVH</td>
       <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
       <td>192.95.2.132</td>
+      <td></td>
       <th>cores=2 ram=2gb root=25gb (updated: 2015-04-22)</th>
       <td>Tests</td>
     </tr>
@@ -270,7 +290,7 @@ Meaning that we can assign a /112 per VM, providing 0xffff (65535) IPs per VM:
 2605:bc80:3010:102:0:3:1::/112 - www-prod.civicrm.osuosl.org
 2605:bc80:3010:102:0:3:2::/112 - java-prod.civicrm.osuosl.org
 2605:bc80:3010:102:0:3:3::/112 - chat.civicrm.osuosl.org
-2605:bc80:3010:102:0:3:4::/112
+2605:bc80:3010:102:0:3:4::/112 - lab.civicrm.org
 [...]
 2605:bc80:3010:0102:0000:0003:ffff::/112
 ```
