@@ -1,0 +1,47 @@
+---
+
+# Installs Gitlab using Omnibus packages
+# https://about.gitlab.com/downloads/#ubuntu1604
+
+- apt: pkg="{{ item }}" state=installed
+  with_items:
+    - debian-archive-keyring
+    - apt-transport-https
+  tags:
+    - gitlab
+    - packages
+
+- name: Get the Gitlab repo key
+  apt_key: url=https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey state=present
+  tags:
+    - gitlab
+    - packages
+
+- apt_repository:
+    repo='deb https://packages.gitlab.com/gitlab/gitlab-ce/debian/ jessie main'
+    state=present
+    update_cache=yes
+  tags:
+    - gitlab
+    - packages
+
+- apt: pkg=gitlab-ce state=installed
+  tags:
+    - gitlab
+    - packages
+
+- name: Configure Gitlab cron for backups.
+  cron:
+    name="gitlab-backup"
+    minute="20"
+    hour="22"
+    job="/opt/gitlab/bin/gitlab-rake gitlab:backup:create CRON=1"
+    cron_file="gitlab-backup"
+    user="root"
+    state=present
+  tags:
+    - gitlab-cron
+
+## TODO:
+## /etc/gitlab/gitlab.rb
+## openssl dhparam -check -5 4096 -out /etc/gitlab/dhparams.4096
