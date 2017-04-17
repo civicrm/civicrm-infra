@@ -42,6 +42,15 @@ Virtual Servers
       <td>OFFLINE - Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
+      <td>lab</td>
+      <td>civicrm.org (OSUOSL)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
+      <td>140.211.167.160</td>
+      <td>2605:bc80:3010:102:0:3:4:0</td>
+      <th>cores=3 ram=4gb root=50gb (updated: 2017-04-17)</th>
+      <td>lab.civicrm.org (gitlab-omnibus)</td>
+    </tr>
+    <tr>
       <td>log</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
