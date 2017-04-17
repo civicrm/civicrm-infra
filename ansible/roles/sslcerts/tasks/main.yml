@@ -1,99 +1,63 @@
 ---
 - name: Make sure that the ssl-cert group exists.
   group: name=ssl-cert state=present
-  tags:
-    - sslcerts
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.crt dest=/etc/ssl/private/{{ item }}.crt owner=root group=ssl-cert mode=0640
-  with_items: sslcertificates
-  when: sslcertificates is defined
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.bundled.crt dest=/etc/ssl/private/{{ item }}.bundled.crt owner=root group=ssl-cert mode=0640
-  with_items: sslcertificates
-  when: sslcertificates is defined
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.cacert.crt dest=/etc/ssl/private/{{ item }}.cacert.crt owner=root group=ssl-cert mode=0640
-  with_items: sslcertificates
-  when: sslcertificates is defined
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.key dest=/etc/ssl/private/{{ item }}.key owner=root group=ssl-cert mode=0640
-  with_items: sslcertificates
-  when: sslcertificates is defined
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
 
 # If using Aegir
 - file: path=/var/aegir/config/ssl.d/{{ item }} state=directory owner=aegir group=aegir mode=0700
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 - file: path=/var/aegir/config/server_master/ssl.d/{{ item }} state=directory owner=aegir group=aegir mode=0700
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 # Copy to the root space (files used as a reference for when a site is verified, sent to the server_master later on).
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.key dest=/var/aegir/config/ssl.d/{{ item }}/openssl.key owner=root group=aegir mode=0640
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.crt dest=/var/aegir/config/ssl.d/{{ item }}/openssl.crt owner=root group=aegir mode=0640
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.cacert.crt dest=/var/aegir/config/ssl.d/{{ item }}/openssl_chain.crt owner=root group=aegir mode=0640
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 # Copy to the "server_master" (the file referenced in the vhost declaration)
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.key dest=/var/aegir/config/server_master/ssl.d/{{ item }}/openssl.key owner=root group=aegir mode=0640
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.crt dest=/var/aegir/config/server_master/ssl.d/{{ item }}/openssl.crt owner=root group=aegir mode=0640
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 - copy: src=/etc/ansible/files/civicrm/etc/ssl/private/{{ item }}.cacert.crt dest=/var/aegir/config/server_master/ssl.d/{{ item }}/openssl_chain.crt owner=root group=aegir mode=0640
-  with_items: sslcertificates
-  when: ("'aegir-managed' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  with_items: "{{ sslcertificates }}"
+  when: "'aegir-managed' in group_names"
 
 # Restart various services
 - name: Restart postfix.
   service: name=postfix state=restarted
-  when: ("'postfix-servers' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  when: "'postfix-servers' in group_names"
 
 - name: Restart apache.
   service: name=apache2 state=restarted
-  when: ("'apache-servers' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  when: "'apache-servers' in group_names"
 
 - name: Restart nginx.
   service: name=nginx state=restarted
-  when: ("'nginx-servers' in group_names") and (sslcertificates is defined)
-  tags:
-    - sslcerts
+  when: "'nginx-servers' in group_names"
