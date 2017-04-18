@@ -28,8 +28,8 @@ Virtual Servers
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.141</td>
-      <td>2605:bc80:3010:102:0:3:2:0</th>
-      <th>cores=2 ram=6gb root=25gb (updated: 2016-05-24)</th>
+      <td>2605:bc80:3010:102:0:3:2:0</td>
+      <td>cores=2 ram=6gb root=25gb (updated: 2016-05-24)</td>
       <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
@@ -215,7 +215,7 @@ Physical Servers
     <tr>
       <td>biryani</td>
       <td>osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
       <td>140.211.166.57</td>
       <td>cores=2 ram=4gb lvmvg=175gb (updated: 2014-11-09)</td>
       <td>Releaser. L10n processor. download.civicrm.org, latest.civicrm.org.</td>
