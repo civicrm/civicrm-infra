@@ -102,6 +102,7 @@ www-test.civicrm.org
 servers
 
 [php7-servers]
+biryani.osuosl.org
 test-ubu1604-1.civicrm.org
 # www-test.civicrm.org
 
@@ -131,5 +132,9 @@ www-prod.civicrm.osuosl.org
 www-test.civicrm.org
 
 [dehydrated-manually]
+biryani.osuosl.org
 cxnapp-2.civicrm.org
+java-prod.civicrm.osuosl.org
 lab.civicrm.org
+test.civicrm.org
+www-prod.civicrm.osuosl.org
