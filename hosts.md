@@ -51,7 +51,7 @@ Virtual Servers
       <td>lab.civicrm.org (gitlab-omnibus)</td>
     </tr>
     <tr>
-      <td>log</td>
+      <td>✗ log</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.189</td>
@@ -87,7 +87,7 @@ Virtual Servers
       <td>Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
     </tr>
     <tr>
-      <td>test</td>
+      <td>✗ test</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.147</td>
@@ -105,13 +105,13 @@ Virtual Servers
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
-      <td>test-ubu1204-2</td>
+      <td>✗ test-ubu1204-2</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
       <td>140.211.167.149</td>
       <td></td>
       <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
-      <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
+      <td>OFFLINE. Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
       <td>test-ubu1210-1</td>
@@ -148,15 +148,6 @@ Virtual Servers
       <td>2605:bc80:3010:102:0:3:1:0</td>
       <th>cores=2 ram=6gb root=25gb (updated: 2014-10-27)</th>
       <td>Nginx, MySQL, Drupal/Drush, SMF/forum.civicrm.org, alert.civicrm.org, docs.civicrm.org</td>
-    </tr>
-    <tr>
-      <td>www-test</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>140.211.167.160</td>
-      <td></td>
-      <th>cores=2 ram=3gb root=15gb (updated: 2014-10-27)</th>
-      <td>OFFLINE (see test.civicrm.org on padthai)- http auth: civicrm/civicrm<br />Nginx, MySQL, Drupal/Drush</td>
     </tr>
     <tr>
       <td>backup-1</td>
