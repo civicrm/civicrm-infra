@@ -110,6 +110,13 @@
   tags:
     - gitlab
 
+- hosts: stats-servers
+  sudo: yes
+  roles:
+    - civicrm-stats
+  tags:
+    - civicrm-stats
+
 - hosts: aegir-managed
   become: yes
   become_user: root

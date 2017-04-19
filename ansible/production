@@ -45,6 +45,7 @@ www-test.civicrm.org
 
 [apache-servers]
 biryani.osuosl.org
+latest.civicrm.org
 www-demo.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 svn.civicrm.osuosl.org
@@ -66,6 +67,9 @@ newsushi.civicrm.osuosl.org
 [mattermost-servers]
 chat.civicrm.org
 
+[stats-servers]
+latest.civicrm.org
+
 [unclassified-servers]
 botdylan.civicrm.org
 cxnapp-2.civicrm.org
@@ -84,6 +88,7 @@ backup-servers
 kvm-servers
 nginx-servers
 test-servers
+stats-servers
 unclassified-servers
 
 [ldap-managed]
@@ -91,6 +96,7 @@ backups-1.civicrm.org
 botdylan.civicrm.org
 chat.civicrm.org
 lab.civicrm.org
+latest.civicrm.org
 newsushi.civicrm.osuosl.org
 padthai.civicrm.org
 test-ubu1604-1.civicrm.org
@@ -102,11 +108,11 @@ www-test.civicrm.org
 servers
 
 [php7-servers]
-biryani.osuosl.org
 test-ubu1604-1.civicrm.org
 # www-test.civicrm.org
 
 [php56-servers]
+latest.civicrm.org
 training-ubu1604-1.civicrm.org
 
 [php53plus-servers]
@@ -136,5 +142,6 @@ biryani.osuosl.org
 cxnapp-2.civicrm.org
 java-prod.civicrm.osuosl.org
 lab.civicrm.org
+latest.civicrm.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
