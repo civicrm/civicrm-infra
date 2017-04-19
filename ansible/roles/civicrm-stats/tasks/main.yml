@@ -1,1 +1,16 @@
 - include: composer.yml
+
+- name: Download and update the civicrm-statistics git repo
+  git: repo=https://github.com/nganivet/civicrm-statistics.git
+       version=master
+       dest=/var/www/stats.civicrm.org
+       update=yes
+
+- name: Create the latest.civicrm.org directory
+  file: path="/var/www/latest.civicrm.org" state=directory mode=0755 owner=root group=root
+
+- name: Download and update the civicrm-pingbacks git repo
+  git: repo=https://github.com/civicrm/civicrm-pingback.git
+       version=master
+       dest=/var/www/latest.civicrm.org/public
+       update=yes
