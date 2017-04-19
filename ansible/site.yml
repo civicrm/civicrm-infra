@@ -3,7 +3,6 @@
   sudo: yes
   roles:
     - common-all
-    - sslcerts
     - logstash-forwarder
     - backup-client
     - unattended-upgrades
