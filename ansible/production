@@ -13,6 +13,7 @@ botdylan.civicrm.org
 chat.civicrm.org
 cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42
 lab.civicrm.org
+latest.civicrm.org
 log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 manage.civicrm.osuosl.org
@@ -21,7 +22,7 @@ www-demo.civicrm.osuosl.org
 svn.civicrm.osuosl.org
 test.civicrm.org
 test-ubu1204-1.civicrm.osuosl.org
-test-ubu1204-2.civicrm.osuosl.org
+# test-ubu1204-2.civicrm.osuosl.org
 test-ubu1204-3.civicrm.org ansible_ssh_host=130.211.191.179
 # test-debian6-1.civicrm.osuosl.org
 # test-ubu1210-1.civicrm.osuosl.org
