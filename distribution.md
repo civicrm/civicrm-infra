@@ -43,7 +43,7 @@ or inspect logs for errors/failures, then go to `test.civicrm.org`.
 
 > At time of writing, this iteration of the autobuild system is new, and I'd
 > like to see it running a bit longer before we reproduce the configuration on
-> each repo.  Fixing bugs will be more cumbersome once we do.
+> each repo.
 
 These jobs are not strongly tied to any particular host or data.  The main
 requirement is that `CiviCRM-Publish` run on a system with
