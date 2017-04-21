@@ -57,3 +57,12 @@ starting a new build.  (This is a Jenkins "quiet period".)
 
 Autobuild files uploaded to `gs://civicrm-build` will expire within 14 days. 
 (See `gsutil lifecycle`.)
+
+# See also
+
+The distribution system is still evolving since the biryani crash. However, some other interesting resources are:
+
+ * https://wiki.civicrm.org/confluence/display/CRM/Release+Candidate
+ * https://wiki.civicrm.org/confluence/display/CRM/Release+script
+ * https://wiki.civicrm.org/confluence/display/CRM/Release+checklist
+ 
