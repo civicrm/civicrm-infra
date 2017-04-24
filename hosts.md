@@ -30,7 +30,7 @@ Virtual Servers
       <td>146.148.42.42</td>
       <td></td>
       <th>cores=1 ram=1gb root=10gb (updated: 2017-04-24)</th>
-      <td><tt>mycivi.org<tt> (<a href="https://github.com/civicrm/cxnapp">cxnapp</a>, configured to run <tt>org.civicrm.profile</tt> in <tt>/srv/buildkit</tt>)</td>
+      <td><tt>mycivi.org</tt> (<a href="https://github.com/civicrm/cxnapp">cxnapp</a>, configured to run <tt>org.civicrm.profile</tt> in <tt>/srv/buildkit</tt>)</td>
     </tr>
     <tr>
       <td>java-prod</td>
