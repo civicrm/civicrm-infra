@@ -213,7 +213,7 @@ Physical Servers
   </thead>
   <tbody>
     <tr>
-      <td>biryani</td>
+      <td>✗ biryani</td>
       <td>osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
       <td>140.211.166.57</td>
