@@ -6,4 +6,4 @@
   service: name=apache2 state=restarted
 
 - name: restart mysql
-  service: name=mysql state=restarted
+  service: name=mysql state=restarted daemon_reload=yes

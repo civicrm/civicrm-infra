@@ -8,6 +8,22 @@
     - aegir-mysql
     - aegir-mariadb
 
+- name: MySQL | Create mysql systemd override directory
+  file: path="/etc/systemd/system/mysql.service.d" state=directory mode=0755 owner=root group=root
+  tags:
+    - aegir-mysql
+    - aegir-mariadb
+
+- name: MySQL | Deploy our MySQL systemd overrides
+  template:
+    src=etc/systemd/system/mysql.service.d/filelimit.conf
+    dest=/etc/systemd/system/mysql.service.d/filelimit.conf
+    owner=root group=root mode=0644
+  notify: restart mysql
+  tags:
+    - aegir-mysql
+    - aegir-mariadb
+
 # Apparently the ARCHIVE plugin is enabled by default in MariaDB 10.0, but not 10.1.
 # Required by CiviCRM.
 # - name: MySQL | Check for the ARCHIVE plugin
