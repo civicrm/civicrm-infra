@@ -24,6 +24,15 @@ Virtual Servers
       <td>Mattermost, Nginx</td>
     </tr>
     <tr>
+      <td>cxnapp-2</td>
+      <td>Google Cloud</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
+      <td>146.148.42.42</td>
+      <td></td>
+      <th>cores=1 ram=1gb root=10gb (updated: 2017-04-24)</th>
+      <td><tt>mycivi.org</tt> and <tt>dev.mycivi.org</tt> (<a href="https://github.com/civicrm/cxnapp">cxnapp</a>, configured to run <tt>org.civicrm.profile</tt> in <tt>/srv/buildkit</tt>)</td>
+    </tr>
+    <tr>
       <td>java-prod</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
@@ -204,7 +213,7 @@ Physical Servers
   </thead>
   <tbody>
     <tr>
-      <td>biryani</td>
+      <td>✗ biryani</td>
       <td>osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
       <td>140.211.166.57</td>
