@@ -32,7 +32,7 @@
     },
     "SqlSettings": {
         "DriverName": "{{ mattermost_sql_driver }}",
-        "DataSource": "{{ mattermost_sql_user }}:{{ mattermost_sql_password.stdout }}@tcp(localhost:3306)/{{ mattermost_sql_dbname }}?charset=utf8mb4,utf8",
+        "DataSource": "{{ mattermost_sql_user }}:{{ mattermost_sql_password.stdout }}@unix(/run/mysqld/mysqld.sock)/{{ mattermost_sql_dbname }}?charset=utf8mb4,utf8",
         "DataSourceReplicas": [],
         "MaxIdleConns": 10,
         "MaxOpenConns": 10,
