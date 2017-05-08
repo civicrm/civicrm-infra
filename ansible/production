@@ -28,7 +28,7 @@ test-ubu1204-3.civicrm.org ansible_ssh_host=130.211.191.179
 # test-ubu1210-1.civicrm.osuosl.org
 test-ubu1204-5.civicrm.org ansible_ssh_host=192.95.2.130
 test-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.131
-# training-ubu1604-1.civicrm.org ansible_ssh_host=192.95.2.133
+training.civicrm.org ansible_ssh_host=192.95.2.133
 www-cxn-2.civicrm.osuosl.org
 # www-cxn-1.civicrm.org  # not managed, but www is monitored by icinga
 www-test.civicrm.org
@@ -50,7 +50,7 @@ latest.civicrm.org
 www-demo.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 svn.civicrm.osuosl.org
-training-ubu1604-1.civicrm.org
+training.civicrm.org
 
 [test-servers]
 test-ubu1204-1.civicrm.osuosl.org
@@ -102,7 +102,7 @@ newsushi.civicrm.osuosl.org
 padthai.civicrm.org
 test-ubu1604-1.civicrm.org
 test-ubu1204-5.civicrm.org
-training-ubu1604-1.civicrm.org
+training.civicrm.org
 www-test.civicrm.org
 
 [icinga-satellite:children]
@@ -114,7 +114,7 @@ test-ubu1604-1.civicrm.org
 
 [php56-servers]
 latest.civicrm.org
-training-ubu1604-1.civicrm.org
+training.civicrm.org
 
 [php53plus-servers]
 test-ubu1204-1.civicrm.osuosl.org
@@ -123,7 +123,7 @@ test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-5.civicrm.org
 
 [buildkit-servers]
-training-ubu1604-1.civicrm.org
+training.civicrm.org
 
 [mkdocs-servers]
 www-prod.civicrm.osuosl.org
