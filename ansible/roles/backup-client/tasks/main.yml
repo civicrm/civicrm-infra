@@ -78,14 +78,3 @@
     - /var/backups/mysql
     - /var/backups/mysql/sqldump
   when: (st.stat.exists == true)
-
-- name: ACL | Allow domainadmin access to mysql backups for syncs.
-  shell: "setfacl -m g:sudo:r-x -m g:domainadmin:r-x -m o:--- {{ item }}"
-  with_items:
-    - /var/backups/mysql
-    - /var/backups/mysql/sqldump
-  when: (st.stat.exists == true)
-
-- name: ACL | fix permissions for existing files.
-  shell: "find /var/backups/mysql -type f | xargs sudo setfacl -m g:sudo:r-- -m g:domainadmin:r-- -m o:---"
-  when: (st.stat.exists == true)
