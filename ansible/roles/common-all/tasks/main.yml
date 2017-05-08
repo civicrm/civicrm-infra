@@ -72,3 +72,10 @@
 
 - name: Restart ufw
   service: name=ufw state=restarted
+
+- name: network | Deploy IPv6 configuration script
+  template: src=etc/network/if-up.d/civicrm-ipv6 dest=/etc/network/if-up.d/civicrm-ipv6 owner=root group=root mode=0755
+  when: preseed_ipv6_address is defined
+  tags:
+    - common-all
+    - common-all-ipv6
