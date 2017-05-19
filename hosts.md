@@ -134,11 +134,11 @@ Virtual Servers
     <tr>
       <td>www-cxn-2</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.175</td>
       <td></td>
       <th>cores=2 ram=1.5gb root=10gb (updated: 2015-09-20)</th>
-      <td>Apache, MySQL</td>
+      <td>Apache, MySQL, PHP56</td>
     </tr>
     <tr>
       <td>www-demo</td>
