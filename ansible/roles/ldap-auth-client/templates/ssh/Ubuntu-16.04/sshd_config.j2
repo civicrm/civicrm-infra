@@ -61,10 +61,21 @@ ChallengeResponseAuthentication no
 #KerberosGetAFSToken no
 
 # Without this, sftp will not work
+# [ML] NB: Required for Jenkins
 Subsystem sftp internal-sftp
 
 # CiviCRM.org infra-specific
 AllowGroups root sudo domainadmin ssh-user osuadmin aegir
 
-# Required for Jenkins
-Subsystem sftp internal-sftp
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the ChallengeResponseAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and ChallengeResponseAuthentication to 'no'.
+# [ML] NB: gitlab requires this for the git user. This was copied from Debian.
+UsePAM yes
+PasswordAuthentication yes
