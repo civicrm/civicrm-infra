@@ -7,8 +7,78 @@ This is made possible using the following bits:
 * CiviCRM extension: https://github.com/mlutfy/org.civicrm.ldapauthapi
 * CiviLDAP forked from: https://github.com/TechToThePeople/ldapcivi (patch: https://gist.github.com/mlutfy/17622c2764472fbf71d0)
 
+Gitlab
+------
+
+Edit the file `/etc/gitlab/gitlab.rb`, configure:
+
+```
+gitlab_rails['ldap_enabled'] = true
+
+gitlab_rails['ldap_servers'] = YAML.load <<-EOS # remember to close this block with 'EOS' below
+main:
+  label: 'civicrm.org'
+  host: 'civicrm.org'
+  port: 1389
+  uid: 'uid'
+  method: 'ssl' # "tls" or "ssl" or "plain"
+
+  bind_dn: 'dc=civicrm,dc=org'
+  password: '[... PASSWORD from config/civicrm.js ...]'
+
+  # Set a timeout, in seconds, for LDAP queries.
+  timeout: 10
+
+  # For non AD servers it skips the AD specific queries.
+  # If your LDAP server is not AD, set this to false.
+  active_directory: false
+
+  # If allow_username_or_email_login is enabled, GitLab will ignore everything
+  # after the first '@' in the LDAP username submitted by the user on login.
+  #
+  # Example:
+  # - the user enters 'jane.doe@example.com' and 'p@ssw0rd' as LDAP credentials;
+  # - GitLab queries the LDAP server with 'jane.doe' and 'p@ssw0rd'.
+  #
+  # If you are using "uid: 'userPrincipalName'" on ActiveDirectory you need to
+  # disable this setting, because the userPrincipalName contains an '@'.
+  allow_username_or_email_login: false
+
+  # To maintain tight control over the number of active users on your GitLab installation,
+  # enable this setting to keep new users blocked until they have been cleared by the admin
+  # (default: false).
+  block_auto_created_users: false
+
+  # Filter LDAP users
+  user_filter: ''
+
+  # LDAP attributes that GitLab will use to create an account for the LDAP user.
+  # The specified attribute can either be the attribute name as a string (e.g. 'mail'),
+  # or an array of attribute names to try in order (e.g. ['mail', 'email']).
+  # Note that the user's LDAP login will always be the attribute specified as `uid` above.
+  attributes:
+    # The username will be used in paths for the user's own projects
+    # (like `gitlab.example.com/username/project`) and when mentioning
+    # them in issues, merge request and comments (like `@username`).
+    # If the attribute specified for `username` contains an email address,
+    # the GitLab username will be the part of the email address before the '@'.
+    username: ['uid', 'userid', 'sAMAccountName']
+    email:    ['mail', 'email', 'userPrincipalName']
+
+    # If no full name could be found at the attribute specified for `name`,
+    # the full name is determined using the attributes specified for
+    # `first_name` and `last_name`.
+    name:       'cn'
+    first_name: 'givenName'
+    last_name:  'sn'
+EOS
+```
+
 Confluence
 ----------
+
+NB: LDAP on Confluence is broken. The Java version seems to have problems with
+the letsencrypt certificate [reference](https://chat.civicrm.org/civicrm/pl/d37gtimzb3yeingdbe3bcun57o).
 
 * Go to Space > Administration, then from the menu click on "User Directories".
 * Click on "Add directory", select "type = LDAP".
