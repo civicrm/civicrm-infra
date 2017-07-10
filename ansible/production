@@ -18,6 +18,7 @@ log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 manage.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
+www-prod-2.civicrm.org
 www-demo.civicrm.osuosl.org
 svn.civicrm.osuosl.org
 test.civicrm.org
@@ -42,6 +43,7 @@ chat.civicrm.org
 log.civicrm.osuosl.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
+www-prod-2.civicrm.org
 www-test.civicrm.org
 
 [apache-servers]
@@ -115,6 +117,7 @@ test-ubu1604-1.civicrm.org
 [php56-servers]
 latest.civicrm.org
 training.civicrm.org
+www-cxn-2.civicrm.osuosl.org
 
 [php53plus-servers]
 test-ubu1204-1.civicrm.osuosl.org
@@ -136,6 +139,7 @@ lab.civicrm.org
 
 [aegir-managed]
 www-prod.civicrm.osuosl.org
+www-prod-2.civicrm.org
 www-test.civicrm.org
 
 [dehydrated-manually]
