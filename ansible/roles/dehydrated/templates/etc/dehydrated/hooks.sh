@@ -71,6 +71,10 @@ clean_challenge() {
     # The parameters are the same as for deploy_challenge.
 }
 
+startup_hook() {
+    echo " + Hook: Startup.."
+}
+
 exit_hook() {
     echo " + Hook: exit... see you in 60 days!"
 }
