@@ -5,10 +5,9 @@
     dest=/etc/ssl/certs/civicrm-ldap.pem
     owner=root group=root mode=0644
 
-- apt: name={{ item }} state=present install_recommends=no
+- apt: name="{{ item }}" state=present install_recommends=no
   with_items:
     - unscd
-    - ldap-auth-client
     - libnss-ldap
     - nss-updatedb
 
@@ -16,8 +15,10 @@
 - apt: pkg=auth-client-config state=installed
   when: ansible_distribution == "Ubuntu"
 
-# Ubuntu ships this as part of libpam stuff
-- apt: pkg=libpam-mklocaluser state=installed
+- apt: pkg="{{ item }}" state=installed
+  with_items:
+    - libpam-mklocaluser # Ubuntu ships this as part of libpam stuff
+    - libpam-ldap
   when: ansible_distribution == "Debian"
 
 - name: Enable PAM mkhomedir.
@@ -25,7 +26,7 @@
 
 - template: src=ldap.conf.j2 dest=/etc/ldap.conf owner=root group=root mode=0644
 
-- template: src="ssh/{{ ansible_distribution }}-{{ ansible_distribution_version }}/sshd_config.j2" dest="/etc/ssh/sshd_config" owner=root group=root mode=0644
+- template: src="ssh/{{ ansible_distribution }}-{{ ansible_distribution_version|int }}/sshd_config.j2" dest="/etc/ssh/sshd_config" owner=root group=root mode=0644
 
 - name: Sudoers | create deploy sudoers file for domainadmin
   template: src=sudoers.j2 dest=/etc/sudoers.d/civicrmorg-domainadmin owner=root group=root mode=0440
