@@ -34,6 +34,15 @@ deploy_cert() {
       # Service has no reload
       /usr/bin/doveadm reload
     fi
+
+    if [ -x /usr/sbin/slapd ]; then
+      echo " + Hook: Reloading slapd configuration..."
+      chgrp ssl-cert /etc/dehydrated/keys
+      chgrp -R ssl-cert /etc/dehydrated/keys/${DOMAIN}
+      chmod g+rx /etc/dehydrated/keys
+      chmod -R g+r /etc/dehydrated/keys/${DOMAIN}
+      systemctl restart slapd
+    fi
 }
 
 unchanged_cert() {
