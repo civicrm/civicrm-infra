@@ -1,0 +1,11 @@
+---
+
+- name: Open the LDAP port for our machines only
+  ufw: proto=tcp port=636 rule=allow src="{{ item }}"
+  with_items: "{{ ldap_server_allow_ips }}"
+  tags:
+    - ldap-auth-server-ufw
+
+- name: Override AppArmor configuration for dehydrated
+  template: src=etc/apparmor.d/usr.sbin.slapd.j2 dest=/etc/apparmor.d/usr.sbin.slapd owner=root group=root mode=0644
+  notify: restart apparmor

@@ -1,0 +1,6 @@
+---
+- name: restart apparmor
+  service: name=apparmor state=restarted
+
+- name: restart slapd
+  service: name=slapd state=restarted
