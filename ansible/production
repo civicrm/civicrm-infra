@@ -5,7 +5,6 @@
 # The most generic role at the moment is 'servers', but we want to encourage
 # admins to classify servers so that we have a better idea of what they do.
 #
-biryani.osuosl.org
 padthai.civicrm.org ansible_ssh_host=167.114.158.208
 newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28
 backups-1.civicrm.org
@@ -14,7 +13,6 @@ chat.civicrm.org
 cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42
 lab.civicrm.org
 latest.civicrm.org
-log.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
 manage.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
@@ -34,20 +32,14 @@ www-cxn-2.civicrm.osuosl.org
 # www-cxn-1.civicrm.org  # not managed, but www is monitored by icinga
 www-test.civicrm.org
 
-# Servers per-role
-[logstash-servers]
-log.civicrm.osuosl.org
-
 [nginx-servers]
 chat.civicrm.org
-log.civicrm.osuosl.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
 www-test.civicrm.org
 
 [apache-servers]
-biryani.osuosl.org
 latest.civicrm.org
 www-demo.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
@@ -94,20 +86,6 @@ test-servers
 stats-servers
 unclassified-servers
 
-[ldap-managed]
-backups-1.civicrm.org
-botdylan.civicrm.org
-chat.civicrm.org
-lab.civicrm.org
-latest.civicrm.org
-newsushi.civicrm.osuosl.org
-padthai.civicrm.org
-test-ubu1604-1.civicrm.org
-test-ubu1204-5.civicrm.org
-training.civicrm.org
-www-prod-2.civicrm.org
-www-test.civicrm.org
-
 [icinga-satellite:children]
 servers
 
@@ -147,7 +125,6 @@ www-prod-2.civicrm.org
 www-test.civicrm.org
 
 [dehydrated-manually]
-biryani.osuosl.org
 chat.civicrm.org
 cxnapp-2.civicrm.org
 java-prod.civicrm.osuosl.org
