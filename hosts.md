@@ -71,11 +71,11 @@ Virtual Servers
     <tr>
       <td>manage</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.144</td>
       <td></td>
-      <th>cores=2 ram=2gb root=15gb (updated: 2014-10-27)</th>
-      <td>Puppet Master, slapd, phpldapadmin -- all firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
+      <th>cores=2 ram=1gb root=15gb (updated: 2014-10-27)</th>
+      <td>slapd, phpldapadmin -- all firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
     </tr>
     <tr>
       <td>svn</td>
