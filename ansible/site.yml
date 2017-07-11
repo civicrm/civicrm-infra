@@ -6,15 +6,9 @@
     - logstash-forwarder
     - backup-client
     - unattended-upgrades
-  tags:
-    - minimum
-
-- hosts: ldap-managed
-  sudo: yes
-  roles:
     - ldap-auth-client
   tags:
-    - ldap
+    - minimum
 
 - hosts: icinga-satellite
   sudo: yes
@@ -115,6 +109,13 @@
     - civicrm-stats
   tags:
     - civicrm-stats
+
+- hosts: ldap-servers
+  sudo: yes
+  roles:
+    - ldap-auth-server
+  tags:
+    - ldap-auth-server
 
 - hosts: aegir-managed
   become: yes

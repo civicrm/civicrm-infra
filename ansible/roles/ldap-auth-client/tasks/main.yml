@@ -24,7 +24,25 @@
 - name: Enable PAM mkhomedir.
   lineinfile: dest=/etc/pam.d/common-session line="session optional pam_mkhomedir.so" insertafter="# end of pam-auth-update config"
 
-- template: src=ldap.conf.j2 dest=/etc/ldap.conf owner=root group=root mode=0644
+- template: src=etc/ldap.conf.j2 dest=/etc/ldap.conf owner=root group=root mode=0644
+  tags:
+    - ldap-cert
+
+- template: src=etc/ldap/ldap.conf dest=/etc/ldap/ldap.conf owner=root group=root mode=0644
+  tags:
+    - ldap-cert
+
+# Required by Ubuntu 16.04, otherwise nss_update doesn't work,
+# but did not seem to be required by Debian 9.
+- name: Deploy the LetsEncrypt chain cert
+  copy:
+    src: "etc/ssl/certs/letsencrypt-isrgrootx1.pem"
+    dest: "/etc/ssl/certs/letsencrypt-isrgrootx1.pem"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - ldap-cert
 
 - template: src="ssh/{{ ansible_distribution }}-{{ ansible_distribution_version|int }}/sshd_config.j2" dest="/etc/ssh/sshd_config" owner=root group=root mode=0644
 
