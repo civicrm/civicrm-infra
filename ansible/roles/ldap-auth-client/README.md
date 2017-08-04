@@ -11,3 +11,9 @@ $ ldapsearch -v -H ldaps://manage.civicrm.osuosl.org/ -D uid=USERNAME,ou=people,
 ```
 
 (where `USERNAME` is your username)
+
+```
+$ getent passwd [username]
+```
+
+(where `[username]` is an actual username). This should return an entry equivalent to those found in `passwd`.
