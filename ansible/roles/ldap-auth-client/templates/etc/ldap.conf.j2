@@ -37,7 +37,10 @@ base dc=civicrm,dc=org
 
 uri  ldaps://manage.civicrm.osuosl.org
 ssl yes
-tls_cacertfile /etc/ssl/certs/letsencrypt-isrgrootx1.pem
+
+# [ML] new cert not working for now, connection errors?
+# tls_cacertfile /etc/ssl/certs/letsencrypt-isrgrootx1.pem
+tls_cacertfile /etc/ssl/certs/civicrm-ldap.pem
 
 # The LDAP version to use (defaults to 3
 # if supported by client library)
