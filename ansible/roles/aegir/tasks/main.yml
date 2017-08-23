@@ -81,19 +81,53 @@
 
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
+    - "php{{ phpversion }}-gd"
+    - "php{{ phpversion }}-cli"
+    - "php{{ phpversion }}-curl"
+    - "php{{ phpversion }}-intl"
+    - "php{{ phpversion }}-json"
+    - "php{{ phpversion }}-ldap"
+    - "php{{ phpversion }}-mcrypt"
+    - "php{{ phpversion }}-mysql"
+    - "php{{ phpversion }}-soap"
+    - "php{{ phpversion }}-xsl"
+  tags:
+    - packages
+    - packages-php
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - "php{{ phpversion }}-fpm"
+  when: "'aegir-apache' not in group_names"
+  tags:
+    - packages
+    - packages-php
+
+# This is to help deal with Debian Stretch upgrades
+- apt: name={{ item }} state=absent install_recommends=no
+  with_items:
+    - php5-fpm
+    - php5-gd
+    - php5-cli
+    - php5-common
+    - php5-curl
+    - php5-intl
+    - php5-json
+    - php5-ldap
+    - php5-mcrypt
+    - php5-mysql
+    - php5-soap
+    - php5-xsl
+  when: ansible_distribution_release == "stretch"
+  tags:
+    - packages
+    - packages-php
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
     - pwgen
     - curl
     - gettext
-    - php7.0-fpm
-    - php7.0-gd
-    - php7.0-cli
-    - php7.0-curl
-    - php7.0-intl
-    - php7.0-ldap
-    - php7.0-mbstring
-    - php7.0-mcrypt
-    - php7.0-soap
-    - php7.0-xsl
     - xauth
     - xvfb
     - libxrender1
