@@ -11,10 +11,9 @@ mysqlbackup_mysqldump_opts:
   - "--events"
   - "--triggers"
   - "--routines"
-  - "--single-transaction"
   - "--opt"
 
-mysqlbackup_mysqldump_needed_db:
+mysqlbackup_mysqldump_require_db:
   - mysql
 
 mysqlbackup_mysqldump_ignore_db:

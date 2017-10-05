@@ -12,6 +12,15 @@
   tags:
     - mysqlbackup
 
+- name: mysqlbackup | create backup tmp directory
+  become: yes
+  file:
+    path: "{{ mysqlbackup_backupdir }}/tmp"
+    recurse: yes
+    state: directory
+  tags:
+    - mysqlbackup
+
 - name: mysqlbackup | deploy configuration
   template:
     src="mysqldump-secure.conf"
@@ -21,7 +30,7 @@
     - mysqlbackup
 
 - name: mysqlbackup | deploy backup script
-  file:
+  copy:
     src="mysqldump-secure"
     dest="/usr/local/bin/mysqldump-secure"
     owner=root group=root mode=0755
