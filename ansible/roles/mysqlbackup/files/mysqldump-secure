@@ -181,9 +181,9 @@ _DEFAULT_DUMP_DIR_CHMOD="0700"
 _DEFAULT_DUMP_FILE_PRE="$(date '+%Y-%m-%d')_$(date '+%H-%M')__"
 _DEFAULT_DUMP_FILE_CHMOD="0400"
 
-
 # MySQL defaults
-_DEFAULT_MYSQL_CNF_CHMOD="0400"
+# [ML] Patched to 0600 because that's what Debian uses.
+_DEFAULT_MYSQL_CNF_CHMOD="0600"
 
 # Default minimum size (in MB) required to enable `--quick`
 _DEFAULT_MYSQL_OPTS_QUICK_MIN_SIZE=200
@@ -2179,15 +2179,17 @@ validate_cnf_file() {
 		fi
 
 		# Only allow the following directives
-		if  [ "${_directive}" != "[client]" ] &&
-			[ "${_directive}" != "socket" ] &&
-			[ "${_directive}" != "host" ] &&
-			[ "${_directive}" != "port" ] &&
-			[ "${_directive}" != "user" ] &&
-			[ "${_directive}" != "password" ]; then
-			echo "Invalid directive found: \"${_directive}\""
-			return 1
-		fi
+# [ML] Removing because Debian also adds a mysql-upgrade section
+# and duplicating this file would be annoying.
+# 		if  [ "${_directive}" != "[client]" ] &&
+# 			[ "${_directive}" != "socket" ] &&
+# 			[ "${_directive}" != "host" ] &&
+# 			[ "${_directive}" != "port" ] &&
+# 			[ "${_directive}" != "user" ] &&
+# 			[ "${_directive}" != "password" ]; then
+# 			echo "Invalid directive found: \"${_directive}\""
+# 			return 1
+# 		fi
 
 	done
 	set +f
