@@ -1,9 +1,10 @@
 ---
 
+# rdiff usually runs at 21h
+mysqlbackup_cron_hour: 20
+mysqlbackup_cron_minute: 30
 mysqlbackup_backupdir: "/var/backups/mysql"
 mysqlbackup_filename_format: "{{ ansible_hostname }}-%Y%m%d-%H%M%S.mysqldump"
-mysqlbackup_cron_hour: 22
-mysqlbackup_cron_minute: 05
 mysqlbackup_cnf_file: "/etc/mysql/debian.cnf"
 mysqlbackup_logdir: /var/log/mysql
 
