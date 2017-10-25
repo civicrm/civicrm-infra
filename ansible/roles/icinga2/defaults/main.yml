@@ -8,3 +8,5 @@ icinga2_secret_ticketsalt: ""
 
 icinga2_allow_ips:
     - 192.168.1.0/24
+
+icinga2_rdiffbackup_root: "/backup"

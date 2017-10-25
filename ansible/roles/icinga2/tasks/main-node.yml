@@ -117,7 +117,7 @@
     - icinga2-custom-checks
 
 - name: Deploy custom checks configurations
-  copy: src="etc/icinga2/conf.d/commands/{{ item }}.conf" dest="/etc/icinga2/conf.d/commands/{{ item }}.conf" owner=root group=root mode=0644
+  template: src="etc/icinga2/conf.d/commands/{{ item }}.conf" dest="/etc/icinga2/conf.d/commands/{{ item }}.conf" owner=root group=root mode=0644
   with_items:
     - backup
     - civicrm
