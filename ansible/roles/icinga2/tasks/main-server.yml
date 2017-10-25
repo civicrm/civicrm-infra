@@ -14,6 +14,7 @@
     - nginx-full
     - graphite-carbon
     - graphite-web
+    - graphite-api
     - uwsgi
     - uwsgi-plugin-python
   tags:
@@ -49,8 +50,8 @@
 ###
 
 - name: Open the Icinga2 port for our machines only (used for ssl and node communication)
-  ufw: proto=tcp port=5665 rule=allow src={{ item }}
-  with_items: icinga2_allow_ips
+  ufw: proto=tcp port=5665 rule=allow src="{{ item }}"
+  with_items: "{{ icinga2_allow_ips }}"
   tags:
     - icinga2
     - icinga2-ufw
@@ -60,9 +61,9 @@
 # NB: not using "inventory_hostname" because in our case,
 # it is usually a machine name ("sillyname.example.net"), but we name our CA "icinga.example.org".
 - name: Run icinga2 pki new-cert for our host
-  shell: icinga2 pki new-cert --cn {{ icinga2_main_node }} --key /etc/icinga2/pki/{{ icinga2_main_node }}.key --cert /etc/icinga2/pki/{{ icinga2_main_node }}.crt
+  shell: "icinga2 pki new-cert --cn {{ icinga2_main_node }} --key /etc/icinga2/pki/{{ icinga2_main_node }}.key --cert /etc/icinga2/pki/{{ icinga2_main_node }}.crt"
   args:
-    creates: /etc/icinga2/pki/{{ icinga2_main_node }}.key
+    creates: "/etc/icinga2/pki/{{ icinga2_main_node }}.key"
 
 - name: Enable the Icinga2 API
   shell: icinga2 feature enable api
@@ -83,7 +84,7 @@
   file: path=/var/lib/icingaweb2/modules state=directory owner=root group=root mode=0755
 
 - name: Icingaweb2 symlinks for core modules
-  file: src={{ item.path }} dest={{ item.dest }} owner=root group=root state=link
+  file: src="{{ item.path }}" dest="{{ item.dest }}" owner=root group=root state=link
   with_items:
     - { path: '/usr/share/icingaweb2/modules/doc', dest: '/var/lib/icingaweb2/modules/doc' }
     - { path: '/usr/share/icingaweb2/modules/monitoring', dest: '/var/lib/icingaweb2/modules/monitoring' }

@@ -14,6 +14,9 @@ $tmp = '';
 if ($cms == 'drupal') {
   exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cvapi System.check --out=json', $tmp);
 }
+elseif ($cms == 'wordpress') {
+  exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' wp cv api System.check --out=json --strict=0', $tmp);
+}
 else {
   echo 'Unsupported CMS: ' . $cms;
   exit(3);

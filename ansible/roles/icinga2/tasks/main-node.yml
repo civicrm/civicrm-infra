@@ -3,9 +3,9 @@
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - icinga2
-    - monitoring-plugins-basic # required for check_mem
-    - libnagios-plugin-perl
+    - monitoring-plugins-basic # may not be required anymore (was for check_mem, now in bash)
   tags:
+    - icinga2
     - packages
   when: ansible_distribution == "Debian"
 
@@ -15,6 +15,7 @@
     - nagios-plugins
     - libnagios-plugin-perl
   tags:
+    - icinga2
     - packages
   when: ansible_distribution == "Ubuntu"
 
@@ -35,24 +36,28 @@
   args:
     creates: /etc/icinga2/pki/{{ inventory_hostname }}.key
   tags:
+    - icinga2
     - icinga2-cert
 
 - shell: icinga2 pki save-cert --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --host {{ icinga2_main_node }}
   args:
     creates: /etc/icinga2/pki/trusted-master.crt
   tags:
+    - icinga2
     - icinga2-cert
 
 - shell: icinga2 pki ticket --cn {{ inventory_hostname }}
   delegate_to: "{{ icinga2_main_node }}"
   register: ticket
   tags:
+    - icinga2
     - icinga2-cert
 
 - shell: icinga2 pki request --host {{ icinga2_main_node }} --ticket {{ ticket.stdout }} --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --ca /etc/icinga2/pki/ca.crt
   args:
     creates: /etc/icinga2/pki/ca.crt
   tags:
+    - icinga2
     - icinga2-cert
 
 - template: src=zones.conf dest=/etc/icinga2/zones.conf owner=root group=root mode=0644
@@ -63,6 +68,9 @@
   args:
     creates: /etc/icinga2/features-enabled/api.conf
   notify: restart icinga2
+  tags:
+    - icinga2
+    - icinga2-api
 
 - template: src=features-available/api.conf dest=/etc/icinga2/features-available/api.conf owner=root group=root mode=0644
   notify: restart icinga2
@@ -71,6 +79,7 @@
   delegate_to: "{{ icinga2_main_node }}"
   notify: restart icinga2
   tags:
+    - icinga2
     - icinga2-cert
 
 - name: Disable Icinga2 notifications
@@ -78,38 +87,46 @@
   args:
     removes: /etc/icinga2/features-enabled/notification.conf
   notify: restart icinga2
+  tags:
+    - icinga2
 
-- name: Disable satellite local configurations (otherwise disk/load checks will be duplicated)
-  replace: dest=/etc/icinga2/icinga2.conf regexp='^include_recursive "conf.d"' replace='# include_recursive "conf.d"'
-
-# This script is from nagios-plugins-contrib
-# but that package pulls in too many dependancies.
+## Custom scripts
+##
+## We deploy the scripts to /usr/local/lib/icinga2-plugins
+## because some are run by less-privileged users and might not have access to /etc/icinga2
 - file: path="{{ item }}" state=directory owner=root group=nagios mode=0755
   with_items:
     - /etc/icinga2/conf.d/services
     - /etc/icinga2/conf.d/commands
-    - /etc/icinga2/scripts
+    - /usr/local/lib/icinga2-plugins
   tags:
+    - icinga2
     - icinga2-custom-checks
 
-- name: Deploy custom checks scripts
-  copy: src="etc/icinga2/scripts/{{ item }}" dest="/etc/icinga2/scripts/{{ item }}" owner=root group=root mode=0755
+- name: Deploy custom checks
+  copy: src="etc/icinga2/scripts/{{ item }}" dest="/usr/local/lib/icinga2-plugins/{{ item }}" owner=root group=root mode=0755
   with_items:
     - check_backup
     - check_civicrm
+    - check_file_content
     - check_memory
+    - check_mysqldump-secure
   notify: restart icinga2
   tags:
+    - icinga2
     - icinga2-custom-checks
 
-- name: Deploy custom checks script configurations
+- name: Deploy custom checks configurations
   copy: src="etc/icinga2/conf.d/commands/{{ item }}.conf" dest="/etc/icinga2/conf.d/commands/{{ item }}.conf" owner=root group=root mode=0644
   with_items:
     - backup
     - civicrm
+    - file_content
     - mem
+    - mysqldump
   notify: restart icinga2
   tags:
+    - icinga2
     - icinga2-custom-checks
 
 - template: src="etc/sudoers.d/{{ item }}" dest="/etc/sudoers.d/{{ item }}" owner=root group=root mode=0440
@@ -117,8 +134,16 @@
     - aegir-icinga2
     - backup-icinga2
   tags:
+    - icinga2
     - icinga2-custom-checks
 
 # Remove old location for those configurations
 - file: path=/etc/icinga2/conf.d/services/civicrm.conf state=absent
+  tags:
+    - icinga2
+    - icinga2-custom-checks
+
 - file: path=/etc/icinga2/conf.d/services/mem.conf state=absent
+  tags:
+    - icinga2
+    - icinga2-custom-checks

@@ -1,2 +1,3 @@
 # {{ ansible_managed }}
-nagios ALL=(root) NOPASSWD: /etc/icinga2/scripts/check_backup -s *
+nagios ALL=(root) NOPASSWD: /usr/local/lib/icinga2-plugins/check_backup -s *
+nagios ALL=(root) NOPASSWD: /usr/local/lib/icinga2-plugins/check_mysqldump-secure *
