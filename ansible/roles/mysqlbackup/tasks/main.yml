@@ -3,6 +3,14 @@
 # Based on:
 # https://github.com/openmicroscopy/ansible-role-mysql-backup/
 
+# Required to cleanup backups after 24h
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - tmpreaper
+  tags:
+    - mysqlbackup
+    - packages
+
 - name: mysqlbackup | create backup directory
   become: yes
   file:
@@ -46,5 +54,15 @@
     cron_file="mysqlbackup"
     user="root"
     state=present
+  tags:
+    - mysqlbackup
+
+- name: mysqlbackup | define cron job PATH
+  cron:
+    name=PATH
+    env=yes
+    value="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
+    cron_file="mysqlbackup"
+    user="root"
   tags:
     - mysqlbackup
