@@ -50,7 +50,7 @@
     name="mysqlbackup"
     hour="{{ mysqlbackup_cron_hour }}"
     minute="{{ mysqlbackup_cron_minute }}"
-    job="/usr/local/bin/mysqldump-secure"
+    job="/usr/local/bin/mysqldump-secure --cron"
     cron_file="mysqlbackup"
     user="root"
     state=present
