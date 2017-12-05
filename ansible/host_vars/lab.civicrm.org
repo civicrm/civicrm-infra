@@ -9,5 +9,5 @@ logstash_forwarder_files:
     fields:
       type: syslog
 
-backupincludes:
+backups_include_extras:
   - /var/opt/gitlab/backups
