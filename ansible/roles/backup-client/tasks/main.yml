@@ -10,7 +10,6 @@
 
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
-    - automysqlbackup
     - rdiff-backup
   tags:
     - packages
@@ -29,13 +28,6 @@
 - name: Backupninja | ensure that the backup directory exists
   file: path="/srv/backups/{{ inventory_hostname }}" state=directory owner=root group=root mode=0700
   delegate_to: "{{ backupserver_hourly }}"
-
-- name: Backupninja | deploy mysql backup template
-  template: src=etc/backup.d/20.mysql dest="/etc/backup.d/20.mysql" mode=0600
-  when: backups_mysqldump
-  tags:
-    - backup-client
-    - backup-client-configuration
 
 # TODO: if no key exists, create one.
 
@@ -64,17 +56,3 @@
     name="{{ inventory_hostname }}"
     key="{{ host_fingerprint.stdout }}"
   delegate_to: "{{ backupserver_hourly }}"
-
-# MySQL permissions check
-#
-# The ACLs make it easier to sync prod->dev environments, especially for
-# the civicrm.org website.
-- stat: path=/var/backups/mysql
-  register: st
-
-- name: ACL | Ensure mysql backup directory is not world readable.
-  file: path="{{ item }}" owner=root group=root mode=0750 state=directory
-  with_items:
-    - /var/backups/mysql
-    - /var/backups/mysql/sqldump
-  when: (st.stat.exists == true)
