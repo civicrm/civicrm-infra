@@ -114,24 +114,6 @@ Virtual Servers
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
-      <td>✗ test-ubu1204-2</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
-      <td>140.211.167.149</td>
-      <td></td>
-      <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
-      <td>OFFLINE. Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
-    </tr>
-    <tr>
-      <td>test-ubu1210-1</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.10</td>
-      <td>140.211.167.150</td>
-      <td></td>
-      <th>cores=2 ram=4gb root=12gb (updated: 2014-10-27)</th>
-      <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
-    </tr>
-    <tr>
       <td>www-cxn-2</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
