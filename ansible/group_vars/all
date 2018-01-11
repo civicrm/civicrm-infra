@@ -16,6 +16,7 @@ unattended_origins_patterns:
   - o=${distro_id},n=${distro_codename},l=${distro_id}-Security
   - o=MariaDB,l=MariaDB
   - o=debmon.org,l=debmon.org
+  - o=ubuntu icinga-trusty,l=ubuntu icinga-trusty
   - o=packages.gitlab.com/gitlab/gitlab-ce,l=gitlab-ce
   - o=LP-PPA-ondrej-php
 
