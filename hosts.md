@@ -107,10 +107,10 @@ Virtual Servers
     <tr>
       <td>test-ubu1204-1</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 14.04 LTS (Trusty)</td>
       <td>140.211.167.149</td>
       <td></td>
-      <th>cores=2 ram=4 root=20gb (updated: 2014-10-27)</th>
+      <th>cores=2 ram=4 root=20gb (updated: 2018-01-11)</th>
       <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
     </tr>
     <tr>
@@ -170,10 +170,10 @@ Virtual Servers
     <tr>
       <td>test-ubu1204-5</td>
       <td>OVH</td>
-      <td>Ubuntu 12.04 LTS (Precise Pangolin)</td>
+      <td>Ubuntu 14.04 LTS (Trusty)</td>
       <td>192.95.2.130</td>
       <td></td>
-      <th>cores=4 ram=20gb root=50gb (updated: 2016-04-22)</th>
+      <th>cores=4 ram=20gb root=50gb (updated: 2017-12-20)</th>
       <td>Tests</td>
     </tr>
     <tr>
