@@ -1,2 +1,5 @@
 sslcertificates:
     - wildcard.civicrm.org
+
+backups_include_extras:
+  - /var/lib/jenkins
