@@ -22,3 +22,19 @@ query_cache_size        = 128M
 
 # log_slow_queries        = /var/log/mysql/mysql-slow.log
 long_query_time = 2
+
+# https://mariadb.com/kb/en/mariadb/server-system-variables/#max_statement_time
+# Maximum time in seconds that a query can execute before being aborted.
+# This includes all queries, not just SELECT statements, but excludes statements in stored procedures.
+#
+# NB: 360 seconds (6 mins) is a really long time for a query, but some reports
+# or exports can be very slow.
+max_statement_time = 360
+
+# https://dev.mysql.com/doc/refman/5.7/en/stored-programs-logging.html
+log_bin_trust_function_creators=1
+
+# [ML] Since MariaDB 10.2, sql-mode also includes: STRICT_TRANS_TABLES
+# but this is a bit too brutal for legacy code.
+# https://mariadb.com/kb/en/library/sql-mode/
+sql-mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"

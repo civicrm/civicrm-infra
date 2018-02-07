@@ -8,6 +8,23 @@
     - aegir-mysql
     - aegir-mariadb
 
+# Apparently the ARCHIVE plugin is enabled by default in MariaDB 10.0, but not 10.1.
+# Required by CiviCRM.
+- name: MySQL | Check for the ARCHIVE plugin
+  shell: "echo 'show plugins' | mysql --defaults-file=/etc/mysql/debian.cnf | grep ha_archive.so"
+  register: mysqld_archive
+  ignore_errors: True
+  tags:
+    - aegir-mysql
+    - aegir-mariadb
+
+- name: MySQL | Enable the ARCHIVE engine
+  shell: "echo \"INSTALL PLUGIN archive SONAME 'ha_archive.so'\" | mysql --defaults-file=/etc/mysql/debian.cnf"
+  when: mysqld_archive.stdout == ""
+  tags:
+    - aegir-mysql
+    - aegir-mariadb
+
 - name: MySQL | Create mysql systemd override directory
   file: path="/etc/systemd/system/mysql.service.d" state=directory mode=0755 owner=root group=root
   tags:
@@ -23,19 +40,3 @@
   tags:
     - aegir-mysql
     - aegir-mariadb
-
-# Apparently the ARCHIVE plugin is enabled by default in MariaDB 10.0, but not 10.1.
-# Required by CiviCRM.
-# - name: MySQL | Check for the ARCHIVE plugin
-#   shell: "echo 'show plugins' | mysql --defaults-file=/etc/mysql/debian.cnf | grep ha_archive.so"
-#   register: mysqld_archive
-#   tags:
-#     - aegir-mysql
-#     - aegir-mariadb
-# 
-# - name: MySQL | Enable the ARCHIVE engine
-#   shell: "echo \"INSTALL PLUGIN archive SONAME 'ha_archive.so'\" | mysql --defaults-file=/etc/mysql/debian.cnf"
-#   when: mysqld_archive.stdout == ""
-#   tags:
-#     - aegir-mysql
-#     - aegir-mariadb

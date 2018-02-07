@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+#
+enter /var/aegir/platforms/[^/]+/sites/[^/]+
+     export CIVICRM_SETTINGS="$PWD/civicrm.settings.php"

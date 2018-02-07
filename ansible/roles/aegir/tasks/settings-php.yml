@@ -1,12 +1,53 @@
-# FIXME: this should restart php-fpm
+- name: Make sure that /etc/php exists for backwards-compat
+  file: path="/etc/php" state=directory mode=0755 owner=root group=root
+  tags:
+    - aegir-php
+
+- name: Symlink PHP5 configuration directory, for Debian-Jessie support
+  file:
+    src="/etc/php5"
+    dest="/etc/php/5"
+    owner=root group=root state=link
+  when: ansible_distribution_release == "jessie"
+  tags:
+    - aegir-php
+
+- name: Apache | Deploy our PHP ini overrides.
+  template:
+    src="etc/php{{ phpversion }}/mods-available/90-symbiotic.ini"
+    dest="/etc/php{{ phpversion }}/mods-enabled/90-symbiotic.ini"
+    owner=root group=root mode=0644
+  notify: restart apache2
+  when: "'aegir-apache' in group_names"
+  tags:
+    - aegir-php
+
 - name: Nginx | Deploy our PHP ini overrides.
   template:
-    src=etc/php/7.0/mods-available/90-symbiotic.ini
-    dest=/etc/php/7.0/mods-available/90-symbiotic.ini
+    src="etc/php/{{ phpversion }}/mods-available/90-symbiotic.ini"
+    dest="/etc/php/{{ phpversion }}/mods-available/90-symbiotic.ini"
     owner=root group=root mode=0644
   notify: restart nginx
+  when: "'aegir-apache' not in group_names"
+  tags:
+    - aegir-php
+
+- name: Symlink PHP ini settings for Apache2
+  file:
+    src="/etc/php/{{ phpversion }}/mods-available/90-symbiotic.ini"
+    dest="/etc/php/{{ phpversion }}/apache2/conf.d/90-symbiotic.ini"
+    owner=root group=root state=link
+  notify: restart apache2
+  when: "'aegir-apache' in group_names"
+  tags:
+    - aegir-php
 
 - name: Symlink PHP ini settings for nginx
-  file: src="/etc/php/7.0/mods-available/90-symbiotic.ini" dest="/etc/php/7.0/fpm/conf.d/90-symbiotic.ini"
-        owner=root group=root state=link
+  file:
+    src="/etc/php/{{ phpversion }}/mods-available/90-symbiotic.ini"
+    dest="/etc/php/{{ phpversion }}/fpm/conf.d/90-symbiotic.ini"
+    owner=root group=root state=link
   notify: restart nginx
+  when: "'aegir-apache' not in group_names"
+  tags:
+    - aegir-php
