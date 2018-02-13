@@ -10,3 +10,5 @@ ldap_server_allow_ips:
     - 2605:bc80:3010:102:0:3::/96 # OSUOSL cluster
     - 45.79.135.8 # www-prod-2
     - 2600:3c03::f03c:91ff:fe7b:2e21 # www-prod-2
+    - 23.92.17.192 # spark-1
+    - 2600:3c03::f03c:91ff:fe29:3a07 # spark-1
