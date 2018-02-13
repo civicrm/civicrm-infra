@@ -32,6 +32,7 @@ www-test.civicrm.org
 
 [nginx-servers]
 chat.civicrm.org
+spark-1.civicrm.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
@@ -49,8 +50,6 @@ test-ubu1204-2.civicrm.osuosl.org
 test-ubu1204-3.civicrm.org
 test-ubu1204-5.civicrm.org
 test-ubu1604-1.civicrm.org
-# test-debian6-1.civicrm.osuosl.org
-# test-ubu1210-1.civicrm.osuosl.org
 
 [backup-servers]
 backups-1.civicrm.org
