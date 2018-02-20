@@ -20,6 +20,7 @@
 # Deploy backupninja rdiff config to onsite backup-server
 - name: Backupninja | deploy rdiff hourly backup template
   template: src=etc/backup.d/90-hostname.rdiff dest="/etc/backup.d/{{ inventory_hostname }}.rdiff" mode=0600
+  when: backupserver_hourly != "none"
   delegate_to: "{{ backupserver_hourly }}"
   tags:
     - backup-client
@@ -27,6 +28,7 @@
 
 - name: Backupninja | ensure that the backup directory exists
   file: path="/srv/backups/{{ inventory_hostname }}" state=directory owner=root group=root mode=0700
+  when: backupserver_hourly != "none"
   delegate_to: "{{ backupserver_hourly }}"
 
 # TODO: if no key exists, create one.
@@ -34,6 +36,7 @@
 # Deploy root@backup-server ssh pubkey to client
 - name: ssh | Get root ssh public key
   shell: cat /root/.ssh/id_rsa.pub
+  when: backupserver_hourly != "none"
   delegate_to: "{{ backupserver_hourly }}"
   register: id_rsa_pub
   changed_when: false
@@ -43,11 +46,13 @@
     user="root"
     key="{{ id_rsa_pub.stdout }}"
     key_options='no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty,from="140.211.166.28"'
+  when: backupserver_hourly != "none"
 
 # Add client host key to known_hosts of backup server (which does pull)
 - name: ssh | Run ssh-keyscan to get client fingerprint
   shell: "ssh-keyscan -H -T 10 {{ inventory_hostname }}"
   register: host_fingerprint
+  when: backupserver_hourly != "none"
   changed_when: false
   delegate_to: "{{ backupserver_hourly }}"
 
@@ -55,4 +60,5 @@
   known_hosts:
     name="{{ inventory_hostname }}"
     key="{{ host_fingerprint.stdout }}"
+  when: backupserver_hourly != "none"
   delegate_to: "{{ backupserver_hourly }}"
