@@ -1,16 +1,26 @@
 ---
-# Install basic things which must be everywhere.
+
+# We deploy our sources.list to include "contrib"
+- name: common-all | Deploy apt sources.list
+  template: src=etc/apt/sources.list dest=/etc/apt/sources.list owner=root group=root mode=0644
+  tags:
+    - common-all
+
 - apt: update_cache=yes
   tags:
     - packages
+    - common-all
 
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
-    - bind9-host
-    - cron-apt
+    - apt-transport-https
+    - ca-certificates
+    - curl
     - etckeeper
     - fail2ban
+    - gawk
     - git
+    - less
     - libpam-yubico
     - ncdu
     - ntpdate
@@ -20,10 +30,12 @@
     - unzip
     - vim
     - vnstat
+    - wget
     - whois
     - zip
   tags:
     - packages
+    - common-all
 
 # Configure the firewall
 - name: Allow ssh
