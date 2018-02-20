@@ -1,0 +1,2 @@
+backups_exclude_extras:
+  - /srv/buildkit/build

@@ -1,0 +1,5 @@
+icinga2_rdiffbackup_root: "/srv/backups"
+
+backupserver_hourly: none
+backups_exclude_extras:
+  - /srv/backups/*/rdiff-backup
