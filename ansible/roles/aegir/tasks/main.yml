@@ -140,7 +140,6 @@
     - xauth
     - xvfb
     - libxrender1
-    - ttf-mscorefonts-installer
     - fonts-dejavu-core
     - imagemagick
   tags:
