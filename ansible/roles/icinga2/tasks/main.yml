@@ -1,42 +1,41 @@
 ---
 
-- name: Get Debmon Apt Key
+- name: Check if Icinga was already installed from debmon
+  stat: path=/etc/apt/sources.list.d/debmon_org_debmon.list
+  register: icinga_old_package
+  tags:
+    - icinga2
+    - packages
+
+- name: Remove the old Icinga package to force an upgrade
+  apt: pkg=icinga2 state=absent
+  when: icinga_old_package.stat.exists == True
+  tags:
+    - icinga2
+    - packages
+
+- name: Delete the old Icinga debmon repository
+  file: path="/etc/apt/sources.list.d/debmon_org_debmon.list" state=absent
+  tags:
+    - icinga2
+    - packages
+
+- name: Get Icinga Apt Key
   apt_key:
-    url="http://debmon.org/debmon/repo.key"
+    url="https://packages.icinga.com/icinga.key"
     state=present
   tags:
     - icinga2
     - packages
-  when: ansible_distribution == "Debian"
 
-- name: Get Debmon Apt Repo
+- name: Configure Icinga Apt Repo
   apt_repository:
-    repo="deb http://debmon.org/debmon debmon-{{ ansible_distribution_release }} main"
+    repo="deb http://packages.icinga.com/{{ ansible_distribution|lower }} icinga-{{ ansible_distribution_release }} main"
     update_cache=yes 
     state=present
   tags:
     - icinga2
     - packages
-  when: ansible_distribution == "Debian"
-
-- name: Get Ubuntu Apt Key
-  apt_key:
-    url="http://packages.icinga.org/icinga.key"
-    state=present
-  tags:
-    - icinga2
-    - packages
-  when: ansible_distribution == "Ubuntu"
-
-- name: Get Ubuntu Apt Repo
-  apt_repository:
-    repo="deb http://packages.icinga.org/ubuntu/ icinga-{{ ansible_distribution_release }} main"
-    update_cache=yes 
-    state=present
-  tags:
-    - icinga2
-    - packages
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version != "16.04"
 
 - include: main-server.yml
   when: "'icinga-servers' in group_names"

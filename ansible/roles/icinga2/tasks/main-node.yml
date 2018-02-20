@@ -39,14 +39,16 @@
     - icinga2
     - icinga2-cert
 
-- shell: icinga2 pki save-cert --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --host {{ icinga2_main_node }}
+- name: Run icinga2 pki save-cert
+  shell: icinga2 pki save-cert --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --host {{ icinga2_main_node }}
   args:
-    creates: /etc/icinga2/pki/trusted-master.crt
+    creates: "/etc/icinga2/pki/trusted-master.crt"
   tags:
     - icinga2
     - icinga2-cert
 
-- shell: icinga2 pki ticket --cn {{ inventory_hostname }}
+- name: Run icinga2 pki ticket
+  shell: icinga2 pki ticket --cn {{ inventory_hostname }}
   delegate_to: "{{ icinga2_main_node }}"
   register: ticket
   tags:
@@ -55,7 +57,7 @@
 
 - shell: icinga2 pki request --host {{ icinga2_main_node }} --ticket {{ ticket.stdout }} --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --ca /etc/icinga2/pki/ca.crt
   args:
-    creates: /etc/icinga2/pki/ca.crt
+    creates: "/etc/icinga2/pki/ca.crt"
   tags:
     - icinga2
     - icinga2-cert
