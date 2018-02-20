@@ -29,7 +29,10 @@ if ($tmp) {
   $check_descriptions = array();
 
   if (empty($civistatus)) {
-    echo 'Failed to check status.';
+    if ($cms == 'drupal') {
+      exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cc drush');
+    }
+    echo 'Failed to check status (1). Drush cache flushed for the next run.';
     exit(3);
   }
 
@@ -52,9 +55,9 @@ if ($tmp) {
 
       $check_descriptions[] = $val->title;
     }
-    elseif ($val->severity == 'error' || $val->severity == 'critical') {
+
+    if ($val->severity == 'error' || $val->severity == 'critical') {
       $check_status = 2;
-      $check_descriptions[] = $val->title;
     }
   }
 
@@ -68,5 +71,9 @@ if ($tmp) {
   }
 }
 
-echo 'Failed to check status.';
+if ($cms == 'drupal') {
+  exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cc drush');
+}
+
+echo 'Failed to check status (2). Drush cache flushed for the next run.';
 exit(3);
