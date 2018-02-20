@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+deb http://ftp.ca.debian.org/debian/ {{ ansible_distribution_release }} main contrib
+deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib
+
+# stretch-updates, previously known as 'volatile'
+deb http://ftp.ca.debian.org/debian/ {{ ansible_distribution_release }}-updates main
