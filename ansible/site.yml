@@ -3,10 +3,11 @@
   sudo: yes
   roles:
     - common-all
-    - logstash-forwarder
     - backup-client
-    - unattended-upgrades
     - ldap-auth-client
+    - logstash-forwarder
+    - mysqlbackup
+    - unattended-upgrades
   tags:
     - minimum
 
@@ -68,12 +69,12 @@
   tags:
     - php56
 
-- hosts: php53plus-servers
+- hosts: php54-servers
   sudo: yes
   roles:
-    - php53plus
+    - php54
   tags:
-    - php53plus
+    - php54
 
 - hosts: buildkit-servers
   sudo: yes
@@ -125,7 +126,7 @@
   tags:
     - aegir
 
-# Aegir, for example, handles LE/dehydrated already.
+# NB: Aegir handles LE/dehydrated already.
 - hosts: dehydrated-manually
   become: yes
   become_user: root

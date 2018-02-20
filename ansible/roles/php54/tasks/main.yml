@@ -1,0 +1,17 @@
+---
+
+# These packages have been used with 12.04+buildkit:
+# See also: do_system_precise
+# https://github.com/civicrm/civicrm-buildkit/blob/master/bin/civi-download-tools#L307
+
+# Currently we are using ondrej's PPA for Ubuntu Xenial:
+# http://ppa.launchpad.net/ondrej/php/
+
+- apt_key:
+    url="http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4F4EA0AAE5267A6C"
+    state=present
+
+- apt_repository:
+    repo='deb http://ppa.launchpad.net/ondrej/php/ubuntu precise main'
+    state=present
+    update_cache=yes
