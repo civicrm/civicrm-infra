@@ -1,13 +1,11 @@
-CiviCRM Infrastructure
-======================
+# CiviCRM Infrastructure
 
 This repo provides notes helpful for sysadmins working with the civicrm.org
 infrastructure.
 
 Issues: https://lab.civicrm.org/infrastructure/ops/issues/
 
-Related documentation
----------------------
+## Related documentation
 
 * CiviCRM statistics: https://github.com/civicrm/civicrm-statistics
 
