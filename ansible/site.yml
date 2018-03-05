@@ -69,6 +69,13 @@
   tags:
     - php56
 
+- hosts: php55-servers
+  sudo: yes
+  roles:
+    - php55
+  tags:
+    - php55
+
 - hosts: php54-servers
   sudo: yes
   roles:

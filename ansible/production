@@ -39,10 +39,11 @@ www-prod-2.civicrm.org
 www-test.civicrm.org
 
 [apache-servers]
-latest.civicrm.org
-www-demo.civicrm.osuosl.org
 java-prod.civicrm.osuosl.org
+latest.civicrm.org
+test-ubu1204-5.civicrm.org
 training.civicrm.org
+www-demo.civicrm.osuosl.org
 
 [test-servers]
 test-ubu1204-1.civicrm.osuosl.org
@@ -93,9 +94,11 @@ latest.civicrm.org
 training.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 
+[php55-servers]
+test-ubu1204-5.civicrm.org
+
 [php54-servers]
 test-ubu1204-1.civicrm.osuosl.org
-test-ubu1204-5.civicrm.org
 
 [buildkit-servers]
 training.civicrm.org

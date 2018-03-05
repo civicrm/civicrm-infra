@@ -1,0 +1,50 @@
+---
+
+# This assumes that the server is running Ubuntu Trusty 14.04 (EOL: April 2019).
+
+# NB: php55 does not have a php5-bcmath, php5-mbstring, php5-xml, php5-zip packages,
+# they are included in libapache2-mod-php5 and php5-fpm
+# https://askubuntu.com/questions/491629/how-to-install-php-mbstring-extension-in-ubuntu/491631#491631
+
+# php*-opcache is provided as a separate package as of PHP 5.6+, in 5.5, it's part of php5-common.
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - php5-cli
+    - php5-common
+    - php5-curl
+    - php5-fpm
+    - php5-gd
+    - php5-imagick
+    - php5-imap
+    - php5-intl
+    - php5-json
+    - php5-ldap
+    - php5-mcrypt
+    - php5-mysql
+    - php5-readline
+    - php5-recode
+    - php-soap # renamed php*-soap in 5.6+
+    - php5-sqlite # renamed php*-sqlite3 in 5.6+
+    - php5-xmlrpc
+    - php5-xsl
+  tags:
+    - packages
+    - php55
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - libapache2-mod-php5
+  when: ("'apache-servers' in group_names")
+  tags:
+    - packages
+    - php55
+
+- name: php55 | deploy fpm configuration
+  template:
+    src="etc/php5/fpm/pool.d/www.conf"
+    dest="/etc/php5/fpm/pool.d/www.conf"
+    owner=root group=root mode=0644
+  notify: restart php5-fpm
+  tags:
+    - php55
