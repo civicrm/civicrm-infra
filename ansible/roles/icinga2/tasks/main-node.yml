@@ -3,7 +3,8 @@
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - icinga2
-    - monitoring-plugins-basic # may not be required anymore (was for check_mem, now in bash)
+    - monitoring-plugins-basic # required for check_apt
+    - nagios-plugins-contrib # for mysql checks
   tags:
     - icinga2
     - packages
@@ -14,10 +15,17 @@
     - icinga2
     - nagios-plugins
     - libnagios-plugin-perl
+    - nagios-plugins-contrib # for mysql checks
   tags:
     - icinga2
     - packages
   when: ansible_distribution == "Ubuntu"
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - nagios-plugins-contrib # for mysql checks
+  tags:
+    - icinga2-mysql
 
 - name: Deploy icinga2 basic configuration files
   template: src="etc/icinga2/{{ item }}" dest="/etc/icinga2/{{ item }}" owner=root group=root mode=0644
@@ -126,18 +134,29 @@
     - file_content
     - mem
     - mysqldump
+    - mysql_uptime
   notify: restart icinga2
   tags:
     - icinga2
     - icinga2-custom-checks
 
+- name: Deploy custom checks configurations
+  template: src="etc/icinga2/conf.d/commands/{{ item }}.conf" dest="/etc/icinga2/conf.d/commands/{{ item }}.conf" owner=root group=root mode=0644
+  with_items:
+    - mysql_uptime
+  notify: restart icinga2
+  tags:
+    - icinga2-mysql
+
 - template: src="etc/sudoers.d/{{ item }}" dest="/etc/sudoers.d/{{ item }}" owner=root group=root mode=0440
   with_items:
     - aegir-icinga2
     - backup-icinga2
+    - mysql-icinga2
   tags:
     - icinga2
     - icinga2-custom-checks
+    - icinga2-mysql
 
 # Remove old location for those configurations
 - file: path=/etc/icinga2/conf.d/services/civicrm.conf state=absent

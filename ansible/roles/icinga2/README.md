@@ -67,7 +67,15 @@ Although, for now, this is mostly to avoid running the "apt" and "mem" checks on
 
 ### TODO
 
-* The configuration of the server is missing some bits to configure icingaweb2.
+* The configuration of the server is missing some bits to configure icingaweb2:
+  * nginx vhost configuration
+  * letsencrypt https cert (c.f. dehydrated role)
+  * icingaweb2 installation itself (which also requires creating a mysql user/db)
+  * enable features-available/ido-mysql
+  * create the icinga2 database (see ido-mysql, should have credentials with random pass)
+  * import the icinga2 schema: mysql --defaults-file=/etc/mysql/debian.cnf icinga2 < /usr/share/icinga2-ido-mysql/schema/mysql.sql
+  * configure the Monitoring Backend: https://www.icinga.com/docs/icinga2/latest/doc/02-getting-started/#enabling-the-ido-mysql-module
+  * configure the Monitoring transport: use Icinga2 API, user/pass in /etc/icinga2/conf.d/api-users.conf
 
 * Master server should include zones.d/* (see icinga2.conf and uncomment the line).
 
@@ -114,34 +122,10 @@ nginx vhost:
   }
 ```
 
-grafana:
+Misc:
 
-```
-apt-get install apt-transport-https
-
-# add repo (package for wheezy works on jessie)
-cat <<EOF >/etc/apt/sources.list.d/grafana.list
-deb https://packagecloud.io/grafana/stable/debian/ jessie main
-EOF
-
-wget -O - https://packagecloud.io/gpg.key 2>/dev/null | apt-key add - 
-apt-get update
-
-apt-get install grafana
-
-systemctl enable grafana-server.service
-systemctl start grafana-server
-```
-
-Increase carbon / graphite retention times:
-
-/etc/carbon/storage-schemas.conf
-
-```
-[icinga_default]
-pattern = ^icinga2\.
-retentions = 1m:2d,5m:10d,30m:90d,360m:3y
-```
+* Grafana: see the 'grafana' role.
+* Graphite: Increase carbon / graphite retention times (/etc/carbon/storage-schemas.conf, now in this role).
 
 http://docs.icinga.org/icinga2/snapshot/doc/module/icinga2/toc#!/icinga2/snapshot/doc/module/icinga2/chapter/icinga2-features#graphite-carbon-cache-writer  
 http://randsubrosa.blogspot.ca/2013/03/adjust-retention-time-for-carbon-and.html

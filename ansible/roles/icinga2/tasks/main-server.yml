@@ -3,9 +3,10 @@
 # nb: nagios-plugins-contrib is required for check_ssl_cert
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
+    - dnsutils # required for check_dig
     - icinga2
     - icinga2-ido-mysql
-    - nsca-ng-server
+    - icingacli
     - monitoring-plugins
     - monitoring-plugins-basic
     - monitoring-plugins-common
@@ -13,10 +14,14 @@
     - nagios-plugins-contrib
     - nginx-full
     - graphite-carbon
-    - graphite-web
     - graphite-api
+    - gunicorn3 # for graphite
+    - ufw
     - uwsgi
     - uwsgi-plugin-python
+    - php7.0-fpm # otherwise apache gets installed
+    - icingaweb2
+    - icingaweb2-module-monitoring
   tags:
     - packages
 
@@ -24,9 +29,9 @@
   template:
     src="{{ item }}"
     dest="/{{ item }}"
-    owner=root group=root mode=0640
+    owner=root group=nagios mode=0640
   with_items:
-    - etc/icinga2/constant.conf
+    - etc/icinga2/constants.conf
     - etc/icinga2/icinga2.conf
   notify: restart icinga2
   tags:
@@ -37,13 +42,8 @@
   file: src=/etc/icinga2/features-available/command.conf dest=/etc/icinga2/features-enabled/command.conf state=link
   notify: restart icinga2
 
-- name: Ensure that the nsca-ng directory exists
-  file: path=/var/run/nsca-ng state=directory owner=nagios group=nagios mode=0775
-
 - name: Permissions on ido-mysql.conf file
   file: path=/etc/icinga2/features-available/ido-mysql.conf owner=root group=nagios mode=0640
-
-# TODO : ufw open 5668 tcp for NRPE
 
 ###
 ### PKI setup for satellite setup.
@@ -55,8 +55,12 @@
   tags:
     - icinga2
     - icinga2-ufw
+    - ufw
 
 # TODO : run pki new-ca ?
+# icinga2 pki new-ca
+# [no] then copy the cert: cp -i /var/lib/icinga2/ca/ca.crt /etc/icinga2/pki/ca.crt # ?
+# since v2.8, certs are in /var/lib/icinga2/{ca,pki} and the api.conf settings are deprecated.
 
 # NB: not using "inventory_hostname" because in our case,
 # it is usually a machine name ("sillyname.example.net"), but we name our CA "icinga.example.org".
@@ -74,29 +78,76 @@
 - template: src=features-available/api.conf dest=/etc/icinga2/features-available/api.conf owner=root group=root mode=0644
   notify: restart icinga2
 
+# Custom checks
+- file: path="{{ item }}" state=directory owner=root group=nagios mode=0755
+  with_items:
+    - /usr/local/lib/icinga2-plugins
+  tags:
+    - icinga2
+    - icinga2-custom-checks
+
+- name: Deploy custom checks
+  copy: src="etc/icinga2/scripts/{{ item }}" dest="/usr/local/lib/icinga2-plugins/{{ item }}" owner=root group=root mode=0755
+  with_items:
+    - check_ssl_cert
+  notify: restart icinga2
+  tags:
+    - icinga2
+    - icinga2-custom-checks
+
 ###
-### Graphite module setup
+### Icingaweb2 and Graphite module setup
 ###
 - name: Setup module directory in /var/lib/icingaweb2
   file: path=/var/lib/icingaweb2 state=directory owner=root group=root mode=0755
+  tags:
+    - icinga-icingaweb2
 
 - name: Setup module directory in /var/lib/icingaweb2/modules
   file: path=/var/lib/icingaweb2/modules state=directory owner=root group=root mode=0755
+  tags:
+    - icinga-icingaweb2
+
+- name: Deploy PHP configuration overrides
+  template:
+    src=etc/php/7.0/mods-available/symbiotic-icinga.ini
+    dest=/etc/php/7.0/mods-available/symbiotic-icinga.ini
+    owner=root group=root mode=0644
+  notify: restart php-fpm
+  tags:
+    - icingaweb2
+
+- name: Symlink PHP configuration to fpm
+  file: src="/etc/php/7.0/mods-available/symbiotic-icinga.ini" dest="/etc/php/7.0/fpm/conf.d/90-symbiotic-icinga.ini" owner=root group=root state=link
+  notify: restart php-fpm
+  tags:
+    - icingaweb2
 
 - name: Icingaweb2 symlinks for core modules
   file: src="{{ item.path }}" dest="{{ item.dest }}" owner=root group=root state=link
   with_items:
-    - { path: '/usr/share/icingaweb2/modules/doc', dest: '/var/lib/icingaweb2/modules/doc' }
-    - { path: '/usr/share/icingaweb2/modules/monitoring', dest: '/var/lib/icingaweb2/modules/monitoring' }
-    - { path: '/usr/share/icingaweb2/modules/setup', dest: '/var/lib/icingaweb2/modules/setup' }
+    - { path: '/usr/share/icingaweb2/modules/monitoring', dest: '/etc/icingaweb2/enabledModules/monitoring' }
 
 - name: Download the graphite module
   git: repo=https://github.com/findmypast/icingaweb2-module-graphite.git
-       dest=/var/lib/icingaweb2/modules/graphite
+       dest=/usr/share/icingaweb2/modules/graphite
        update=yes
+  tags:
+    - icinga-graphite
 
 - name: Setup graphite icingaweb2 module configuration in /etc/icingaweb2/modules/graphite
   file: path=/etc/icingaweb2/modules/graphite state=directory owner=root group=root mode=0755
+  tags:
+    - icinga-graphite
+
+- name: Deploy the graphite retention configuration
+  template:
+    src=etc/carbon/storage-schemas.conf
+    dest=/etc/carbon/storage-schemas.conf
+    owner=root group=root mode=0644
+  notify: restart graphite
+  tags:
+    - icinga-graphite
 
 - name: Deploy graphite icingaweb2 config file
   template:
