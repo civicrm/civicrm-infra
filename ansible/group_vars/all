@@ -33,3 +33,9 @@ ufw_icinga2_allow_src:
   - 2607:f2c0:f00f:2914::/64 # icinga.b.c
   - 2605:9000:402:6a17::61 # icinga.s.c
   - 205.204.73.202 # icinga.s.c
+
+gitlab_runner_coordinator_url: "https://lab.civicrm.org"
+gitlab_runner_description: "{{ ansible_hostname }}"
+gitlab_runner_executor: "shell"
+gitlab_runner_tags: "{{ ansible_hostname }}"
+# gitlab_runner_registration_token: "SECRET"

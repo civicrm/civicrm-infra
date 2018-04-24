@@ -1,0 +1,63 @@
+---
+
+- apt: pkg="{{ item }}" state=installed
+  with_items:
+    - debian-archive-keyring
+    - apt-transport-https
+  tags:
+    - gitlab-runner
+    - packages
+
+- name: Get the Gitlab repo key
+  apt_key: url=https://packages.gitlab.com/runner/gitlab-ci-multi-runner/gpgkey state=present
+  tags:
+    - gitlab-runner
+    - packages
+
+- apt_repository:
+    repo="deb https://packages.gitlab.com/runner/gitlab-ci-multi-runner/debian/ {{ ansible_distribution_release }} main"
+    state=present
+    update_cache=yes
+  tags:
+    - gitlab-runner
+    - packages
+
+- apt: pkg=gitlab-ci-multi-runner state=installed
+  tags:
+    - gitlab-runner
+    - packages
+
+# Register the Runner with the Gitlab server
+# Based on: https://github.com/haroldb/ansible-gitlab-runner/blob/master/tasks/register-runner.yml
+
+- name: List configured runners
+  command: "gitlab-runner list 2>&1 | grep {{ gitlab_runner_description }}"
+  register: configured_runners
+  changed_when: False
+  tags:
+    - gitlab-runner
+
+- name: Register runner to GitLab
+  command: gitlab-runner register >
+    --non-interactive
+    --url "{{ gitlab_runner_coordinator_url }}"
+    --registration-token "{{ gitlab_runner_registration_token }}"
+    --description "{{ gitlab_runner_description }}"
+    --tag-list "{{ gitlab_runner_tags }}"
+    --executor "{{ gitlab_runner_executor }}"
+  when: configured_runners.stdout == ""
+  tags:
+    - gitlab-runner
+
+- name: Reduce the check_interval to avoid DDoS the server
+  lineinfile:
+    path: /etc/gitlab-runner/config.toml
+    regexp: '^check_interval = \d+'
+    line: 'check_interval = 10'
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart gitlab-runner
+  tags:
+    - gitlab-runner
+    - gitlab-runner-interval
