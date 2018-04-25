@@ -118,6 +118,7 @@
   with_items:
     - check_backup
     - check_civicrm
+    - check_cmsversion
     - check_file_content
     - check_memory
     - check_mysqldump-secure
@@ -131,6 +132,7 @@
   with_items:
     - backup
     - civicrm
+    - cmsversion
     - file_content
     - mem
     - mysqldump

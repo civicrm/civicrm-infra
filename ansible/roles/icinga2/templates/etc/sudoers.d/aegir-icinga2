@@ -1,5 +1,7 @@
 # {{ ansible_managed }}
 nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * cvapi System.check --out=json
+nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * status version --format=json
 nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * cc drush
 nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * wp cv api System.check --out=json --strict=0
+nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * wp core version
 nagios ALL=(aegir) NOPASSWD: /usr/local/lib/icinga2-plugins/check_file_content

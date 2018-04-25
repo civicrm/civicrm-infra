@@ -11,7 +11,7 @@ if (empty($host)) {
 
 $tmp = '';
 
-if ($cms == 'drupal') {
+if ($cms == 'drupal' || $cms == 'drupal8') {
   exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cvapi System.check --out=json', $tmp);
 }
 elseif ($cms == 'wordpress') {
@@ -29,10 +29,14 @@ if ($tmp) {
   $check_descriptions = array();
 
   if (empty($civistatus)) {
-    if ($cms == 'drupal') {
+    if ($cms == 'drupal' || $cms == 'drupal8') {
       exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cc drush');
+      echo 'Failed to check status (1). Drush cache flushed for the next run.';
     }
-    echo 'Failed to check status (1). Drush cache flushed for the next run.';
+    else {
+      echo 'Failed to check status (1).';
+    }
+
     exit(3);
   }
 
@@ -71,7 +75,7 @@ if ($tmp) {
   }
 }
 
-if ($cms == 'drupal') {
+if ($cms == 'drupal' || $cms == 'drupal8') {
   exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cc drush');
 }
 
