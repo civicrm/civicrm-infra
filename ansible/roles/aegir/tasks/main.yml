@@ -250,22 +250,6 @@
   tags:
     - aegir-hosting-civicrm
 
-##
-## Deploy hosting_https
-##
-# FIXME: if hosting_https is already deployed, and Aegir has chmod 0777 everything
-# it will cause problems with the dehydrated submodule (which won't be reset by force=yes on the parent).
-- name: Deploy latest hosting_https from Git
-  become: true
-  become_user: aegir
-  git: repo=https://gitlab.com/aegir/hosting_https.git
-       version=master
-       dest="{{ hostmaster_root.stdout }}/sites/{{ inventory_hostname }}/modules/hosting_https"
-       update=yes
-       force=yes
-       recursive=yes
-  tags:
-    - aegir-hosting-https
 
 ##
 ## Configurations
@@ -329,8 +313,11 @@
     - { name: 'hosting_queue_civicrm_cron_enabled', value: '1' }
     - { name: 'hosting_queue_civicrm_cron_frequency', value: '300' }
     - { name: 'hosting_queue_civicrm_cron_items', value: '50' }
+    - { name: 'hosting_feature_fix_ownership', value: '1' }
+    - { name: 'hosting_feature_fix_permissions', value: '1' }
   tags:
     - aegir-settings
+    - aegir-fixownership
 
 - name: Aegir settings | Delete a few settings
   become: true
@@ -387,14 +374,22 @@
   tags:
     - aegir-fixownership
 
-- name: Configure the fix-permissions scripts
-  shell: "bash {{ hostmaster_root.stdout }}/profiles/hostmaster/modules/aegir/hosting_tasks_extra/{{ item }}/scripts/install.sh"
-  with_items:
-    - fix_permissions
-  args:
-    creates: /usr/local/bin/fix-drupal-site-permissions.sh
+# c.f. https://www.drupal.org/project/hosting_civicrm/issues/2972031
+#
+# - name: Configure the fix-permissions scripts
+#   shell: "bash {{ hostmaster_root.stdout }}/profiles/hostmaster/modules/aegir/hosting_tasks_extra/{{ item }}/scripts/install.sh"
+#   with_items:
+#     - fix_permissions
+#   args:
+#     creates: /usr/local/bin/fix-drupal-site-permissions.sh
+#   tags:
+#     - aegir-fixownership
+
+- name: Deploy our version of fix-drupal-site-permissions.sh
+  template: src=usr/local/bin/fix-drupal-site-permissions.sh dest=/usr/local/bin/fix-drupal-site-permissions.sh owner=root group=root mode=0755
   tags:
     - aegir-fixownership
+    - aegir-fixpermission-override
 
 - include: letsencrypt.yml
 - include: settings-php.yml
