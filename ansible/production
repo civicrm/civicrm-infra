@@ -31,6 +31,7 @@ www-test.civicrm.org
 # svn.civicrm.osuosl.org # still exists, but no longer maintained
 
 [nginx-servers]
+botdylan.civicrm.org
 chat.civicrm.org
 spark-1.civicrm.org
 test.civicrm.org
@@ -120,6 +121,7 @@ www-prod-2.civicrm.org
 www-test.civicrm.org
 
 [dehydrated-manually]
+botdylan.civicrm.org
 chat.civicrm.org
 cxnapp-2.civicrm.org
 java-prod.civicrm.osuosl.org
