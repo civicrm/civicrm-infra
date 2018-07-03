@@ -88,6 +88,7 @@ servers
 
 [php7-servers]
 test-ubu1604-1.civicrm.org
+www-demo.civicrm.osuosl.org
 # www-test.civicrm.org
 
 [php56-servers]
@@ -130,4 +131,5 @@ latest.civicrm.org
 manage.civicrm.osuosl.org
 test.civicrm.org
 www-cxn-2.civicrm.osuosl.org
+www-demo.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org

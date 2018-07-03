@@ -14,12 +14,14 @@
     url="http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4F4EA0AAE5267A6C"
     state=present
   when: (ansible_distribution == "Ubuntu") and (ansible_lsb.major_release < "16")
+  tags: php7
 
 - apt_repository:
     repo='deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main'
     state=present
     update_cache=yes
   when: (ansible_distribution == "Ubuntu") and (ansible_lsb.major_release < "16")
+  tags: php7
 
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
@@ -47,3 +49,4 @@
     - php7.0-bcmath
     - apache2
     - libapache2-mod-php7.0
+  tags: php7
