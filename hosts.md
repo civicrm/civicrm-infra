@@ -125,7 +125,7 @@ Virtual Servers
     <tr>
       <td>www-demo</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
+      <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.151</td>
       <td></td>
       <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
