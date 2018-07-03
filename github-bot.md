@@ -1,7 +1,20 @@
-[botdylan](https://github.com/botdylan/botdylan) is a small framework for writing Github bots in NodeJS. 
-[civicrm-botdylan](https://github.com/civicrm/civicrm-botdylan) extends botdylan to add a few features, eg:
+The CiviCRM Github bot(s) are responsible for automatically posting comments
+and updating metadata on the Civi-related repositories.
 
- * Detect JIRA references in Github issues. Post bidirectional links between Github and JIRA.
+At time of writing, there are two bots.  They are implemented with different generations of tooling -- the newer
+generation takes advantage of significantly improved JavaScript syntax for async I/O, and it provides more complete
+documentation and workflows.
+
+> __See Also__: Automated testing is handled by the [Jenkins continuous
+> integration](continuous-integration.md) system.
+
+## First Generation (botdylan)
+
+The first generation is implemented with [botdylan](https://github.com/botdylan/botdylan), a small framework for writing
+Github bots in NodeJS.  [civicrm-botdylan](https://github.com/civicrm/civicrm-botdylan) extends botdylan to add a few
+features, eg:
+
+ * Detect JIRA references in Github PRs. Post bidirectional links between Github and JIRA.
  * Flag PR's to indicate their target branch.
  * Notify devs about [extremely complex functions](http://wiki.civicrm.org/confluence/display/CRM/Toxic+Code+Protocol).
 
@@ -24,3 +37,25 @@ pm2 start /home/co/civicrm-botdylan/civicrm-botdylan.pm2.json
 ```
 
 The `pm2` command also has a number of subcommands for restarting, checking statuses, checking logs, etc.
+
+## Second Generation (probot)
+
+The second generation is implemented with [probot](https://probot.github.io/), another small framework for writing Github
+bots in NodeJS. [probot-civicrm](https://github.com/civicrm/probot-civicrm) extends probot to add few features, eg:
+
+* Post a welcome message with links to contributor docs, review templates, and test sites.
+* (TODO) Detect Gitlab references in Github PRs. Post bidirectional links between Github and Gitlab.
+
+The bot is also deployed on the `botdylan.civicrm.org` host with user `co`.
+
+The process is managed with `systemd`. The systemd unit file is manually
+generated based on this template:
+
+https://github.com/civicrm/probot-civicrm/blob/master/examples/probot-civicrm.service
+
+You can start, stop, and inspect with typical systemd commands, e.g.
+
+* `systemctl status probot-civicrm`
+* `systemctl start probot-civicrm`
+* `systemctl stop probot-civicrm`
+* `journalctl -u probot-civicrm -f`
