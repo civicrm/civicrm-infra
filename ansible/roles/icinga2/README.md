@@ -122,13 +122,56 @@ nginx vhost:
   }
 ```
 
-Misc:
+grafana:
 
-* Grafana: see the 'grafana' role.
-* Graphite: Increase carbon / graphite retention times (/etc/carbon/storage-schemas.conf, now in this role).
+```
+apt-get install apt-transport-https
+
+# add repo (package for wheezy works on jessie)
+cat <<EOF >/etc/apt/sources.list.d/grafana.list
+deb https://packagecloud.io/grafana/stable/debian/ jessie main
+EOF
+
+wget -O - https://packagecloud.io/gpg.key 2>/dev/null | apt-key add - 
+apt-get update
+
+apt-get install grafana
+
+systemctl enable grafana-server.service
+systemctl start grafana-server
+```
+
+Increase carbon / graphite retention times:
+
+/etc/carbon/storage-schemas.conf
+
+```
+[icinga_default]
+pattern = ^icinga2\.
+retentions = 1m:2d,5m:10d,30m:90d,360m:3y
+```
 
 http://docs.icinga.org/icinga2/snapshot/doc/module/icinga2/toc#!/icinga2/snapshot/doc/module/icinga2/chapter/icinga2-features#graphite-carbon-cache-writer  
 http://randsubrosa.blogspot.ca/2013/03/adjust-retention-time-for-carbon-and.html
+
+### More about debugging Carbon retention
+
+Get stats about what is being stored:
+
+```
+# whisper-info.py /var/lib/graphite/whisper/icinga2/smtp_symbiotic_coop/services/load/load/perfdata/load1
+```
+
+Resize files:
+
+```
+cd /var/lib/graphite/whisper/icinga2
+find ./ -type f -name '*.wsp' -exec whisper-resize --xFilesFactor=0.1 --nobackup {} 1m:2d 5m:7d 30m:90d 360m:3y \;
+chown -R _graphite._graphite /var/lib/graphite/whisper/icinga2
+```
+
+* About xFilesFactor: http://obfuscurity.com/2012/04/Unhelpful-Graphite-Tip-9
+* Whisper file size calculator: https://m30m.github.io/whisper-calculator/
 
 ### How to declare services for satellite nodes
 

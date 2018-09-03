@@ -44,14 +44,15 @@ $host =~ s/^\s+|\s+$//g;
 $host =~ s/[^-0-9A-Za-z\.]//g;
 
 chdir($backupdir);
-my ($state, $delta, $message);
+my ($delta, $message);
 
 $dir = "$backupdir/$host";
 
 my $flag="";
 my $type="unknown";
 my $extra_msg="";
-$state = "UNKNOWN";
+my $state = "UNKNOWN";
+my $exit_value = 3;
 $message = "???";
 
 unless (-d $dir) {
@@ -139,10 +140,13 @@ if ($last_bak) {
 
    if ($delta > $crit) {
      $state = "CRITICAL";
+     $exit_value = 2;
    } elsif ($delta > $warn) {
      $state = "WARNING";
+     $exit_value = 1;
    } elsif ($delta >= 0) {
      $state = "OK";
+     $exit_value = 0;
    }
 
    $delta = sprintf '%.2f', $delta/3600.0;
@@ -150,6 +154,8 @@ if ($last_bak) {
 }
 else {
   $state = "CRITITAL";
+  $exit_value = 2;
 }
 
 print "BACKUP $state - $message | delta=$delta; elapsedtime=$last_elapsed_time; source_file_size=$last_source_file_size; new_file_size=$last_new_file_size; changed_files=$last_changed_files; changed_size=$last_changed_size;;";
+exit($exit_value);

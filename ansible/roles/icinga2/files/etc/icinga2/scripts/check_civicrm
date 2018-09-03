@@ -10,6 +10,7 @@ if (empty($host)) {
 }
 
 $tmp = '';
+$civistatus = '';
 
 if ($cms == 'drupal' || $cms == 'drupal8') {
   exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' cvapi System.check --out=json', $tmp);
@@ -17,13 +18,33 @@ if ($cms == 'drupal' || $cms == 'drupal8') {
 elseif ($cms == 'wordpress') {
   exec('sudo -u aegir /usr/local/bin/drush @' . escapeshellarg($host) . ' wp cv api System.check --out=json --strict=0', $tmp);
 }
+elseif ($cms == 'joomla') {
+  global $civicrm_cli;
+  global $civicrm_cli_ini; // required if TZ is not the same as the server
+  global $civicrm_cron_user;
+  global $civicrm_cron_pass;
+
+  require_once '/etc/civicrm/' . $host . '.php';
+
+  if ($civicrm_cli_ini) {
+    exec('sudo -u www-data /usr/bin/env php -c ' . escapeshellarg($civicrm_cli_ini) . ' ' . escapeshellarg($civicrm_cli) . ' -s ' . escapeshellarg($host) . ' -u ' . escapeshellarg($civicrm_cron_user) . ' -p ' . escapeshellarg($civicrm_cron_pass) . ' -e System -a check --json', $tmp);
+  }
+  else {
+    exec('sudo -u www-data /usr/bin/env php ' . escapeshellarg($civicrm_cli) . ' -s ' . escapeshellarg($host) . ' -u ' . escapeshellarg($civicrm_cron_user) . ' -p ' . escapeshellarg($civicrm_cron_pass) . ' -e System -a check --json', $tmp);
+  }
+}
 else {
   echo 'Unsupported CMS: ' . $cms;
   exit(3);
 }
 
 if ($tmp) {
-  $civistatus = json_decode($tmp[0]);
+  if ($cms == 'joomla') {
+    $civistatus = json_decode(implode(' ', $tmp));
+  }
+  else {
+    $civistatus = json_decode($tmp[0]);
+  }
 
   $check_status = 0;
   $check_descriptions = array();

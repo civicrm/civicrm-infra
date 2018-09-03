@@ -40,29 +40,35 @@ crit=${crit:=95}
 #               total        used        free      shared  buff/cache   available
 # Mem:       32630268    25341844     1382260      986152     5906164     5838536
 #
+# Ubuntu 16.04
+#               total        used        free      shared  buff/cache   available
+# Mem:        8175400     5152324      506908      214924     2516168     2451056
+#
 # Debian 8 Jessie
 #              total       used       free     shared    buffers     cached
 # Mem:       2574660    2276008     298652     110856     297092     835852
 # -/+ buffers/cache:    1143064    1431596
-#
-# Ubuntu 16.04
-#               total        used        free      shared  buff/cache   available
-# Mem:        8175400     5152324      506908      214924     2516168     2451056
 
-memory_total=$(free | fgrep 'Mem:' | awk '{print $2}')
-memory_used=$(free | fgrep '/+ buffers/cache' | awk '{print $3}')
+memory_total=$(free | grep 'Mem:' | awk '{print $2}')
+memory_used=$(free | grep 'Mem:' | awk '{print $3}')
+memory_used_cache=$(free | fgrep '/+ buffers/cache' | awk '{print $3}')
+memory_free_cache=$(free | fgrep '/+ buffers/cache' | awk '{print $4}')
 
-if [ "$memory_used" == "" ]; then
+if [ "$memory_used_cache" == "" ]; then
+  # new-style formatting
+  memory_used_cache=$(free | fgrep 'Mem:' | awk '{print $6}')
   memory_used=$(free | fgrep 'Mem:' | awk '{print $3}')
+  memory_available=$(free | fgrep 'Mem:' | awk '{print $7}')
+else
+  memory_available=$((memory_total - memory_used + memory_free_cache))
 fi
 
-memory_free=$((memory_total - memory_used))
-memory_free_human=$((memory_free / 1024))
-percentage=$((memory_used * 100 / memory_total))
+memory_available_human=$((memory_available / 1024))
+percentage=$(((memory_total - memory_available) * 100 / memory_total))
 
 # MEMORY OK - 2765M free | free=2899427328b;;
 
-status="${percentage}% ${memory_free_human}M free | free=${memory_free}b;;";
+status="${percentage}% ${memory_available_human}M free | free=${memory_available}b; cache=${memory_used_cache}b;";
 
 if [[ -z $percentage ]]; then
   echo "MEMORY UNKNOWN - Error"

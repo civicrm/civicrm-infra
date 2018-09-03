@@ -22,6 +22,7 @@
     - php7.0-fpm # otherwise apache gets installed
     - icingaweb2
     - icingaweb2-module-monitoring
+    - whois # for domain_expiration check
   tags:
     - packages
 
@@ -75,6 +76,14 @@
     creates: /etc/icinga2/features-enabled/api.conf
   notify: restart icinga2
 
+# Mainlog is very chatty (includes 'information' statements)
+# can be useful for debugging, but otherwise warnings are logged in daemon.log
+- name: Disable the Icinga2 mainlog
+  shell: icinga2 feature disable mainlog
+  args:
+    removes: /etc/icinga2/features-enabled/mainlog.conf
+  notify: restart icinga2
+
 - template: src=features-available/api.conf dest=/etc/icinga2/features-available/api.conf owner=root group=root mode=0644
   notify: restart icinga2
 
@@ -90,6 +99,7 @@
   copy: src="etc/icinga2/scripts/{{ item }}" dest="/usr/local/lib/icinga2-plugins/{{ item }}" owner=root group=root mode=0755
   with_items:
     - check_ssl_cert
+    - check_domain_expiration
   notify: restart icinga2
   tags:
     - icinga2
@@ -144,6 +154,15 @@
   template:
     src=etc/carbon/storage-schemas.conf
     dest=/etc/carbon/storage-schemas.conf
+    owner=root group=root mode=0644
+  notify: restart graphite
+  tags:
+    - icinga-graphite
+
+- name: Deploy the graphite aggregation configuration
+  template:
+    src=etc/carbon/storage-aggregation.conf
+    dest=/etc/carbon/storage-aggregation.conf
     owner=root group=root mode=0644
   notify: restart graphite
   tags:
