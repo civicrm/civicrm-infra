@@ -16,6 +16,7 @@ latest.civicrm.org
 java-prod.civicrm.osuosl.org
 manage.civicrm.osuosl.org
 spark-1.civicrm.org
+spark-2.civicrm.org
 test.civicrm.org
 test-ubu1204-1.civicrm.osuosl.org
 test-1.civicrm.org # formerly test-ubu1204-5
@@ -33,6 +34,7 @@ www-test.civicrm.org
 botdylan.civicrm.org
 chat.civicrm.org
 spark-1.civicrm.org
+spark-2.civicrm.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
@@ -115,6 +117,7 @@ manage.civicrm.osuosl.org
 
 [aegir-managed]
 spark-1.civicrm.org
+spark-2.civicrm.org
 www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
 www-test.civicrm.org
