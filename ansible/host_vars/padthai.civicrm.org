@@ -1,29 +1,21 @@
 ---
 
-# IPv4 allocation for 192.95.2.128/29 (.129 to .134)
-# - padthai.civicrm.org br0:pub = 192.95.2.129
-# - test-ubu1204-5.civicrm.org = 192.95.2.130
-# - test-ubu1604-1.civicrm.org = 192.95.2.131
-# - botdylan.civicrm.org = 192.95.2.132
-# - training.civicrm.org = 192.95.2.133
-# - www-test.civicrm.org = 192.95.2.134
-
-# IPv6 allocation for 2607:5300:60:71d0::/64
-# - 2607:5300:60:71d0::1/64 = padthai.civicrm.org
-# - 2607:5300:60:71d0:100::/72 = test-ubu1204-5.civicrm.org
-# - 2607:5300:60:71d0:200::/72 = test-ubu1604-1.civicrm.org  
-# - 2607:5300:60:71d0:300::/72 = botdylan.civicrm.org
-# - 2607:5300:60:71d0:300::/72 = training.civicrm.org
-# - 2607:5300:60:71d0:500::/72 = www-test.civicrm.org
+# IPv4 allocation for 192.95.2.128/29 (.129 to .134) and 2607:5300:60:71d0::/64
+# - padthai.civicrm.org br0:pub = 192.95.2.129 = 2607:5300:60:71d0::1/64
+# - test-1.civicrm.org = 192.95.2.130 = 2607:5300:60:71d0:100::/72
+# - test-2.civicrm.org = 192.95.2.131 = 2607:5300:60:71d0:200::/72
+# - botdylan.civicrm.org = 192.95.2.132 = 2607:5300:60:71d0:300::/72
+# - training.civicrm.org = 192.95.2.133 = 2607:5300:60:71d0:300::/72
+# - www-test.civicrm.org = 192.95.2.134 = 2607:5300:60:71d0:500::/72
 
 # ZFS partition setup
 # - created new extended partition on all 3 disks with cfdisk
 # - created new regular linux partition on all 3 disks (/dev/sdX5) with cfdisk
 # - ran "partprobe"
-# - created new pool: zpool create -f zpadthai raidz /dev/sda5 /dev/sdb5 /dev/sdc5
+# - created new pool: zpool create zpadthai raidz /dev/sda5 /dev/sdb5 /dev/sdc5
 # - created new partitions:
-# - zfs create -V 50G zpadthai/test-ubu1204-3g
-# - zfs create -V 50G zpadthai/test-ubu1604-1
+# - zfs create -V 50G zpadthai/test-1
+# - zfs create -V 50G zpadthai/test-2
 # - zfs create -V 70G zpadthai/training-ubu1604-1
 # - zfs create -V 30G zpadthai/www-test
 
@@ -40,3 +32,24 @@
 # virsh autostart test-ubu1204-5
 # virsh autostart test-ubu1604-1
 # virsh autostart botdylan
+
+# There are probably better ways to automate this, but for now, check:
+# ethtool -P eno1
+# or the initial file setup by OVH: /etc/systemd/network/50-default.network
+kvm_main_mac_address: 0c:c4:7a:47:d9:7c
+
+kvm_main_ipv4_address: 167.114.158.208
+kvm_main_ipv4_netmask: 24
+kvm_main_ipv4_network: 167.114.158.0
+kvm_main_ipv4_broadcast: 167.114.158.255
+kvm_main_ipv4_gateway: 167.114.158.254
+kvm_main_ipv4_dns: 213.186.33.99
+kvm_main_ipv6_address: "2607:5300:60:71d0::"
+kvm_main_ipv6_netmask: 64
+kvm_main_ipv6_dns: "2001:41d0:3:163::1"
+kvm_main_ipv6_gateway: "2607:5300:60:71ff:ff:ff:ff:ff"
+
+kvm_zfs_pool: zpadthai
+
+kvm_hosts:
+  - test-1.civicrm.org

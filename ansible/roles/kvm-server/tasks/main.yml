@@ -2,44 +2,100 @@
 
 # NB: netcat-openbsd is required if using virt-manager GUI (requires -U option).
 
-- apt_key:
-    url=http://zfsonlinux.org/4D5843EA.asc
-    state=present
+- apt: name={{ item }} state=present install_recommends=no default_release=jessie-backports
+  with_items:
+    - linux-image-amd64
+    - linux-headers-amd64
+  when: ansible_distribution_release == "jessie"
 
-- apt_repository:
-    repo='deb http://archive.zfsonlinux.org/debian jessie main'
-    state=present
-    update_cache=yes
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - linux-image-amd64
+    - linux-headers-amd64
+  when: ansible_distribution_release != "jessie"
 
+# FIXME: on Stretch, requires "contrib"
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - openntpd
     - kvm
     - qemu-kvm
-    - libvirt-bin
     - virtinst
     - bridge-utils
     - netcat-openbsd
-    - linux-image-4.4.0-0.bpo.1-amd64
-    - linux-headers-4.4.0-0.bpo.1-amd64
+    - zfs-dkms
+    - zfsutils-linux
+    - zfs-zed
 
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
-    - debian-zfs
+    - libvirt-bin
+    - libvirt-daemon
+    - libvirt-daemon-system
+  when: ansible_distribution_release == "jessie"
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - libvirt-clients
+    - libvirt-daemon-system
+  when: ansible_distribution_release == "stretch"
 
 - service: name=openntpd state=started enabled=yes
 
 # TODO:
 # - had to "rm /boot/bzImage-3.14.32-xxxx-grs-ipv6-64" otherwise it would
 #   boot automatically on this kernel, and this causes issues with dkms for ZFS.
-#
-# - /etc/network/interfaces configuration.
 
+# - network interface configuration
+
+- name: Deploy the network interfaces configuration
+  template:
+    src: "etc/systemd/network/{{ item }}"
+    dest: "/etc/systemd/network/{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - 50-br0.netdev
+    - 50-default.network
+    - 50-network-interface.network
+  tags:
+    - kvm-server-networkd
+
+- name: Ensure that OVH defaults are absent
+  file: path="/etc/systemd/network/{{ item }}" state=absent
+  with_items:
+    - 50-br0.netdev
+    - 50-default.network
+    - 50-public-interface.link
+
+
+# TODO: reduce network timeout delay
+
+- name: Create networking.service.d directory
+  file: path="/etc/systemd/system/networking.service.d/" state=directory mode=0755 owner=root group=root
+
+# File: /etc/systemd/system/networking.service.d/reduce-timeout.conf
+# [Service]
+# TimeoutStartSec=15
+# TODO: reload systemd (systemctl daemon-reload)
 # Enable IP forwarding in /etc/sysctl.d/99-sysctl.conf by uncommenting:
 # - net.ipv4.ip_forward=1
 # - net.ipv6.conf.all.forwarding=1
 
-#
-# For more documentation on KVM server(s), see their host_vars file.
-# Ex: host_vars/padthai.civicrm.org.
-#
+- name: kvm preseeds | Create preseed directory
+  file: path="/etc/preseeds" state=directory mode=0750 owner=root group=root
+  tags:
+    - kvm-server-preseeds
+
+- name: kvm preseeds | Create preseed hosts directories
+  file: path="/etc/preseeds/{{ item }}" state=directory mode=0750 owner=root group=root
+  with_items: "{{ kvm_hosts }}"
+  tags:
+    - kvm-server-preseeds
+
+- name: Generate preseed files for VMs on this host
+  template: src=etc/preseeds/host/preseed.cfg dest=/etc/preseeds/{{ item }}/preseed.cfg owner=root group=root mode=0640
+  with_items: "{{ kvm_hosts }}"
+  tags:
+    - kvm-server-preseeds

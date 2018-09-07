@@ -150,21 +150,21 @@ Virtual Servers
       <td>Backups</td>
     </tr>
     <tr>
-      <td>test-ubu1204-5</td>
+      <td>test-1</td>
       <td>OVH</td>
-      <td>Ubuntu 14.04 LTS (Trusty)</td>
+      <td>Debian 9 (Stretch)</td>
       <td>192.95.2.130</td>
       <td></td>
-      <th>cores=4 ram=20gb root=50gb (updated: 2017-12-20)</th>
+      <th>cores=6 ram=20gb root=50gb (updated: 2018-09-06)</th>
       <td>Tests</td>
     </tr>
     <tr>
-      <td>test-ubu1604-1</td>
+      <td>test-2</td>
       <td>OVH</td>
-      <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
+      <td>Debian 9 (Stretch)</td>
       <td>192.95.2.131</td>
       <td></td>
-      <th>cores=4 ram=8gb root=50gb (updated: 2015-04-22)</th>
+      <th>cores=4 ram=8gb root=50gb (updated: 2018-09-06)</th>
       <td>Tests</td>
     </tr>
     <tr>
