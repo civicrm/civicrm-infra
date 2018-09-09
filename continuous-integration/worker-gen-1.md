@@ -1,4 +1,4 @@
-# Setup slave node (1st generation)
+# Setup worker node (1st generation)
 
 See also: https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds
 
