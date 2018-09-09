@@ -107,9 +107,16 @@ server {
 
 ## Register worker on master
 
- * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
-   * # of executors: 3
-   * Labels: bknix
-   * Remote FS Root: /home/jenkins
-   * Launch method: ...Unix machine via SSH
-   * Credentials: jenkins
+The worker needs to have Java JRE 8+ available
+
+```
+sudo apt-get install openjdk-8-jre-headless
+```
+
+In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
+
+* # of executors: 3
+* Labels: bknix
+* Remote FS Root: /home/jenkins
+    * Launch method: ...Unix machine via SSH
+    * Credentials: jenkins
