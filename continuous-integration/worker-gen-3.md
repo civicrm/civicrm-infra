@@ -76,7 +76,7 @@ When using `install-ci.sh`, a profile (eg `min`) will have few corresponding
 artifacts:
 
 * Binaries folder (ex: `/nix/var/nix/profiles/bknix-min`)
-* Data folder (ex; `/home/bknix/bknix-min`)
+* Data folder (ex; `/home/jenkins/bknix-min`)
 * Systemd service (ex: `/etc/systemd/system/bknix-min.service`)
 
 > TIP: To upgrade the bknix binaries and systemd services, just `git pull`,
