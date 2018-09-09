@@ -62,12 +62,13 @@
   tags:
     - kvm-server-networkd
 
-- name: Ensure that OVH defaults are absent
-  file: path="/etc/systemd/network/{{ item }}" state=absent
-  with_items:
-    - 50-br0.netdev
-    - 50-default.network
-    - 50-public-interface.link
+# FIXME: not sure if these are the correct file names, some are the same as above.
+# - name: Ensure that OVH defaults are absent
+#   file: path="/etc/systemd/network/{{ item }}" state=absent
+#   with_items:
+#     - 50-br0.netdev
+#     - 50-default.network
+#     - 50-public-interface.link
 
 
 # TODO: reduce network timeout delay
