@@ -2,7 +2,7 @@
 
 See also: https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds
 
-### Create user on slave
+### Create user on worker
 
 ```bash
 root@test-ubu1204-1:~# adduser --system --home /var/lib/jenkins --shell /bin/bash jenkins
@@ -110,7 +110,7 @@ NOTE: We sometimes experience problems with Selenium failing to support new
 versions of Firefox. For Ubuntu servers, one can manually download a
 specific deb (e.g. for Firefox v37) from [sourceforge](http://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/).
 
-### Register slave on master
+### Register worker on master
 
  * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
    * # of executors: 3

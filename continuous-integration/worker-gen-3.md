@@ -105,7 +105,7 @@ server {
 }
 ```
 
-## Register slave on master
+## Register worker on master
 
  * In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
    * # of executors: 3
