@@ -16,22 +16,17 @@
 # - created new partitions:
 # - zfs create -V 50G zpadthai/test-1
 # - zfs create -V 50G zpadthai/test-2
-# - zfs create -V 70G zpadthai/training-ubu1604-1
 # - zfs create -V 30G zpadthai/www-test
+# - zfs create -V 30G zpadthai/botdylan
 
 # New VM creation:
-# test-ubu1205-5:
-# virt-install --name test-ubu1204-5 --ram 8192 --disk path=/dev/zvol/zpadthai/test-ubu1204-5 --vcpus 4 --os-type linux --os-variant virtio26 --network bridge=br0 --graphics vnc,listen=127.0.0.1 --noautoconsole --location 'http://archive.ubuntu.com/ubuntu/dists/lucid/main/installer-amd64/' --extra-args 'ks=file:/test-ubu1604-1.ks' --initrd-inject=/root/test-ubu1204-5.ks
-#
-# test-ubu1604-1:
-# virt-install --name test-ubu1604-1 --ram 8192 --disk path=/dev/zvol/zpadthai/test-ubu1604-1 --vcpus 4 --os-type linux --os-variant virtio26 --network bridge=br0 --graphics vnc,listen=0.0.0.0 --noautoconsole --location 'http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/' --extra-args 'ks=file:/test-ubu1604-1.ks' --initrd-inject=/root/test-ubu1604-1.ks
-#
-# botdylan:
-# virt-install --name botdylan --ram 2048 --disk path=/dev/zvol/zpadthai/botdylan --vcpus 2 --os-type linux --os-variant virtio26 --network bridge=br0 --graphics vnc,listen=0.0.0.0 --noautoconsole --location 'http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/' --extra-args 'ks=file:/botdylan.ks' --initrd-inject=/root/botdylan.ks 
+# head -15 /etc/preseeds/botdylan.civicrm.org/preseed.cfg
+# .. then copy-paste the example command (I use ctrl+click to select without comments)
 
-# virsh autostart test-ubu1204-5
-# virsh autostart test-ubu1604-1
+# virsh autostart test-1
+# virsh autostart test-2
 # virsh autostart botdylan
+# virsh autostart www-test
 
 # There are probably better ways to automate this, but for now, check:
 # ethtool -P eno1
@@ -52,4 +47,6 @@ kvm_main_ipv6_gateway: "2607:5300:60:71ff:ff:ff:ff:ff"
 kvm_zfs_pool: zpadthai
 
 kvm_hosts:
+  - botdylan.civicrm.org
   - test-1.civicrm.org
+  - www-test.civicrm.org
