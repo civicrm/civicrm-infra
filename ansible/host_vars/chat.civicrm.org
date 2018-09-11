@@ -1,7 +1,7 @@
 ---
 
-sslcertificates:
-    - wildcard.civicrm.org
+backups_include_extras:
+    - /opt
 
 ufw_extra:
   mmostgithub:
