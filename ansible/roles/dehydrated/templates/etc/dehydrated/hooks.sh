@@ -81,11 +81,11 @@ clean_challenge() {
 }
 
 startup_hook() {
-    echo " + Hook: Startup.."
+    echo " + Hook: startup"
 }
 
 exit_hook() {
-    echo " + Hook: exit... see you in 60 days!"
+    echo " + Hook: exit"
 }
 
 invalid_challenge() {
@@ -93,7 +93,7 @@ invalid_challenge() {
 }
 
 request_failure() {
-    echo " + Hook: Request failed."
+    echo " + Hook: Request failed..."
 }
 
 HANDLER="$1"; shift

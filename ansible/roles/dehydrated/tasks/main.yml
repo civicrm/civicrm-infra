@@ -47,12 +47,13 @@
   tags:
     - dehydrated
 
+# NB: run renewals at the end of the day, to reduce the risks of running into rate-limiting
+# when creating new certificates.
 - name: Configure dehydrated cron.
   cron:
     name="dehydrated"
     minute="35"
-    hour="9"
-    day="5,25"
+    hour="18"
     job="/usr/local/bin/dehydrated -c -f /etc/dehydrated/config.txt -o /etc/dehydrated/keys/ >/dev/null"
     cron_file="dehydrated"
     user="root"
@@ -68,8 +69,10 @@
 # TODO nginx?
 
 - name: Test this is Apache 2.4 on Debian
-  stat: path=/etc/apache2/conf-available/
+  stat: path=/etc/apache2/apache2.conf
   register: apache24debian
+  tags:
+    - dehydrated
 
 - name: Deploy dehydrated Apache 2.4 config file.
   template: src=etc/apache2/conf-available/dehydrated.conf dest=/etc/apache2/conf-available/dehydrated.conf owner=root group=root mode=0444
@@ -87,6 +90,8 @@
 - name: Test this is Apache 2.2 on Debian
   stat: path=/etc/apache2/conf.d/
   register: apache22debian
+  tags:
+    - dehydrated
 
 - name: Deploy dehydrated Apache 2.2 config file for Debian.
   template: src=etc/apache2/conf-available/dehydrated.conf dest=/etc/apache2/conf.d/dehydrated.conf owner=root group=root mode=0444
@@ -97,6 +102,8 @@
 - name: Test this is Apache 2.2 on CentOS
   stat: path=/etc/httpd/conf.d
   register: apache22centos
+  tags:
+    - dehydrated
 
 - name: Deploy dehydrated Apache 2.2 config file for CentOS.
   template: src=etc/apache2/conf-available/dehydrated.conf dest=/etc/httpd/conf.d/dehydrated.conf owner=root group=root mode=0444
