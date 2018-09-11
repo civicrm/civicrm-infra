@@ -125,6 +125,13 @@
   tags:
     - ldap-auth-server
 
+- hosts: gitbot-servers
+  sudo: yes
+  roles:
+    - nodejs
+  tags:
+    - gitbot-servers
+
 - hosts: aegir-managed
   become: yes
   become_user: root

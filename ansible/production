@@ -122,6 +122,9 @@ www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
 www-test.civicrm.org
 
+[gitbot-servers]
+botdylan.civicrm.org
+
 [dehydrated-manually]
 botdylan.civicrm.org
 chat.civicrm.org
