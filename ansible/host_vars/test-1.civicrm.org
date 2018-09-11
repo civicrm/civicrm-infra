@@ -1,6 +1,26 @@
 backups_exclude_extras:
   - /srv/buildkit/build
 
+ufw_extra:
+  bknix1:
+    proto: tcp
+    port: 8001
+    src: 0.0.0.0/0
+    rule: allow
+    description: "bknix c-i"
+  bknix2:
+    proto: tcp
+    port: 8002
+    src: 0.0.0.0/0
+    rule: allow
+    description: "bknix c-i"
+  bknix3:
+    proto: tcp
+    port: 8003
+    src: 0.0.0.0/0
+    rule: allow
+    description: "bknix c-i"
+
 preseed_parent: padthai
 preseed_hostname: test-1
 preseed_domain: civicrm.org
