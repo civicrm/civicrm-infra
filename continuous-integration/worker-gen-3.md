@@ -115,8 +115,12 @@ sudo apt-get install openjdk-8-jre-headless
 
 In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
 
-* # of executors: 3
+* Number of executors: 3
 * Labels: bknix
 * Remote FS Root: /home/jenkins
     * Launch method: ...Unix machine via SSH
     * Credentials: jenkins
+
+## Open HTTP ports in firewall
+
+See, e.g., https://github.com/civicrm/civicrm-infra/commit/f3d58a2f20a0240c4aa4a1ba90af91d20937a33e
