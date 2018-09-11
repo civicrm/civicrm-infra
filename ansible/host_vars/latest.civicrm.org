@@ -1,0 +1,2 @@
+backups_include_extras:
+    - /home/releaser/.gnupg
