@@ -16,7 +16,6 @@ if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 ## Pre-requisite: Configure /etc/hosts and Apache with "build-1.l", "build-2.l", ..., "build-6.l"
 
 BLDNAME="build-$EXECUTOR_NUMBER"
-BLDURL="http://build-$EXECUTOR_NUMBER.l"
 BLDDIR="$BKITBLD/$BLDNAME"
 EXTBASE="$BLDDIR/sites/all/modules/civicrm/ext"
 EXITCODE=0
@@ -78,7 +77,6 @@ popd
 
 ## Install application (with civibuild)
 civibuild install "$BLDNAME" \
-  --url "$BLDURL" \
   --admin-pass "n0ts3cr3t"
 
 ## Report details about this build of the application
