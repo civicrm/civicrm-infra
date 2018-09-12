@@ -1,0 +1,11 @@
+---
+
+# Required for some tests, to avoid having to deal with PHP/MySQL timezone issues
+- name: Set Time Zone to UTC
+  copy:
+    content: 'Etc/UTC'
+    dest: /etc/timezone
+    owner: root
+    group: root
+    mode: 0644
+  notify: update debian timezone

@@ -55,6 +55,13 @@
   tags:
     - mattermost
 
+- hosts: test-servers
+  sudo: yes
+  roles:
+    - test-node
+  tags:
+    - test-node
+
 - hosts: php7-servers
   sudo: yes
   roles:
