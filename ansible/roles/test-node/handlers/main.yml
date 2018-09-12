@@ -1,0 +1,3 @@
+---
+- name: update debian timezone
+  shell: dpkg-reconfigure --frontend noninteractive tzdata
