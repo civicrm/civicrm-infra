@@ -1,20 +1,19 @@
 #!/bin/bash
 
 ########################################
-## Local adaptation to get my env going
-if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
-
-########################################
-BKIT="${BKIT:-/home/jenkins/buildkit}"
-PATH="$BKIT/bin:$PATH"
-BKITBLD="$BKIT/build"
-
 BKITNAM="ext-$EXECUTOR_NUMBER"
 BKITTYPE="drupal-clean"
 #DRYRUN="-N"
 DRYRUN=
 #export OFFLINE=1
 export PHPUNIT_BIN=phpunit4
+BKPROF=dfl
+
+########################################
+## Local adaptation to get my env going
+if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+case "$BKPROF" in min|max|dfl) eval $(use-bknix "$BKPROF") ;; esac
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
 ########################################
 ## Run a command, but hide any sensitive environmet variables

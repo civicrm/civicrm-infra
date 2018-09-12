@@ -2,6 +2,8 @@
 set -ex
 
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+case "$BKPROF" in min|max|dfl) eval $(use-bknix "$BKPROF") ;; esac
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
 ## Job Name: CiviCRM-Core-Matrix
 ## Job Description: Periodically run the unit tests on all major
@@ -14,18 +16,13 @@ if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
 ## Pre-requisite: Install civicrm-buildkit; configure amp
 ## Pre-requisite: Configure /etc/hosts and Apache with "build-1.l", "build-2.l", ..., "build-6.l"
 
-BUILDKIT="/srv/buildkit"
 BLDNAME="build-$EXECUTOR_NUMBER"
-BLDURL="http://build-$EXECUTOR_NUMBER.l"
 EXITCODE=0
-
-export PATH="$BUILDKIT/bin:$PATH"
-#if [ -d "/opt/php/5.4.45/bin" -a "$CIVIVER" != "4.6" ]; then export PATH="/opt/php/5.4.45/bin:$PATH"; fi
 
 ## Reset (cleanup after previous tests)
 [ -d "$WORKSPACE/junit" ] && rm -rf "$WORKSPACE/junit"
 [ -d "$WORKSPACE/civibuild-html" ] && rm -rf "$WORKSPACE/civibuild-html"
-if [ -d "/srv/buildkit/build/$BLDNAME" ]; then
+if [ -d "$BKITBLD/$BLDNAME" ]; then
   echo y | civibuild destroy "$BLDNAME"
 fi
 mkdir "$WORKSPACE/junit"
@@ -38,7 +35,6 @@ civibuild download "$BLDNAME" \
 
 ## Install application (with civibuild)
 civibuild install "$BLDNAME" \
-  --url "$BLDURL" \
   --admin-pass "n0ts3cr3t"
 
 ## Report details about this build of the application
@@ -49,7 +45,7 @@ civibuild show "$BLDNAME" \
 cp "$WORKSPACE/new-scan.json" "$WORKSPACE/last-scan.json"
 
 ## Detect & execute tests
-pushd "/srv/buildkit/build/$BLDNAME/sites/all/modules/civicrm"
+pushd "$BKITBLD/$BLDNAME/sites/all/modules/civicrm"
   SUITES="phpunit-crm phpunit-api phpunit-civi upgrade"
 
   if [ -f "tests/phpunit/E2E/AllTests.php" ]; then

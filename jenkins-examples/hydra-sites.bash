@@ -1,12 +1,12 @@
 #!/bin/bash
 set -ex
+
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+eval $(use-bknix "dfl")
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
-
-BLDKIT="${BLDKIT:-/home/jenkins/buildkit}"
 TRASHDIR=/tmp/buildkit-trash
 EXITCODE=0
-export PATH="$BLDKIT/bin:$PATH"
 export AMP_INSTANCES_TIMEOUT=360
 civi-download-tools
 
@@ -45,7 +45,7 @@ function rm_softly() {
 
 ##########################################################################################
 ## Main
-BLDDIR=$BLDKIT/build/$BLDNAME
+BLDDIR=$BKITBLD/$BLDNAME
 BLDBAK=$(mk_trash_name)
 
 case "$series" in

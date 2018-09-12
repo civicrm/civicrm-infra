@@ -2,6 +2,8 @@
 set -ex
 
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+case "$BKPROF" in min|max|dfl) eval $(use-bknix "$BKPROF") ;; esac
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
 ## Job Name: CiviCRM-Ext-Matrix
 ## Job Description: Periodically run the unit tests for extensions
@@ -13,15 +15,11 @@ if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
 ## Pre-requisite: Install civicrm-buildkit; configure amp
 ## Pre-requisite: Configure /etc/hosts and Apache with "build-1.l", "build-2.l", ..., "build-6.l"
 
-BUILDKIT="/srv/buildkit"
 BLDNAME="build-$EXECUTOR_NUMBER"
 BLDURL="http://build-$EXECUTOR_NUMBER.l"
-BLDDIR="$BUILDKIT/build/$BLDNAME"
+BLDDIR="$BKITBLD/$BLDNAME"
 EXTBASE="$BLDDIR/sites/all/modules/civicrm/ext"
 EXITCODE=0
-
-export PATH="$BUILDKIT/bin:$PATH"
-# if [ -d "/opt/php/5.4.45/bin" ]; then export PATH="/opt/php/5.4.45/bin:$PATH"; fi
 
 ##################################################
 ## Resolve metadata for this extension
@@ -55,7 +53,7 @@ esac
 ## Reset (cleanup after previous tests)
 [ -d "$WORKSPACE/junit" ] && rm -rf "$WORKSPACE/junit"
 [ -d "$WORKSPACE/civibuild-html" ] && rm -rf "$WORKSPACE/civibuild-html"
-if [ -d "/srv/buildkit/build/$BLDNAME" ]; then
+if [ -d "$BLDDIR" ]; then
   echo y | civibuild destroy "$BLDNAME"
 fi
 mkdir "$WORKSPACE/junit"

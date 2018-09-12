@@ -2,13 +2,13 @@
 set -ex
 
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+eval $(use-bknix min)
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
-BUILDKIT="$HOME/buildkit"
-export PATH="$BUILDKIT/bin:$PATH"
 export FILE_SUFFIX=$( date -u '+%Y%m%d%H%M' )
 ## Note: Not safe for concurrent build
 BLDNAME="cividist"
-BLDDIR="$BUILDKIT/build/$BLDNAME"
+BLDDIR="$BKITBLD/$BLDNAME"
 OUTDIR="$WORKSPACE/output"
 
 ## Validate inputs
