@@ -2,6 +2,8 @@
 set -e
 
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+eval $(use-bknix "dfl")
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
 ## Job Name: CiviCRM-Packages-PR
 ## Job Description: Monitor civicrm-packages.git for proposed changes
@@ -37,23 +39,18 @@ EXECUTOR_NUMBER=${EXECUTOR_NUMBER:-9}
 WORKSPACE=${WORKSPACE:-/var/lib/jenkins/workspace/Foo/Bar}
 
 ## Environment
-BLDKIT="${BLDKIT:-/home/jenkins/buildkit}"
-PATH="$BLDKIT/bin:$PATH"
 GUARD=
-# if [ -d "/opt/php/5.4.45/bin" ]; then export PATH="/opt/php/5.4.45/bin:$PATH"; fi
 
 ## Build definition
 ## Note: Suffixes are unique within a period of 180 days.
 BLDTYPE="drupal-clean"
 BLDNAME="pkg-$ghprbPullId-$(php -r 'echo base_convert(time()%(180*24*60*60), 10, 36);')"
-BLDURL="http://$BLDNAME.test-ubu1204-5.civicrm.org"
-BLDDIR="$BLDKIT/build/$BLDNAME"
+BLDDIR="$BKITBLD/$BLDNAME"
 JUNITDIR="$WORKSPACE/junit"
-EXITCODES=""
 
 #################################################
 ## Download dependencies, apply patches, and perform fresh DB installation
-$GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$CIVIVER"  --url "$BLDURL" \
+$GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$CIVIVER" \
   --patch "https://github.com/civicrm/civicrm-packages/pull/${ghprbPullId}"
 
 $GUARD civibuild install "$BLDNAME"
