@@ -155,7 +155,7 @@ Virtual Servers
       <td>Debian 9 (Stretch)</td>
       <td>192.95.2.130</td>
       <td></td>
-      <th>cores=6 ram=20gb root=50gb (updated: 2018-09-06)</th>
+      <th>cores=6 ram=20gb root=150gb (updated: 2018-09-13)</th>
       <td>Tests</td>
     </tr>
     <tr>
@@ -164,7 +164,7 @@ Virtual Servers
       <td>Debian 9 (Stretch)</td>
       <td>192.95.2.131</td>
       <td></td>
-      <th>cores=4 ram=8gb root=50gb (updated: 2018-09-06)</th>
+      <th>cores=4 ram=8gb root=50gb (not created yet)</th>
       <td>Tests</td>
     </tr>
     <tr>

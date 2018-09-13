@@ -13,8 +13,8 @@
 # - ran "partprobe"
 # - created new pool: zpool create zpadthai raidz /dev/sda5 /dev/sdb5 /dev/sdc5
 # - created new partitions:
-# - zfs create -V 50G zpadthai/test-1
-# - zfs create -V 50G zpadthai/test-2
+# - zfs create -V 150G zpadthai/test-1
+# - zfs create -V 50G zpadthai/test-2 # not created yet - 2018-09-13
 # - zfs create -V 30G zpadthai/www-test
 # - zfs create -V 30G zpadthai/botdylan
 
