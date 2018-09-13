@@ -1,20 +1,22 @@
 #!/bin/bash
 set -ex
 
+#### Setup environment
+if [ -e "$HOME/.profile" ]; then . "$HOME/.profile"; fi
+eval $(use-bknix "min")
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
+bknix update
+
 #### Config
 PROGRAM=civistrings.phar
 TMPFILE=bin/civistrings.phar
 REVISION=$(date +'%Y-%m-%d')-$(git rev-parse HEAD | head -c8)
-#FIXME# PHP=/opt/php/5.4.45/bin/php
-PHP=php
-
-export PATH="$HOME/buildkit/bin:$HOME/bin:$PATH"
 
 #### Build it
 [ -d vendor ] && rm -rf vendor
 [ -f "$TMPFILE" ] && rm -f "$TMPFILE"
-$PHP `which composer` install --no-scripts
-$PHP -dphar.readonly=0 `which box` build
+composer install --no-scripts
+php -dphar.readonly=0 `which box` build
 
 #### Publish
 [ -d tmp ] && rm -rf tmp

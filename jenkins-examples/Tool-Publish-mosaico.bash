@@ -9,7 +9,11 @@ set -ex
 ## 2. The update info.xml file
 ## 3. A report of the git repos used
 
-export PATH=$HOME/buildkit/bin:$PATH
+#### Setup environment
+if [ -e "$HOME/.profile" ]; then . "$HOME/.profile"; fi
+eval $(use-bknix "min")
+if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
+bknix update
 
 #### Config
 VERSION=$(civix info:get -x version).$(date '+%s')
