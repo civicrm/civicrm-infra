@@ -124,3 +124,15 @@ In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the
 ## Open HTTP ports in firewall
 
 See, e.g., https://github.com/civicrm/civicrm-infra/commit/f3d58a2f20a0240c4aa4a1ba90af91d20937a33e
+
+## Setup a site-list
+
+```
+civibuild create site-list
+```
+
+Then edit the `site-list.settings.php` and have it read all the build dirs, e.g.
+
+```php
+$sitelist['bldDirs'] = ['/home/jenkins/bknix-dfl/build', '/home/jenkins/bknix-max/build', '/home/jenkins/bknix-min/build'];
+```
