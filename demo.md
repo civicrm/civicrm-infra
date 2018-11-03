@@ -42,3 +42,20 @@ If all demo sites are unresponsive, try a normal apache restart on www-demo.civi
 sudo service apache2 restart
 
 ```
+
+### Jenkins configuration
+
+Add a new node in Jenkins.
+
+Example:
+
+* Name: www-demo.civicrm.org
+* # of executors: 2
+* Remote root directory: /home/webeditor/jenkins-node
+* Labels: www-demo
+* Usage: Only build jobs with label expressions matching this node
+* Launch method: Launch slave agents via SSH
+* Host: www-demo.civicrm.org
+* Credentials: webeditor
+* Host Key Verification Strategy: Known hosts file Verification Strategy
+* Availability: Keep this agent online as much as possible
