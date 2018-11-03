@@ -59,3 +59,5 @@ Example:
 * Credentials: webeditor
 * Host Key Verification Strategy: Known hosts file Verification Strategy
 * Availability: Keep this agent online as much as possible
+
+Jenkins requires installing the "openjdk-8-jre-headless" package (Debian/Ubuntu).
