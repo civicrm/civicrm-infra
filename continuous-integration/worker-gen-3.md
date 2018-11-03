@@ -29,8 +29,8 @@ And setup an identity:
         email = jenkins@test-XXX.civicrm.org
 ```
 
-Finally, use the new username and password to grant Jenkins access to SSH
-the new system -- and test that it works:
+Use the new username and password to grant Jenkins access to SSH
+into the new system. Test that it works.
 
 ```bash
 me@localhost:~$ ssh test-master.civicrm.osuosl.org
@@ -67,17 +67,17 @@ sh <(curl https://nixos.org/nix/install) --daemon
 sudo -i bash
 git clone https://github.com/totten/bknix /root/bknix
 cd /root/bknix
-OWNER=jenkins ./bin/install-ci.sh
+./bin/install-ci.sh
 ```
 
 NOTE: There are a handful of profiles (`min`/`max`/`dfl`) with different
 combination of services (PHP 5.6 + MySQL 5.5; PHP 7.0 + MySQL 5.7; etc). 
-When using `install-ci.sh`, a profile (eg `min`) will have few corresponding
+When using `install-ci.sh`, a profile (eg `min`) will have some corresponding
 artifacts:
 
 * Binaries folder (ex: `/nix/var/nix/profiles/bknix-min`)
 * Data folder (ex; `/home/jenkins/bknix-min`)
-* Systemd service (ex: `/etc/systemd/system/bknix-min.service`)
+* Systemd service (ex: `/etc/systemd/system/bknix-min.service` and `bknix-min-mysql.service`)
 
 > TIP: To upgrade the bknix binaries and systemd services, just `git pull`,
 > re-run `install-ci.sh` (with the same options as before), and restart
@@ -124,3 +124,15 @@ In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the
 ## Open HTTP ports in firewall
 
 See, e.g., https://github.com/civicrm/civicrm-infra/commit/f3d58a2f20a0240c4aa4a1ba90af91d20937a33e
+
+## Setup a site-list
+
+```
+civibuild create site-list
+```
+
+Then edit the `site-list.settings.php` and have it read all the build dirs, e.g.
+
+```php
+$sitelist['bldDirs'] = ['/home/jenkins/bknix-dfl/build', '/home/jenkins/bknix-max/build', '/home/jenkins/bknix-min/build'];
+```
