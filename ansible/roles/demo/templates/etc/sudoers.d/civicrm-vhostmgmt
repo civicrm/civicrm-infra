@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+#
+Cmnd_Alias APACHE_CMDS = /usr/sbin/a2ensite, /usr/sbin/a2dissite, /usr/sbin/apache2ctl
+webeditor ALL=(ALL) NOPASSWD: APACHE_CMDS

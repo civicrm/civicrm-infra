@@ -1,0 +1,70 @@
+---
+
+# TODO:
+# - deploy vhost templates (online, offline, etc)
+# - dehydrated has to be setup manually (comment out 443 vhost, run cert generation, then enable https)
+# - configure the mysql root password (), and store it in /home/webeditor/.my.cnf
+# - as webeditor, run "amp config" and follow the directives (use local my.cnf, don't update the hosts file, etc.)
+
+# Required for Jenkins
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - openjdk-8-jre-headless
+  tags:
+    - packages
+    - packages-java
+
+# For Jenkins
+- name: sudo | Deploy sudoers file for vhost management
+  template: src=etc/sudoers.d/civicrm-vhostmgmt dest=/etc/sudoers.d/civicrm-vhostmgmt owner=root group=root mode=0440
+  tags:
+    - demo
+    - demo-sudoers
+
+# MariaDB 10.2
+- apt_key: keyserver=keyserver.ubuntu.com id=0xF1656F24C74CD1D8
+  tags:
+    - packages
+    - demo
+    - demo-mariadb
+
+- apt_repository:
+    repo="deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main"
+    update_cache=yes
+    state=present
+  tags:
+    - packages
+    - demo
+    - demo-mariadb
+
+- apt: name={{ item }} state=present
+  with_items:
+    - mariadb-server
+  tags:
+    - packages
+    - demo
+    - demo-mariadb
+
+- name: Create /srv directory for webeditor user
+  file: path=/srv state=directory mode="0755" owner="webeditor" group="webeditor"
+  tags:
+    - demo
+    - demo-buildkit
+
+- name: Download buildkit
+  sudo_user: webeditor
+  git: repo=https://github.com/civicrm/civicrm-buildkit.git
+       version=master
+       dest=/srv/buildkit
+       update=yes
+  tags:
+    - demo
+    - demo-buildkit
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - acl
+    - patch
+  tags:
+    - packages
+    - demo

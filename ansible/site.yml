@@ -62,6 +62,21 @@
   tags:
     - test-node
 
+- hosts: demo-servers
+  sudo: yes
+  roles:
+    - demo
+    - nodejs
+  tags:
+    - demo
+
+- hosts: php71-servers
+  sudo: yes
+  roles:
+    - php71
+  tags:
+    - php71
+
 - hosts: php7-servers
   sudo: yes
   roles:
