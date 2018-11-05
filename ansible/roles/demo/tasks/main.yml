@@ -1,10 +1,12 @@
 ---
 
 # TODO:
+# - enable apache modules: rewrite, ssl
 # - deploy vhost templates (online, offline, etc)
 # - dehydrated has to be setup manually (comment out 443 vhost, run cert generation, then enable https)
 # - configure the mysql root password (), and store it in /home/webeditor/.my.cnf
 # - as webeditor, run "amp config" and follow the directives (use local my.cnf, don't update the hosts file, etc.)
+# - deploy /var/www/demosites/maintenance/ directory
 
 # Required for Jenkins
 - apt: name={{ item }} state=present install_recommends=no
