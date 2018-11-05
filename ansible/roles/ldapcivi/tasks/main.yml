@@ -1,0 +1,34 @@
+---
+
+- name: Deploy LdapCivi systemd unit file
+  template:
+    src: "etc/systemd/system/{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - ldapcivi.service
+  tags:
+    - ldapcivi
+
+- name: dehydrated | Deploy Letsencrypt hooks for Aegir
+  template:
+    src: "var/aegir/config/letsencrypt/hooks.sh"
+    dest: "/var/aegir/config/letsencrypt/hooks.sh"
+    owner: aegir
+    group: aegir
+    mode: 0755
+  tags:
+    - ldapcivi
+
+- name: dehydrated | Enable the hooks file
+  lineinfile: dest=/var/aegir/config/letsencrypt/config line="HOOK=/var/aegir/config/letsencrypt/hooks.sh"
+  tags:
+    - ldapcivi
+
+- service:
+    name: ldapcivi
+    state: started
+    enabled: yes
+    daemon_reload: yes

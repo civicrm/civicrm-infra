@@ -147,6 +147,14 @@
   tags:
     - ldap-auth-server
 
+- hosts: ldapcivi-servers
+  sudo: yes
+  roles:
+    - ldapcivi
+    - dehydrated
+  tags:
+    - ldapcivi
+
 - hosts: gitbot-servers
   sudo: yes
   roles:

@@ -1,0 +1,32 @@
+# {{ ansible_managed }}
+#
+# https://lab.civicrm.org/infrastructure/ops/wikis/ldapcivi
+# https://lab.civicrm.org/infrastructure/ops/blob/master/ldap-websites.md
+#
+# Pre-req: Install compatible version of nodejs
+#
+# To use it:
+#
+# 1. Copy this template, e.g. `cp examples/ldapcivi.service /etc/systemd/system/`
+# 2. Edit the file new file. Change values like "WorkingDirectory", "User", "Group".
+# 3. Load the new service (`systemctl daemon-reload`)
+# 4. Start the new service for immediate use (`systemctl start ldapcivi`)
+# 5. Enable the new service to start on reboot (`systemctl enable ldapcivi`)
+
+[Unit]
+Description=ldapcivi
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+PermissionsStartOnly=true
+WorkingDirectory=/opt/ldapciviauth
+ExecStart=/usr/bin/node server.js civicrmorg
+TimeoutSec=300
+PrivateTmp=true
+User=aegir
+Group=aegir
+
+[Install]
+WantedBy=multi-user.target

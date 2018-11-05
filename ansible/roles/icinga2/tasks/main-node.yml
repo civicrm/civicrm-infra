@@ -123,6 +123,7 @@
     - check_file_content
     - check_memory
     - check_mysqldump-secure
+    - check_ssl_cert
     - check_zpool
   notify: restart icinga2
   tags:
@@ -140,6 +141,7 @@
     - mem
     - mysqldump
     - mysql_uptime
+    - ssl_cert
     - zpool
   notify: restart icinga2
   tags:

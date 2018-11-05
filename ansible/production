@@ -123,6 +123,9 @@ lab.civicrm.org
 [ldap-servers]
 manage.civicrm.osuosl.org
 
+[ldapcivi-servers]
+www-prod-2.civicrm.org
+
 [aegir-managed]
 spark-1.civicrm.org
 spark-2.civicrm.org
