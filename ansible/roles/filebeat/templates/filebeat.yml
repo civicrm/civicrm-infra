@@ -1,0 +1,84 @@
+# {{ ansible_managed }}
+filebeat:
+  # List of prospectors to fetch data.
+  prospectors:
+    -
+      paths:
+        - /var/log/auth.log
+        - /var/log/daemon.log
+        - /var/log/apache2/error.log
+        - /var/log/nginx/error.log
+      document_type: log
+      ignore_older: 1h
+      exclude_lines: [
+        # CiviCRM security checks
+        'AH01797: client denied by server configuration: .*delete-this',
+        # These are usually bots hitting the Yubiauth
+        'sshd.[0-9]+.: Connection closed by .* .preauth',
+        # Cron-related messages
+        'sudo: pam_unix.sudo:session.: session opened for user aegir by \\(uid=0\\)',
+        'sudo: pam_unix.sudo:session.: session closed for user (root|aegir)',
+        'CRON.[0-9]+.: pam_unix.cron:session.: session (opened|closed) for user [a-z0-9]+ by .uid=0.',
+        # Ansible
+        'sudo:[[:space:]]+deploy[[:space:]]*TTY=pts/0[[:space:]]*;[[:space:]]* PWD=/home/deploy.*ansible-tmp',
+        # Other boring system stuff
+        'systemd',
+        'monkeysphere',
+        'icinga2',
+        'COMMAND=/opt/zimbra/libexec/zmmailboxdmgr status'
+      ]
+
+  processors:
+    # https://www.elastic.co/guide/en/beats/filebeat/current/regexp-support.html
+    # Recommends wrapping regexes in single-quotes.
+
+    # Ignore ssh checks by icinga localhost
+    - drop_event:
+        when:
+          regexp:
+            message: '.*sshd\[[0-9]+\]: Connection closed by 127.0.0.1.*'
+
+    # Mostly crons, no one cares
+    - drop_event:
+        when:
+          regexp:
+            message: '.*sudo: pam_unix\(sudo:session\): session closed for user (root|aegir)'
+
+    - drop_event:
+        when:
+          regexp:
+            message: '.*CRON\[[0-9]+\]: pam_unix\(cron:session\): session (opened|closed for user aegir.*'
+
+    - drop_event:
+        when:
+          regexp:
+            message: '.*icinga2.* information/.*'
+
+
+    - drop_event:
+        when:
+          regexp:
+            message: '.*icinga2.* information.*'
+
+    # Zimbra (TODO: move to host_var?)
+    - drop_event:
+        when:
+          regexp:
+            message: '.*COMMAND=/opt/zimbra/libexec/zmmailboxdmgr status.*'
+
+  # Name of the registry file. Per default it is put in the current working
+  # directory. In case the working directory is changed after when running
+  # filebeat again, indexing starts from the beginning again.
+  registry_file: /var/lib/filebeat/registry
+
+  # Full Path to directory with additional prospector configuration files. Each file must end with .yml
+  # These config files must have the full filebeat config part inside, but only
+  # the prospector part is processed. All global options like spool_size are ignored.
+  # The config_dir MUST point to a different directory then where the main filebeat config file is in.
+  #config_dir:
+
+############################# Libbeat Config ##################################
+output:
+  logstash:
+    hosts: ["{{ filebeat_logstash_server }}:{{ filebeat_logstash_port }}"]
+    ssl.enabled: true
