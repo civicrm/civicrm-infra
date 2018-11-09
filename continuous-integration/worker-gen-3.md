@@ -120,6 +120,8 @@ In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the
 * Remote FS Root: /home/jenkins
     * Launch method: ...Unix machine via SSH
     * Credentials: jenkins
+    * Host Key Verification Strategy: Manually provided key
+        * (Copy from a file like `/etc/ssh/ssh_host_rsa_key.pub` or `/etc/ssh/ssh_host_ecdsa_key.pub`)
 
 ## Open HTTP ports in firewall
 
