@@ -34,7 +34,7 @@ into the new system. Test that it works.
 
 ```bash
 me@localhost:~$ ssh test-master.civicrm.osuosl.org
-me@test-master:~$ sudo -i ssh-copy-id -i /home/gitsync/id_rsa.pub gitsync@HOSTNAME.civicrm.org
+me@test-master:~$ sudo -i ssh-copy-id -i /var/lib/jenkins/id_rsa.pub gitsync@HOSTNAME.civicrm.org
 [sudo] password for me:
 The authenticity of host 'HOSTNAME.civicrm.org (111.111.111.111)' can't be established.
 RSA key fingerprint is 11:11:11:11:11:11:11:11:11:11:11:11:11:11:11:11.
@@ -46,14 +46,8 @@ Now try logging into the machine, with "ssh 'gitsync@HOSTNAME.civicrm.org'", and
   ~/.ssh/authorized_keys
 
 to make sure we haven't added extra keys that you weren't expecting.
-me@test-master:~$ sudo ssh -i /home/gitsync/id_rsa gitsync@HOSTNAME.civicrm.org
+me@test-master:~$ sudo ssh -i /var/lib/jenkins/id_rsa gitsync@HOSTNAME.civicrm.org
 gitsync@HOSTNAME:$ git config -l
-```
-
-Finally, restrict modifications to `~/.ssh/authorized_keys`:
-
-```
-root@HOSTNAME:~# chown root ~gitsync/.ssh/authorized_keys
 ```
 
 ## Initialize repos
@@ -67,7 +61,7 @@ gitsync@HOSTNAME:~$ mkdir ~/src
 Then go to https://test.civicrm.org/job/CiviCRM-Github-Gitlab-Sync/ and
 follow the setup instruction for each of the currently enabled repos.
 
-## Prefill ssh host key cache
+## Prefill SSH host key cache
 
 Make a test connection to `lab.civicrm.org`. We don't need this complete (and we don't have stored credentials
 for a full connection), but we should populate the cache of SSH known hosts.
