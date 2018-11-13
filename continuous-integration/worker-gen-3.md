@@ -115,9 +115,12 @@ sudo apt-get install openjdk-8-jre-headless
 
 In Jenkins Web UI, navigate to "Manage Jenkins => Manage Nodes" and register the new node. Some example settings:
 
-* Number of executors: 3
-* Labels: bknix
-* Remote FS Root: /home/jenkins
+* __Number of executors__: 3
+* __Labels__: Some combination of these: 
+    * `bknix-durable` (the system is suitable for hosting HTTP test sites for a few days; e.g. used by `CiviCRM-Core-PR` or `CiviCRM-Drupal-PR`)
+    * `bknix-tmp` (the system is suitable for hosting one-off test runs; e.g. used by `CiviCRM-Core-Matrix` or `CiviCRM-Ext-Matrix`)
+    * `bknix-publisher` (the system is suitable for handling official builds; it should only execute approved/official code -- and *not* PR code; it may have more privileges for publication)
+* __Remote FS Root__: /home/jenkins
     * Launch method: ...Unix machine via SSH
     * Credentials: jenkins
     * Host Key Verification Strategy: Manually provided key
