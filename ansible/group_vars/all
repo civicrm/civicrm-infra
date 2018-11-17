@@ -1,8 +1,6 @@
 ---
-logstash_forwarder_server: log.civicrm.org
-logstash_forwarder_server_port: 5000
-logstash_ssl_ca_cert: /etc/ssl/private/gandi.crt
-
+filebeat_logstash_server: log.symbiotic.coop
+filebeat_logstash_port: 5000
 icinga2_main_node: icinga.symbiotic.coop
 
 backupserver_hourly: civicrm-sushi-spare.osuosl.org
