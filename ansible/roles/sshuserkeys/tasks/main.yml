@@ -18,7 +18,7 @@
   user: name={{ item }} group="sudo" append=yes
   with_items: "{{ root_sudoers }}"
   tags:
-    - sshuserskeys
-    - sshuserskeys-sudoers
+    - sshuserkeys
+    - sshuserkeys-sudoers
 
 # TODO: per-server, ex: /etc/ansible/files/sshkeys/{{ inventory_hostname }}/*.pub
