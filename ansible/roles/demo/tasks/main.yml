@@ -63,10 +63,27 @@
     - demo
     - demo-buildkit
 
+# Postfix is required since 2018-11-09, rebuilds started failing
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - acl
     - patch
+    - postfix
   tags:
     - packages
     - demo
+
+# Make sure that postfix uses a "local delivery" configuration.
+- name: demo | deploy postfix local-only configuration
+  template:
+    src: "{{ item }}"
+    dest: "/{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - etc/postfix/main.cf
+  notify: restart postfix
+  tags:
+    - demo
+    - demo-postfix
