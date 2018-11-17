@@ -16,6 +16,9 @@ preseed_ipv6_address: 2607:5300:60:71d0:300::/80
 preseed_ipv6_route: 2607:5300:0060:71ff:ff:ff:ff:ff
 preseed_ipv6_gateway: 2607:5300:0060:71ff:ff:ff:ff:ff
 
+backups_include_extras:
+    - /home
+
 ufw_extra:
   botdylan:
     proto: tcp
