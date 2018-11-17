@@ -27,6 +27,11 @@
   tags:
     - ldapcivi
 
+- name: Sudoers | create deploy sudoers file so that aegir can restart civildap
+  template: src=etc/sudoers.d/aegir-ldapcivi dest=/etc/sudoers.d/aegir-ldapcivi owner=root group=root mode=0440
+  tags:
+    - ldapcivi
+
 - service:
     name: ldapcivi
     state: started
