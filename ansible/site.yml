@@ -4,8 +4,7 @@
   roles:
     - common-all
     - backup-client
-    - ldap-auth-client
-    - logstash-forwarder
+    - filebeat
     - mysqlbackup
     - unattended-upgrades
     - sshuserkeys
@@ -19,13 +18,6 @@
   tags:
     - icinga
     - icinga2
-
-- hosts: logstash-servers
-  sudo: yes
-  roles:
-    - logstash
-  tags:
-    - logstash
 
 - hosts: all
   sudo: yes
