@@ -1,0 +1,4 @@
+---
+# Override in /etc/ansible/group_vars/all
+# or per-host in /etc/ansible/host_vars/[host]
+root_sudoers: johndoe

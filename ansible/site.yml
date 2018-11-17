@@ -8,6 +8,7 @@
     - logstash-forwarder
     - mysqlbackup
     - unattended-upgrades
+    - sshuserkeys
   tags:
     - minimum
 

@@ -8,6 +8,11 @@ icinga2_main_node: icinga.symbiotic.coop
 backupserver_hourly: civicrm-sushi-spare.osuosl.org
 backupserver_daily: backups-1.civicrm.org
 
+aegir_sudoers: gitlab-runner,bgm
+root_sudoers:
+  - bgm
+  - totten
+
 unattended_mail_only_on_error: true
 unattended_origins_patterns:
   - o=${distro_id},n=${distro_codename}
