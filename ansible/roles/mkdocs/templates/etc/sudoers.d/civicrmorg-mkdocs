@@ -4,3 +4,6 @@
 # once the mkdocs have been rebuilt (which may include new redirects).
 #
 docs ALL=NOPASSWD: /bin/systemctl reload nginx
+
+# Allow to sudo to the docs user, helpful for debugging issues.
+docs ALL=(docs) NOPASSWD: ALL
