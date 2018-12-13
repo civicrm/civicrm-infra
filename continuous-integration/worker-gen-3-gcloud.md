@@ -1,6 +1,6 @@
 # Setup a temporary gcloud worker (3rd generation)
 
-The temporary gcloud worker is a pre-emptible test node hosted on gcloud.
+The temporary gcloud worker is a [pre-emptible](https://cloud.google.com/preemptible-vms/) test node hosted on gcloud.
 
 Pre-emptible nodes are cheaper and will automatically be destroyed within a
 day.  They will execute some ephemeral jobs (like `CiviCRM-Core-Matrix`
