@@ -93,8 +93,8 @@ pushd "$EXTBASE"
     civibuild restore "$BLDNAME"
     cv en "$EXTKEY"
 #    if [ "$EXTKEY" = "org.civicrm.api4" ]; then cv flush; fi ## FIX+REMOVE ME
-    phpunit4 --tap --group e2e --log-junit="$WORKSPACE/junit/junit-e2e.xml"
-    phpunit4 --tap --group headless --log-junit="$WORKSPACE/junit/junit-headless.xml"
+    phpunit5 --tap --group e2e --log-junit="$WORKSPACE/junit/junit-e2e.xml"
+    phpunit5 --tap --group headless --log-junit="$WORKSPACE/junit/junit-headless.xml"
     EXITCODE=$(($? || $EXITCODE))
   popd
 popd
