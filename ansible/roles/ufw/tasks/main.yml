@@ -73,3 +73,9 @@
   tags:
     - ufw
     - ufw-fail2ban
+
+- name: ufw | Deploy fail2ban paths-common.conf
+  template: src=etc/fail2ban/paths-common.conf dest=/etc/fail2ban/paths-common.conf owner=root group=root mode=0644
+  tags:
+    - ufw
+    - ufw-fail2ban
