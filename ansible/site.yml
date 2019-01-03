@@ -6,6 +6,7 @@
     - backup-client
     - filebeat
     - mysqlbackup
+    - ufw
     - unattended-upgrades
     - sshuserkeys
   tags:
