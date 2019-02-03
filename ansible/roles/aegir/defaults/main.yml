@@ -7,3 +7,6 @@ aegir_sudoers: johndoe
 # Some types of hacks (ex: WordPress plugin upgrades) override this to 0750/www-data
 aegir_ssh_dir_permission: 0700
 aegir_ssh_dir_group: aegir
+
+# Default Drupal platform to install
+aegir_platform_drupal_version: 7

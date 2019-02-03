@@ -27,7 +27,7 @@
     src="etc/php/{{ phpversion }}/mods-available/90-symbiotic.ini"
     dest="/etc/php/{{ phpversion }}/mods-available/90-symbiotic.ini"
     owner=root group=root mode=0644
-  notify: restart nginx
+  notify: "restart php{{ phpversion }}-fpm"
   when: "'aegir-apache' not in group_names"
   tags:
     - aegir-php

@@ -2,3 +2,6 @@
 #
 User_Alias     HOSTMASTERS = {{ aegir_sudoers }}
 HOSTMASTERS ALL=(aegir) NOPASSWD: ALL
+
+aegir ALL=NOPASSWD: /bin/systemctl restart php5-fpm
+aegir ALL=NOPASSWD: /bin/systemctl restart php70-fpm
