@@ -5,7 +5,8 @@
 # The most generic role at the moment is 'servers', but we want to encourage
 # admins to classify servers so that we have a better idea of what they do.
 #
-padthai.civicrm.org ansible_ssh_host=167.114.158.208
+barbecue.civicrm.org
+padthai.civicrm.org
 newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28
 backups-1.civicrm.org
 botdylan.civicrm.org
@@ -21,6 +22,7 @@ test.civicrm.org
 test-ubu1204-1.civicrm.osuosl.org
 test-1.civicrm.org # formerly test-ubu1204-5
 test-2.civicrm.org # formerly test-ubu1604-1
+test-3.civicrm.org ansible_ssh_host=147.135.121.0
 www-cxn-2.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
 www-prod.civicrm.osuosl.org
@@ -45,6 +47,8 @@ www-test.civicrm.org
 java-prod.civicrm.osuosl.org
 latest.civicrm.org
 test-1.civicrm.org
+test-2.civicrm.org
+test-3.civicrm.org
 training.civicrm.org
 www-demo.civicrm.osuosl.org
 www-demo.civicrm.org
@@ -58,6 +62,7 @@ test-ubu1204-2.civicrm.osuosl.org
 test-ubu1204-3.civicrm.org
 test-1.civicrm.org
 test-2.civicrm.org
+test-3.civicrm.org
 
 [backup-servers]
 backups-1.civicrm.org
@@ -79,6 +84,7 @@ www-cxn-2.civicrm.osuosl.org
 
 [kvm-servers]
 padthai.civicrm.org
+barbecue.civicrm.org
 
 [servers:children]
 apache-servers
