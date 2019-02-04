@@ -36,5 +36,5 @@ preseed_ipv4_gateway: 147.135.121.254
 preseed_ipv4_bridged_gateway: 147.135.121.254
 preseed_ipv4_nameservers: 8.8.8.8
 preseed_ipv6_address: 2604:2dc0:100:86f:100::/80
-preseed_ipv6_route: 2604:2dc0:100:86f:ff:ff:ff:ff
-preseed_ipv6_gateway: 2604:2dc0:100:86f:ff:ff:ff:ff
+preseed_ipv6_route: 2604:2dc0:100:8ff:ff:ff:ff:ff
+preseed_ipv6_gateway: 2604:2dc0:100:8ff:ff:ff:ff:ff
