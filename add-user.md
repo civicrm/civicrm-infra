@@ -1,5 +1,27 @@
-How to Add a New User
+Granting ssh access to a server
+===============================
+
+* Create a user locally using `adduser`
+* Add the ssh public key of the server onto the account
+* Set a password and store it temporarily in a text file. Make sure to chown/chmod the file so that no one else can read it.
+* Document the permission in the section below.
+
+It's important to use ssh keys, because at some point, two-step authentication (ex: Yubikey) might be added to servers for when using a password login.
+
+Ssh access
+==========================
+
+| Who  | Server | Since | Expiration | Why |
+| ---- | ------ | ----- | ---------- | ----- |
+| Mathieu | all | Long time ago |         |  |
+| Tim  | all    | Long time ago |         |  |
+| Mikey | www-prod | 2018-11-22 |         | docs upgrades/maintenance |
+| Seamus | test-xx | 2018-12-01 |         | continuous integration improvements and maintenance |
+
+How to Add a New User (LDAP)
 =====================
+
+Update: 2019-02-20 LDAP is being discontinued on new servers, because very few people need access to servers and it's not worth the overhead.
 
 To add a new shell user with SSH or administration privileges, one must add
 the user to LDAP.  First, connect to the LDAP administrative interface:
