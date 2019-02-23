@@ -1,3 +1,5 @@
+phpversion: 7.2
+
 logstash_forwarder_files:
   - paths:
       - /var/log/messages
