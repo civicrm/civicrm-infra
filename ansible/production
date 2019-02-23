@@ -98,8 +98,9 @@ unclassified-servers
 [icinga-satellite:children]
 servers
 
-[php71-servers]
+[php72-servers]
 www-demo.civicrm.org
+www-prod.civicrm.osuosl.org
 
 [php7-servers]
 test-ubu1604-1.civicrm.org
@@ -135,7 +136,6 @@ www-prod-2.civicrm.org
 [aegir-managed]
 spark-1.civicrm.org
 spark-2.civicrm.org
-www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
 www-test.civicrm.org
 

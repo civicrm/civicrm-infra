@@ -64,12 +64,12 @@
   tags:
     - demo
 
-- hosts: php71-servers
+- hosts: php72-servers
   sudo: yes
   roles:
-    - php71
+    - php72
   tags:
-    - php71
+    - php72
 
 - hosts: php7-servers
   sudo: yes
