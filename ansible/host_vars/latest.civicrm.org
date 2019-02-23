@@ -1,2 +1,3 @@
 backups_include_extras:
     - /home/releaser/.gnupg
+    - /home/releaser/archive-esr
