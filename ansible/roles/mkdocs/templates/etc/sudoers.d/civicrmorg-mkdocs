@@ -5,5 +5,5 @@
 #
 docs ALL=NOPASSWD: /bin/systemctl reload nginx
 
-# Allow to sudo to the docs user, helpful for debugging issues.
-docs ALL=(docs) NOPASSWD: ALL
+# Allow users in the docs group to sudo to the docs user, helpful for debugging issues.
+%docs ALL=(docs) NOPASSWD: ALL
