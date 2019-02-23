@@ -1,2 +1,7 @@
 *~
 ansible/site.retry
+
+# These files only have the gitlab_runner_registration_token
+# (too sensitive to have on public repositories)
+ansible/group_vars/test-servers
+ansible/group_vars/aegir-managed
