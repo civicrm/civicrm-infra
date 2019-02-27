@@ -139,6 +139,8 @@ See, e.g., https://github.com/civicrm/civicrm-infra/commit/f3d58a2f20a0240c4aa4a
 ## Setup a site-list
 
 ```
+su - jenkins
+eval $(use-bknix dfl)
 civibuild create site-list
 ```
 
@@ -147,3 +149,5 @@ Then edit the `site-list.settings.php` and have it read all the build dirs, e.g.
 ```php
 $sitelist['bldDirs'] = ['/home/jenkins/bknix-dfl/build', '/home/jenkins/bknix-max/build', '/home/jenkins/bknix-min/build'];
 ```
+
+Note the `SITE_KEY` from the `site-list.settings.php`. Then, register the new server as part of the general index by connecting to `test-1.civicrm.org` and adding an entry to `/home/jenkins/bknix-dfl/build/site-list/more-sites.php`.
