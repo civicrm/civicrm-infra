@@ -2,6 +2,12 @@
 
 See also: https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds
 
+## Set timezone to UTC
+
+```
+dpkg-reconfigure tzdata
+```
+
 ## Create `jenkins` user
 
 ```bash
