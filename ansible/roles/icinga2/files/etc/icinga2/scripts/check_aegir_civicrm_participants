@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# {{ ansible_managed }}
+
+# Outputs the contents of the Aegir usage.log in a way that Icinga2
+# can fetch the metrics so that they can be fed to Graphite/Grafana.
+# It does not do any quota checks at the moment.
+
+# Ex input: 
+# aegir,example.org,CiviParticipant:1234
+
+# Extract the production sites (grep -v skip)
+# .. keep only CiviParticipant entries
+# and remove the 'aegir,' prefix (cut ..)
+sites=$(cat /var/log/aegir/usage.log | grep -v ',skip$' | grep CiviParticipant | cut -f 2- -d ',')
+
+echo -n "AEGIR CiviCRM Participants OK |"
+
+while read -r line; do
+
+  # Match the first field
+  site_name=${line%%,*}
+  site_name=${site_name//./_}
+
+  # Match the last field
+  count=${line##*:}
+
+  echo -n " $site_name=${count};"
+done <<< "$sites"

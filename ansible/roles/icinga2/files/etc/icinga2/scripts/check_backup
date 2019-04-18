@@ -63,6 +63,7 @@ my $last_bak;
 my $last_elapsed_time = 0;
 my $last_source_file_size = 0;
 my $last_new_file_size = 0;
+my $last_mirror_file_size = 0;
 my $last_changed_files = 0;
 my $last_changed_size = 0;
 
@@ -84,6 +85,9 @@ if ($backup_type eq "rdiff-backup") {
       }
       elsif (/SourceFileSize ([0-9]+)/) {
         $last_source_file_size = $1;
+      }
+      elsif (/MirrorFileSize ([0-9]+)/) {
+        $last_mirror_file_size = $1;
       }
       elsif (/NewFileSize ([0-9]+)/) {
         $last_new_file_size = $1;
@@ -157,5 +161,5 @@ else {
   $exit_value = 2;
 }
 
-print "BACKUP $state - $message | delta=$delta; elapsedtime=$last_elapsed_time; source_file_size=$last_source_file_size; new_file_size=$last_new_file_size; changed_files=$last_changed_files; changed_size=$last_changed_size;;";
+print "BACKUP $state - $message | delta=$delta; elapsedtime=$last_elapsed_time; source_file_size=$last_source_file_size; mirror_file_size=$last_mirror_file_size; new_file_size=$last_new_file_size; changed_files=$last_changed_files; changed_size=$last_changed_size;;";
 exit($exit_value);

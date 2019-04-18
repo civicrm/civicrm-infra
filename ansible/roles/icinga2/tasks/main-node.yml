@@ -37,7 +37,7 @@
     - icinga2
     - icinga2-base-configs
 
-- file: path=/etc/icinga2/pki state=directory owner=root group=nagios mode=0770
+- file: path=/etc/icinga2/pki state=directory owner=root group={{ icinga2_user }} mode=0770
 
 - name: Run icinga2 pki new-cert for our host
   shell: icinga2 pki new-cert --cn {{ inventory_hostname }} --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt
@@ -104,7 +104,7 @@
 ##
 ## We deploy the scripts to /usr/local/lib/icinga2-plugins
 ## because some are run by less-privileged users and might not have access to /etc/icinga2
-- file: path="{{ item }}" state=directory owner=root group=nagios mode=0755
+- file: path="{{ item }}" state=directory owner=root group={{ icinga2_user }} mode=0755
   with_items:
     - /etc/icinga2/conf.d/services
     - /etc/icinga2/conf.d/commands
@@ -116,14 +116,26 @@
 - name: Deploy custom checks
   copy: src="etc/icinga2/scripts/{{ item }}" dest="/usr/local/lib/icinga2-plugins/{{ item }}" owner=root group=root mode=0755
   with_items:
+    - check_aegir_disk
+    - check_aegir_sql
+    - check_aegir_civicrm_contacts
+    - check_aegir_civicrm_activities
+    - check_aegir_civicrm_contributions
+    - check_aegir_civicrm_memberships
+    - check_aegir_civicrm_mailings
+    - check_aegir_civicrm_cases
+    - check_aegir_civicrm_events
+    - check_aegir_civicrm_participants
     - check_backup
     - check_bandwidth
     - check_civicrm
     - check_cmsversion
     - check_file_content
     - check_memory
+    - check_md_raid
     - check_mysqldump-secure
     - check_ssl_cert
+    - check_ufw
     - check_zpool
   notify: restart icinga2
   tags:
@@ -133,40 +145,44 @@
 - name: Deploy custom checks configurations
   template: src="etc/icinga2/conf.d/commands/{{ item }}.conf" dest="/etc/icinga2/conf.d/commands/{{ item }}.conf" owner=root group=root mode=0644
   with_items:
+    - aegir_disk
+    - aegir_sql
+    - aegir_civicrm_contacts
+    - aegir_civicrm_activities
+    - aegir_civicrm_contributions
+    - aegir_civicrm_memberships
+    - aegir_civicrm_mailings
+    - aegir_civicrm_cases
+    - aegir_civicrm_events
+    - aegir_civicrm_participants
     - backup
     - bandwidth
     - civicrm
     - cmsversion
     - file_content
     - mem
+    - md_raid
     - mysqldump
     - mysql_uptime
     - ssl_cert
+    - ufw
     - zpool
   notify: restart icinga2
   tags:
     - icinga2
     - icinga2-custom-checks
 
-- name: Deploy custom checks configurations
-  template: src="etc/icinga2/conf.d/commands/{{ item }}.conf" dest="/etc/icinga2/conf.d/commands/{{ item }}.conf" owner=root group=root mode=0644
-  with_items:
-    - mysql_uptime
-  notify: restart icinga2
-  tags:
-    - icinga2
-    - icinga2-mysql
-
 - template: src="etc/sudoers.d/{{ item }}" dest="/etc/sudoers.d/{{ item }}" owner=root group=root mode=0440
   with_items:
     - aegir-icinga2
     - backup-icinga2
+    - mdadm-icinga2
     - mysql-icinga2
     - zfs-icinga2
+    - ufw-icinga2
   tags:
     - icinga2
     - icinga2-custom-checks
-    - icinga2-mysql
 
 # Remove old location for those configurations
 - file: path=/etc/icinga2/conf.d/services/civicrm.conf state=absent

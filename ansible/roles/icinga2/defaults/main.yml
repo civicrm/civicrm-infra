@@ -10,3 +10,6 @@ icinga2_allow_ips:
     - 192.168.1.0/24
 
 icinga2_rdiffbackup_root: "/backup"
+
+# On Debian it's nagios, but on CentOS it might be icinga
+icinga2_user: nagios
