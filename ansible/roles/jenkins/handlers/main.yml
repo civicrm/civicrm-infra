@@ -1,0 +1,6 @@
+---
+- name: update debian timezone
+  shell: dpkg-reconfigure --frontend noninteractive tzdata
+
+- name: restart nginx
+  shell: systemctl restart nginx

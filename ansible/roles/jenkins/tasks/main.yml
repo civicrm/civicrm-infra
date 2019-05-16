@@ -1,0 +1,41 @@
+---
+
+# Required for some tests, to avoid having to deal with PHP/MySQL timezone issues
+- name: Set Time Zone to UTC
+  copy:
+    content: 'Etc/UTC'
+    dest: /etc/timezone
+    owner: root
+    group: root
+    mode: 0644
+  notify: update debian timezone
+
+# Required for Jenkins
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - openjdk-8-jre-headless
+  tags:
+    - packages
+    - packages-java
+
+- name: Get Jenkins Apt Key
+  apt_key:
+    url="https://pkg.jenkins.io/debian/jenkins.io.key"
+    state=present
+  tags:
+    - jenkins
+    - packages
+
+- name: Configure the Jenkins Apt Repo
+  apt_repository:
+    repo="deb http://pkg.jenkins.io/debian-stable binary/"
+    update_cache=yes 
+    state=present
+  tags:
+    - jenkins
+    - packages
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
+    - nginx
+    - jenkins

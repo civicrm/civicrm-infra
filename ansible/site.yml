@@ -53,6 +53,7 @@
   sudo: yes
   roles:
     - test-node
+    - gitlab-runner
   tags:
     - test-node
 
@@ -173,3 +174,10 @@
     - dehydrated
   tags:
     - dehydrated
+
+- hosts: jenkins-servers
+  sudo: yes
+  roles:
+    - jenkins
+  tags:
+    - jenkins
