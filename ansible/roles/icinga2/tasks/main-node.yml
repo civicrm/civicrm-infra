@@ -37,20 +37,23 @@
     - icinga2
     - icinga2-base-configs
 
-- file: path=/etc/icinga2/pki state=directory owner=root group={{ icinga2_user }} mode=0770
+- file: path="{{ icinga2_cert_dir }}" state=directory owner="{{ icinga2_user }}" group="{{ icinga2_user }}" mode=0700
+  tags:
+    - icinga2
+    - icinga2-base-configs
 
 - name: Run icinga2 pki new-cert for our host
-  shell: icinga2 pki new-cert --cn {{ inventory_hostname }} --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt
+  shell: icinga2 pki new-cert --cn {{ inventory_hostname }} --key "{{ icinga2_cert_dir }}/{{ inventory_hostname }}.key" --cert "{{ icinga2_cert_dir }}/{{ inventory_hostname }}.crt"
   args:
-    creates: /etc/icinga2/pki/{{ inventory_hostname }}.key
+    creates: "{{ icinga2_cert_dir }}/{{ inventory_hostname }}.key"
   tags:
     - icinga2
     - icinga2-cert
 
 - name: Run icinga2 pki save-cert
-  shell: icinga2 pki save-cert --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --host {{ icinga2_main_node }}
+  shell: icinga2 pki save-cert --key "{{ icinga2_cert_dir }}/{{ inventory_hostname }}.key" --cert "{{ icinga2_cert_dir }}/{{ inventory_hostname }}.crt" --trustedcert "{{ icinga2_cert_dir }}/trusted-master.crt" --host {{ icinga2_main_node }}
   args:
-    creates: "/etc/icinga2/pki/trusted-master.crt"
+    creates: "{{ icinga2_cert_dir }}/trusted-master.crt"
   tags:
     - icinga2
     - icinga2-cert
@@ -63,15 +66,19 @@
     - icinga2
     - icinga2-cert
 
-- shell: icinga2 pki request --host {{ icinga2_main_node }} --ticket {{ ticket.stdout }} --key /etc/icinga2/pki/{{ inventory_hostname }}.key --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt --trustedcert /etc/icinga2/pki/trusted-master.crt --ca /etc/icinga2/pki/ca.crt
+- shell: icinga2 pki request --host {{ icinga2_main_node }} --ticket {{ ticket.stdout }} --key "{{ icinga2_cert_dir }}/{{ inventory_hostname }}.key" --cert "{{ icinga2_cert_dir }}/{{ inventory_hostname }}.crt" --trustedcert "{{ icinga2_cert_dir }}/trusted-master.crt" --ca "{{ icinga2_cert_dir }}/ca.crt"
   args:
     creates: "/etc/icinga2/pki/ca.crt"
   tags:
     - icinga2
     - icinga2-cert
 
-- template: src=zones.conf dest=/etc/icinga2/zones.conf owner=root group=root mode=0644
+- template: src=etc/icinga2/zones.conf dest=/etc/icinga2/zones.conf owner=root group=root mode=0644
   notify: restart icinga2
+  tags:
+    - icinga2
+    - icinga2-zones
+    - icinga2-custom-checks
 
 - name: Enable the Icinga2 API
   shell: icinga2 feature enable api
@@ -106,8 +113,9 @@
 ## because some are run by less-privileged users and might not have access to /etc/icinga2
 - file: path="{{ item }}" state=directory owner=root group={{ icinga2_user }} mode=0755
   with_items:
-    - /etc/icinga2/conf.d/services
     - /etc/icinga2/conf.d/commands
+    - /etc/icinga2/conf.d/events
+    - /etc/icinga2/conf.d/services
     - /usr/local/lib/icinga2-plugins
   tags:
     - icinga2
@@ -134,9 +142,10 @@
     - check_memory
     - check_md_raid
     - check_mysqldump-secure
-    - check_ssl_cert
     - check_ufw
     - check_zpool
+    - restart_service
+    - run_aegir_verify
   notify: restart icinga2
   tags:
     - icinga2
@@ -158,13 +167,13 @@
     - backup
     - bandwidth
     - civicrm
+    - cert_expiry
     - cmsversion
     - file_content
     - mem
     - md_raid
     - mysqldump
     - mysql_uptime
-    - ssl_cert
     - ufw
     - zpool
   notify: restart icinga2

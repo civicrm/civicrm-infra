@@ -4,5 +4,6 @@ nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * status version --format=json
 nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * cc drush
 nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * wp cv api System.check --out=json --strict=0
 nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * wp core version
+nagios ALL=(aegir) NOPASSWD: /usr/local/bin/drush * provision-verify
 nagios ALL=(aegir) NOPASSWD: /usr/local/lib/icinga2-plugins/check_file_content
 nagios ALL=(www-data) NOPASSWD: /usr/bin/env php * -s * -u * -p * -e System -a check --json

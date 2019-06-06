@@ -19,6 +19,16 @@ determine whether to configure the node as a server or satellite.
 Most of the Coop SymbioTIC infrastructure runs on Debian-based servers. We also
 monitor some Redhat/CentOS-based servers. This is not yet handled by this playbook.
 
+On CentOS 7:
+
+```
+yum install https://packages.icinga.com/epel/icinga-rpm-release-7-latest.noarch.rpm
+yum install nagios-plugins-disk
+yum install nagios-plugins-load
+```
+
+On CentOS 6:
+
 ```
 yum install https://packages.icinga.org/epel/6/release/noarch/icinga-rpm-release-6-1.el6.noarch.rpm
 yum install icinga2
@@ -30,22 +40,6 @@ cd monitoring-plugins
 ./configure
 make
 make install
-```
-
-Our icinga2 configurations assume that the monitoring plugins are in /usr/lib64/nagios/plugins,
-but they got installed in /usr/local/libexec, so lets symlink for now:
-
-```
-mkdir /usr/lib64/nagios/
-ln -s /usr/local/libexec /usr/lib64/nagios/plugins
-```
-
-The icinga2 key/cert for communication with the master will also have to be done
-manually:
-
-```
-vi /etc/icinga2/constants.conf  -> set the NodeName to the fqdn
-icinga2 node wizard
 ```
 
 And finally, in the host declarations on the icinga2 master, you must set the
