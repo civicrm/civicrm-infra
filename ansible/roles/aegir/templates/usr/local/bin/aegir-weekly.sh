@@ -99,6 +99,27 @@ count() {
         else
           echo "Database ${Dat} for ${Dom} does not exist"
         fi
+
+        if [ "${_DEV_URL}" = "NO" ]; then
+          CiviStats=$(sudo -i -u aegir drush @${Dom} provision-symbiotic-civicrm-stats 2>/dev/null)
+          CiviContact=$(echo $CiviStats | cut -d ',' -f 1)
+          CiviActivity=$(echo $CiviStats | cut -d ',' -f 2)
+          CiviContribute=$(echo $CiviStats | cut -d ',' -f 3)
+          CiviMember=$(echo $CiviStats | cut -d ',' -f 4)
+          CiviMail=$(echo $CiviStats | cut -d ',' -f 5)
+          CiviCase=$(echo $CiviStats | cut -d ',' -f 6)
+          CiviEvent=$(echo $CiviStats | cut -d ',' -f 7)
+          CiviParticipant=$(echo $CiviStats | cut -d ',' -f 8)
+
+          echo "${_THIS_U},${Dom},CiviContact:${CiviContact}"
+          echo "${_THIS_U},${Dom},CiviActivity:${CiviActivity}"
+          echo "${_THIS_U},${Dom},CiviContribute:${CiviContact}"
+          echo "${_THIS_U},${Dom},CiviMember:${CiviMember}"
+          echo "${_THIS_U},${Dom},CiviMail:${CiviMail}"
+          echo "${_THIS_U},${Dom},CiviCase:${CiviCase}"
+          echo "${_THIS_U},${Dom},CiviEvent:${CiviEvent}"
+          echo "${_THIS_U},${Dom},CiviParticipant:${CiviParticipant}"
+        fi
       fi
     fi
   done

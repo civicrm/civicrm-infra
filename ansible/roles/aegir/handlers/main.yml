@@ -11,5 +11,8 @@
 - name: restart php7.0-fpm
   service: name=php7.0-fpm state=restarted
 
+- name: restart php7.1-fpm
+  service: name=php7.1-fpm state=restarted
+
 - name: restart php7.2-fpm
   service: name=php7.2-fpm state=restarted

@@ -14,7 +14,18 @@
     url: "https://packages.sury.org/php/apt.gpg"
     state: present
     keyring: /etc/apt/trusted.gpg.d/php.gpg
-  when: phpversion == 7.2 and ansible_distribution == "Debian" and ansible_distribution_major_version == "9"
+  when: (phpversion == 7.2 or phpversion == 7.1) and ansible_distribution == "Debian" and ansible_distribution_major_version == "9"
+  tags:
+    - packages
+    - packages-php
+    - aegir-php
+
+- name: Ubuntu | Add Sury.org apt reporitory key
+  apt_key:
+    url: "https://packages.sury.org/php/apt.gpg"
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/php.gpg
+  when: (phpversion == 7.2 or phpversion == 7.1) and ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16"
   tags:
     - packages
     - packages-php
@@ -25,7 +36,7 @@
     repo: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
     state: present
     update_cache: yes
-  when: phpversion == 7.2 and ansible_distribution == "Debian" and ansible_distribution_major_version == "9"
+  when: (phpversion == 7.2 or phpversion == 7.1) and ansible_distribution == "Debian" and ansible_distribution_major_version == "9"
   tags:
     - packages
     - packages-php
@@ -126,6 +137,7 @@
   with_items:
     - "php{{ phpversion }}-mbstring"
     - "php{{ phpversion }}-zip"
+    - "php-imagick"
   when: phpversion >= 7.0
   tags:
     - packages
@@ -226,6 +238,20 @@
     - aegir
     - aegir-repo
 
+- name: Ensure that our locales are enabled
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - en_US.UTF-8
+    - en_CA.UTF-8
+    - fr_CA.UTF-8
+    - fr_FR.UTF-8
+    - es_ES.UTF-8
+  tags:
+    - aegir
+    - aegir-locales
+
 - apt: pkg=aegir3 state=installed
 
 - name: Download provision_symbiotic from Github
@@ -234,6 +260,8 @@
        version=master
        dest=/var/aegir/.drush/provision_symbiotic
        update=yes
+  tags:
+    - aegir-provision-symbiotic
 
 - name: Download provision_customhtaccess from Github
   sudo_user: aegir
@@ -241,6 +269,8 @@
        version=master
        dest=/var/aegir/.drush/provision_customhtaccess
        update=yes
+  tags:
+    - aegir-provision-customhtaccess
 
 ##
 ## Update hosting_civicrm from git
@@ -354,7 +384,7 @@
 - name: Aegir settings | Delete a few settings
   become: true
   become_user: aegir
-  shell: "drush @hostmaster vdel {{ item }}"
+  shell: "drush @hostmaster vdel {{ item }} -y"
   with_items:
     - update_notify_emails
 
@@ -445,6 +475,11 @@
     state=present
   tags:
     - aegir-weekly
+
+- name: Deploy the civicrm-pull-patch script
+  template: src=usr/local/bin/civicrm-pull-patch dest=/usr/local/bin/civicrm-pull-patch owner=root group=root mode=0755
+  tags:
+    - aegir-civicrm-pull-patch
 
 - include: letsencrypt.yml
 - include: settings-php.yml
