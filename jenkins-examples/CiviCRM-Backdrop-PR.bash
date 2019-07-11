@@ -58,7 +58,7 @@ $GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$CIVIVER" \
   --patch "https://github.com/civicrm/civicrm-backdrop/pull/${ghprbPullId}"
 
 ## Check style first; fail quickly if we break style
-$GUARD pushd "$BLDDIR/modules/civicrm/backdrop"
+$GUARD pushd "$BLDDIR/web/modules/civicrm/backdrop"
   case "$ghprbTargetBranch" in
     1.x-4.3*|1.x-4.4*|1.x-4.5*|1.x-4.6*)
       ## skip
