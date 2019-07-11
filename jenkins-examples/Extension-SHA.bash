@@ -84,7 +84,7 @@ EXITCODE=$?
 h1 "Cleanup JUnit XML"
 phpunit-xml-cleanup "$WORKSPACE"/junit/*.xml
 
-report_status --junit-dir="$WORKSPACE"/junit \
+report_status --junit-dir="$WORKSPACE"/junit --junit-exit=$EXITCODE \
   --state="@JUNIT_STATE@" --desc="@JUNIT_SUMMARY@" --url="$BUILD_URL"
 
 exit $EXITCODE
