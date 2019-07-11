@@ -45,7 +45,7 @@ civibuild show "$BLDNAME" \
 cp "$WORKSPACE/new-scan.json" "$WORKSPACE/last-scan.json"
 
 ## Detect & execute tests
-pushd "$BKITBLD/$BLDNAME/sites/all/modules/civicrm"
+pushd "$BKITBLD/$BLDNAME/web/sites/all/modules/civicrm"
   SUITES="phpunit-crm phpunit-api phpunit-civi upgrade"
 
   if [ -f "tests/phpunit/E2E/AllTests.php" ]; then
