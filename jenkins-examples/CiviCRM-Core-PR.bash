@@ -52,12 +52,14 @@ $GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$ghprbTargetB
   --patch "https://github.com/civicrm/civicrm-core/pull/${ghprbPullId}"
 
 ## Check style first; fail quickly if we break style
-$GUARD pushd "$BLDDIR/sites/all/modules/civicrm"
+$GUARD pushd "$BLDDIR/web/sites/all/modules/civicrm"
   if git diff --name-only "origin/$ghprbTargetBranch.." | $GUARD civilint --checkstyle "$CHECKSTYLEDIR" - ; then
     echo "Style passed"
   else
     echo "Style error"
-    exit 1
+    ## TODO: Restore simpler logic after April 2019
+    # exit 1
+    [ "$ghprbTargetBranch" = "5.12" ] || exit 1
   fi
 $GUARD popd
 
