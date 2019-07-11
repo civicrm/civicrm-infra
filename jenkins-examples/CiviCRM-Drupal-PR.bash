@@ -58,7 +58,7 @@ $GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$CIVIVER" \
   --patch "https://github.com/civicrm/civicrm-drupal/pull/${ghprbPullId}"
 
 ## Check style first; fail quickly if we break style
-$GUARD pushd "$BLDDIR/sites/all/modules/civicrm/drupal"
+$GUARD pushd "$BLDDIR/web/sites/all/modules/civicrm/drupal"
   case "$ghprbTargetBranch" in
     7.x-4.3*|7.x-4.4*|7.x-4.5*|7.x-4.6*)
       ## skip
