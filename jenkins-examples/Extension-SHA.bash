@@ -77,7 +77,7 @@ report_status --state="pending" --desc="Execute tests" --url="${BUILD_URL}consol
 
 h1 "Execute tests"
 safedo civici ext:test -vv $DRYRUN \
-  --info="$BKITBLD/$BKITNAM/sites/default/files/civicrm/ext/target/info.xml" \
+  --info="$BKITBLD/$BKITNAM/web/sites/default/files/civicrm/ext/target/info.xml" \
   --junit-dir="$WORKSPACE/junit"
 EXITCODE=$?
 
