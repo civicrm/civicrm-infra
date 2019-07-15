@@ -16,7 +16,7 @@ if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 ## Pre-requisite: Configure /etc/hosts and Apache with "build-1.l", "build-2.l", ..., "build-6.l"
 
 BLDNAME="build-$EXECUTOR_NUMBER"
-BLDDIR="$BKITBLD/$BLDNAME"
+BLDDIR="$BKITBLD/$BLDNAME/web"
 EXTBASE="$BLDDIR/sites/all/modules/civicrm/ext"
 EXITCODE=0
 
@@ -25,22 +25,28 @@ EXITCODE=0
 case "$EXTKEY" in
   nz.co.fuzion.extendedreport)
     EXTGITS="https://github.com/eileenmcnaughton/nz.co.fuzion.extendedreport"
+    EXTS="nz.co.fuzion.extendedreport"
     ;;
   com.iatspayments.civicrm)
     EXTGITS="https://github.com/iATSPayments/com.iatspayments.civicrm"
+    EXTS="com.iatspayments.civicrm"
     ;;
   org.civicrm.flexmailer)
     EXTGITS="https://github.com/civicrm/org.civicrm.flexmailer"
+    EXTS="org.civicrm.flexmailer"
     ;;
   org.civicrm.api4)
     EXTGITS="https://github.com/civicrm/org.civicrm.shoreditch https://github.com/civicrm/api4"
+    EXTS="org.civicrm.shoreditch org.civicrm.api4"
     ;;
   uk.co.vedaconsulting.mosaico)
     EXTGITS="https://github.com/civicrm/org.civicrm.flexmailer https://github.com/civicrm/org.civicrm.shoreditch https://github.com/veda-consulting/uk.co.vedaconsulting.mosaico"
+    EXTS="org.civicrm.flexmailer org.civicrm.shoreditch uk.co.vedaconsulting.mosaico"
     ;;
   org.civicoop.civirules)
     #EXTGITS="https://github.com/civicoop/org.civicoop.civirules"
     EXTGITS="https://lab.civicrm.org/extensions/civirules"
+    EXTS="org.civicoop.civirules"
     ;;
   *)
     echo "Unrecognized extension key: $EXTKEY"
@@ -63,16 +69,41 @@ civibuild download "$BLDNAME" \
   --civi-ver "$CIVIVER" \
   --type "drupal-clean"
 mkdir -p "$EXTBASE"
+pushd "$BLDDIR/sites/all/modules/civicrm"
+EXTCIVIVER=$( php -r '$x=simplexml_load_file("xml/version.xml"); echo $x->version_no;' )
+popd
 pushd "$EXTBASE"
-  for EXTGIT in $EXTGITS ; do
-    git clone "$EXTGIT"
-    EXTGITDIR=$(basename "$EXTGIT")
-    if [ -f "$EXTGITDIR/bin/setup.sh" ]; then
-      pushd "$EXTGITDIR"
-        ./bin/setup.sh -D
-      popd
-    fi
-  done
+  if [ $BUILDTYPE = "git" ]; then
+    for EXTGIT in $EXTGITS ; do
+      if [ $EXTGIT = "https://github.com/civicrm/api4" ]; then 
+        if [ -d "api4" ]; then 
+          cd api4
+          git checkout master && git pull && cd ../
+        else
+          git clone "$EXTGIT"
+        fi
+      else
+        git clone "$EXTGIT"
+      fi
+      EXTGITDIR=$(basename "$EXTGIT")
+      if [ -f "$EXTGITDIR/bin/setup.sh" ]; then
+        pushd "$EXTGITDIR"
+          ./bin/setup.sh -D
+        popd
+      fi
+    done
+  else
+    for EXT in $EXTS ; do
+      cv dl -b "@https://civicrm.org/extdir/ver=$EXTCIVIVER|cms=Drupal|status=|ready=/$EXT.xml" --to="$EXTBASE/$EXT" --dev
+      EXTDIR=$(basename "$EXT")
+      #if [ -f "$EXTDIR/bin/setup.sh" ]; then
+        #pushd "$EXTDIR"
+          #chmod +x ./bin/setup.sh
+          #./bin/setup.sh -D
+        #popd
+      #fi
+    done
+  fi
 popd
 
 ## Install application (with civibuild)
@@ -88,8 +119,12 @@ cp "$WORKSPACE/new-scan.json" "$WORKSPACE/last-scan.json"
 
 ## Run the tests
 pushd "$EXTBASE"
-  EXTGITDIR=$(basename "$EXTGIT")
-  pushd "$EXTGITDIR"
+  if [ $BUILDTYPE = "git" ]; then
+    EXTDIR=$(basename "$EXTGIT")
+  else
+    EXTDIR=$(basename "$EXT")
+  fi
+  pushd "$EXTDIR"
     civibuild restore "$BLDNAME"
     cv en "$EXTKEY"
 #    if [ "$EXTKEY" = "org.civicrm.api4" ]; then cv flush; fi ## FIX+REMOVE ME
