@@ -75,6 +75,7 @@ popd
 pushd "$EXTBASE"
   if [ $BUILDTYPE = "git" ]; then
     for EXTGIT in $EXTGITS ; do
+      ## NOTE: api4 may already exist in some build-types, so tread gently with it
       if [ $EXTGIT = "https://github.com/civicrm/api4" ]; then 
         if [ -d "api4" ]; then 
           cd api4
