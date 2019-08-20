@@ -11,10 +11,12 @@ total available capacity.
 
 ## Restart an idle temp node
 
-* Start the node
-    * Navigate to https://console.cloud.google.com/compute/instances?project=nifty-buffer-107523
-    * Start the idle node (e.g. `bknix-181023`)
-    * Wait for it boot
+* Start the node; either:
+    * CLI: `gcloud compute instances start bknix-181023`
+    * Web UI
+        * Navigate to https://console.cloud.google.com/compute/instances?project=nifty-buffer-107523
+        * Start the idle node (e.g. `bknix-181023`)
+        * Wait for it boot
 * Update it to latest configuration
     * SSH into the new node
     * As `root`, run `cd /root/bknix; ./bin/reset-gcloud.sh`
