@@ -195,6 +195,14 @@ Physical Servers
   </thead>
   <tbody>
     <tr>
+      <td>barbecue</td>
+      <td>civicrm.org</td>
+      <td>Debian 9</td>
+      <td>147.135.8.111</td>
+      <td>cores=4/8 (i7-7700k) ram=64gb ssd=??? (updated: 2019-11-27)</td>
+      <td>virt-install</td>
+    </tr>
+    <tr>
       <td>✗ biryani</td>
       <td>osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
