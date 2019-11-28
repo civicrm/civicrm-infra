@@ -33,7 +33,7 @@ Virtual Servers
       <td><tt>mycivi.org</tt> and <tt>dev.mycivi.org</tt> (<a href="https://github.com/civicrm/cxnapp">cxnapp</a>, configured to run <tt>org.civicrm.profile</tt> in <tt>/srv/buildkit</tt>)</td>
     </tr>
     <tr>
-      <td>java-prod</td>
+      <td>✗ java-prod</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.141</td>
@@ -42,7 +42,7 @@ Virtual Servers
       <td>Confluence, JIRA, MySQL, Apache</td>
     </tr>
     <tr>
-      <td>java-test</td>
+      <td>✗ java-test</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
       <td>140.211.167.143</td>
@@ -60,13 +60,13 @@ Virtual Servers
       <td>lab.civicrm.org (gitlab-omnibus)</td>
     </tr>
     <tr>
-      <td>✗ log</td>
+      <td>latest</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.189</td>
-      <td></td>
+      <td>2605:bc80:3010:102:0:3:5::0</td>
       <th>cores=2 ram=2gb hdd=39gb (updated: 2015-09-25)</th>
-      <td>OFFLINE Logstash (uses log.s.c instead)</td>
+      <td></td>
     </tr>
     <tr>
       <td>manage</td>
@@ -78,7 +78,7 @@ Virtual Servers
       <td>slapd, phpldapadmin -- all firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt"</td>
     </tr>
     <tr>
-      <td>svn</td>
+      <td>✗ svn</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.145</td>
@@ -87,7 +87,7 @@ Virtual Servers
       <td>Apache, SVN (read only), ViewVC</td>
     </tr>
     <tr>
-      <td>test-debian6-1</td>
+      <td>✗ test-debian6-1</td>
       <td>civicrm.osuosl.org</td>
       <td>Debian Squeeze</td>
       <td>140.211.167.146</td>
@@ -105,7 +105,7 @@ Virtual Servers
       <td>Jenkins (Master), Nginx (for HTTPS), Tomcat (for AJP)</td>
     </tr>
     <tr>
-      <td>test-ubu1204-1</td>
+      <td>✗ test-ubu1204-1</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 14.04 LTS (Trusty)</td>
       <td>140.211.167.149</td>
@@ -123,7 +123,7 @@ Virtual Servers
       <td>Apache, MySQL, PHP56</td>
     </tr>
     <tr>
-      <td>www-demo</td>
+      <td>✗ www-demo</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
       <td>140.211.167.151</td>
@@ -282,6 +282,7 @@ Meaning that we can assign a /112 per VM, providing 0xffff (65535) IPs per VM:
 2605:bc80:3010:102:0:3:2::/112 - java-prod.civicrm.osuosl.org
 2605:bc80:3010:102:0:3:3::/112 - chat.civicrm.osuosl.org
 2605:bc80:3010:102:0:3:4::/112 - lab.civicrm.org
+2605:bc80:3010:102:0:3:5::/112 - latest.civicrm.org
 [...]
 2605:bc80:3010:0102:0000:0003:ffff::/112
 ```
