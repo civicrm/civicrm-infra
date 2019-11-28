@@ -30,16 +30,20 @@
     - gitlab
     - packages
 
+# NB: coopsymbiotic/ops#63
+# Backup of uploads is done separately, to reduce the size of the main tar
+# (uploads are 50% of the 2GB tar).
 - name: Configure Gitlab cron for backups.
   cron:
     name="gitlab-backup"
     minute="20"
     hour="22"
-    job="/opt/gitlab/bin/gitlab-rake gitlab:backup:create CRON=1"
+    job="/opt/gitlab/bin/gitlab-rake gitlab:backup:create CRON=1 SKIP=uploads"
     cron_file="gitlab-backup"
     user="root"
     state=present
   tags:
+    - gitlab
     - gitlab-cron
 
 ## TODO:
