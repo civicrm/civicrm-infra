@@ -18,7 +18,29 @@ include = /var/lib/automysqlbackup
 include = /var/www
 include = /srv
 
+exclude = /usr/local/promtail*
 exclude = /var/aegir/backups
+
+exclude = /var/aegir/platforms/*/sites/*/files/civicrm/templates_c
+exclude = /var/aegir/platforms/*/sites/*/files/civicrm/ConfigAndLog
+exclude = /var/aegir/platforms/*/sites/*/files/css
+exclude = /var/aegir/platforms/*/sites/*/files/imagecache
+exclude = /var/aegir/platforms/*/sites/*/files/js
+exclude = /var/aegir/platforms/*/sites/*/files/styles
+exclude = /var/aegir/platforms/*/sites/*/files/tmp
+exclude = /var/aegir/platforms/*/sites/*/files/*.sql
+exclude = /var/aegir/platforms/*/sites/*/files/*.sql.gz
+exclude = /var/aegir/platforms/web/*/sites/*/files/civicrm/templates_c
+exclude = /var/aegir/platforms/web/*/sites/*/files/civicrm/ConfigAndLog
+exclude = /var/aegir/platforms/web/*/sites/*/files/css
+exclude = /var/aegir/platforms/web/*/sites/*/files/imagecache
+exclude = /var/aegir/platforms/web/*/sites/*/files/js
+exclude = /var/aegir/platforms/web/*/sites/*/files/styles
+exclude = /var/aegir/platforms/web/*/sites/*/files/tmp
+exclude = /var/aegir/platforms/web/*/sites/*/files/*.sql
+exclude = /var/aegir/platforms/web/*/sites/*/files/*.sql.gz
+
+exclude = /var/aegir/hostmaster-7.x-*
 
 {% if backups_exclude_extras is defined %}
 # custom excludes from the ansible host_vars
