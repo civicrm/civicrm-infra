@@ -4661,20 +4661,21 @@ for db in ${DB_LIST_ALL}; do
 		DB_CNT_IGNORED=$((DB_CNT_IGNORED + 1))
 		DB_LIST_IGNORED="$( str_join "${DB_LIST_IGNORED}" "," "${db}" )"
 
-	#
-	# Main case 2 (file exists on disk)
-	#
-	elif [ -f "${DUMP_DIR}/${DUMP_FILE_PRE}${db}${ext}" ]; then
-
-		# Increment counters
-		DB_CNT_FAILED=$((DB_CNT_FAILED + 1))
-		MDS_FAIL_COUNT=$((MDS_FAIL_COUNT + 1))
-
-		# Add failed db to nagios log
-		DB_LIST_FAILED="$( str_join "${DB_LIST_FAILED}" "," "${db}" )"
-
-		debug "fatal" "(RUN): ${_cnt} Failed:   ${db} cannot be written to disk (file exists: ${DUMP_DIR}/${DUMP_FILE_PRE}${db}${ext})" "${OUT_VERBOSITY}" "${LOG_VERBOSITY}" "${LOG_FILE}"
-		NAGIOS_EXIT_CODE="$(merge_exit_codes "${NAGIOS_EXIT_CODE}" 2)"
+# [ML] SYMBIOTIC We keep the same file name to limit rdiff backup growth
+# 	#
+# 	# Main case 2 (file exists on disk)
+# 	#
+# 	elif [ -f "${DUMP_DIR}/${DUMP_FILE_PRE}${db}${ext}" ]; then
+#
+# 		# Increment counters
+# 		DB_CNT_FAILED=$((DB_CNT_FAILED + 1))
+# 		MDS_FAIL_COUNT=$((MDS_FAIL_COUNT + 1))
+#
+# 		# Add failed db to nagios log
+# 		DB_LIST_FAILED="$( str_join "${DB_LIST_FAILED}" "," "${db}" )"
+#
+# 		debug "fatal" "(RUN): ${_cnt} Failed:   ${db} cannot be written to disk (file exists: ${DUMP_DIR}/${DUMP_FILE_PRE}${db}${ext})" "${OUT_VERBOSITY}" "${LOG_VERBOSITY}" "${LOG_FILE}"
+# 		NAGIOS_EXIT_CODE="$(merge_exit_codes "${NAGIOS_EXIT_CODE}" 2)"
 
 	#
 	# Main case 3 (dumping)
