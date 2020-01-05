@@ -20,6 +20,12 @@ ufw_extra:
     src: 0.0.0.0/0
     rule: allow
     description: "bknix c-i"
+  bknix7:
+    proto: tcp
+    port: 8007
+    src: 0.0.0.0/0
+    rule: allow
+    description: "bknix c-i"
 
 preseed_parent: barbecue
 preseed_hostname: test-3
