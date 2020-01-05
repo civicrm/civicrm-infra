@@ -3,16 +3,25 @@
 # Based on:
 # https://github.com/openmicroscopy/ansible-role-mysql-backup/
 
-# Required to cleanup backups after 24h
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - tmpreaper
-  tags:
-    - mysqlbackup
-    - packages
+# Not used now that we overwrite the previous backup with the same name.
+# # Required to cleanup backups after 24h
+# - apt: name={{ item }} state=present install_recommends=no
+#   with_items:
+#     - tmpreaper
+#   when: ansible_distribution == "Debian"
+#   tags:
+#     - mysqlbackup
+#     - packages
+#
+# - yum: name={{ item }} state=present
+#   with_items:
+#     - tmpwatch
+#   when: ansible_distribution == "CentOS"
+#   tags:
+#     - mysqlbackup
+#     - packages
 
 - name: mysqlbackup | create backup directory
-  become: yes
   file:
     path: "{{ mysqlbackup_backupdir }}"
     recurse: yes
@@ -20,8 +29,16 @@
   tags:
     - mysqlbackup
 
+- name: mysqlbackup | chgrp aegir if Aegir server
+  file:
+    path: "{{ mysqlbackup_backupdir }}"
+    owner: root
+    group: aegir
+  when: "'symbiotic-aegir-vm' in group_names"
+  tags:
+    - mysqlbackup
+
 - name: mysqlbackup | create backup tmp directory
-  become: yes
   file:
     path: "{{ mysqlbackup_backupdir }}/tmp"
     recurse: yes
