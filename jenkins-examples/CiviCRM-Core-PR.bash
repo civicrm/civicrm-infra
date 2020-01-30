@@ -67,6 +67,7 @@ $GUARD popd
 $GUARD civibuild install "$BLDNAME"
 
 ## Run the tests
-civi-test-run -b "$BLDNAME" -j "$JUNITDIR" \
-  --exclude-group ornery \
-  karma upgrade phpunit-e2e phpunit-civi phpunit-crm phpunit-api
+#civi-test-run -b "$BLDNAME" -j "$JUNITDIR" \
+#  --exclude-group ornery \
+#  karma upgrade phpunit-e2e phpunit-civi phpunit-crm phpunit-api
+civi-test-run -b "$BLDNAME" -j "$JUNITDIR" --exclude-group ornery all
