@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ex
-
+BKPROF="edge"
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
-case "$BKPROF" in min|max|dfl) eval $(use-bknix "$BKPROF") ;; esac
+case "$BKPROF" in min|max|dfl|edge) eval $(use-bknix "$BKPROF") ;; esac
 if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
 ## Job Name: CiviCRM-Core-Matrix
@@ -44,26 +44,5 @@ civibuild show "$BLDNAME" \
   --new-scan "$WORKSPACE/new-scan.json"
 cp "$WORKSPACE/new-scan.json" "$WORKSPACE/last-scan.json"
 
-## Detect & execute tests
-pushd "$BKITBLD/$BLDNAME/web/sites/all/modules/civicrm"
-  SUITES="phpunit-crm phpunit-api3 phpunit-civi upgrade"
-  
-  if [ -f "tests/phpunit/api/v4/AllTests.php" ]; then
-    SUITES="$SUITES phpunit-api4"
-  fi
-
-  if [ -f "tests/phpunit/E2E/AllTests.php" ]; then
-    SUITES="$SUITES phpunit-e2e"
-  else
-    echo "Skip unavailable suite: phpunit-e2e"
-  fi
-
-  if [ -f "karma.conf.js" ]; then
-    SUITES="$SUITES karma"
-  else
-    echo "Skip unavailable suite: karma"
-  fi
-popd
-
-civi-test-run -b "$BLDNAME" -j "$WORKSPACE/junit" $SUITES
+civi-test-run -b "$BLDNAME" -j "$WORKSPACE/junit" all
 exit $?

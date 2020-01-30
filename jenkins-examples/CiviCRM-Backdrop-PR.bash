@@ -76,6 +76,6 @@ $GUARD popd
 $GUARD civibuild install "$BLDNAME"
 
 ## Run the tests
-echo civi-test-run -b "$BLDNAME" -j "$JUNITDIR" phpunit-e2e
-$GUARD civi-test-run -b "$BLDNAME" -j "$JUNITDIR" phpunit-e2e
+echo civi-test-run -b "$BLDNAME" -j "$JUNITDIR" upgrade phpunit-e2e phpunit-backdrop
+$GUARD civi-test-run -b "$BLDNAME" -j "$JUNITDIR" upgrade phpunit-e2e phpunit-backdrop
 exit $?
