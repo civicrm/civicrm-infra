@@ -227,6 +227,14 @@ Physical Servers
       <td>virt-install</td>
     </tr>
     <tr>
+      <td>paella</td>
+      <td>civicrm.org</td>
+      <td>Debian 10</td>
+      <td>51.161.13.19</td>
+      <td>cores=12 (A2-E2136) ram=64gb ssd=2x500gb (updated: 2020-01-30)</td>
+      <td>virt-install</td>
+    </tr>
+    <tr>
       <td>civicrm1</td>
       <td></td>
       <td>?? (Ganeti)</td>
