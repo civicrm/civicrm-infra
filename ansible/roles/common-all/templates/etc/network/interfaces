@@ -1,0 +1,30 @@
+# {{ ansible_managed }}
+#
+# For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+auto lo
+iface lo inet loopback
+
+{% if preseed_ipv4_bridged_gateway is defined %}
+allow-hotplug {{ preseed_network_interface }}
+iface {{ preseed_network_interface }} inet static
+        address {{ preseed_ipv4_address }}/32
+        broadcast {{ preseed_ipv4_address }}
+        post-up  /sbin/ip route add {{ preseed_ipv4_bridged_gateway }} dev {{ preseed_network_interface }}
+        post-up  /sbin/ip route add default via {{ preseed_ipv4_bridged_gateway }} dev {{ preseed_network_interface }}
+        dns-nameservers 8.8.8.8
+        dns-search {{ preseed_domain }}
+{% else %}
+allow-hotplug {{ preseed_network_interface }}
+iface {{ preseed_network_interface }} inet static
+        address {{ preseed_ipv4_address }}
+        netmask {{ preseed_ipv4_netmask }}
+        network {{ preseed_ipv4_network }}
+        broadcast {{ preseed_ipv4_broadcast }}
+        post-up  /sbin/ip route add {{ preseed_ipv4_gateway }} dev {{ preseed_network_interface }}
+        post-up  /sbin/ip route add default via {{ preseed_ipv4_gateway }} dev {{ preseed_network_interface }}
+        dns-nameservers 8.8.8.8
+        dns-search {{ preseed_domain }}
+{% endif %}

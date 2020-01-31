@@ -1,3 +1,7 @@
 ---
-- name: restart ufw
-  service: name=ufw state=restarted
+
+- name: restart rsyslog
+  service: name=rsyslog state=restarted
+
+- name: refresh sysctl
+  shell: sysctl -p
