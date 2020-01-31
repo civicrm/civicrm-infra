@@ -6,7 +6,7 @@
 # admins to classify servers so that we have a better idea of what they do.
 #
 barbecue.civicrm.org
-padthai.civicrm.org
+paella.civicrm.org
 newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28
 backups-1.civicrm.org
 botdylan.civicrm.org
@@ -86,8 +86,8 @@ test.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 
 [kvm-servers]
-padthai.civicrm.org
 barbecue.civicrm.org
+paella.civicrm.org
 
 [servers:children]
 apache-servers
