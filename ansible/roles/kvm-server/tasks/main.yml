@@ -2,51 +2,70 @@
 
 # NB: netcat-openbsd is required if using virt-manager GUI (requires -U option).
 
-- apt: name={{ item }} state=present install_recommends=no default_release=jessie-backports
-  with_items:
-    - linux-image-amd64
-    - linux-headers-amd64
-  when: ansible_distribution_release == "jessie"
-
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - linux-image-amd64
     - linux-headers-amd64
-  when: ansible_distribution_release != "jessie"
+  tags:
+    - packages
 
-# FIXME: on Stretch, requires "contrib"
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
     - openntpd
-    - kvm
     - qemu-kvm
     - virtinst
     - bridge-utils
     - netcat-openbsd
+    - nvme-cli
+    - parted
     - zfs-dkms
+  tags:
+    - packages
+
+- name: Modprobe zfs
+  shell: modprobe zfs
+  tags:
+    - kvm-server-zfs
+
+- name: zfs | make sure that the module is loaded at boot
+  copy:
+    content: "zfs"
+    dest: "/etc/modules-load.d/zfs.conf"
+    owner: "root"
+    group: "root"
+    mode: '0644'
+  tags:
+    - kvm-server-zfs
+
+- name: zfs | modprobe arc memory limit
+  copy:
+    content: "options zfs zfs_arc_max=1073741824"
+    dest: "/etc/modprobe.d/zfs.conf"
+    owner: "root"
+    group: "root"
+    mode: '0644'
+  tags:
+    - kvm-server-zfs
+
+- apt: name={{ item }} state=present install_recommends=no
+  with_items:
     - zfsutils-linux
     - zfs-zed
-
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - libvirt-bin
+    - libvirt-clients
     - libvirt-daemon
     - libvirt-daemon-system
-  when: ansible_distribution_release == "jessie"
-
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - libvirt-clients
-    - libvirt-daemon-system
-  when: ansible_distribution_release == "stretch"
+    - virt-top
 
 - service: name=openntpd state=started enabled=yes
 
-# TODO:
-# - had to "rm /boot/bzImage-3.14.32-xxxx-grs-ipv6-64" otherwise it would
-#   boot automatically on this kernel, and this causes issues with dkms for ZFS.
-
-# - network interface configuration
+- name: Ensure that OVH defaults are absent
+  file: path="/etc/systemd/network/{{ item }}" state=absent
+  with_items:
+    - 50-default.network
+    - 50-public-interface.link
+    - pub.network
+  tags:
+    - kvm-server-networkd
 
 - name: Deploy the network interfaces configuration
   template:
@@ -57,21 +76,10 @@
     mode: 0644
   with_items:
     - 50-br0.netdev
-    - 50-default.network
+    - 50-br0.network
     - 50-network-interface.network
   tags:
     - kvm-server-networkd
-
-# FIXME: not sure if these are the correct file names, some are the same as above.
-# - name: Ensure that OVH defaults are absent
-#   file: path="/etc/systemd/network/{{ item }}" state=absent
-#   with_items:
-#     - 50-br0.netdev
-#     - 50-default.network
-#     - 50-public-interface.link
-
-
-# TODO: reduce network timeout delay
 
 - name: Create networking.service.d directory
   file: path="/etc/systemd/system/networking.service.d/" state=directory mode=0755 owner=root group=root
@@ -80,9 +88,30 @@
 # [Service]
 # TimeoutStartSec=15
 # TODO: reload systemd (systemctl daemon-reload)
-# Enable IP forwarding in /etc/sysctl.d/99-sysctl.conf by uncommenting:
-# - net.ipv4.ip_forward=1
-# - net.ipv6.conf.all.forwarding=1
+
+- name: network | Deploy the network interfaces configuration
+  template:
+    src: "etc/network/interfaces"
+    dest: "/etc/network/interfaces"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  tags:
+    - kvm-server-networkd
+
+- name: network | Disable Debian old networking
+  systemd:
+    name: networking
+    enabled: no
+  tags:
+    - kvm-server-networkd
+
+- name: network | Enable systemd-networkd
+  systemd:
+    name: systemd-networkd
+    enabled: yes
+  tags:
+    - kvm-server-networkd
 
 - name: kvm preseeds | Create preseed directory
   file: path="/etc/preseeds" state=directory mode=0750 owner=root group=root
@@ -97,6 +126,12 @@
 
 - name: Generate preseed files for VMs on this host
   template: src=etc/preseeds/host/preseed.cfg dest=/etc/preseeds/{{ item }}/preseed.cfg owner=root group=root mode=0640
+  with_items: "{{ kvm_hosts }}"
+  tags:
+    - kvm-server-preseeds
+
+- name: Generate preseed start script for VMs on this host
+  template: src=etc/preseeds/host/start.sh dest=/etc/preseeds/{{ item }}/start.sh owner=root group=root mode=0755
   with_items: "{{ kvm_hosts }}"
   tags:
     - kvm-server-preseeds

@@ -29,28 +29,3 @@ iface br0 inet6 static
 	post-up /sbin/ip -6 route add default via {{ kvm_main_ipv6_gateway }}
 	pre-down /sbin/ip -6 route del default via {{ kvm_main_ipv6_gateway }}
 	pre-down /sbin/ip -6 route del {{ kvm_main_ipv6_gateway }} dev br0
-
-# auto br0
-# iface br0 inet static
-# 	address 167.114.158.208
-# 	netmask 255.255.255.0
-# 	network 167.114.158.0
-# 	broadcast 167.114.158.255
-# 	gateway 167.114.158.254
-#         bridge_ports eth0
-#         bridge_waitport 0
-#         bridge_stp off
-#         bridge_fd 0
-# 	up echo 0 > /sys/devices/virtual/net/$IFACE/bridge/multicast_snooping
-# 
-# iface br0:pub inet static
-# 	address 192.95.2.129
-# 	netmask 255.255.255.248
-# 
-# iface br0 inet6 static
-# 	address 2607:5300:60:71d0::
-# 	netmask 64
-# 	post-up /sbin/ip -6 route add 2607:5300:60:71ff:ff:ff:ff:ff dev br0
-# 	post-up /sbin/ip -6 route add default via 2607:5300:60:71ff:ff:ff:ff:ff
-# 	pre-down /sbin/ip -6 route del default via 2607:5300:60:71ff:ff:ff:ff:ff
-# 	pre-down /sbin/ip -6 route del 2607:5300:60:71ff:ff:ff:ff:ff dev br0

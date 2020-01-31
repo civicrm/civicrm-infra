@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+#
+# This is mostly required for kvm servers.
+
+XKBMODEL="pc105"
+XKBLAYOUT="us"
+XKBVARIANT=""
+XKBOPTIONS=""
+
+BACKSPACE="guess"
