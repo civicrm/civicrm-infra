@@ -1,6 +1,6 @@
 ---
 # Installs Aegir3 (http://www.aegirproject.org)
-# Assumes Debian Stretch, with MariaDB, Nginx, php7-fpm
+# Assumes Debian, with MariaDB, Nginx, php-fpm
 
 - include_vars: "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
   when: phpversion is undefined
@@ -45,8 +45,8 @@
 # https://github.com/gaspaio/ansible-devbox/blob/master/roles/mysql/tasks/server.yml
 # Install server using a preseed file to set the root password
 - name: Check for previous MySQL installation
-  shell: "[ -f /usr/sbin/mysqld ]"
-  ignore_errors: True
+  stat:
+    path: /usr/sbin/mysqld
   register: mysqld_exists
 
 - apt: name={{ item }} state=present install_recommends=no
@@ -55,13 +55,13 @@
 
 - name: Generate a root password for MySQL
   shell: pwgen 15 1 > /root/.mysql.root
-  when: mysqld_exists|failed
+  when: not mysqld_exists.stat.exists
 
 - name: Preseed Aegir Debian configurations
   shell: "{{ item }} | debconf-set-selections"
   with_items:
-    - echo "mariadb-server-10.2 mysql-server/root_password password `cat /root/.mysql.root`"
-    - echo "mariadb-server-10.2 mysql-server/root_password_again password `cat /root/.mysql.root`"
+    - echo "mariadb-server-10.3 mysql-server/root_password password `cat /root/.mysql.root`"
+    - echo "mariadb-server-10.3 mysql-server/root_password_again password `cat /root/.mysql.root`"
     - echo "debconf aegir/site string {{ inventory_hostname }}"
     - echo "debconf aegir/db_host string 127.0.0.1"
     - echo "debconf aegir/db_user string root"
@@ -83,123 +83,97 @@
     - packages
 
 - apt:
-    name: "{{ item }}"
+    name: "nginx"
     state: present
     install_recommends: no
-    default_release: jessie-backports
-  with_items:
-    - nginx
-  when: ("'aegir-apache' not in group_names") and (ansible_distribution_release == "jessie")
+  when: ("'aegir_apache' not in group_names")
   tags:
     - packages
     - aegir-nginx
 
 - apt:
-    name: "{{ item }}"
+    name: "php{{ phpversion }}-fpm"
     state: present
     install_recommends: no
-  with_items:
-    - nginx
-  when: ("'aegir-apache' not in group_names") and (ansible_distribution_release == "stretch")
+  when: "'aegir_apache' not in group_names"
   tags:
     - packages
-    - aegir-nginx
+    - packages-php
+    - aegir-php
 
 # nb: imagick is required by Mosaico
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - "php{{ phpversion }}-gd"
-    - "php{{ phpversion }}-cli"
-    - "php{{ phpversion }}-curl"
-    - "php{{ phpversion }}-imagick"
-    - "php{{ phpversion }}-intl"
-    - "php{{ phpversion }}-json"
-    - "php{{ phpversion }}-ldap"
-    - "php{{ phpversion }}-mysql"
-    - "php{{ phpversion }}-soap"
-    - "php{{ phpversion }}-zip"
-    - "php{{ phpversion }}-xsl"
-  tags:
-    - packages
-    - packages-php
-    - aegir-php
-
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - "php{{ phpversion }}-mcrypt"
-  when: phpversion <= 7.0
-  tags:
-    - packages
-    - packages-php
-    - aegir-php
-
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - "php{{ phpversion }}-mbstring"
-    - "php{{ phpversion }}-zip"
-    - "php-imagick"
-  when: phpversion >= 7.0
-  tags:
-    - packages
-    - packages-php
-    - aegir-php
-
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - "php{{ phpversion }}-fpm"
-  when: "'aegir-apache' not in group_names"
+- apt:
+    name: [
+      "php{{ phpversion }}",
+      "php{{ phpversion }}-bcmath",
+      "php{{ phpversion }}-gd",
+      "php{{ phpversion }}-cli",
+      "php{{ phpversion }}-curl",
+      "php{{ phpversion }}-intl",
+      "php{{ phpversion }}-json",
+      "php{{ phpversion }}-ldap",
+      "php{{ phpversion }}-mysql",
+      "php{{ phpversion }}-soap",
+      "php{{ phpversion }}-zip",
+      "php{{ phpversion }}-xsl",
+      "php{{ phpversion }}-mbstring",
+      "php{{ phpversion }}-zip",
+      "php-imagick"
+    ]
+    state: present
+    install_recommends: no
   tags:
     - packages
     - packages-php
     - aegir-php
 
 # This is to help deal with Debian Stretch upgrades
-- apt: name={{ item }} state=absent install_recommends=no
-  with_items:
-    - php5-fpm
-    - php5-gd
-    - php5-cli
-    - php5-common
-    - php5-curl
-    - php5-intl
-    - php5-json
-    - php5-ldap
-    - php5-mcrypt
-    - php5-mysql
-    - php5-xsl
-    - php-soap
+- apt:
+    name: [
+      php5-fpm,
+      php5-gd,
+      php5-cli,
+      php5-common,
+      php5-curl,
+      php5-intl,
+      php5-json,
+      php5-ldap,
+      php5-mcrypt,
+      php5-mysql,
+      php5-xsl,
+      php-soap
+    ]
+    state: absent
+    install_recommends: no
   when: ansible_distribution_release == "stretch"
   tags:
     - packages
     - packages-php
     - aegir-php
 
-- apt: name={{ item }} state=present install_recommends=no
-  with_items:
-    - pwgen
-    - curl
-    - gettext
-    - xauth
-    - xvfb
-    - libxrender1
-    - fonts-dejavu-core
-    - imagemagick
+- apt:
+    name: [
+      patch, # required for drush make
+      pwgen,
+      curl,
+      gettext,
+      xauth,
+      xvfb,
+      libxrender1,
+      ttf-mscorefonts-installer,
+      fonts-dejavu-core,
+      imagemagick
+    ]
+    state: present
+    install_recommends: no
   tags:
     - packages
-
-# FIXME in Debian Stretch
-- name: Install ondir
-  apt:
-    deb: http://ftp.us.debian.org/debian/pool/main/o/ondir/ondir_0.2.3+git0.55279f03-1_amd64.deb
-  tags:
-    - packages
-    - packages-ondir
 
 # A bit off topic, but too often had the issue where mailname was misconfigured
 - copy: content="{{ inventory_hostname }}" dest=/etc/mailname
 - file: path=/etc/mailname owner=root group=root mode=0644
 
-# MariaDB 10.2
+# MariaDB 10.3
 - apt_key: keyserver=keyserver.ubuntu.com id=0xF1656F24C74CD1D8
   tags:
     - packages
@@ -207,7 +181,7 @@
     - aegir-mariadb
 
 - apt_repository:
-    repo="deb http://ftp.osuosl.org/pub/mariadb/repo/10.2/debian {{ ansible_distribution_release }} main"
+    repo="deb http://ftp.osuosl.org/pub/mariadb/repo/10.3/debian {{ ansible_distribution_release }} main"
     update_cache=yes
     state=present
   tags:
@@ -215,9 +189,14 @@
     - aegir
     - aegir-mariadb
 
-- apt: name={{ item }} state=present
-  with_items:
-    - mariadb-server
+- apt:
+    name: [
+      "mariadb-client-10.3",
+      "mariadb-server-10.3",
+      "mariadb-server"
+    ]
+    state: present
+    install_recommends: no
   tags:
     - packages
     - aegir
@@ -282,10 +261,23 @@
     - aegir
     - aegir-locales
 
-- apt: pkg=aegir3 state=installed
+- apt:
+    name: aegir3
+    state: present
+    install_recommends: no
+  tags:
+    - aegir
+
+- name: Add the aegir user to the admin group
+  user: name="aegir"
+        groups=adm
+        append=yes
+  tags:
+    - aegir
+    - aegir-adm
 
 - name: Download provision_symbiotic from Github
-  sudo_user: aegir
+  become_user: aegir
   git: repo=https://github.com/coopsymbiotic/provision_symbiotic.git
        version=master
        dest=/var/aegir/.drush/provision_symbiotic
@@ -294,7 +286,7 @@
     - aegir-provision-symbiotic
 
 - name: Download provision_customhtaccess from Github
-  sudo_user: aegir
+  become_user: aegir
   git: repo=https://github.com/mlutfy/provision_customhtaccess.git
        version=master
        dest=/var/aegir/.drush/provision_customhtaccess
@@ -357,7 +349,7 @@
   shell: "drush @hostmaster en hosting_nginx_https -y"
   become: true
   become_user: aegir
-  when: "'aegir-apache' not in group_names"
+  when: "'aegir_apache' not in group_names"
   tags:
     - aegir-hosting-https
 
@@ -365,7 +357,7 @@
   shell: "drush @hostmaster en hosting_apache_https -y"
   become: true
   become_user: aegir
-  when: "'aegir-apache' in group_names"
+  when: "'aegir_apache' in group_names"
   tags:
     - aegir-hosting-https
 
@@ -425,34 +417,20 @@
 - name: Restart Aegir hosting queue
   service: name=hosting-queued state=restarted
 
-# This is absurd, but wkhtmltopdf cannot fetch https without this package
-# affects Debian Stretch.
-# https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3001#issuecomment-309673453
+# Requirements for the wkhtmltox 0.15 package
 - apt: name={{ item }} state=absent install_recommends=no
   with_items:
-    - libssl1.0-dev
-  when: ansible_distribution_release == "stretch"
+    - fontconfig
+    - xfonts-base
+    - xfonts-75dpi
   tags:
     - packages
     - aegir
     - aegir-wkhtmltopdf
 
-- name: Download wkhtmltopdf
-  get_url:
-    url=https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-    dest=/usr/local/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-    mode=0644
-  tags:
-    - aegir
-    - aegir-wkhtmltopdf
-
-- unarchive: src=/usr/local/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz dest=/usr/local/ copy=no
-  tags:
-    - aegir
-    - aegir-wkhtmltopdf
-
-- name: Create symlink for wkhtmltopdf
-  file: src=/usr/local/wkhtmltox/bin/wkhtmltopdf dest=/usr/local/bin/wkhtmltopdf state=link
+- name: Install wkhtmltopdf from deb
+  apt:
+    deb: https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
   tags:
     - aegir
     - aegir-wkhtmltopdf
@@ -506,10 +484,38 @@
   tags:
     - aegir-weekly
 
-- name: Deploy the civicrm-pull-patch script
+- name: Aegir | Deploy civicrm-pull-patch
   template: src=usr/local/bin/civicrm-pull-patch dest=/usr/local/bin/civicrm-pull-patch owner=root group=root mode=0755
   tags:
-    - aegir-civicrm-pull-patch
+    - aegir-civicrm-scripts
+
+- name: Aegir | Deploy cvlog
+  template: src=usr/local/bin/cvlog dest=/usr/local/bin/cvlog owner=root group=root mode=0755
+  tags:
+    - aegir-civicrm-scripts
+
+- name: Aegir | Deploy civicrm-update-translations
+  template: src=usr/local/bin/civicrm-update-translations dest=/usr/local/bin/civicrm-update-translations owner=root group=root mode=0755
+  tags:
+    - aegir-civicrm-scripts
+    - aegir-civicrm-translations
+
+- name: Aegir | Download CiviCRM translations
+  shell: "/usr/local/bin/civicrm-update-translations"
+  args:
+    creates: /var/aegir/l10n-civicrm
+  tags:
+    - aegir-civicrm-translations
+
+# Source: https://lab.symbiotic.coop/coopsymbiotic/aegir-helpers
+- name: Aegir | Download aegir-helpers
+  get_url:
+    url: "https://www.symbiotic.coop/sites/www.symbiotic.coop/files/ansible/aegir-helpers"
+    dest: /usr/local/bin/aegir-helpers
+    mode: '0755'
+  tags:
+    - aegir-civicrm-scripts
+    - aegir-helpers
 
 - include: letsencrypt.yml
 - include: settings-php.yml
@@ -518,6 +524,11 @@
 - include: civicrm.yml
   tags:
     - aegir-civicrm
+
+- name: Aegir | Deploy our local.drushrc.php
+  template: src=var/aegir/dot.drush/local.drushrc.php dest=/var/aegir/local.drushrc.php owner=aegir group=aegir mode=0644
+  tags:
+    - aegir-drush
 
 - name: bash | Deploy bashrc, profile, ondir configurations
   template: src=var/aegir/dot{{ item }} dest=/var/aegir/{{ item }} owner=aegir group=aegir mode=0644
@@ -530,6 +541,11 @@
 
 - name: sudo | Deploy sudoers file for people who are allowed to sudo to aegir
   template: src=etc/sudoers.d/symbiotic-aegir dest=/etc/sudoers.d/symbiotic-aegir owner=root group=root mode=0440
+  tags:
+    - aegir-sudoers
+
+- name: Deploy our duct tape script to safely reload nginx
+  template: src=usr/local/bin/aegir-reload-nginx.sh dest=/usr/local/bin/aegir-reload-nginx.sh owner=root group=root mode=0755
   tags:
     - aegir-sudoers
 
