@@ -2,7 +2,7 @@
 
 # Firewall (iptables)
 - name: Install ufw
-  apt: name=ufw state=installed
+  apt: name=ufw state=present
   tags:
     - ufw
 

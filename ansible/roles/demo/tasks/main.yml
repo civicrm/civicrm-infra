@@ -54,7 +54,7 @@
     - demo-buildkit
 
 - name: Download buildkit
-  sudo_user: webeditor
+  become_user: webeditor
   git: repo=https://github.com/civicrm/civicrm-buildkit.git
        version=master
        dest=/srv/buildkit

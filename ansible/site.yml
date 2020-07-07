@@ -1,56 +1,40 @@
 ---
 - hosts: servers
-  sudo: yes
+  become: yes
   roles:
     - common-all
+    - icinga2
     - backup-client
-    - filebeat
     - mysqlbackup
     - ufw
     - unattended-upgrades
     - sshuserkeys
   tags:
-    - minimum
-
-- hosts: icinga-satellite
-  sudo: yes
-  roles:
-    - icinga2
-  tags:
-    - icinga
-    - icinga2
-
-- hosts: all
-  sudo: yes
-  roles:
-    - backup-client
-  tags:
-    - backup-client
+    - base
 
 - hosts: backup-servers
-  sudo: yes
+  become: yes
   roles:
     - backup-server
   tags:
     - backup-server
 
 - hosts: kvm-servers
-  sudo: yes
+  become: yes
   roles:
-    - common-all
     - kvm-server
   tags:
     - kvm-server
 
 - hosts: mattermost-servers
-  sudo: yes
+  become: yes
   roles:
     - mattermost
   tags:
     - mattermost
 
 - hosts: test-servers
-  sudo: yes
+  become: yes
   roles:
     - test-node
     - gitlab-runner
@@ -58,7 +42,7 @@
     - test-node
 
 - hosts: demo-servers
-  sudo: yes
+  become: yes
   roles:
     - demo
     - nodejs
@@ -66,84 +50,84 @@
     - demo
 
 - hosts: php72-servers
-  sudo: yes
+  become: yes
   roles:
     - php72
   tags:
     - php72
 
 - hosts: php7-servers
-  sudo: yes
+  become: yes
   roles:
     - php7
   tags:
     - php7
 
 - hosts: php56-servers
-  sudo: yes
+  become: yes
   roles:
     - php56
   tags:
     - php56
 
 - hosts: php55-servers
-  sudo: yes
+  become: yes
   roles:
     - php55
   tags:
     - php55
 
 - hosts: php54-servers
-  sudo: yes
+  become: yes
   roles:
     - php54
   tags:
     - php54
 
 - hosts: buildkit-servers
-  sudo: yes
+  become: yes
   roles:
     - buildkit
   tags:
     - buildkit
 
 - hosts: mkdocs-servers
-  sudo: yes
+  become: yes
   roles:
     - mkdocs
   tags:
     - mkdocs
 
 - hosts: jira-servers
-  sudo: yes
+  become: yes
   roles:
     - jira
   tags:
     - jira
 
 - hosts: gitlab-servers
-  sudo: yes
+  become: yes
   roles:
     - gitlab
   tags:
     - gitlab
 
 - hosts: stats-servers
-  sudo: yes
+  become: yes
   roles:
     - civicrm-stats
   tags:
     - civicrm-stats
 
 - hosts: ldap-servers
-  sudo: yes
+  become: yes
   roles:
     - ldap-auth-server
   tags:
     - ldap-auth-server
 
 - hosts: ldapcivi-servers
-  sudo: yes
+  become: yes
   roles:
     - ldapcivi
     - dehydrated
@@ -151,7 +135,7 @@
     - ldapcivi
 
 - hosts: gitbot-servers
-  sudo: yes
+  become: yes
   roles:
     - nodejs
   tags:
@@ -176,7 +160,7 @@
     - dehydrated
 
 - hosts: jenkins-servers
-  sudo: yes
+  become: yes
   roles:
     - jenkins
   tags:

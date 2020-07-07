@@ -20,8 +20,8 @@ spark-1.civicrm.org
 spark-2.civicrm.org
 test.civicrm.org ansible_ssh_host=35.226.128.213
 test-ubu1204-1.civicrm.osuosl.org
-test-1.civicrm.org # formerly test-ubu1204-5
-test-2.civicrm.org # formerly test-ubu1604-1
+test-1.civicrm.org
+test-2.civicrm.org
 test-3.civicrm.org ansible_ssh_host=147.135.121.0
 www-cxn-2.civicrm.osuosl.org
 www-demo.civicrm.osuosl.org
@@ -29,11 +29,10 @@ www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
 www-test.civicrm.org
 www-demo.civicrm.org
-# www-cxn-1.civicrm.org  # not managed, but www is monitored by icinga
-# training.civicrm.org ansible_ssh_host=192.95.2.133
-# svn.civicrm.osuosl.org # still exists, but no longer maintained
+# not managed, but www is monitored by icinga
+# www-cxn-1.civicrm.org
 
-[nginx-servers]
+[nginx_servers]
 botdylan.civicrm.org
 chat.civicrm.org
 spark-1.civicrm.org
@@ -43,7 +42,7 @@ www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
 www-test.civicrm.org
 
-[apache-servers]
+[apache_servers]
 java-prod.civicrm.osuosl.org
 latest.civicrm.org
 test-1.civicrm.org
@@ -53,10 +52,10 @@ training.civicrm.org
 www-demo.civicrm.osuosl.org
 www-demo.civicrm.org
 
-[demo-servers]
+[demo_servers]
 www-demo.civicrm.org
 
-[test-servers]
+[test_servers]
 test-ubu1204-1.civicrm.osuosl.org
 test-ubu1204-2.civicrm.osuosl.org
 test-ubu1204-3.civicrm.org
@@ -64,20 +63,20 @@ test-1.civicrm.org
 test-2.civicrm.org
 test-3.civicrm.org
 
-[jenkins-servers]
+[jenkins_servers]
 test.civicrm.org
 
-[backup-servers]
+[backup_servers]
 backups-1.civicrm.org
 newsushi.civicrm.osuosl.org
 
-[mattermost-servers]
+[mattermost_servers]
 chat.civicrm.org
 
-[stats-servers]
+[stats_servers]
 latest.civicrm.org
 
-[unclassified-servers]
+[unclassified_servers]
 botdylan.civicrm.org
 cxnapp-2.civicrm.org
 lab.civicrm.org
@@ -85,67 +84,67 @@ manage.civicrm.osuosl.org
 test.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 
-[kvm-servers]
+[kvm_servers]
 barbecue.civicrm.org
 paella.civicrm.org
 
 [servers:children]
-apache-servers
-backup-servers
-kvm-servers
-nginx-servers
-test-servers
-stats-servers
-unclassified-servers
+apache_servers
+backup_servers
+kvm_servers
+nginx_servers
+test_servers
+stats_servers
+unclassified_servers
 
-[icinga-satellite:children]
+[icinga_satellite:children]
 servers
 
-[php72-servers]
+[php72_servers]
 www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
 
-[php7-servers]
+[php7_servers]
 test-ubu1604-1.civicrm.org
 www-demo.civicrm.osuosl.org
 # www-test.civicrm.org
 
-[php56-servers]
+[php56_servers]
 latest.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 # training.civicrm.org
 
-[php55-servers]
+[php55_servers]
 test-ubu1204-1.civicrm.osuosl.org
 
-[buildkit-servers]
+[buildkit_servers]
 training.civicrm.org
 
-[mkdocs-servers]
+[mkdocs_servers]
 www-prod.civicrm.osuosl.org
 
-[jira-servers]
+[jira_servers]
 java-prod.civicrm.osuosl.org
 
-[gitlab-servers]
+[gitlab_servers]
 lab.civicrm.org
 
-[ldap-servers]
+[ldap_servers]
 manage.civicrm.osuosl.org
 
-[ldapcivi-servers]
+[ldapcivi_servers]
 www-prod-2.civicrm.org
 
-[aegir-managed]
+[aegir_managed]
 spark-1.civicrm.org
 spark-2.civicrm.org
 www-prod-2.civicrm.org
 www-test.civicrm.org
 
-[gitbot-servers]
+[gitbot_servers]
 botdylan.civicrm.org
 
-[dehydrated-manually]
+[dehydrated_manually]
 botdylan.civicrm.org
 chat.civicrm.org
 cxnapp-2.civicrm.org
