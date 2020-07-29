@@ -11,6 +11,9 @@ logstash_forwarder_files:
     fields:
       type: nginx-access
 
+# Reduce noize from bots
+ufw_ipv4_allow_ssh: false
+
 ufw_extra:
   sympamysql:
     proto: tcp
