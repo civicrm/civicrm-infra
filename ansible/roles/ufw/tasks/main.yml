@@ -19,6 +19,7 @@
 
 - name: Allow ssh on IPv6 only
   ufw: proto=tcp port=22 src="::/0" rule=allow
+  when: ufw_ipv6_allow_ssh == true
   tags:
     - ufw
 
