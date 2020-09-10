@@ -19,6 +19,9 @@ preseed_ipv6_gateway: 2607:5300:0060:71ff:ff:ff:ff:ff
 backups_include_extras:
     - /home
 
+backups_exclude_extras:
+    - /home/gitsync
+
 ufw_extra:
   botdylan:
     proto: tcp
