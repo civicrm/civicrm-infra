@@ -48,7 +48,6 @@ latest.civicrm.org
 test-1.civicrm.org
 test-2.civicrm.org
 test-3.civicrm.org
-training.civicrm.org
 www-demo.civicrm.osuosl.org
 www-demo.civicrm.org
 
@@ -112,13 +111,12 @@ www-demo.civicrm.osuosl.org
 [php56_servers]
 latest.civicrm.org
 www-cxn-2.civicrm.osuosl.org
-# training.civicrm.org
 
 [php55_servers]
 test-ubu1204-1.civicrm.osuosl.org
 
-[buildkit_servers]
-training.civicrm.org
+# [buildkit_servers]
+# training.civicrm.org
 
 [mkdocs_servers]
 www-prod.civicrm.osuosl.org
