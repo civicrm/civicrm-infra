@@ -1,3 +1,17 @@
 backups_include_extras:
     - /home/releaser/.gnupg
     - /home/releaser/archive-esr
+
+ufw_extra:
+  statssql6:
+    proto: tcp
+    port: 3306
+    src: 2600:3c03::f03c:91ff:fe7b:2e21/128
+    rule: allow
+    description: "Allows civicrm.org to access stats (experimental)"
+  statssql4:
+    proto: tcp
+    port: 3306
+    src: 45.79.135.8/32
+    rule: allow
+    description: "Allows civicrm.org to access stats (experimental)"

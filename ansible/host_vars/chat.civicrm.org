@@ -3,6 +3,9 @@
 backups_include_extras:
     - /opt
 
+# Reduce noize from bots
+ufw_ipv4_allow_ssh: false
+
 ufw_extra:
   mmostgithub:
     proto: tcp
@@ -10,4 +13,22 @@ ufw_extra:
     src: 192.30.252.0/22
     rule: allow
     description: "Allow Github webhooks for PR activity."
+  sshsushi:
+    proto: tcp
+    port: 22
+    src: 140.211.166.28/32
+    rule: allow
+    description: "Allow inbound ssh for sushi, the main backup server."
+  sshbackup1:
+    proto: tcp
+    port: 22
+    src: 107.178.223.170/32
+    rule: allow
+    description: "Allow inbound ssh for backups-1, the other backup server."
+  sshmanage:
+    proto: tcp
+    port: 22
+    src: 140.211.167.144/32
+    rule: allow
+    description: "Allow inbound ssh for manage.c.o.o, in case someone does not have ipv6."
 

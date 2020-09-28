@@ -51,6 +51,24 @@ ufw_extra:
     src: 0.0.0.0/0
     rule: allow
     description: "For https cert testing, part of the test suite, see INFRA-225."
+  sshsushi:
+    proto: tcp
+    port: 22
+    src: 140.211.166.28/32
+    rule: allow
+    description: "Allow inbound ssh for sushi, the main backup server."
+  sshbackup1:
+    proto: tcp
+    port: 22
+    src: 107.178.223.170/32
+    rule: allow
+    description: "Allow inbound ssh for backups-1, the other backup server."
+  sshmanage:
+    proto: tcp
+    port: 22
+    src: 140.211.167.144/32
+    rule: allow
+    description: "Allow inbound ssh for manage.c.o.o, in case someone does not have ipv6."
 
 backups_exclude_extras:
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/ConfigAndLog/*
