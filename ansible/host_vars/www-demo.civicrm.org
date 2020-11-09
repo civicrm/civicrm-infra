@@ -23,6 +23,8 @@ preseed_ipv6_gateway: 2607:5300:0060:71ff:ff:ff:ff:ff
 
 backups_exclude_extras:
   - /srv/buildkit/build
+  - /srv/buildkit/app/tmp
+  - /srv/buildkit/node_modules
 
 logstash_forwarder_files:
   - paths:
