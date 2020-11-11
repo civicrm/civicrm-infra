@@ -69,6 +69,12 @@ ufw_extra:
     src: 140.211.167.144/32
     rule: allow
     description: "Allow inbound ssh for manage.c.o.o, in case someone does not have ipv6."
+  sshjenkins:
+    proto: tcp
+    port: 22
+    src: 35.226.128.213/32
+    rule: allow
+    description: "Allow inbound ssh for test.c.o, who launches an agent via ssh for extdir."
 
 backups_exclude_extras:
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/ConfigAndLog/*
