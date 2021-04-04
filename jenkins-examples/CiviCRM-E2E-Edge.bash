@@ -1,12 +1,11 @@
 #!/bin/bash
 set -ex
-BKPROF="edge"
-if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
-case "$BKPROF" in min|max|dfl|edge) eval $(use-bknix "$BKPROF") ;; esac
-if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
-## Job Name: CiviCRM-Core-Matrix
-## Job Description: Periodically run the unit tests on all major
+if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+eval $(use-bknix edge)
+
+## Job Name: CiviCRM-E2E-Edge
+## Job Description: Periodically run the e2e unit tests on all
 ##   major branches of civicrm-core.git
 ## Job GitHub Project URL: https://github.com/civicrm/civicrm-core
 ## Job Source Code Management: None
@@ -34,7 +33,7 @@ civibuild env-info
 ## Download application (with civibuild)
 civibuild download "$BLDNAME" \
   --civi-ver "$CIVIVER" \
-  --type "drupal-clean"
+  --type "$BLDTYPE"
 
 ## Install application (with civibuild)
 civibuild install "$BLDNAME" \
@@ -47,5 +46,7 @@ civibuild show "$BLDNAME" \
   --new-scan "$WORKSPACE/new-scan.json"
 cp "$WORKSPACE/new-scan.json" "$WORKSPACE/last-scan.json"
 
-civi-test-run -b "$BLDNAME" -j "$WORKSPACE/junit" all
+## Execute tests
+SUITES="phpunit-e2e"
+civi-test-run -b "$BLDNAME" -j "$WORKSPACE/junit" $SUITES
 exit $?

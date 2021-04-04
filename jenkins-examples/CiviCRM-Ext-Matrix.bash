@@ -4,6 +4,8 @@ set -ex
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
 case "$BKPROF" in min|max|dfl) eval $(use-bknix "$BKPROF") ;; esac
 if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
+# Set ENV for the TMPDIR so that mosaico test and mosaico build don't clobber each other
+npm config set tmp "/home/$USER/npm-tmp/"
 
 ## Job Name: CiviCRM-Ext-Matrix
 ## Job Description: Periodically run the unit tests for extensions
@@ -54,6 +56,18 @@ case "$EXTKEY" in
     ;;
 esac
 
+## APIv4 has been merged into core since 5.19
+if [ $EXTKEY == "org.civicrm.api4" ]; then
+  case "$CIVIVER" in
+    5.18|5.13)
+     ;;
+    *)
+	 echo "APIv4 Extension tests are disabled from 5.19 onwards"
+     exit 0
+     ;;
+  esac
+fi
+
 ##################################################
 ## Reset (cleanup after previous tests)
 [ -d "$WORKSPACE/junit" ] && rm -rf "$WORKSPACE/junit"
@@ -63,6 +77,9 @@ if [ -d "$BLDDIR" ]; then
 fi
 mkdir "$WORKSPACE/junit"
 mkdir "$WORKSPACE/civibuild-html"
+
+## Report details about the test environment
+civibuild env-info
 
 ## Download application (with civibuild)
 civibuild download "$BLDNAME" \
@@ -129,14 +146,18 @@ pushd "$EXTBASE"
     civibuild restore "$BLDNAME"
     cv en "$EXTKEY"
 #    if [ "$EXTKEY" = "org.civicrm.api4" ]; then cv flush; fi ## FIX+REMOVE ME
-    phpunit5 --tap --group e2e --log-junit="$WORKSPACE/junit/junit-e2e.xml"
-    phpunit5 --tap --group headless --log-junit="$WORKSPACE/junit/junit-headless.xml"
+#    phpunit5 --tap --group e2e --log-junit="$WORKSPACE/junit/junit-e2e.xml"
+#    phpunit5 --tap --group headless --log-junit="$WORKSPACE/junit/junit-headless.xml"
+    phpunit6 --printer='Civi\Test\TAP' --group e2e --log-junit="$WORKSPACE/junit/junit-e2e.xml"
+    phpunit6 --printer='Civi\Test\TAP' --group headless --log-junit="$WORKSPACE/junit/junit-headless.xml"
+#    phpunit7 --printer='Civi\Test\TAP' --group e2e --log-junit="$WORKSPACE/junit/junit-e2e.xml"
+#    phpunit7 --printer='Civi\Test\TAP' --group headless --log-junit="$WORKSPACE/junit/junit-headless.xml"
     EXITCODE=$(($? || $EXITCODE))
   popd
 popd
 
 phpunit-xml-cleanup "$WORKSPACE/junit/"/*.xml
-
+npm config delete tmp
 
 ## Report test results
 # Jenkins should be configured to read JUnit XML from $WORKSPACE/junit

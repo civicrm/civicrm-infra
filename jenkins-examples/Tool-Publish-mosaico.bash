@@ -13,7 +13,7 @@ set -ex
 if [ -e "$HOME/.profile" ]; then . "$HOME/.profile"; fi
 eval $(use-bknix "min")
 if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
-bknix update
+#bknix update
 
 #### Config
 VERSION=$(civix info:get -x version).$(date '+%s')
@@ -22,6 +22,7 @@ OUTDIR="$PWD/build/out"
 VOUTDIR="$OUTDIR/$VERSION"
 LOUTDIR="$OUTDIR/latest"
 EXT="uk.co.vedaconsulting.mosaico"
+npm config set tmp "/home/$USER/npm-tmp/"
 
 ## Cleanup
 [ -d "$PWD/build" ] && rm -rf "$PWD/build"
@@ -43,4 +44,3 @@ git checkout -- info.xml
 for SUFFIX in "-git.json" "-info.xml" ".zip" ; do
   cp "$VOUTDIR/${EXT}-${VERSION}${SUFFIX}" "$LOUTDIR/${EXT}-latest${SUFFIX}"
 done
-
