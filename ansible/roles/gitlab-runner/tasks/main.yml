@@ -1,9 +1,21 @@
 ---
 
-- apt: pkg="{{ item }}" state=installed
-  with_items:
-    - debian-archive-keyring
-    - apt-transport-https
+- name: gitlab-runner | Force gathering facts for partial ansible runs
+  setup:
+  tags:
+    - packages
+    - gitlab-runner
+
+- apt:
+    pkg: ['debian-archive-keyring', 'apt-transport-https']
+    state: present
+  tags:
+    - gitlab-runner
+    - packages
+
+- apt:
+    pkg: gitlab-ci-multi-runner
+    state: absent
   tags:
     - gitlab-runner
     - packages
@@ -15,17 +27,30 @@
     - packages
 
 - apt_repository:
-    repo="deb https://packages.gitlab.com/runner/gitlab-ci-multi-runner/debian/ {{ ansible_distribution_release }} main"
-    state=present
-    update_cache=yes
+    repo: "deb https://packages.gitlab.com/runner/gitlab-runner/debian/ {{ ansible_distribution_release }} main"
+    state: present
+    update_cache: yes
   tags:
     - gitlab-runner
     - packages
 
-- apt: pkg=gitlab-ci-multi-runner state=installed
+- name: Delete the old Gitlab Runner 9.x config
+  file:
+    state: absent
+    path: /etc/apt/sources.list.d/packages_gitlab_com_runner_gitlab_ci_multi_runner_debian.list
   tags:
     - gitlab-runner
     - packages
+
+- apt: pkg=gitlab-runner state=present
+  tags:
+    - gitlab-runner
+    - packages
+
+# Fixes a bug on Debian Buster
+# https://gitlab.com/gitlab-org/gitlab-runner/issues/4449
+- name: Delete the bash_logout of the gitlab-runner user
+  file: path=/home/gitlab-runner/.bash_logout state=absent
 
 # Register the Runner with the Gitlab server
 # Based on: https://github.com/haroldb/ansible-gitlab-runner/blob/master/tasks/register-runner.yml
@@ -53,7 +78,7 @@
   lineinfile:
     path: /etc/gitlab-runner/config.toml
     regexp: '^check_interval = \d+'
-    line: 'check_interval = 10'
+    line: 'check_interval = 15'
     owner: root
     group: root
     mode: 0600
