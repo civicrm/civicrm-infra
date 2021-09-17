@@ -1,1 +1,5 @@
 phpversion: 7.2
+
+# required for updating the icinga host file
+preseed_ipv4_address: 172.104.248.114
+preseed_ipv6_address: 2a01:7e01::f03c:91ff:fe74:a669
