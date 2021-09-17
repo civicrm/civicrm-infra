@@ -235,6 +235,14 @@ Physical Servers
       <td>virt-install</td>
     </tr>
     <tr>
+      <td>rabul-t450s</td>
+      <td>fairuse.org</td>
+      <td>Ubuntu 20.04 LTS (Focal)</td>
+      <td>dynamic</td>
+      <td>cores=2/4 (i5-5300u) ram=12gb ssd=1x120gb (updated: 2021-09-14)</td>
+      <td>Extra Jenkins worker. Behind NAT firewall. Use alt ssh port.</td>
+    </tr>
+    <tr>
       <td>civicrm1</td>
       <td></td>
       <td>?? (Ganeti)</td>
