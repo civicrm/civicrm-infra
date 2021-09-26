@@ -17,7 +17,7 @@ Virtual Servers
     <tr>
       <td>chat</td>
       <td>civicrm.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
+      <td>Ubuntu 18.04 LTS (Bionic)</td>
       <td>140.211.167.153</td>
       <td>2605:bc80:3010:102:0:3:3:0</td>
       <th>cores=2 ram=2gb root=20gb (updated: 2016-04-23)</th>
@@ -33,27 +33,9 @@ Virtual Servers
       <td><tt>mycivi.org</tt> and <tt>dev.mycivi.org</tt> (<a href="https://github.com/civicrm/cxnapp">cxnapp</a>, configured to run <tt>org.civicrm.profile</tt> in <tt>/srv/buildkit</tt>)</td>
     </tr>
     <tr>
-      <td>✗ java-prod</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>140.211.167.141</td>
-      <td>2605:bc80:3010:102:0:3:2:0</td>
-      <td>cores=2 ram=6gb root=25gb (updated: 2016-05-24)</td>
-      <td>Confluence, JIRA, MySQL, Apache</td>
-    </tr>
-    <tr>
-      <td>✗ java-test</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 14.04 LTS (Trusty Tahir)</td>
-      <td>140.211.167.143</td>
-      <td></td>
-      <th>cores=2 ram=2 hdd=27gb (updated: 2013-11-27)</th>
-      <td>OFFLINE - Confluence, JIRA, MySQL, Apache</td>
-    </tr>
-    <tr>
       <td>lab</td>
       <td>civicrm.org (OSUOSL)</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
+      <td>Ubuntu 20.04 LTS (Focal)</td>
       <td>140.211.167.160</td>
       <td>2605:bc80:3010:102:0:3:4:0</td>
       <th>cores=3 ram=4gb root=50gb (updated: 2017-04-17)</th>
@@ -105,15 +87,6 @@ Virtual Servers
       <td>Jenkins (Master), Nginx (for HTTPS), Tomcat (for AJP)</td>
     </tr>
     <tr>
-      <td>✗ test-ubu1204-1</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 14.04 LTS (Trusty)</td>
-      <td>140.211.167.149</td>
-      <td></td>
-      <th>cores=2 ram=4 root=20gb (updated: 2018-01-11)</th>
-      <td>Jenkins (Slave), Apache, MySQL, Drupal/Drush, CiviCRM</td>
-    </tr>
-    <tr>
       <td>www-cxn-2</td>
       <td>civicrm.osuosl.org</td>
       <td>Ubuntu 16.04 LTS (Xenial)</td>
@@ -134,11 +107,11 @@ Virtual Servers
     <tr>
       <td>www-prod</td>
       <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
+      <td>Ubuntu 18.04 LTS (Bionic)</td>
       <td>140.211.167.152</td>
       <td>2605:bc80:3010:102:0:3:1:0</td>
       <th>cores=2 ram=6gb root=25gb (updated: 2014-10-27)</th>
-      <td>Nginx, MySQL, Drupal/Drush, SMF/forum.civicrm.org, alert.civicrm.org, docs.civicrm.org</td>
+      <td>Nginx, MySQL, PHP, SMF/forum.civicrm.org, alert.civicrm.org, docs.civicrm.org</td>
     </tr>
     <tr>
       <td>backup-1</td>
