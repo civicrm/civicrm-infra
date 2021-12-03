@@ -133,11 +133,11 @@ Virtual Servers
     </tr>
     <tr>
       <td>test-2</td>
-      <td>OVH</td>
-      <td>Debian 9 (Stretch)</td>
-      <td>192.95.2.131</td>
+      <td>OSUOSL</td>
+      <td>Debian 10 (Buster)</td>
+      <td>140.211.167.149</td>
       <td></td>
-      <th>cores=4 ram=8gb root=50gb (not created yet)</th>
+      <th>cores=4 ram=8gb root=50gb</th>
       <td>Tests</td>
     </tr>
     <tr>
