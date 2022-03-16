@@ -23,6 +23,7 @@ Type=simple
 PermissionsStartOnly=true
 WorkingDirectory=/opt/ldapciviauth
 ExecStart=/usr/bin/node server.js civicrmorg
+Restart=always
 TimeoutSec=300
 PrivateTmp=true
 User=aegir
