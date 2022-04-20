@@ -11,17 +11,18 @@ total available capacity.
 
 ## Restart an idle temp node
 
-* Start the node; either:
+* Start the node; eg
     * CLI: `gcloud compute instances start bknix-181023`
+    * CLI: `gcloud compute instances start bknix-181024`
     * Web UI
         * Navigate to https://console.cloud.google.com/compute/instances?project=nifty-buffer-107523
-        * Start the idle node (e.g. `bknix-181023`)
+        * Start the idle node (e.g. `bknix-181023` or `bknix-181024`)
         * Wait for it boot
 * Update it to latest configuration
     * SSH into the new node
     * Run: `sudo -i bash -c '(cd /root/buildkit/ && git pull && ./nix/bin/update-ci-buildkit.sh)'`
 * Enable it in Jenkins
     * Navigate to https://test.civicrm.org/computer/
-    * Edit the corresponding node (e.g. `test-gc-181023`)
+    * Edit the corresponding node (e.g. `test-gc-181023` or `test-gc-181023`)
     * Update the IP and save
     * Bring the node online / launch the agent
