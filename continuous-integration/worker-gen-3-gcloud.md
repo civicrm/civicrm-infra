@@ -19,7 +19,7 @@ total available capacity.
         * Wait for it boot
 * Update it to latest configuration
     * SSH into the new node
-    * As `root`, run `cd /root/bknix; ./bin/reset-gcloud.sh`
+    * Run: `sudo -i bash -c '(cd /root/buildkit/ && git pull && ./nix/bin/update-ci-buildkit.sh)'`
 * Enable it in Jenkins
     * Navigate to https://test.civicrm.org/computer/
     * Edit the corresponding node (e.g. `test-gc-181023`)
