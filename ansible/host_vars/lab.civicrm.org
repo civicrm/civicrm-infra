@@ -1,5 +1,6 @@
 backups_include_extras:
   - /var/opt/gitlab/backups
+  - /var/opt/gitlab/git-data/
   - /var/opt/gitlab/gitlab-rails/uploads
 
 backupexcludes:
