@@ -13,7 +13,7 @@
 # Required for Jenkins
 - apt: name={{ item }} state=present install_recommends=no
   with_items:
-    - openjdk-8-jre-headless
+    - openjdk-11-jre-headless
   tags:
     - packages
     - packages-java
