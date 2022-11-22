@@ -1,8 +1,13 @@
-phpversion: 7.2
+phpversion: 7.3
 
 # required for updating the icinga host file
 preseed_ipv4_address: 172.104.248.114
 preseed_ipv6_address: 2a01:7e01::f03c:91ff:fe74:a669
+
+# Used for regenerating the icinga2 host file, with the inventory of CiviCRM sites
+icinga2_conf_host_import: tpl-civicrm-aegir-host
+icinga2_disable_all_civicrm_notifications: 1
+icinga2_disable_all_http200_checks: 1
 
 # For GDPR compliance
 borgmatic_backupserver: x10.symbiotic.coop

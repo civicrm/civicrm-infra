@@ -1,5 +1,10 @@
-phpversion: 7.2
+phpversion: 7.3
 
 # required for updating the icinga host file
 preseed_ipv4_address: 23.92.17.192
 preseed_ipv6_address: 2600:3c03::f03c:91ff:fe29:3a07
+
+# Used for regenerating the icinga2 host file, with the inventory of CiviCRM sites
+icinga2_conf_host_import: tpl-civicrm-aegir-host
+icinga2_disable_all_civicrm_notifications: 1
+icinga2_disable_all_http200_checks: 1
