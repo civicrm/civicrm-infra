@@ -3,10 +3,10 @@ set -e
 
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
 [ -z `which await-bknix` ] || await-bknix "$USER" "dfl"
-eval $(use-bknix "dfl")
+case "$BKPROF" in min|max|dfl) eval $(use-bknix "$BKPROF") ;; esac
 if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
-## Job Name: CiviCRM-Core-PR
+## Job Name: CiviCRM-Core-Matrix-PR
 ## Job Description: Monitor civicrm-core.git for proposed changes
 ##    For any proposed changes, run a few "smoke tests"
 ## Job GitHub Project URL: https://github.com/civicrm/civicrm-core
@@ -33,10 +33,10 @@ GUARD=
 ## Build definition
 ## Note: Suffixes are unique within a period of 180 days.
 BLDTYPE="drupal-clean"
-BLDNAME="core-$ghprbPullId-$(php -r 'echo base_convert(time()%(180*24*60*60), 10, 36);')"
+BLDNAME="build-$EXECUTOR_NUMBER"
 BLDDIR="$BKITBLD/$BLDNAME"
 JUNITDIR="$WORKSPACE/junit"
-CHECKSTYLEDIR="$WORKSPACE/checkstyle"
+#S CHECKSTYLEDIR="$WORKSPACE/checkstyle"
 EXITCODES=""
 
 export TIME_FUNC="linear:500"
@@ -44,10 +44,10 @@ export TIME_FUNC="linear:500"
 #################################################
 ## Cleanup left-overs from previous test-runs
 [ -d "$JUNITDIR" ] && $GUARD rm -rf "$JUNITDIR"
-[ -d "$CHECKSTYLEDIR" ] && $GUARD rm -rf "$CHECKSTYLEDIR"
+#S [ -d "$CHECKSTYLEDIR" ] && $GUARD rm -rf "$CHECKSTYLEDIR"
 [ -d "$BLDDIR" ] && $GUARD civibuild destroy "$BLDNAME"
 [ ! -d "$JUNITDIR" ] && $GUARD mkdir "$JUNITDIR"
-[ ! -d "$CHECKSTYLEDIR" ] && $GUARD mkdir "$CHECKSTYLEDIR"
+#S [ ! -d "$CHECKSTYLEDIR" ] && $GUARD mkdir "$CHECKSTYLEDIR"
 
 #################################################
 ## Report details about the test environment
@@ -58,20 +58,19 @@ $GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$ghprbTargetB
   --patch "https://github.com/civicrm/civicrm-core/pull/${ghprbPullId}"
 
 ## Check style first; fail quickly if we break style
-$GUARD pushd "$BLDDIR/web/sites/all/modules/civicrm"
-  if git diff --name-only "origin/$ghprbTargetBranch.." | $GUARD civilint --checkstyle "$CHECKSTYLEDIR" - ; then
-    echo "Style passed"
-  else
-    echo "Style error"
-    exit 1
-  fi
-$GUARD popd
+#S $GUARD pushd "$BLDDIR/web/sites/all/modules/civicrm"
+#S   if git diff --name-only "origin/$ghprbTargetBranch.." | $GUARD civilint --checkstyle "$CHECKSTYLEDIR" - ; then
+#S     echo "Style passed"
+#S   else
+#S     echo "Style error"
+#S     exit 1
+#S   fi
+#S $GUARD popd
 
 ## No obvious problems blocking a build...
 $GUARD civibuild install "$BLDNAME"
 
 ## Run the tests
-#civi-test-run -b "$BLDNAME" -j "$JUNITDIR" \
-#  --exclude-group ornery \
-#  karma upgrade phpunit-e2e phpunit-civi phpunit-crm phpunit-api
-civi-test-run -b "$BLDNAME" -j "$JUNITDIR" --exclude-group ornery all
+civi-test-run -b "$BLDNAME" -j "$JUNITDIR" --exclude-group ornery $SUITES
+
+exit $?

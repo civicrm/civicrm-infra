@@ -2,6 +2,7 @@
 set -ex
 
 if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
+[ -z `which await-bknix` ] || await-bknix "$USER" "$BKPROF"
 case "$BKPROF" in min|max|dfl) eval $(use-bknix "$BKPROF") ;; esac
 if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
@@ -19,6 +20,8 @@ if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 BLDNAME="build-$EXECUTOR_NUMBER"
 EXITCODE=0
 
+export TIME_FUNC="linear:500"
+
 ## Reset (cleanup after previous tests)
 [ -d "$WORKSPACE/junit" ] && rm -rf "$WORKSPACE/junit"
 [ -d "$WORKSPACE/civibuild-html" ] && rm -rf "$WORKSPACE/civibuild-html"
@@ -27,6 +30,9 @@ if [ -d "$BKITBLD/$BLDNAME" ]; then
 fi
 mkdir "$WORKSPACE/junit"
 mkdir "$WORKSPACE/civibuild-html"
+
+## Report details about the test environment
+civibuild env-info
 
 ## Download application (with civibuild)
 civibuild download "$BLDNAME" \
@@ -45,25 +51,25 @@ civibuild show "$BLDNAME" \
 cp "$WORKSPACE/new-scan.json" "$WORKSPACE/last-scan.json"
 
 ## Detect & execute tests
-pushd "$BKITBLD/$BLDNAME/web/sites/all/modules/civicrm"
-  SUITES="phpunit-crm phpunit-api3 phpunit-civi upgrade"
-  
-  if [ -f "tests/phpunit/api/v4/AllTests.php" ]; then
-    SUITES="$SUITES phpunit-api4"
-  fi
+#pushd "$BKITBLD/$BLDNAME/web/sites/all/modules/civicrm"
+#  SUITES="phpunit-crm phpunit-api3 phpunit-civi upgrade"
 
-  if [ -f "tests/phpunit/E2E/AllTests.php" ]; then
-    SUITES="$SUITES phpunit-e2e"
-  else
-    echo "Skip unavailable suite: phpunit-e2e"
-  fi
+#  if [ -f "tests/phpunit/api/v4/AllTests.php" ]; then
+#    SUITES="$SUITES phpunit-api4"
+#  fi
 
-  if [ -f "karma.conf.js" ]; then
-    SUITES="$SUITES karma"
-  else
-    echo "Skip unavailable suite: karma"
-  fi
-popd
+#  if [ -f "tests/phpunit/E2E/AllTests.php" ]; then
+#    SUITES="$SUITES phpunit-e2e"
+#  else
+#    echo "Skip unavailable suite: phpunit-e2e"
+#  fi
+
+#  if [ -f "karma.conf.js" ]; then
+#    SUITES="$SUITES karma"
+#  else
+#    echo "Skip unavailable suite: karma"
+#  fi
+#popd
 
 civi-test-run -b "$BLDNAME" -j "$WORKSPACE/junit" $SUITES
 exit $?
