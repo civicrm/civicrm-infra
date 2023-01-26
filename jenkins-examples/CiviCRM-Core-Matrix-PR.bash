@@ -36,7 +36,6 @@ BLDTYPE="drupal-clean"
 BLDNAME="build-$EXECUTOR_NUMBER"
 BLDDIR="$BKITBLD/$BLDNAME"
 JUNITDIR="$WORKSPACE/junit"
-#S CHECKSTYLEDIR="$WORKSPACE/checkstyle"
 EXITCODES=""
 
 export TIME_FUNC="linear:500"
@@ -44,10 +43,8 @@ export TIME_FUNC="linear:500"
 #################################################
 ## Cleanup left-overs from previous test-runs
 [ -d "$JUNITDIR" ] && $GUARD rm -rf "$JUNITDIR"
-#S [ -d "$CHECKSTYLEDIR" ] && $GUARD rm -rf "$CHECKSTYLEDIR"
 [ -d "$BLDDIR" ] && $GUARD civibuild destroy "$BLDNAME"
 [ ! -d "$JUNITDIR" ] && $GUARD mkdir "$JUNITDIR"
-#S [ ! -d "$CHECKSTYLEDIR" ] && $GUARD mkdir "$CHECKSTYLEDIR"
 
 #################################################
 ## Report details about the test environment
@@ -56,16 +53,6 @@ civibuild env-info
 ## Download dependencies, apply patches, and perform fresh DB installation
 $GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$ghprbTargetBranch" \
   --patch "https://github.com/civicrm/civicrm-core/pull/${ghprbPullId}"
-
-## Check style first; fail quickly if we break style
-#S $GUARD pushd "$BLDDIR/web/sites/all/modules/civicrm"
-#S   if git diff --name-only "origin/$ghprbTargetBranch.." | $GUARD civilint --checkstyle "$CHECKSTYLEDIR" - ; then
-#S     echo "Style passed"
-#S   else
-#S     echo "Style error"
-#S     exit 1
-#S   fi
-#S $GUARD popd
 
 ## No obvious problems blocking a build...
 $GUARD civibuild install "$BLDNAME"
