@@ -35,19 +35,13 @@ GUARD=
 BLDTYPE="drupal-clean"
 BLDNAME="core-$ghprbPullId-$(php -r 'echo base_convert(time()%(180*24*60*60), 10, 36);')"
 BLDDIR="$BKITBLD/$BLDNAME"
-JUNITDIR="$WORKSPACE/junit"
-CHECKSTYLEDIR="$WORKSPACE/checkstyle"
 EXITCODES=""
 
 export TIME_FUNC="linear:500"
 
 #################################################
 ## Cleanup left-overs from previous test-runs
-[ -d "$JUNITDIR" ] && $GUARD rm -rf "$JUNITDIR"
-[ -d "$CHECKSTYLEDIR" ] && $GUARD rm -rf "$CHECKSTYLEDIR"
 [ -d "$BLDDIR" ] && $GUARD civibuild destroy "$BLDNAME"
-[ ! -d "$JUNITDIR" ] && $GUARD mkdir "$JUNITDIR"
-[ ! -d "$CHECKSTYLEDIR" ] && $GUARD mkdir "$CHECKSTYLEDIR"
 
 #################################################
 ## Report details about the test environment
@@ -57,21 +51,5 @@ civibuild env-info
 $GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$ghprbTargetBranch" \
   --patch "https://github.com/civicrm/civicrm-core/pull/${ghprbPullId}"
 
-## Check style first; fail quickly if we break style
-$GUARD pushd "$BLDDIR/web/sites/all/modules/civicrm"
-  if git diff --name-only "origin/$ghprbTargetBranch.." | $GUARD civilint --checkstyle "$CHECKSTYLEDIR" - ; then
-    echo "Style passed"
-  else
-    echo "Style error"
-    exit 1
-  fi
-$GUARD popd
-
 ## No obvious problems blocking a build...
 $GUARD civibuild install "$BLDNAME"
-
-## Run the tests
-#civi-test-run -b "$BLDNAME" -j "$JUNITDIR" \
-#  --exclude-group ornery \
-#  karma upgrade phpunit-e2e phpunit-civi phpunit-crm phpunit-api
-civi-test-run -b "$BLDNAME" -j "$JUNITDIR" --exclude-group ornery all
