@@ -35,7 +35,7 @@ significant change, one should make a new baseline/snapshot (with changes baked-
                 * You can check on its progress (`sudo journalctl -u google-startup-scripts.service`)
             * You can do a similar update manually:
                 ```bash
-                sudo -i bash -c '(cd /root/buildkit/ && git pull && ./nix/bin/reset-ci.sh gcloud)'
+                sudo -i bash -c '(cd /opt/buildkit/ && git pull && ./nix/bin/reset-ci.sh gcloud)'
                 ```
             * If you want to test things out, you might create some example builds (and then destroy them).
                 ```bash
