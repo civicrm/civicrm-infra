@@ -18,7 +18,6 @@ manage.civicrm.osuosl.org # OSUOSL cluster
 spark-1.civicrm.org # Linode
 spark-2.civicrm.org # Linode
 test.civicrm.org ansible_ssh_host=35.226.128.213 # Google
-test-ubu1204-1.civicrm.osuosl.org # OSUOSL
 test-1.civicrm.org # paella.civicrm.org OVH
 test-2.civicrm.org # OSUOSL cluster
 test-3.civicrm.org # barbecue.civicrm.org OVH
@@ -52,9 +51,6 @@ www-demo.civicrm.org
 www-demo.civicrm.org
 
 [test_servers]
-test-ubu1204-1.civicrm.osuosl.org
-test-ubu1204-2.civicrm.osuosl.org
-test-ubu1204-3.civicrm.org
 test-1.civicrm.org
 test-2.civicrm.org
 test-3.civicrm.org
@@ -101,7 +97,6 @@ www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
 
 [php7_servers]
-test-ubu1604-1.civicrm.org
 # www-test.civicrm.org
 
 [php56_servers]
@@ -109,7 +104,6 @@ latest.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 
 [php55_servers]
-test-ubu1204-1.civicrm.osuosl.org
 
 # [buildkit_servers]
 # training.civicrm.org
