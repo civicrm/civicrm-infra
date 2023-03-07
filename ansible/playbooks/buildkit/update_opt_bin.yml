@@ -1,0 +1,68 @@
+## USE-CASE: You've just updated the Jenkins job-definitions and/or runner scripts (e.g. "use-bknix") and want them to push the updates.
+## TLDR: su; cd /opt/buildkit && git pull && cp nix/bin/SELECT_FILES /usr/local/bin/
+##       (With small variations depending on the host-group/name)
+
+- name: "Update /opt/buildkit and binaries (long-term hosts)"
+  hosts: "ci:bknix-r5-*"
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Update /opt/buildkit"
+      git: repo=https://github.com/civicrm/civicrm-buildkit dest=/opt/buildkit version=master
+    ## Does this really need to be so verbose?
+    - name: "Update /usr/local/bin/use-bknix"
+      copy:
+        remote_src: true
+        src: /opt/buildkit/nix/bin/use-bknix
+        dest: /usr/local/bin/use-bknix
+        owner: root
+        group: root
+        mode: 0755
+    - name: "Update /usr/local/bin/await-bknix"
+      copy:
+        remote_src: true
+        src: /opt/buildkit/nix/bin/await-bknix
+        dest: /usr/local/bin/await-bknix
+        owner: root
+        group: root
+        mode: 0755
+    - name: "Update /usr/local/bin/run-bknix-job"
+      copy:
+        remote_src: true
+        src: /opt/buildkit/nix/bin/run-bknix-job
+        dest: /usr/local/bin/run-bknix-job
+        owner: root
+        group: root
+        mode: 0755
+- name: "Update /opt/buildkit and binaries (runner hosts)"
+  hosts: "runner"
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Update /opt/buildkit"
+      git: repo=https://github.com/civicrm/civicrm-buildkit dest=/opt/buildkit version=master
+    ## Does this really need to be so verbose?
+    - name: "Update /usr/local/bin/use-bknix"
+      copy:
+        remote_src: true
+        src: /opt/buildkit/nix/bin/use-bknix
+        dest: /usr/local/bin/use-bknix
+        owner: root
+        group: root
+        mode: 0755
+    - name: "Update /usr/local/bin/await-bknix"
+      copy:
+        remote_src: true
+        src: /opt/buildkit/nix/bin/await-bknix.flag-file
+        dest: /usr/local/bin/await-bknix
+        owner: root
+        group: root
+        mode: 0755
+    - name: "Update /usr/local/bin/run-bknix-job"
+      copy:
+        remote_src: true
+        src: /opt/buildkit/nix/bin/run-bknix-job
+        dest: /usr/local/bin/run-bknix-job
+        owner: root
+        group: root
+        mode: 0755

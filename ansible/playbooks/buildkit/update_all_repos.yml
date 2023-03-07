@@ -1,0 +1,14 @@
+## USE-CASE: You've just updated the `civi-download-tools` or `composer.lock` and want to push the updates to all live workers.
+## TLDR: su; cd /opt/buildkit && git pull && ./nix/bin/update-ci-buildkit.sh
+
+## On these hosts, `/opt/buildkit` is a collection of control scripts - used to manage the real instances of buildkit.
+
+- name: "Update all buildkit checkouts"
+  hosts: "ci:runner:bknix-r5-*"
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Update /opt/buildkit"
+      git: repo=https://github.com/civicrm/civicrm-buildkit dest=/opt/buildkit version=master
+    - name: "Run update-ci-buildkit.sh"
+      shell: "/opt/buildkit/nix/bin/update-ci-buildkit.sh"
