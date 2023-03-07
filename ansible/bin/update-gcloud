@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+## Request a list of hosts from `gcloud compute` and generate an Ansible inventory.
+##
+## See also: https://cloud.google.com/sdk/docs/install
+##
+## Note: There is also an Ansible plugin to do this.  The nice thing about
+## the approach here is that we can use `gcloud auth login` (which is a bit
+## easier than manually configuring JSON keys).
+
+// $json = file_get_contents('tmp/gcloud-compute-instances-list.json');
+$json = `gcloud compute instances list --format=json`;
+$hosts = json_decode($json);
+if (empty($hosts)) {
+  fprintf(STDRR, "Error reading list\n%s\n", $json);
+  exit(1);
+}
+
+echo "## This file is auto-generated via 'update-gcloud'.\n";
+foreach ($hosts as $host) {
+  foreach ($host->networkInterfaces as $networkInterfaces) {
+    foreach ($networkInterfaces->accessConfigs as $accessConfig) {
+      if (!empty($accessConfig->natIP)) {
+        printf("%s ansible_ssh_host=%s\n",
+          $host->name,
+          $accessConfig->natIP
+        );
+      }
+    }
+  }
+}

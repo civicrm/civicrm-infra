@@ -53,6 +53,21 @@ cd civicrm-infra/ansible/
 ansible-playbook -l log.civicrm.osuosl.org ./site.yml
 ```
 
+### Using inventory from Google Cloud
+
+Google Cloud includes some ephemeral hosts (with short-lived names and IPs).
+If you would like to connect to these with Ansible, then add the dynamic inventory:
+
+1. (__One-Time Setup__) Install Google CLI tools (https://cloud.google.com/sdk/docs/install) and authenticate the connection.
+2. (__Day-to-Day__) Run the `update-gcloud` script:
+
+    ```bash
+    ./bin/update-gcloud | tee inventory/gcloud
+    ```
+
+To change the naming or grouping conventions for ephemeral hosts, modify `bin/update-gcloud`. You can
+simply re-run the command to see if it generates the intended inventory.
+
 ### Managing a host in Ansible
 
 1- Ensure that you have the private files in /etc/ansible/files (ex: you are running from manage.c.o.o).
