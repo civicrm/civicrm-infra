@@ -10,19 +10,20 @@
 ## easier than manually configuring JSON keys).
 
 // $json = file_get_contents('tmp/gcloud-compute-instances-list.json');
-$json = `gcloud compute instances list --format=json`;
+$json = `gcloud compute instances list --project=nifty-buffer-107523 --format=json`;
 $hosts = json_decode($json);
 if (empty($hosts)) {
   fprintf(STDRR, "Error reading list\n%s\n", $json);
   exit(1);
 }
 
-echo "## This file is auto-generated via 'update-gcloud'.\n";
+$lines = [];
+$lines[] = "## This file is auto-generated via 'update-gcloud'.\n";
 foreach ($hosts as $host) {
   foreach ($host->networkInterfaces as $networkInterfaces) {
     foreach ($networkInterfaces->accessConfigs as $accessConfig) {
       if (!empty($accessConfig->natIP)) {
-        printf("%s ansible_ssh_host=%s\n",
+        $lines[] = sprintf("%s ansible_ssh_host=%s\n",
           $host->name,
           $accessConfig->natIP
         );
@@ -30,3 +31,8 @@ foreach ($hosts as $host) {
     }
   }
 }
+
+$inventoryContent = implode("", $lines);
+$inventoryFile = dirname(__DIR__) . '/inventory/gcloud';
+echo $inventoryContent;
+file_put_contents($inventoryFile, $inventoryContent);

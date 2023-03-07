@@ -1,5 +1,6 @@
 *~
 ansible/site.retry
+ansible/inventory/gcloud
 
 # These files only have the gitlab_runner_registration_token
 # (too sensitive to have on public repositories)

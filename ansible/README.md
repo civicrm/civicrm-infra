@@ -59,11 +59,7 @@ Google Cloud includes some ephemeral hosts (with short-lived names and IPs).
 If you would like to connect to these with Ansible, then add the dynamic inventory:
 
 1. (__One-Time Setup__) Install Google CLI tools (https://cloud.google.com/sdk/docs/install) and authenticate the connection.
-2. (__Day-to-Day__) Run the `update-gcloud` script:
-
-    ```bash
-    ./bin/update-gcloud | tee inventory/gcloud
-    ```
+2. (__Day-to-Day__) Run the script `./bin/update-gcloud`
 
 To change the naming or grouping conventions for ephemeral hosts, modify `bin/update-gcloud`. You can
 simply re-run the command to see if it generates the intended inventory.
