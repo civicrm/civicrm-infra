@@ -107,3 +107,17 @@ Of course, we always aim to improve the security model. This is only a quick ove
 * When doing changes to the playbooks, commit as your own user, so that we know "who changed what".
 
 * Similarly, when running ansible-deploy, do so as your user, this way the {{ ansible_managed }} tag shows your name.
+
+* Common commands for deploying buildkit updates:
+
+    ```bash
+    ## Include an ephemeral worker nodes
+    ./bin/update-gcloud
+
+    ## Push updates for Jenkins jobs and control scripts on test nodes (/opt/buildkit)
+    ansible-playbook playbooks/buildkit/update_opt.yml
+    ansible-playbook playbooks/buildkit/update_opt_bin.yml
+
+    ## Push updates for buildkit tools (/opt/buildkit and /home/*/bknix*), but _not_ system services
+    ansible-playbook playbooks/buildkit/update_all_repos.yml
+    ```
