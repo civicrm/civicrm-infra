@@ -9,6 +9,28 @@
 ## the approach here is that we can use `gcloud auth login` (which is a bit
 ## easier than manually configuring JSON keys).
 
+/**
+ * Generate the inventory record for the host.
+ *
+ * @param string $hostname
+ *   Ex: 'bknix-r5-abcde'
+ * @param string $ip
+ *   Public IPv4 address
+ * @param object $host
+ *   Full host record
+ *   Ex: "bknix-r5-abcde.gcloud ansible_ssh_host=1.2.3.4"
+ */
+function createInventoryRecord(string $hostname, string $ip, $host): string {
+  $parts = [];
+  $parts[] = "{$hostname}.gcloud";
+  $parts[] = "ansible_ssh_host={$ip}";
+  if (preg_match('/^bknix-r\d/', $hostname)) {
+    $parts[] = "ansible_ssh_common_args='-o StrictHostKeyChecking=no'";
+    // Ugh, sometimes IP is re-used but the host-key changes.
+  }
+  return implode(' ', $parts);
+}
+
 // $json = file_get_contents('tmp/gcloud-compute-instances-list.json');
 $json = `gcloud compute instances list --project=nifty-buffer-107523 --format=json`;
 $hosts = json_decode($json);
@@ -23,10 +45,7 @@ foreach ($hosts as $host) {
   foreach ($host->networkInterfaces as $networkInterfaces) {
     foreach ($networkInterfaces->accessConfigs as $accessConfig) {
       if (!empty($accessConfig->natIP)) {
-        $lines[] = sprintf("%s ansible_ssh_host=%s\n",
-          $host->name,
-          $accessConfig->natIP
-        );
+        $lines[] = createInventoryRecord($host->name, $accessConfig->natIP, $host) . "\n";
       }
     }
   }
