@@ -3,7 +3,7 @@
 ##       (With small variations depending on the host-group/name)
 
 - name: "Update /opt/buildkit and binaries (long-term hosts)"
-  hosts: "bknix-ci:bknix-r5-*"
+  hosts: "bknix_ci:bknix-r5-*"
   become: yes
   become_user: root
   tasks:
@@ -35,7 +35,7 @@
         group: root
         mode: 0755
 - name: "Update /opt/buildkit and binaries (runner hosts)"
-  hosts: "bknix-runner"
+  hosts: "bknix_runner"
   become: yes
   become_user: root
   tasks:

@@ -147,9 +147,9 @@ www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
 
 ## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-ci.sh` script.
-[bknix-ci]
+[bknix_ci]
 test-[1:3].civicrm.org
 rabul-t450s.fairuse.org
 
 ## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-runner.sh` script.
-[bknix-runner]
+[bknix_runner]
