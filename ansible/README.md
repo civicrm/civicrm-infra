@@ -29,28 +29,28 @@ Run a dry-run simulation of the playbook:
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production --check ./site.yml
+ansible-playbook --check ./site.yml
 ```
 
 Run on a specific node:
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production --check -l log.civicrm.osuosl.org ./site.yml
+ansible-playbook --check -l log.civicrm.osuosl.org ./site.yml
 ```
 
 Run on a specific node with a specific tag
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production --check -l log.civicrm.osuosl.org --tags logstash-servers ./site.yml
+ansible-playbook --check -l log.civicrm.osuosl.org --tags logstash-servers ./site.yml
 ```
 
 Do an actual run (not simulated) on a specific node (you probably never want to run this globally):
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production -l log.civicrm.osuosl.org ./site.yml
+ansible-playbook -l log.civicrm.osuosl.org ./site.yml
 ```
 
 ### Managing a host in Ansible
