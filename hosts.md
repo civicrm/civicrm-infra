@@ -171,8 +171,8 @@ Physical Servers
       <td>barbecue</td>
       <td>civicrm.org</td>
       <td>Debian 9</td>
-      <td>147.135.8.111</td>
-      <td>cores=4/8 (i7-7700k) ram=64gb ssd=??? (updated: 2019-11-27)</td>
+      <td>15.235.112.148</td>
+      <td>cores=8/16 (Ryzen 7 5800X) ram=128GB ssd=2x960GB (setup: 2023-04-08; updated: 2023-04-08)</td>
       <td>virt-install</td>
     </tr>
     <tr>
