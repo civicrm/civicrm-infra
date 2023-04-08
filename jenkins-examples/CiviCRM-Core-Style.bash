@@ -6,13 +6,12 @@ if [ -e $HOME/.profile ]; then . $HOME/.profile; fi
 eval $(use-bknix "dfl")
 if [ -z "$BKITBLD" ]; then echo "Invalid BKPROF"; exit 1; fi
 
-## Job Name: CiviCRM-Core-PR
-## Job Description: Monitor civicrm-core.git for proposed changes
-##    For any proposed changes, run a few "smoke tests"
+## Job Name: CiviCRM-Core-Style
+## Job Description: Check that patch has compliant code-style
 ## Job GitHub Project URL: https://github.com/civicrm/civicrm-core
 ## Job Source Code Management: None
 ## Job Triggers: GitHub pull-requests
-## Job xUnit Files: WORKSPACE/output/*.xml
+## Job CheckstyleFiles: WORKSPACE/checkstyle/*.xml
 ## Useful vars: $ghprbTargetBranch, $ghprbPullId, $sha1
 ## Pre-requisite: Install bknix (install-ci.sh)
 ## Pre-requisite: Configure DNS and Apache vhost to support wildcards (e.g. *.test-ubu1204-5.civicrm.org)
@@ -32,24 +31,33 @@ GUARD=
 
 ## Build definition
 ## Note: Suffixes are unique within a period of 180 days.
-BLDTYPE="drupal-clean"
-BLDNAME="core-$ghprbPullId-$(php -r 'echo base_convert(time()%(180*24*60*60), 10, 36);')"
+BLDTYPE="dist"
+BLDNAME="build-$EXECUTOR_NUMBER"
 BLDDIR="$BKITBLD/$BLDNAME"
+CHECKSTYLEDIR="$WORKSPACE/checkstyle"
 EXITCODES=""
-
-export TIME_FUNC="linear:500"
 
 #################################################
 ## Cleanup left-overs from previous test-runs
+[ -d "$CHECKSTYLEDIR" ] && $GUARD rm -rf "$CHECKSTYLEDIR"
 [ -d "$BLDDIR" ] && $GUARD civibuild destroy "$BLDNAME"
+[ ! -d "$CHECKSTYLEDIR" ] && $GUARD mkdir "$CHECKSTYLEDIR"
 
 #################################################
 ## Report details about the test environment
 civibuild env-info
 
-## Download dependencies, apply patches, and perform fresh DB installation
+## Download dependencies, apply patches
 $GUARD civibuild download "$BLDNAME" --type "$BLDTYPE" --civi-ver "$ghprbTargetBranch" \
   --patch "https://github.com/civicrm/civicrm-core/pull/${ghprbPullId}"
 
-## No obvious problems blocking a build...
-$GUARD civibuild install "$BLDNAME"
+## Check style first; fail quickly if we break style
+$GUARD pushd "$BLDDIR/src"
+  if git diff --name-only "origin/$ghprbTargetBranch.." | $GUARD civilint --checkstyle "$CHECKSTYLEDIR" - ; then
+    echo "Style passed"
+  else
+    echo "Style error"
+    exit 1
+  fi
+$GUARD popd
+
