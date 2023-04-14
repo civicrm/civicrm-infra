@@ -35,13 +35,17 @@ significant change, one should make a new baseline/snapshot (with changes baked-
                 * You can check on its progress (`sudo journalctl -u google-startup-scripts.service`)
             * You can do a similar update manually:
                 ```bash
-                sudo -i bash -c '(cd /opt/buildkit/ && git pull && ./nix/bin/reset-ci.sh gcloud)'
+                sudo -i bash -c '(cd /opt/buildkit/ && git pull && ./nix/bin/install-runner.sh)'
                 ```
             * If you want to test things out, you might create some example builds (and then destroy them).
                 ```bash
-                sudo -iu jenkins use-bknix min -s
+                sudo -iu dispatcher run-bknix-job --mock min shell
                 civibuild create delme-1-1 --type drupal-clean
                 civibuild destroy delme-1-1
+                ```
+            * Tidy up
+                ```bash
+                sudo -i bash -c '(cd /opt/buildkit/ && ./nix/bin/tidy-gcloud.sh)'
                 ```
     * Shutdown the base VM
         * __CLI__: `gcloud compute instances stop bknix-run`
@@ -58,7 +62,7 @@ significant change, one should make a new baseline/snapshot (with changes baked-
 * Create/update the "Instance Template" (`bknix-run-YYYY-MM-DD`)
     * __Note__: In Gcloud, the "Instance Template" describes configuration options for future VMs (eg RAM/CPU/disk/networking). We will create a new/updated template (`bknix-n2s4-preempt-NN`).
     * __Web UI__: Navigate to https://console.cloud.google.com/compute/instanceTemplates/list?project=nifty-buffer-107523
-        * Find and open the most recent template (eg `bknix-n2s4-preempt-NN`)
+        * Find and open the most recent template (eg `bknix-run-YYYY-MM-DD`)
         * Click "Create Similar"
         * Keep most settings, but...
         * Change the boot disk image to the "Custom" image named `bknix-run-img-YYYY-MM-DD`
