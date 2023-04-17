@@ -16,6 +16,7 @@ lab.civicrm.org # OSUOSL cluster
 latest.civicrm.org # OSUOSL cluster
 manage.civicrm.osuosl.org # OSUOSL cluster
 rabul-t450s.fairuse.org ansible_ssh_port=58 ## Old laptop. Firewalled/SSH-only access.
+test-4.fairuse.org ansible_ssh_port=54 ## Firewalled/SSH-only access.
 spark-1.civicrm.org # Linode
 spark-2.civicrm.org # Linode
 test.civicrm.org ansible_ssh_host=35.226.128.213 # Google
