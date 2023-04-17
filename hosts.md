@@ -216,6 +216,14 @@ Physical Servers
       <td>Extra Jenkins worker. Behind NAT firewall. Use alt ssh port.</td>
     </tr>
     <tr>
+      <td>test-4</td>
+      <td>fairuse.org</td>
+      <td>Ubuntu 22.04 LTS (Jammy)</td>
+      <td>dynamic</td>
+      <td>cores=6/12 (i5-12500t) ram=24gb ssd=1x250gb (updated: 2023-03-10)</td>
+      <td>Extra Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io).</td>
+    </tr>
+    <tr>
       <td>civicrm1</td>
       <td></td>
       <td>?? (Ganeti)</td>
