@@ -171,9 +171,9 @@ Physical Servers
       <td>barbecue</td>
       <td>civicrm.org</td>
       <td>Debian 9</td>
-      <td>147.135.8.111</td>
-      <td>cores=4/8 (i7-7700k) ram=64gb ssd=??? (updated: 2019-11-27)</td>
-      <td>virt-install</td>
+      <td>15.235.112.148</td>
+      <td>cores=8/16 (AMD 5800X) ram=128gb ssd=2x1tb (updated: 2023-04-17)</td>
+      <td>Aliased as "test-3"</td>
     </tr>
     <tr>
       <td>✗ biryani</td>
@@ -210,18 +210,18 @@ Physical Servers
     <tr>
       <td>rabul-t450s</td>
       <td>fairuse.org</td>
-      <td>Ubuntu 20.04 LTS (Focal)</td>
+      <td>Ubuntu 22.04 LTS (Jammy)</td>
       <td>dynamic</td>
-      <td>cores=2/4 (i5-5300u) ram=12gb ssd=1x120gb (updated: 2021-09-14)</td>
-      <td>Extra Jenkins worker. Behind NAT firewall. Use alt ssh port.</td>
+      <td>cores=2/4 (i5-5300u) ram=12gb ssd=1x120gb (updated: 2023-04-17)</td>
+      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 58.</td>
     </tr>
     <tr>
       <td>test-4</td>
       <td>fairuse.org</td>
       <td>Ubuntu 22.04 LTS (Jammy)</td>
       <td>dynamic</td>
-      <td>cores=6/12 (i5-12500t) ram=24gb ssd=1x250gb (updated: 2023-03-10)</td>
-      <td>Extra Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io).</td>
+      <td>cores=6/12 (i5-12500t) ram=24gb ssd=1x250gb (updated: 2023-04-17)</td>
+      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io).</td>
     </tr>
     <tr>
       <td>civicrm1</td>
