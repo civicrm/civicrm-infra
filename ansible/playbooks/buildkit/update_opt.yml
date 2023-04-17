@@ -2,7 +2,7 @@
 ## TLDR: su; cd /opt/buildkit && git pull
 
 - name: "Update /opt/buildkit"
-  hosts: "bknix_ci:bknix_runner:bknix-r5-*"
+  hosts: "bknix_ci:bknix_runner:bknix-r5-*:bknix-run-*"
   become: yes
   become_user: root
   tasks:

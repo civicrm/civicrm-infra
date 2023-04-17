@@ -4,7 +4,7 @@
 ## On these hosts, `/opt/buildkit` is a collection of control scripts - used to manage the real instances of buildkit.
 
 - name: "Update all buildkit checkouts"
-  hosts: "bknix_ci:bknix_runner:bknix-r5-*"
+  hosts: "bknix_ci:bknix_runner:bknix-r5-*:bknix-run-*"
   become: yes
   become_user: root
   tasks:

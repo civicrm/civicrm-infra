@@ -35,7 +35,7 @@
         group: root
         mode: 0755
 - name: "Update /opt/buildkit and binaries (runner hosts)"
-  hosts: "bknix_runner"
+  hosts: "bknix_runner:bknix-run-*"
   become: yes
   become_user: root
   tasks:
@@ -63,6 +63,14 @@
         remote_src: true
         src: /opt/buildkit/nix/bin/run-bknix-job
         dest: /usr/local/bin/run-bknix-job
+        owner: root
+        group: root
+        mode: 0755
+    - name: "Update /usr/local/bin/homerdo"
+      copy:
+        remote_src: true
+        src: /opt/buildkit/nix/bin/homerdo
+        dest: /usr/local/bin/homerdo
         owner: root
         group: root
         mode: 0755
