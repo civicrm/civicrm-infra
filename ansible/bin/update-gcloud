@@ -18,6 +18,8 @@
  *   Public IPv4 address
  * @param object $host
  *   Full host record
+ * @return string
+ *   Ansible inventory item
  *   Ex: "bknix-r5-abcde.gcloud ansible_ssh_host=1.2.3.4"
  */
 function createInventoryRecord(string $hostname, string $ip, $host): string {
