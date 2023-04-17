@@ -16,7 +16,7 @@ lab.civicrm.org # OSUOSL cluster
 latest.civicrm.org # OSUOSL cluster
 manage.civicrm.osuosl.org # OSUOSL cluster
 rabul-t450s.fairuse.org ansible_ssh_port=58 ## Old laptop. Firewalled/SSH-only access.
-test-4.fairuse.org ansible_ssh_port=54 ## Firewalled/SSH-only access.
+test-4.fairuse.org ansible_ssh_port=55 ## Firewalled/SSH-only access.
 spark-1.civicrm.org # Linode
 spark-2.civicrm.org # Linode
 test.civicrm.org ansible_ssh_host=35.226.128.213 # Google
@@ -149,8 +149,11 @@ www-prod.civicrm.osuosl.org
 
 ## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-ci.sh` script.
 [bknix_ci]
-test-[1:3].civicrm.org
-rabul-t450s.fairuse.org
+test-1.civicrm.org
+test-2.civicrm.org
 
 ## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-runner.sh` script.
 [bknix_runner]
+test-3.civicrm.org
+test-4.fairuse.org
+rabul-t450s.fairuse.org
