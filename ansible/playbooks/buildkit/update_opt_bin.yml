@@ -69,7 +69,7 @@
     - name: "Update /usr/local/bin/homerdo"
       copy:
         remote_src: true
-        src: /opt/buildkit/nix/bin/homerdo
+        src: /opt/buildkit/bin/homerdo
         dest: /usr/local/bin/homerdo
         owner: root
         group: root
