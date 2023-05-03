@@ -14,10 +14,11 @@ cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42 # OSUOSL cluster
 lab.civicrm.org # OSUOSL cluster
 latest.civicrm.org # OSUOSL cluster
 manage.civicrm.osuosl.org # OSUOSL cluster
+rabul-t450s.fairuse.org ansible_ssh_port=58 ## Old laptop. Firewalled/SSH-only access.
+test-4.fairuse.org ansible_ssh_port=55 ## Firewalled/SSH-only access.
 spark-1.civicrm.org # Linode
 spark-2.civicrm.org # Linode
 test.civicrm.org ansible_ssh_host=35.226.128.213 # Google
-test-ubu1204-1.civicrm.osuosl.org # OSUOSL
 test-1.civicrm.org # paella.civicrm.org OVH
 test-2.civicrm.org # OSUOSL cluster
 test-3.civicrm.org # OVH baremetal
@@ -51,9 +52,6 @@ www-demo.civicrm.org
 www-demo.civicrm.org
 
 [test_servers]
-test-ubu1204-1.civicrm.osuosl.org
-test-ubu1204-2.civicrm.osuosl.org
-test-ubu1204-3.civicrm.org
 test-1.civicrm.org
 test-2.civicrm.org
 test-3.civicrm.org
@@ -99,7 +97,6 @@ www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
 
 [php7_servers]
-test-ubu1604-1.civicrm.org
 # www-test.civicrm.org
 
 [php56_servers]
@@ -107,7 +104,6 @@ latest.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 
 [php55_servers]
-test-ubu1204-1.civicrm.osuosl.org
 
 # [buildkit_servers]
 # training.civicrm.org
@@ -151,3 +147,14 @@ www-prod.civicrm.osuosl.org
 
 [docker_servers]
 test-1.civicrm.org
+
+## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-ci.sh` script.
+[bknix_ci]
+test-1.civicrm.org
+test-2.civicrm.org
+
+## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-runner.sh` script.
+[bknix_runner]
+test-3.civicrm.org
+test-4.fairuse.org
+rabul-t450s.fairuse.org

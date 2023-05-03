@@ -29,29 +29,40 @@ Run a dry-run simulation of the playbook:
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production --check ./site.yml
+ansible-playbook --check ./site.yml
 ```
 
 Run on a specific node:
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production --check -l log.civicrm.osuosl.org ./site.yml
+ansible-playbook --check -l log.civicrm.osuosl.org ./site.yml
 ```
 
 Run on a specific node with a specific tag
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production --check -l log.civicrm.osuosl.org --tags logstash-servers ./site.yml
+ansible-playbook --check -l log.civicrm.osuosl.org --tags logstash-servers ./site.yml
 ```
 
 Do an actual run (not simulated) on a specific node (you probably never want to run this globally):
 
 ```
 cd civicrm-infra/ansible/
-ansible-playbook -i production -l log.civicrm.osuosl.org ./site.yml
+ansible-playbook -l log.civicrm.osuosl.org ./site.yml
 ```
+
+### Using inventory from Google Cloud
+
+Google Cloud includes some ephemeral hosts (with short-lived names and IPs).
+If you would like to connect to these with Ansible, then add the dynamic inventory:
+
+1. (__One-Time Setup__) Install Google CLI tools (https://cloud.google.com/sdk/docs/install) and authenticate the connection.
+2. (__Day-to-Day__) Run the script `./bin/update-gcloud`
+
+To change the naming or grouping conventions for ephemeral hosts, modify `bin/update-gcloud`. You can
+simply re-run the command to see if it generates the intended inventory.
 
 ### Managing a host in Ansible
 
@@ -96,3 +107,17 @@ Of course, we always aim to improve the security model. This is only a quick ove
 * When doing changes to the playbooks, commit as your own user, so that we know "who changed what".
 
 * Similarly, when running ansible-deploy, do so as your user, this way the {{ ansible_managed }} tag shows your name.
+
+* Common commands for deploying buildkit updates:
+
+    ```bash
+    ## Include an ephemeral worker nodes
+    ./bin/update-gcloud
+
+    ## Push updates for Jenkins jobs and control scripts on test nodes (/opt/buildkit)
+    ansible-playbook playbooks/buildkit/update_opt.yml
+    ansible-playbook playbooks/buildkit/update_opt_bin.yml
+
+    ## Push updates for buildkit tools (/opt/buildkit and /home/*/bknix*), but _not_ system services
+    ansible-playbook playbooks/buildkit/update_all_repos.yml
+    ```

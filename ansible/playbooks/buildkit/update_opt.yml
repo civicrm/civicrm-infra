@@ -1,0 +1,10 @@
+## USE-CASE: You've just updated the Jenkins job-definitions and want to push the updates to live all workers.
+## TLDR: su; cd /opt/buildkit && git pull
+
+- name: "Update /opt/buildkit"
+  hosts: "bknix_ci:bknix_runner:bknix-r5-*:bknix-run-*"
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Update /opt/buildkit"
+      git: repo=https://github.com/civicrm/civicrm-buildkit dest=/opt/buildkit version=master

@@ -1,7 +1,10 @@
 ---
 
 # Update the buildkit installation
+# Note: The file layout here is a bit older. At time of writing, suspect it only applies ot `www-demo`. Haven't really tried this playbook in a long time.
 # To use it: $ ansible-playbook ./playbooks/buildkit_update.yml
+
+## TLDR: su jenkins; cd /srv/buildkit && git pull && ./civi-download-tools
 
 - hosts: test-servers
   tasks:
