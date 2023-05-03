@@ -1,4 +1,4 @@
-phpversion: 7.3
+phpversion: 7.4
 
 logstash_forwarder_files:
   - paths:
