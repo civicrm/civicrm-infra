@@ -94,7 +94,7 @@ unclassified_servers
 [icinga_satellite:children]
 servers
 
-[php72_servers]
+[php_servers]
 www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
 
@@ -148,3 +148,6 @@ test.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
+
+[docker_servers]
+test-1.civicrm.org
