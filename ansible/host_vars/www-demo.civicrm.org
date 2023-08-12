@@ -21,6 +21,8 @@ preseed_ipv6_gateway: 2607:5300:0060:71ff:ff:ff:ff:ff
 # ip route add 167.114.158.254 dev ens3
 # ip route add default via 167.114.158.254 dev ens3
 
+phpversion: 7.4
+
 backups_exclude_extras:
   - /srv/buildkit/build
   - /srv/buildkit/app/tmp

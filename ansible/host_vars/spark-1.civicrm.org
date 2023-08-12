@@ -8,3 +8,7 @@ preseed_ipv6_address: 2600:3c03::f03c:91ff:fe29:3a07
 icinga2_conf_host_import: tpl-civicrm-aegir-host
 icinga2_disable_all_civicrm_notifications: 1
 icinga2_disable_all_http200_checks: 1
+
+# 12.38.162.160/28 for parf.civicrm.org (Hendricks)
+# 66.187.29.0/24 for gizmocda (jamesf)
+fail2ban_ignoreip: 127.0.0.1/8 12.38.162.160/28 66.187.29.0/24

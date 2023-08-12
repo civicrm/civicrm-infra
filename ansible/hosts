@@ -5,7 +5,6 @@
 # The most generic role at the moment is 'servers', but we want to encourage
 # admins to classify servers so that we have a better idea of what they do.
 #
-barbecue.civicrm.org # OVH baremetal
 paella.civicrm.org # OVH baremetal
 newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28 # OSUOSL baremetal
 backups-1.civicrm.org # Google
@@ -22,7 +21,7 @@ spark-2.civicrm.org # Linode
 test.civicrm.org ansible_ssh_host=35.226.128.213 # Google
 test-1.civicrm.org # paella.civicrm.org OVH
 test-2.civicrm.org # OSUOSL cluster
-test-3.civicrm.org # barbecue.civicrm.org OVH
+test-3.civicrm.org # OVH baremetal
 www-cxn-2.civicrm.osuosl.org # OSUOSL cluster
 www-prod.civicrm.osuosl.org # OSUOSL cluster
 www-prod-2.civicrm.org # Linode
@@ -79,7 +78,6 @@ test.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 
 [kvm_servers]
-barbecue.civicrm.org
 paella.civicrm.org
 
 [servers:children]
@@ -94,7 +92,7 @@ unclassified_servers
 [icinga_satellite:children]
 servers
 
-[php72_servers]
+[php_servers]
 www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
 
@@ -146,6 +144,9 @@ test.civicrm.org
 www-cxn-2.civicrm.osuosl.org
 www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
+
+[docker_servers]
+test-1.civicrm.org
 
 ## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-ci.sh` script.
 [bknix_ci]

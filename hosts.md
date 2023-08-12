@@ -168,12 +168,12 @@ Physical Servers
   </thead>
   <tbody>
     <tr>
-      <td>barbecue</td>
+      <td>test-3</td>
       <td>civicrm.org</td>
       <td>Debian 9</td>
       <td>15.235.112.148</td>
       <td>cores=8/16 (AMD 5800X) ram=128gb ssd=2x1tb (updated: 2023-04-17)</td>
-      <td>Aliased as "test-3"</td>
+      <td>Previously barbecue</td>
     </tr>
     <tr>
       <td>✗ biryani</td>

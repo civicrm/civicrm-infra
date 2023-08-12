@@ -1,7 +1,8 @@
 ---
-filebeat_logstash_server: log.symbiotic.coop
-filebeat_logstash_port: 5000
 icinga2_main_node: icinga.symbiotic.coop
+
+borgmatic_backupserver: civicrm-sushi-spare.osuosl.org
+borgmatic_server_basedir: /srv/backups
 
 backupserver_hourly: civicrm-sushi-spare.osuosl.org
 backupserver_daily: backups-1.civicrm.org
@@ -39,6 +40,15 @@ ufw_icinga_allow_src:
   - 205.204.73.202 # icinga.s.c
 
 ufw_ipv4_allow_ssh: true
+
+borgmatic_backupserver: sushi.civicrm.org
+
+# Better than no password at all
+# but too much complexity could also mean losing the backup key.
+borgmatic_passphrase: civibackups
+
+# Mount requires sudo pass
+borgmatic_sudorule: "(root)"
 
 gitlab_runner_coordinator_url: "https://lab.civicrm.org"
 gitlab_runner_description: "{{ ansible_hostname }}"
