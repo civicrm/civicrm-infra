@@ -1,6 +1,4 @@
----
-
-backups_include_extras:
+backupincludes:
     - /opt
 
 # Reduce noize from bots
@@ -31,4 +29,3 @@ ufw_extra:
     src: 140.211.167.144/32
     rule: allow
     description: "Allow inbound ssh for manage.c.o.o, in case someone does not have ipv6."
-

@@ -1,4 +1,4 @@
-backups_include_extras:
+backupincludes:
     - /home/releaser/.gnupg
     - /home/releaser/archive-esr
 

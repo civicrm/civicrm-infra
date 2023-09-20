@@ -1,16 +1,5 @@
 phpversion: 7.4
 
-logstash_forwarder_files:
-  - paths:
-      - /var/log/messages
-      - /var/log/auth.log
-    fields:
-      type: syslog
-  - paths:
-      - /var/log/nginx/access.log
-    fields:
-      type: nginx-access
-
 # Reduce noize from bots
 ufw_ipv4_allow_ssh: false
 
@@ -76,16 +65,11 @@ ufw_extra:
     rule: allow
     description: "Allow inbound ssh for test.c.o, who launches an agent via ssh for extdir."
 
-backups_exclude_extras:
+backupexcludes:
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/ConfigAndLog/*
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/templates_c/*
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/js
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/css
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/styles
-  - /var/www/civicrm-website-org-DEPRECATED_MOVED_TO_AEGIR
-  - /var/www/civicrm-ac/var/cache
-  - /var/www/civicrm-docs/var/cache
-  - /var/www/civicrm-docs/var/repos
-  - /var/www/civicrm-docs/var/sessions
 
 backups_mysqldump: true

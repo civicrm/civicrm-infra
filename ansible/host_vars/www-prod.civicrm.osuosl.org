@@ -1,14 +1,3 @@
-logstash_forwarder_files:
-  - paths:
-      - /var/log/messages
-      - /var/log/auth.log
-    fields:
-      type: syslog
-  - paths:
-      - /var/log/nginx/access.log
-    fields:
-      type: nginx-access
-
 ufw_extra:
   sympamysql:
     proto: tcp
@@ -23,13 +12,7 @@ ufw_extra:
     rule: allow
     description: "For https cert testing, part of the test suite, see INFRA-225."
 
-backups_exclude_extras:
-  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/ConfigAndLog/*
-  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/templates_c/*
-  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/js
-  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/css
-  - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/styles
-  - /var/www/civicrm-website-org-DEPRECATED_MOVED_TO_AEGIR
+backupexcludes:
   - /var/www/civicrm-ac/var/cache
   - /var/www/civicrm-docs/var/cache
   - /var/www/civicrm-docs/var/repos

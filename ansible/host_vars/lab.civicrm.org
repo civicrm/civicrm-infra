@@ -1,7 +1,8 @@
-backups_include_extras:
-  - /var/opt/gitlab/backups
-  - /var/opt/gitlab/git-data/
-  - /var/opt/gitlab/gitlab-rails/uploads
+# /var is included by default, so this does not seem necessary
+# backups_include_extras:
+#   - /var/opt/gitlab/backups
+#   - /var/opt/gitlab/git-data/
+#   - /var/opt/gitlab/gitlab-rails/uploads
 
 backupexcludes:
   - /var/opt/gitlab/prometheus/data_tmp
@@ -11,5 +12,3 @@ backupexcludes:
   - /var/opt/gitlab/nginx
   - /var/opt/gitlab/redis
   - /var/opt/gitlab/grafana
-
-backupninja_rdiff_keep: 20D
