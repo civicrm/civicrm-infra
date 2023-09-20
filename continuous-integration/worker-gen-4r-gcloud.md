@@ -26,7 +26,7 @@ significant change, one should make a new baseline/snapshot (with changes baked-
 * Update the VM "Instance" (`bknix-run`)
     * __Note__: In Gcloud, the "Instance" is a specific virtual-machine. We have an idle VM that is handy for preparing updates.
     * Start the base VM
-        * __CLI__: `gcloud compute instances start bknix-run`
+        * __CLI__: `gcloud compute instances start bknix-runner-base`
         * __Web UI__: Navigate to https://console.cloud.google.com/compute/instances?project=nifty-buffer-107523
     * Update the base VM
         * __CLI__:
@@ -48,14 +48,14 @@ significant change, one should make a new baseline/snapshot (with changes baked-
                 sudo -i bash -c '(cd /opt/buildkit/ && ./nix/bin/tidy-gcloud.sh)'
                 ```
     * Shutdown the base VM
-        * __CLI__: `gcloud compute instances stop bknix-run`
+        * __CLI__: `gcloud compute instances stop bknix-runner-base`
         * __Web UI__: Navigate to https://console.cloud.google.com/compute/instances?project=nifty-buffer-107523
 * Create/update the "Image" (`bknix-run-img-YYYY-MM-DD`)
     * __Note__: In Gcloud, the "Image" is a large binary blob. We will create a new/updated image (`bknix-run-img-YYYY-MM-DD`).
     * __CLI__:
         ```bash
         gcloud compute images create --project=nifty-buffer-107523 \
-          --source-disk=bknix-run --source-disk-zone=us-west1-b \
+          --source-disk=bknix-runner-base --source-disk-zone=us-central1-f \
           --storage-location=us --family=bknix-run-img bknix-run-img-YYYY-MM-DD
         ```
     * __Web UI__: https://console.cloud.google.com/compute/images?tab=images&project=nifty-buffer-107523
@@ -65,8 +65,8 @@ significant change, one should make a new baseline/snapshot (with changes baked-
         * Find and open the most recent template (eg `bknix-run-YYYY-MM-DD`)
         * Click "Create Similar"
         * Keep most settings, but...
-        * Change the boot disk image to the "Custom" image named `bknix-run-img-YYYY-MM-DD`
+        * Change the boot disk image to the "Custom" image named `bknix-run-img-YYYY-MM-DD` (60gb limit)
 * Use the updated template
     * __Web UI__: Navigate to https://test.civicrm.org/configureClouds/
        * Find the "Machinge configuration" for bknix.
-       * Update the "Template to use" (`bknix-n2s4-preempt-NN`)
+       * Update the "Template to use" (`bknix-run-YYYY-MM-DD`)
