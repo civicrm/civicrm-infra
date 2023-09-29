@@ -1,5 +1,6 @@
 ---
 icinga2_main_node: icinga.symbiotic.coop
+promtail_push_url: https://icinga.symbiotic.coop:443/loki/api/prom/push
 
 borgmatic_backupserver: civicrm-sushi-spare.osuosl.org
 borgmatic_server_basedir: /srv/backups
