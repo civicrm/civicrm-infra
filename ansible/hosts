@@ -8,7 +8,7 @@
 paella.civicrm.org # OVH baremetal
 newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28 # OSUOSL baremetal
 backups-1.civicrm.org # Google
-botdylan.civicrm.org # OSUOSL cluster
+botdylan.civicrm.org # paella.civicrm.org OVH
 chat.civicrm.org # OSUOSL cluster
 cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42 # OSUOSL cluster
 lab.civicrm.org # OSUOSL cluster
