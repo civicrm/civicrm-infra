@@ -1,5 +1,4 @@
-LDAP for CiviCRM.org websites
-=============================
+# LDAP for CiviCRM.org websites
 
 We expose the civicrm.org database as an LDAP server using LdapJS.
 This is made possible using the following bits:
@@ -7,8 +6,7 @@ This is made possible using the following bits:
 * CiviCRM extension: https://github.com/mlutfy/org.civicrm.ldapauthapi
 * CiviLDAP forked from: https://github.com/TechToThePeople/ldapcivi (patch: https://gist.github.com/mlutfy/17622c2764472fbf71d0)
 
-Gitlab
-------
+## Gitlab
 
 Edit the file `/etc/gitlab/gitlab.rb`, configure:
 
@@ -74,11 +72,39 @@ main:
 EOS
 ```
 
-Confluence
-----------
+## Debugging LDAP auth
 
-NB: LDAP on Confluence is broken. The Java version seems to have problems with
-the letsencrypt certificate [reference](https://chat.civicrm.org/civicrm/pl/d37gtimzb3yeingdbe3bcun57o).
+* Make sure that the `ldapcivi` service is running on www-prod-2 (it is monitored) and that the https cert is valid (also monitored)
+* Look for logs on www-prod-2 using `tail -F /var/log/nginx/error.log`
+* Look for logs on www-prod-2 using `journalctl -f -u ldapcivi` (the ldapcivi services logs to stderr and it is very verbose)
+
+Testing on the command line, from lab.civicrm.org, using a test account (bgmtest) and the password for that user, should return something like the output below. This can help avoid getting banned from too many attempts on Gitlab.
+
+```
+root@lab:~# ldapsearch -H ldaps://civicrm.org:1389 -x -D cn=bgmtest,dc=civicrm,dc=org -W -b dc=civicrm,dc=org uid=bgmtest  \*
+Enter LDAP Password:
+[...]
+# bgmtest, civicrm.org
+dn: cn=bgmtest, dc=civicrm, dc=org
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+gidNumber: 999
+cn: bgmtest
+posixAcccount: bgmtest
+uid: bgmtest
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 2
+# numEntries: 1
+```
+
+## Confluence (deprecated)
+
+(we do not use this anymore, we keep this doc just for reference, might help for other software)
 
 * Go to Space > Administration, then from the menu click on "User Directories".
 * Click on "Add directory", select "type = LDAP".
@@ -96,20 +122,3 @@ Parameters:
 * LDAP Authorizations: Default group: confluence-users
 * Schema options: LDAP username RDN: cn
 * Schema options: Password encoding: plaintext
-
-JIRA
-----
-
-* Click on the "Gear icon" > User management, then from the left-hand menu, click on "User Directories".
-* Click on "Add directory", then select "type = LDAP".
-
-Parameters are the same as for Confluence (above), except:
-
-* LDAP Permissions > Default group memberships: jira-users.
-* JIRA will warn that some tests failed, but it works anyway.
-
-Disable JIRA account creation:
-
-* <strike>Click on the "Gear icon" > System, then click on the "Edit settings" button on the right side of the screen.</strike>
-* <strike>Change the "Mode" from "public" to "private".</strike>
-* Since JIRA doesn't make it easy to customize the instructions on how to create an account (when account creation is disabled), we have an Apache redirection to the account creation page on civicrm.org (`RewriteRule ^/jira/secure/Signup.*jspa$ https://civicrm.org/user/register [NE,L,R=302]`).
