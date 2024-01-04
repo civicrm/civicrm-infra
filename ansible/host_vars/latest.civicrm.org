@@ -12,9 +12,9 @@ preseed_ipv4_netmask: 255.255.255.255
 preseed_ipv4_gateway: 192.95.2.135
 preseed_ipv4_bridged_gateway: 167.114.158.254
 preseed_ipv4_nameservers: 8.8.8.8
-preseed_ipv6_address: 2607:5300:60:71d0:700::/80
-preseed_ipv6_route: 2607:5300:0060:71ff:ff:ff:ff:ff
-preseed_ipv6_gateway: 2607:5300:0060:71ff:ff:ff:ff:ff
+preseed_ipv6_address: 2607:5300:203:6713:700::/80
+preseed_ipv6_route: 2607:5300:203:67ff:ff:ff:ff:ff
+preseed_ipv6_gateway: 2607:5300:203:67ff:ff:ff:ff:ff
 preseed_language: en
 preseed_country: CA
 preseed_locale: en_US.utf8
