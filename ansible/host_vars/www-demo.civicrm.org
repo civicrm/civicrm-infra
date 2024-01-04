@@ -15,6 +15,10 @@ preseed_ipv4_nameservers: 8.8.8.8
 preseed_ipv6_address: 2607:5300:60:71d0:600::/80
 preseed_ipv6_route: 2607:5300:0060:71ff:ff:ff:ff:ff
 preseed_ipv6_gateway: 2607:5300:0060:71ff:ff:ff:ff:ff
+preseed_language: en
+preseed_country: CA
+preseed_locale: en_US.utf8
+preseed_timezone: America/Toronto
 
 # During FAI:
 # ip a add 192.95.2.129/32 dev ens3
