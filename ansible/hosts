@@ -12,7 +12,7 @@ botdylan.civicrm.org # paella.civicrm.org OVH
 chat.civicrm.org # OSUOSL cluster
 cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42 # OSUOSL cluster
 lab.civicrm.org # OSUOSL cluster
-latest.civicrm.org # OSUOSL cluster
+latest.civicrm.org # paella.civicrm.org OVH
 manage.civicrm.osuosl.org # OSUOSL cluster
 rabul-t450s.fairuse.org ansible_ssh_port=58 ## Old laptop. Firewalled/SSH-only access.
 test-4.fairuse.org ansible_ssh_port=55 ## Firewalled/SSH-only access.

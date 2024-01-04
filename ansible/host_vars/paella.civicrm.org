@@ -25,8 +25,7 @@ kvm_main_ipv4_dns: 8.8.8.8
 kvm_zfs_pool: zpaella
 
 kvm_hosts:
+  - latest.civicrm.org
+  - www-demo.civicrm.org
 
-#   - eu1.civi-go.net
-#   - eu2.civi-go.net
-#   - scc.symbiotic.coop
-#   - makoa1.symbiotic.coop
+# todo: document other hosts
