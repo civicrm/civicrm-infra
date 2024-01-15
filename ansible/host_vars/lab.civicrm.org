@@ -1,5 +1,5 @@
 # /var is included by default, so this does not seem necessary
-# backups_include_extras:
+# backupincludes:
 #   - /var/opt/gitlab/backups
 #   - /var/opt/gitlab/git-data/
 #   - /var/opt/gitlab/gitlab-rails/uploads
