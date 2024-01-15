@@ -1,2 +1,0 @@
-backups_include_extras:
-    - /var/svn
