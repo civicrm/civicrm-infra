@@ -1,0 +1,2 @@
+borgmatic_excludes:
+  - /backup/*/borg
