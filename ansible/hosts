@@ -41,7 +41,6 @@ www-prod-2.civicrm.org
 www-test.civicrm.org
 
 [apache_servers]
-java-prod.civicrm.osuosl.org
 latest.civicrm.org
 test-1.civicrm.org
 test-2.civicrm.org
@@ -111,9 +110,6 @@ www-cxn-2.civicrm.osuosl.org
 [mkdocs_servers]
 www-prod.civicrm.osuosl.org
 
-[jira_servers]
-java-prod.civicrm.osuosl.org
-
 [gitlab_servers]
 lab.civicrm.org
 
@@ -136,7 +132,6 @@ botdylan.civicrm.org
 botdylan.civicrm.org
 chat.civicrm.org
 cxnapp-2.civicrm.org
-java-prod.civicrm.osuosl.org
 lab.civicrm.org
 latest.civicrm.org
 manage.civicrm.osuosl.org
