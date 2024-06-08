@@ -19,6 +19,7 @@ unattended_origins_patterns:
   - o=${distro_id},n=${distro_codename}-updates
   - o=${distro_id},n=${distro_codename}-proposed-updates
   - o=${distro_id},n=${distro_codename},l=${distro_id}-Security
+  - o=${distro_id},n=${distro_codename}-security,l=${distro_id}-Security
   - o=MariaDB,l=MariaDB
   - o=debmon.org,l=debmon.org
   - o=debian icinga-${distro_codename}
