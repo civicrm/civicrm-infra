@@ -27,7 +27,7 @@ unattended_origins_patterns:
   - o=ubuntu icinga-trusty,l=ubuntu icinga-trusty
   - o=packages.gitlab.com/gitlab/gitlab-ce,l=gitlab-ce
   - o=LP-PPA-ondrej-php
-  - o=elastic
+  - o=deb.sury.org,a=${distro_codename}
 
 ufw_munin_allow_src:
   - 162.13.43.63/32
