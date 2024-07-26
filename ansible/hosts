@@ -6,7 +6,7 @@
 # admins to classify servers so that we have a better idea of what they do.
 #
 paella.civicrm.org # OVH baremetal
-newsushi.civicrm.osuosl.org ansible_ssh_host=140.211.166.28 # OSUOSL baremetal
+sushi.civicrm.org ansible_ssh_host=140.211.166.28 # OSUOSL baremetal
 backups-1.civicrm.org # Google
 botdylan.civicrm.org # paella.civicrm.org OVH
 chat.civicrm.org # OSUOSL cluster
@@ -60,7 +60,7 @@ test.civicrm.org
 
 [backup_servers]
 backups-1.civicrm.org
-newsushi.civicrm.osuosl.org
+sushi.civicrm.org
 
 [mattermost_servers]
 chat.civicrm.org
