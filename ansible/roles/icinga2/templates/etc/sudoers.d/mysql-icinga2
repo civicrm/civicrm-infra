@@ -1,2 +1,0 @@
-# {{ ansible_managed }}
-nagios ALL=(root) NOPASSWD: /usr/lib/nagios/plugins/pmp-check-mysql-status *

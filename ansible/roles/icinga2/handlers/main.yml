@@ -1,9 +1,0 @@
----
-- name: restart icinga2
-  service: name=icinga2 state=restarted
-
-- name: restart php-fpm
-  service: name=php7.0-fpm state=restarted
-
-- name: restart graphite
-  service: name=graphite-api state=restarted

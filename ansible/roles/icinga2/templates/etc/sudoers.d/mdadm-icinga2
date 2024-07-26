@@ -1,2 +1,0 @@
-# {{ ansible_managed }}
-{{ icinga2_user }} ALL=(root) NOPASSWD: /usr/local/lib/icinga2-plugins/check_md_raid
