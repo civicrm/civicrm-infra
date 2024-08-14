@@ -73,3 +73,9 @@ backupexcludes:
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/styles
 
 backups_mysqldump: true
+
+borgmatic_backupserver_secondary: backups-1.civicrm.org
+borgmatic_server_basedir_secondary: /backup
+
+# 95.93.184.0/24=josh
+fail2ban_ignoreip: 127.0.0.1/8 95.93.184.0/24
