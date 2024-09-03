@@ -7,6 +7,10 @@ Issues: https://lab.civicrm.org/infrastructure/ops/issues/
 
 ## Related documentation
 
+* CiviCRM docs
+  * Update books from the documentation gitlab sub-groups and publishes them to https://docs.civicrm.org
+  * Some documentation: https://lab.civicrm.org/infra/ops/-/wikis/docs
+
 * CiviCRM statistics generation
   * Fetches data from various sources
   * Git repo: https://lab.civicrm.org/infra/stats-collection
