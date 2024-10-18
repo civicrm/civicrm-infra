@@ -1,4 +1,4 @@
-phpversion: 8.0
+phpversion: 8.2
 
 # required for updating the icinga host file
 preseed_ipv4_address: 23.92.17.192
