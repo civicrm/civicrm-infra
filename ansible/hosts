@@ -113,6 +113,9 @@ www-prod.civicrm.osuosl.org
 [gitlab_servers]
 lab.civicrm.org
 
+[gitlab_runners]
+test-1.civicrm.org
+
 [ldap_servers]
 manage.civicrm.osuosl.org
 
