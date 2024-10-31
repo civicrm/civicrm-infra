@@ -96,13 +96,13 @@ Virtual Servers
       <td>Apache, MySQL, PHP56</td>
     </tr>
     <tr>
-      <td>✗ www-demo</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>140.211.167.151</td>
-      <td></td>
-      <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
-      <td>Apache, MySQL, Drupal, Joomla, WordPress, CiviCRM</td>
+      <td>www-demo</td>
+      <td>paella.osuosl.org</td>
+      <td>Debian 12 (Bookworm)</td>
+      <td>192.95.2.129</td>
+      <td>2607:5300:203:6713:600::</td>
+      <th>cores=2 ram=4gb root=? (updated: 2024-10-31)</th>
+      <td>Apache, MySQL, Drupal, WordPress, CiviCRM</td>
     </tr>
     <tr>
       <td>www-prod</td>
@@ -125,7 +125,7 @@ Virtual Servers
     <tr>
       <td>test-1</td>
       <td>OVH</td>
-      <td>Debian 9 (Stretch)</td>
+      <td>Debian 12 (Bookworm)</td>
       <td>192.95.2.130</td>
       <td></td>
       <th>cores=6 ram=20gb root=150gb (updated: 2018-09-13)</th>
@@ -134,7 +134,7 @@ Virtual Servers
     <tr>
       <td>test-2</td>
       <td>OSUOSL</td>
-      <td>Debian 10 (Buster)</td>
+      <td>Debian 12 (Bookworm)</td>
       <td>140.211.167.149</td>
       <td></td>
       <th>cores=4 ram=8gb root=50gb</th>
@@ -174,14 +174,6 @@ Physical Servers
       <td>15.235.112.148</td>
       <td>cores=8/16 (AMD 5800X) ram=128gb ssd=2x1tb (updated: 2023-04-17)</td>
       <td>Previously barbecue</td>
-    </tr>
-    <tr>
-      <td>✗ biryani</td>
-      <td>osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial Xerus)</td>
-      <td>140.211.166.57</td>
-      <td>cores=2 ram=4gb lvmvg=175gb (updated: 2014-11-09)</td>
-      <td>Releaser. L10n processor. download.civicrm.org, latest.civicrm.org.</td>
     </tr>
     <tr>
       <td>civicrm-sushi-spare</td>

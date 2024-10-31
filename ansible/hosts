@@ -19,9 +19,9 @@ test-4.fairuse.org ansible_ssh_port=55 ## Firewalled/SSH-only access.
 spark-1.civicrm.org # Linode
 spark-2.civicrm.org # Linode
 test.civicrm.org ansible_ssh_host=35.226.128.213 # Google
-test-1.civicrm.org # paella.civicrm.org OVH
-test-2.civicrm.org # OSUOSL cluster
-test-3.civicrm.org # OVH baremetal
+test-1.civicrm.org # bookworm, paella.civicrm.org OVH
+test-2.civicrm.org # bookworm, OSUOSL cluster
+test-3.civicrm.org # bullseye, OVH baremetal
 www-cxn-2.civicrm.osuosl.org # OSUOSL cluster
 www-prod.civicrm.osuosl.org # OSUOSL cluster
 www-prod-2.civicrm.org # Linode
