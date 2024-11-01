@@ -60,31 +60,13 @@ Virtual Servers
       <td>slapd, phpldapadmin -- all firewalled to prevent remote access. For LDAP management instructions, login via SSH and run "sudo cat /root/ldap-notes.txt", enable apache and disable when done</td>
     </tr>
     <tr>
-      <td>✗ svn</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>140.211.167.145</td>
+      <td>test</td>
+      <td>civicrm.org</td>
+      <td>Debian 12 (Bookworm)</td>
+      <td>35.226.128.213</td>
       <td></td>
-      <th>cores=2 ram=2gb hdd=10gb (updated: 2013-11-27)</th>
-      <td>Apache, SVN (read only), ViewVC</td>
-    </tr>
-    <tr>
-      <td>✗ test-debian6-1</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Debian Squeeze</td>
-      <td>140.211.167.146</td>
-      <td></td>
-      <th>cores=2 ram=4gb root=17gb (updated: 2014-10-27)</th>
-      <td>Jenkins (Slave), Apache, MySQL, Drupal, Drush</td>
-    </tr>
-    <tr>
-      <td>✗ test</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>140.211.167.147</td>
-      <td></td>
-      <th>cores=2 ram=3gb root=12gb (updated: 2014-10-27) NB: currently on gcloud (test.civicrm.org)</th>
-      <td>Jenkins (Master), Nginx (for HTTPS), Tomcat (for AJP)</td>
+      <th>cores=1 ram=3.5gb root=50gb (updated: 2024-11-01)</th>
+      <td>Jenkins (Master), Nginx (for HTTPS), PHP (for Duderino). Hosted on Google Cloud.</td>
     </tr>
     <tr>
       <td>www-cxn-2</td>

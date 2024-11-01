@@ -18,7 +18,7 @@ rabul-t450s.fairuse.org ansible_ssh_port=58 ## Old laptop. Firewalled/SSH-only a
 test-4.fairuse.org ansible_ssh_port=55 ## Firewalled/SSH-only access.
 spark-1.civicrm.org # Linode
 spark-2.civicrm.org # Linode
-test.civicrm.org ansible_ssh_host=35.226.128.213 # Google
+test.civicrm.org # bookworm Google
 test-1.civicrm.org # bookworm, paella.civicrm.org OVH
 test-2.civicrm.org # bookworm, OSUOSL cluster
 test-3.civicrm.org # bullseye, OVH baremetal
