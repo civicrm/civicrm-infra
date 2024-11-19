@@ -182,16 +182,8 @@ Physical Servers
       <td>virt-install</td>
     </tr>
     <tr>
-      <td>rabul-t450s</td>
-      <td>fairuse.org</td>
-      <td>Ubuntu 22.04 LTS (Jammy)</td>
-      <td>dynamic</td>
-      <td>cores=2/4 (i5-5300u) ram=12gb ssd=1x120gb (updated: 2023-04-17)</td>
-      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 58.</td>
-    </tr>
-    <tr>
       <td>test-4</td>
-      <td>fairuse.org</td>
+      <td>us.to</td>
       <td>Ubuntu 22.04 LTS (Jammy)</td>
       <td>dynamic</td>
       <td>cores=6/12 (i5-12500t) ram=24gb ssd=1x250gb (updated: 2023-04-17)</td>
