@@ -31,27 +31,23 @@ job-management system focused on CI – and provides a large library of plugins 
           it creates confusion/annoyance for developers reviewing test-results.
         * Spot VMs can be useful for (a) dealing with spikes in demand and (b) dealing with outages/maintenance in the base-capacity.
 
-> TIP: To enable/disable/update the policy on spot VMs, see https://test.civicrm.org/configureClouds/.
-> Note
-
 ## Suggestions
 
 * If we have ample base-capacity and don't need ephemeral nodes:
     * Go to https://test.civicrm.org/configureClouds/. Update the cloud configuration.
     * Drop the instance-limit to 1.
     * Find the general options for `bknix-run`. Set the node "Labels". Ensure they are "disabled" (i.e. `disabled-bknix-tmp disabled-bknix-tmp-edge`). This will prevent Jenkins from spawning more nodes.
-* If the base-capcity isn't doing it and we need more ephemeral nodes:
+* If the base-capacity isn't sufficient (*spikes in demand or maintenance/outages*) and we need more ephemeral nodes:
     * Go to https://test.civicrm.org/configureClouds/. Update the cloud configuration.
-    * Check the instance-limit. Consider raising it to 2-4 nodes. (Note that each node can handle multiple parallel tests.)
-    * Find the general options for `bknix-run`. Set the node "Labels".Ensure thare NOT "disabled" (i.e. `bknix-tmp bknix-tmp-edge`).
+    * Check the instance-limit. Consider raising it to 2-4 nodes. (Note that each node can handle a couple parallel tests.)
+    * Find the general options for `bknix-run`. Set the node "Labels". Ensure thare NOT "disabled" (i.e. `bknix-tmp bknix-tmp-edge`).
 * If `test-4` or `test-5` become non-responsive:
     * Find an Android or iOS device.
     * Install and open the "Tapo" app from "TP-Link".
     * Login with a "TP-Link ID". (Note: the first time you use this, you'll need to create an account. Then go on Mattermost and ask for an invitation to see the devices.)
     * In the "Test Servers: Office", there should be nodes for `test-4` and `test-5` with options to power-off, power-on, and measure power-usage.
 * If `test-4` becomes non-responsive:
-    * (*It's possible to connect to a VPN and use Mesh Commander to open a console. But it's a bit of work, and it's probably not worth documenting since it's only one node... and since you have the other
-      mitigations above.*)
+    * (*It's possible to connect to a VPN and use Mesh Commander to open a console. Cost-benefit of documenting this isn't great -- need multiple credentials+tools, but only get access to one node, and it's very rare to need it. If in doubt, it's probably easier to re-enable gcloud nodes until someone gets physical hands on it.*)
 
 ## Related documents
 
