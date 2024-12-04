@@ -61,7 +61,7 @@ ufw_extra:
   sshjenkins:
     proto: tcp
     port: 22
-    src: 35.226.128.213/32
+    src: 104.154.61.190/32
     rule: allow
     description: "Allow inbound ssh for test.c.o, who launches an agent via ssh for extdir."
 
