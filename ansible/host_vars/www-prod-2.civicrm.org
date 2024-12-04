@@ -1,4 +1,4 @@
-phpversion: 7.4
+phpversion: 8.2
 
 # Reduce noize from bots
 ufw_ipv4_allow_ssh: false
