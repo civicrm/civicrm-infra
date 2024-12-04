@@ -182,20 +182,20 @@ Physical Servers
       <td>virt-install</td>
     </tr>
     <tr>
-      <td>rabul-t450s</td>
-      <td>fairuse.org</td>
+      <td>test-4</td>
+      <td>us.to</td>
       <td>Ubuntu 22.04 LTS (Jammy)</td>
       <td>dynamic</td>
-      <td>cores=2/4 (i5-5300u) ram=12gb ssd=1x120gb (updated: 2023-04-17)</td>
-      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 58.</td>
+      <td>cores=6c/12t (i5-12500t) ram=64gb ssd=1x250gb + 1x1tb (updated: 2024-12-03)</td>
+      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io). vPro AMT via VPN.</td>
     </tr>
     <tr>
-      <td>test-4</td>
-      <td>fairuse.org</td>
+      <td>test-5</td>
+      <td>port0.org</td>
       <td>Ubuntu 22.04 LTS (Jammy)</td>
       <td>dynamic</td>
-      <td>cores=6/12 (i5-12500t) ram=24gb ssd=1x250gb (updated: 2023-04-17)</td>
-      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io).</td>
+      <td>cores=6c+8c/20t (i5-13600t) ram=64gb ssd=1x1tb (updated: 2024-12-03)</td>
+      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 56 or Nebula (test-5.ab31.civi.io).</td>
     </tr>
     <tr>
       <td>civicrm1</td>
