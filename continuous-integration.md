@@ -18,29 +18,31 @@ job-management system focused on CI – and provides a large library of plugins 
 | `test-5` | Execute test suites (PRs and scheduled). Based on `civicrm-buildkit:nix/bin/install-runner.sh`. | Firewalled desktop |
 | `bknix-run-XXXX` | Execute test suites (PRs and scheduled). Based on `civicrm-buildkit:nix/bin/install-runner.sh`. | Public cloud, spot VM |
 
-* As you might expect, most nodes are dedicated toward running test-suites. (The test-suites are large.) It is interesting to compare a few nodes here:
-    * `test-{3,4,5}` represent the *base capacity*. They are always available. In allocating machines, the key priorities are fast CPU cores
-      and low monthly costs.
-          * In recent years, firewalled desktops have provided best price/performance.  However, in principle, they compromise on availability (e.g. 
-            using a single Internet uplink; using a small UPS; no 24x7 staffing).  There is a bit of risk to putting all capacity into firewalled
-            desktops.
-          * `test-3` is the safest part of the base-capacity. Even if `test-{4,5}` go down, we should be able to keep `test-3` going.
-    * With `bknix-run-XXXX`, we can use Google Cloud to scale-up/scale-down under periods of high usage.
-        * Pricing for "spot VMs" (cheaper, short-term nodes) is not great, but it's not terrible either.
-        * However, these spot VMs can be killed at random times, and the current Jenkins setup doesn't cope well with the random interruptions. When it happens,
-          it creates confusion/annoyance for developers reviewing test-results.
-        * Spot VMs can be useful for (a) dealing with spikes in demand and (b) dealing with outages/maintenance in the base-capacity.
+* As you might expect, most nodes are dedicated toward running test-suites. (The test-suites are large.) Some notes about these:
+    * The key criteria for these machines (*roughly ordered, most-important to least-important*):
+         * Single-threaded CPU performance is the major driver of runtime in Civi's PHP/MySQL/PHPUnit architecture.
+         * Running many tests back-to-back on the same hardware means that each node keeps hydrated caches. This reduces setup time.
+         * Price is always important.
+         * Availability is well-and-good, but individual nodes don't need 99.9% uptime. There are multiple nodes and a "Retry" feature.
+         * Aggregate multi-core performance is well-and-good, but a large number of slow-cores won't help with our frameworks.
+    * `test-{3,4,5}` represent the *base capacity*. They operate continuously. Most jobs should execute on these nodes.
+    * `test-3` is the safest part of the base-capacity. (It's got decent hardware and runs in a professional data-center.)
+    * In recent years, firewalled desktops have provided best price/performance and sufficient availability. But we shouldn't rely on them exclusively. In principle, there are multiple single-failure-points and no 24x7 hardware-team. We don't want one power-outage to kill all testing.
+    * With `bknix-run-XXXX`, we can use Google Cloud to scale-up/scale-down.
+        * Spot VMs can be useful for (a) dealing with spikes in demand (*dev-sprints*) and (b) dealing with outages/maintenance in the base-capacity.
+        * Pricing for "spot VMs" is... OK. (Not great, not terrible.)
+        * Gcloud may kill spot VMs at random times. This is recoverable (*affected developers can re-run failed tests*). But it will happen several times per day, and it's a bit annoying to do manual-retries. So we shouldn't rely on "spot VMs" for base-capacity. (*That could change if the kill/retry mechanics get better.*)
 
 ## Suggestions
 
 * If we have ample base-capacity and don't need ephemeral nodes:
     * Go to https://test.civicrm.org/configureClouds/. Update the cloud configuration.
     * Drop the instance-limit to 1.
-    * Find the general options for `bknix-run`. Set the node "Labels". Ensure they are "disabled" (i.e. `disabled-bknix-tmp disabled-bknix-tmp-edge`). This will prevent Jenkins from spawning more nodes.
+    * Find the general options for `bknix-run`. Update the "Labels". Ensure they are "disabled" (i.e. `disabled-bknix-tmp disabled-bknix-tmp-edge`). This will prevent Jenkins from spawning more nodes.
 * If the base-capacity isn't sufficient (*spikes in demand or maintenance/outages*) and we need more ephemeral nodes:
     * Go to https://test.civicrm.org/configureClouds/. Update the cloud configuration.
     * Check the instance-limit. Consider raising it to 2-4 nodes. (Note that each node can handle a couple parallel tests.)
-    * Find the general options for `bknix-run`. Set the node "Labels". Ensure thare NOT "disabled" (i.e. `bknix-tmp bknix-tmp-edge`).
+    * Find the general options for `bknix-run`. Update the node "Labels". Ensure thare NOT "disabled" (i.e. `bknix-tmp`, not `disabled-bknix-tmp`).
 * If `test-4` or `test-5` become non-responsive:
     * Find an Android or iOS device.
     * Install and open the "Tapo" app from "TP-Link".
