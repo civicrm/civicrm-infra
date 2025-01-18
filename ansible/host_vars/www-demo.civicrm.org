@@ -25,7 +25,7 @@ preseed_timezone: America/Toronto
 # ip route add 167.114.158.254 dev ens3
 # ip route add default via 167.114.158.254 dev ens3
 
-phpversion: 7.4
+phpversion: 8.3
 
 backups_exclude_extras:
   - /srv/buildkit/build
