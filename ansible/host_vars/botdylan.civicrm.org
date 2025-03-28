@@ -15,6 +15,10 @@ preseed_ipv4_nameservers: 8.8.8.8
 preseed_ipv6_address: "2607:5300:21a:71d0:300::/80"
 preseed_ipv6_route: "fe80::1"
 preseed_ipv6_gateway: "fe80::1"
+preseed_language: en
+preseed_country: CA
+preseed_locale: en_US.utf8
+preseed_timezone: America/Toronto
 
 borgmatic_excludes:
     - /home/gitsync

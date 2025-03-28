@@ -12,7 +12,7 @@ preseed_ipv4_netmask: 255.255.255.255
 preseed_ipv4_gateway: 192.95.2.129
 preseed_ipv4_bridged_gateway: 100.64.0.1
 preseed_ipv4_nameservers: 8.8.8.8
-preseed_ipv6_address: "2607:5300:21a:71d0:600::/80
+preseed_ipv6_address: "2607:5300:21a:71d0:600::/80"
 preseed_ipv6_route: "fe80::1"
 preseed_ipv6_gateway: "fe80::1"
 preseed_language: en
