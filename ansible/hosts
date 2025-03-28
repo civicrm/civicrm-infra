@@ -1,12 +1,28 @@
 #
 # All managed servers
-# This is mostly to give a quick overview of the servers we manage.
+# See also ../hosts.md
 #
-# The most generic role at the moment is 'servers', but we want to encourage
-# admins to classify servers so that we have a better idea of what they do.
+
+# #############################################################################
 #
-paella.civicrm.org # OVH baremetal
+# Main categories (by core purpose)
+#
+# #############################################################################
+
+[kvm_servers]
+paella.civicrm.org # OVH BHS baremetal
+bagel.civicrm.org # OVH BHS baremetal
+
+[general_bametal_servers]
 sushi.civicrm.org ansible_ssh_host=140.211.166.28 # OSUOSL baremetal
+
+[aegir_vm]
+spark-1.civicrm.org # Linode
+spark-2.civicrm.org # Linode
+www-prod-2.civicrm.org # Linode
+www-test.civicrm.org # paella.civicrm.org OVH
+
+[general_vm]
 backups-1.civicrm.org # Google
 botdylan.civicrm.org # paella.civicrm.org OVH
 chat.civicrm.org # OSUOSL cluster
@@ -14,8 +30,6 @@ cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42 # OSUOSL cluster
 lab.civicrm.org # OSUOSL cluster
 latest.civicrm.org # paella.civicrm.org OVH
 manage.civicrm.osuosl.org # OSUOSL cluster
-spark-1.civicrm.org # Linode
-spark-2.civicrm.org # Linode
 test.civicrm.org # bookworm Google
 test-1.civicrm.org # bookworm, paella.civicrm.org OVH
 test-2.civicrm.org # bookworm, OSUOSL cluster
@@ -24,11 +38,15 @@ test-4.us.to ansible_ssh_port=55 ## Firewalled/SSH-only access.
 test-5.port0.org ansible_ssh_port=56 ## Firewalled/SSH-only access.
 www-cxn-2.civicrm.osuosl.org # OSUOSL cluster
 www-prod.civicrm.osuosl.org # OSUOSL cluster
-www-prod-2.civicrm.org # Linode
-www-test.civicrm.org # paella.civicrm.org OVH
 www-demo.civicrm.org # paella.civicrm.org OVH
 # not managed, but www is monitored by icinga
 # www-cxn-1.civicrm.org
+
+# #############################################################################
+#
+# Families (all hosts under here should also be listed above)
+#
+# #############################################################################
 
 [nginx_servers]
 botdylan.civicrm.org
@@ -122,11 +140,8 @@ manage.civicrm.osuosl.org
 [ldapcivi_servers]
 www-prod-2.civicrm.org
 
-[aegir_managed]
-spark-1.civicrm.org
-spark-2.civicrm.org
-www-prod-2.civicrm.org
-www-test.civicrm.org
+[aegir_managed:children]
+aegir_vm
 
 [gitbot_servers]
 botdylan.civicrm.org
