@@ -137,6 +137,17 @@ Virtual Servers
 Physical Servers
 ================
 
+| Host                | OS                 | Location          | IPv4              | IPv6                 | Resources         | Comments                                                                   |
+| ------------------- | ------------------ | ----------------- | ----------------  | -------------------- | ----------------- | -------------------------------------------------------------------------- |
+| test-3.civicrm.org  | Debian 11 bullseye | OVH BHS           | 15.235.112.148    | n/a                  | cores=8/16 (AMD 5800X) ram=128gb ssd=2x1tb (updated: 2023-04-17) | Previously barbecue |
+| sushi.civicrm.org   | Ubuntu 18.04       | OSUOSL            | 140.211.166.28    | n/a                  | cores=2(Pentium 1403v2) ram=32gb hdd=3x600gb(10k,2.5) | Backup server. 1+3yr wty (2015-2019?) |
+| paella.civicrm.org  | Debian 10 buster   | OVH BHS           | 51.161.13.19      | 2607:5300:203:6713:: | cores=12 (A2-E2136) ram=64gb ssd=2x500gb (updated: 2020-01-30) | Will be replaced by bagel.c.o |
+| bagel.civicrm.org   | Debian 12 bookworm | OVH BHS           | 148.113.217.125   | 2607:5300:21a:7d00:: | cores=8/16 Advanced-2 AMD EPYC 4344P 8c/16t - 3.8 GHz/5.3 GHz, 128 GB RAM, 2x1 TB NVMe disks | Will replace paella.c.o |
+| test-4.us.to        | Ubuntu 22.04 Jammy | Garage            | Dynamic           | n/a                  | cores=6c/12t (i5-12500t) ram=64gb ssd=1x250gb + 1x1tb (updated: 2024-12-03) | "install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io). vPro AMT via VPN. |
+| test-5.port0.org    | Ubuntu 22.04 Jammy | Garage            | Dynamic           | n/a                  | cores=6c+8c/20t (i5-13600t) ram=64gb ssd=1x1tb (updated: 2024-12-03) | "install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 56 or Nebula (test-5.ab31.civi.io). |
+
+Old Ganeti hosts at OSUOSL:
+
 <table>
   <thead>
     <tr>
@@ -149,54 +160,6 @@ Physical Servers
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>test-3</td>
-      <td>civicrm.org</td>
-      <td>Debian 9</td>
-      <td>15.235.112.148</td>
-      <td>cores=8/16 (AMD 5800X) ram=128gb ssd=2x1tb (updated: 2023-04-17)</td>
-      <td>Previously barbecue</td>
-    </tr>
-    <tr>
-      <td>civicrm-sushi-spare</td>
-      <td>osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>140.211.166.28</td>
-      <td>cores=2(Pentium 1403v2) ram=32gb hdd=3x600gb(10k,2.5)</td>
-      <td>1+3yr wty (2015-2019?)</td>
-    </tr>
-    <tr>
-      <td>padthai</td>
-      <td>civicrm.org</td>
-      <td>Debian 8</td>
-      <td>167.114.158.208</td>
-      <td>cores=4/8 (E5-1620v2) ram=64gb ssd=3x300gb (updated: 2016-04-07)</td>
-      <td>virt-install</td>
-    </tr>
-    <tr>
-      <td>paella</td>
-      <td>civicrm.org</td>
-      <td>Debian 10</td>
-      <td>51.161.13.19</td>
-      <td>cores=12 (A2-E2136) ram=64gb ssd=2x500gb (updated: 2020-01-30)</td>
-      <td>virt-install</td>
-    </tr>
-    <tr>
-      <td>test-4</td>
-      <td>us.to</td>
-      <td>Ubuntu 22.04 LTS (Jammy)</td>
-      <td>dynamic</td>
-      <td>cores=6c/12t (i5-12500t) ram=64gb ssd=1x250gb + 1x1tb (updated: 2024-12-03)</td>
-      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io). vPro AMT via VPN.</td>
-    </tr>
-    <tr>
-      <td>test-5</td>
-      <td>port0.org</td>
-      <td>Ubuntu 22.04 LTS (Jammy)</td>
-      <td>dynamic</td>
-      <td>cores=6c+8c/20t (i5-13600t) ram=64gb ssd=1x1tb (updated: 2024-12-03)</td>
-      <td>"install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 56 or Nebula (test-5.ab31.civi.io).</td>
-    </tr>
     <tr>
       <td>civicrm1</td>
       <td></td>
