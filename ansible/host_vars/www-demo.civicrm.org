@@ -1,8 +1,8 @@
-preseed_parent: padthai
+preseed_parent: bagel
 preseed_hostname: www-demo
 preseed_domain: civicrm.org
 preseed_ram_mb: 4096
-preseed_macaddr: "02:00:00:44:57:f2"
+# preseed_macaddr: "02:00:00:44:57:f2"
 preseed_vcpus: 2
 preseed_network_interface: ens3
 preseed_ipv4_address: 192.95.2.129
@@ -10,11 +10,11 @@ preseed_ipv4_network: 192.95.2.129
 preseed_ipv4_broadcast: 158.69.172.143
 preseed_ipv4_netmask: 255.255.255.255
 preseed_ipv4_gateway: 192.95.2.129
-preseed_ipv4_bridged_gateway: 167.114.158.254
+preseed_ipv4_bridged_gateway: 100.64.0.1
 preseed_ipv4_nameservers: 8.8.8.8
-preseed_ipv6_address: 2607:5300:60:71d0:600::/80
-preseed_ipv6_route: 2607:5300:0060:71ff:ff:ff:ff:ff
-preseed_ipv6_gateway: 2607:5300:0060:71ff:ff:ff:ff:ff
+preseed_ipv6_address: "2607:5300:21a:71d0:600::/80
+preseed_ipv6_route: "fe80::1"
+preseed_ipv6_gateway: "fe80::1"
 preseed_language: en
 preseed_country: CA
 preseed_locale: en_US.utf8

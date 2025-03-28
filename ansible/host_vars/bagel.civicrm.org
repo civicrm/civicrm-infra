@@ -9,6 +9,8 @@
 # | 192.95.2.134    | 2607:5300:203:6713:500::/72 | www-test                |
 # | 192.95.2.135    | 2607:5300:203:6713:700::/72 | latest.civicrm.org      |
 
+preseed_timezone: America/Toronto
+
 kvm_main_ipv4_address: 148.113.217.125
 kvm_main_ipv4_netmask: 32
 kvm_main_ipv4_network: 148.113.217.125
@@ -25,6 +27,9 @@ kvm_main_ipv4_dns: 8.8.8.8
 
 kvm_zfs_pool: zbagel
 
-# kvm_hosts:
-#   - latest.civicrm.org
-#   - www-demo.civicrm.org
+kvm_hosts:
+  - botdylan.civicrm.org
+  - latest.civicrm.org
+  - test-1.civicrm.org
+  - www-demo.civicrm.org
+  - www-test.civicrm.org

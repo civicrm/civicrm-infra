@@ -23,9 +23,3 @@ kvm_main_mac_address: "d0:50:99:d5:0a:55"
 kvm_main_ipv4_dns: 8.8.8.8
 
 kvm_zfs_pool: zpaella
-
-kvm_hosts:
-  - latest.civicrm.org
-  - www-demo.civicrm.org
-
-# todo: document other hosts
