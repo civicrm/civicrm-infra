@@ -36,8 +36,6 @@ ufw_nrpe_allow_src:
   - 162.13.43.63/32
 
 ufw_icinga_allow_src:
-  - 76.10.173.17/32 # icinga.b.c
-  - 2607:f2c0:f00f:2914::/64 # icinga.b.c
   - 2605:9000:402:6a17::61 # icinga.s.c
   - 205.204.73.202 # icinga.s.c
 
