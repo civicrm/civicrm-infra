@@ -27,10 +27,10 @@ backups-1.civicrm.org # Google
 botdylan.civicrm.org # bagel.civicrm.org OVH
 chat.civicrm.org # OSUOSL cluster
 cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42 # OSUOSL cluster
-lab.civicrm.org # OSUOSL cluster
+lab.civicrm.org # bookworm, bagel.civicrm.org OVH
 latest.civicrm.org # bagel.civicrm.org OVH
 manage.civicrm.osuosl.org # OSUOSL cluster
-test.civicrm.org # bookworm Google
+test.civicrm.org # bookworm bagel.civicrm.org OVH
 test-1.civicrm.org # bookworm, bagel.civicrm.org OVH
 test-2.civicrm.org # bookworm, OSUOSL cluster
 test-3.civicrm.org # bullseye, OVH baremetal

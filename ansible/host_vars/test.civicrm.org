@@ -1,5 +1,24 @@
-sslcertificates:
-    - wildcard.civicrm.org
+preseed_parent: bagel
+preseed_hostname: test
+preseed_domain: civicrm.org
+preseed_ram_mb: 4096
+preseed_macaddr: "02:00:00:c1:77:65"
+preseed_vcpus: 2
+preseed_network_interface: enp1s0
+preseed_ipv4_address: 192.95.2.131
+preseed_ipv4_network: 192.95.2.131
+preseed_ipv4_broadcast: 158.69.172.143
+preseed_ipv4_netmask: 255.255.255.255
+preseed_ipv4_gateway: 192.95.2.131
+preseed_ipv4_bridged_gateway: 148.113.217.125
+preseed_ipv4_nameservers: 8.8.8.8
+preseed_ipv6_address: "2607:5300:21a:7d00:200::/56"
+preseed_ipv6_route: "2607:5300:21a:7d00::"
+preseed_ipv6_gateway: "2607:5300:21a:7d00::"
+preseed_language: en
+preseed_country: CA
+preseed_locale: en_US.utf8
+preseed_timezone: America/Toronto
 
 backupincludes:
   - /var/lib/jenkins
