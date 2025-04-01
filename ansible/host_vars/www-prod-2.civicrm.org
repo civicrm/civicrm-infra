@@ -10,28 +10,16 @@ ufw_extra:
     src: 208.90.215.70/16
     rule: allow
     description: "Allows Sympa mailing-lists to connect to MySQL, see sympa.md."
-  civildapauth:
-    proto: tcp
-    port: 1389
-    src: 140.211.167.141/32
-    rule: allow
-    description: "Allows Confluence/JIRA IPv4 to connect to to LDAPjs, see ldap-websites.md."
-  civildapauth6:
-    proto: tcp
-    port: 1389
-    src: 2605:bc80:3010:102:0:3:2::/128
-    rule: allow
-    description: "Allows Confluence/JIRA IPv6 to connect to to LDAPjs, see ldap-websites.md."
   civildapgitlab4:
     proto: tcp
     port: 1389
-    src: 140.211.167.160/32
+    src: 192.95.2.130/32
     rule: allow
     description: "Allows lab.c.o IPv4 to connect to to LDAPjs, see ldap-websites.md."
   civildapgitlab6:
     proto: tcp
     port: 1389
-    src: 2605:bc80:3010:102:0:3:4::/128
+    src: 2607:5300:21a:7d00:400::/128
     rule: allow
     description: "Allows lab.c.o IPv6 to connect to to LDAPjs, see ldap-websites.md."
   httpclienttest:
