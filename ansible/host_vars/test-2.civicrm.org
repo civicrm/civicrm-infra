@@ -1,5 +1,12 @@
-backups_exclude_extras:
+borgmatic_excludes:
   - /srv/buildkit/build
+  - /nix
+  - /home/dispatcher/images
+  - /home/dispatcher/workspace
+  - /home/dispatcher/remoting
+  - /home/jenkins
+  - /var/local/homer
+  - /var/lib/docker/overlay
 
 ufw_extra:
   bknix1:
