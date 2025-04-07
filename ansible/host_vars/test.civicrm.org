@@ -22,5 +22,6 @@ preseed_timezone: America/Toronto
 
 backupincludes:
   - /var/lib/jenkins
+  - /srv/duderino
 
 phpversion: 8.1
