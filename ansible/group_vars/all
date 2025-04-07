@@ -12,6 +12,8 @@ aegir_sudoers: gitlab-runner,bgm
 root_sudoers:
   - bgm
   - totten
+  - seamus
+  - ufundo
 
 unattended_mail_only_on_error: true
 unattended_origins_patterns:
