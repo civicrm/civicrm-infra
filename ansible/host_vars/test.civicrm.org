@@ -2,7 +2,7 @@ preseed_parent: bagel
 preseed_hostname: test
 preseed_domain: civicrm.org
 preseed_ram_mb: 4096
-preseed_macaddr: "02:00:00:c1:77:65"
+preseed_macaddr: "02:00:00:25:64:fb"
 preseed_vcpus: 2
 preseed_network_interface: enp1s0
 preseed_ipv4_address: 192.95.2.131
