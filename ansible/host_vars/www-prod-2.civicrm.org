@@ -49,9 +49,27 @@ ufw_extra:
   sshjenkins:
     proto: tcp
     port: 22
-    src: 104.154.61.190/32
+    src: 192.95.2.131/32
     rule: allow
     description: "Allow inbound ssh for test.c.o, who launches an agent via ssh for extdir."
+  sshjenkins6:
+    proto: tcp
+    port: 22
+    src: 2607:5300:21a:7d00:200::/128
+    rule: allow
+    description: "Allow inbound ssh IPv6 for test.c.o, who launches an agent via ssh for extdir."
+  civildapjenkins4:
+    proto: tcp
+    port: 1389
+    src: 192.95.2.131/32
+    rule: allow
+    description: "Allows test.c.o IPv4 to connect to to LDAPjs, see ldap-websites.md."
+  civildapjenkins6:
+    proto: tcp
+    port: 1389
+    src: 2607:5300:21a:7d00:200::/128
+    rule: allow
+    description: "Allows test.c.o IPv6 to connect to to LDAPjs, see ldap-websites.md."
 
 backupexcludes:
   - /var/aegir/platforms/civicrm-org/sites/civicrm.org/files/civicrm/ConfigAndLog/*
