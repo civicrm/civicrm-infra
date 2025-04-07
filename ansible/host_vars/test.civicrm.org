@@ -22,3 +22,5 @@ preseed_timezone: America/Toronto
 
 backupincludes:
   - /var/lib/jenkins
+
+phpversion: 8.1
