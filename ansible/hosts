@@ -109,6 +109,7 @@ servers
 [php_servers]
 www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
+test.civicrm.org
 
 [php7_servers]
 # www-test.civicrm.org
