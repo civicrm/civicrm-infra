@@ -4,6 +4,7 @@ borgmatic_excludes:
   - /home/dispatcher/images
   - /home/dispatcher/workspace
   - /home/dispatcher/remoting
+  - /home/jenkins
   - /var/local/homer
 
 ufw_extra:

@@ -4,7 +4,7 @@ preseed_domain: civicrm.org
 preseed_ram_mb: 2048
 # preseed_macaddr: "02:00:00:b7:2b:e0"
 preseed_vcpus: 2
-preseed_network_interface: ens3
+preseed_network_interface: enp1s0
 preseed_ipv4_address: 192.95.2.132
 preseed_ipv4_network: 192.95.2.130
 preseed_ipv4_broadcast: 158.69.172.143

@@ -36,6 +36,7 @@ test-2.civicrm.org # bookworm, OSUOSL cluster
 test-3.civicrm.org # bullseye, OVH baremetal
 test-4.us.to ansible_ssh_port=55 ## Firewalled/SSH-only access.
 test-5.port0.org ansible_ssh_port=56 ## Firewalled/SSH-only access.
+test-10.civicrm.org ansible_ssh_host=192.95.2.128 # bookworm, bagel.civicrm.org OVH
 www-cxn-2.civicrm.osuosl.org # OSUOSL cluster
 www-prod.civicrm.osuosl.org # OSUOSL cluster
 www-demo.civicrm.org # bagel.civicrm.org OVH
@@ -63,6 +64,7 @@ latest.civicrm.org
 test-1.civicrm.org
 test-2.civicrm.org
 test-3.civicrm.org
+test-10.civicrm.org
 www-demo.civicrm.org
 
 [demo_servers]
@@ -72,6 +74,7 @@ www-demo.civicrm.org
 test-1.civicrm.org
 test-2.civicrm.org
 test-3.civicrm.org
+test-10.civicrm.org
 
 [jenkins_servers]
 test.civicrm.org
@@ -163,6 +166,7 @@ test-1.civicrm.org
 [bknix_ci]
 test-1.civicrm.org
 test-2.civicrm.org
+test-10.civicrm.org
 
 ## These hosts have been setup by the `civicrm-buildkit:nix/bin/install-runner.sh` script.
 [bknix_runner]

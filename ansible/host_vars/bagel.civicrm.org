@@ -2,6 +2,7 @@
 # IPv4 allocation for 192.95.2.128/29 and 2607:5300:21a:7d00::/64
 #
 # | 148.113.217.125 | 2607:5300:21a:7d00::/56  | bagel.civicrm.org       |
+# | 192.95.2.128    | 2607:5300:21a:7d00:800:: | test-10.civicrm.org     |
 # | 192.95.2.129    | 2607:5300:21a:7d00:600:: | www-demo.civicrm.org    |
 # | 192.95.2.130    | 2607:5300:21a:7d00:400:: | lab.civicrm.org         |
 # | 192.95.2.131    | 2607:5300:21a:7d00:200:: | test.civicrm.org        |
@@ -28,13 +29,15 @@ kvm_main_ipv4_dns: 8.8.8.8
 
 kvm_zfs_pool: zbagel
 
-kvm_additional_ipv4_blocks:
-  - 192.95.2.128/29
+# (now bridged)
+# kvm_additional_ipv4_blocks:
+#  - 192.95.2.128/29
 
 kvm_hosts:
   - botdylan.civicrm.org
   - latest.civicrm.org
   - test-1.civicrm.org
+  - test-10.civicrm.org
   - www-demo.civicrm.org
   - www-test.civicrm.org
   - lab.civicrm.org

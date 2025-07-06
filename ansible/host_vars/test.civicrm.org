@@ -10,7 +10,7 @@ preseed_ipv4_network: 192.95.2.131
 preseed_ipv4_broadcast: 158.69.172.143
 preseed_ipv4_netmask: 255.255.255.255
 preseed_ipv4_gateway: 192.95.2.131
-preseed_ipv4_bridged_gateway: 148.113.217.125
+preseed_ipv4_bridged_gateway: 100.64.0.1
 preseed_ipv4_nameservers: 8.8.8.8
 preseed_ipv6_address: "2607:5300:21a:7d00:200::/56"
 preseed_ipv6_route: "2607:5300:21a:7d00::"
