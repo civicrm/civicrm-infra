@@ -8,7 +8,7 @@
 # | 192.95.2.131    | 2607:5300:21a:7d00:200:: | test.civicrm.org        |
 # | 192.95.2.132    | 2607:5300:21a:7d00:300:: | botdylan                |
 # | 192.95.2.133    | 2607:5300:21a:7d00:100:: | test-1.civicrm.org      |
-# | 192.95.2.134    | 2607:5300:21a:7d00:500:: | www-test                |
+# | 192.95.2.134    | 2607:5300:21a:7d00:500:: | spark-1.civicrm.org     |
 # | 192.95.2.135    | 2607:5300:21a:7d00:700:: | latest.civicrm.org      |
 
 preseed_timezone: America/Toronto
@@ -39,6 +39,6 @@ kvm_hosts:
   - test-1.civicrm.org
   - test-10.civicrm.org
   - www-demo.civicrm.org
-  - www-test.civicrm.org
   - lab.civicrm.org
   - test.civicrm.org
+  - spark-1.civicrm.org
