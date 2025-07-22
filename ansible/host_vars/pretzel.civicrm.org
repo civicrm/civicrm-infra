@@ -1,0 +1,33 @@
+#
+# IPv4 allocation for 51.77.81.200/29 and 2001:41d0:725:7100::/56
+#
+# | 57.129.86.113   | 2001:41d0:725:7100::/56  | pretzel.civicrm.org     |
+# | 51.77.81.200    | 2001:41d0:725:7100:100:: | www-prod.civicrm.org    |
+# | 51.77.81.201    | 2001:41d0:725:7100:200:: | www-prod-2.civicrm.org  |
+# | 51.77.81.202    | 2001:41d0:725:7100:300:: | chat.civicrm.org        |
+# | 51.77.81.203    | 2001:41d0:725:7100:400:: | spark-2.civicrm.org     |
+# | 51.77.81.204    | 2001:41d0:725:7100:500:: | test-2.civicrm.org      |
+# | 51.77.81.205    | 2001:41d0:725:7100:600:: |                         |
+# | 51.77.81.206    | 2001:41d0:725:7100:700:: |                         |
+# | 51.77.81.207    | 2001:41d0:725:7100:800:: |                         |
+
+preseed_timezone: Europe/Berlin
+
+kvm_main_ipv4_address: 51.77.81.200
+kvm_main_ipv4_netmask: 32
+kvm_main_ipv4_network: 51.77.81.200
+kvm_main_ipv4_broadcast: 51.77.81.255
+kvm_main_ipv4_gateway: 100.64.0.1
+
+kvm_main_ipv6_address: "2001:41d0:725:7100::"
+kvm_main_ipv6_netmask: "56"
+kvm_main_ipv6_gateway: "fe80::1"
+kvm_main_ipv6_dns: "2001:41d0:3:163::1"
+
+kvm_main_mac_address: "34:5a:60:00:1f:52"
+kvm_main_ipv4_dns: 213.186.33.99
+
+kvm_zfs_pool: zpretzel
+
+# kvm_hosts:
+#   - chat.civicrm.org
