@@ -20,7 +20,6 @@ sushi.civicrm.org ansible_ssh_host=140.211.166.28 # OSUOSL baremetal
 spark-1.civicrm.org # bookworm PHP 8.2 Linode
 spark-2.civicrm.org # Linode
 www-prod-2.civicrm.org # Linode
-www-test.civicrm.org # bagel.civicrm.org OVH
 
 [general_vm]
 backups-1.civicrm.org # Google
@@ -57,7 +56,6 @@ spark-2.civicrm.org
 test.civicrm.org
 www-prod.civicrm.osuosl.org
 www-prod-2.civicrm.org
-www-test.civicrm.org
 
 [apache_servers]
 latest.civicrm.org
@@ -113,18 +111,6 @@ servers
 www-demo.civicrm.org
 www-prod.civicrm.osuosl.org
 test.civicrm.org
-
-[php7_servers]
-# www-test.civicrm.org
-
-[php56_servers]
-latest.civicrm.org
-www-cxn-2.civicrm.osuosl.org
-
-[php55_servers]
-
-# [buildkit_servers]
-# training.civicrm.org
 
 [mkdocs_servers]
 www-prod.civicrm.osuosl.org
