@@ -29,5 +29,5 @@ kvm_main_ipv4_dns: 213.186.33.99
 
 kvm_zfs_pool: zpretzel
 
-# kvm_hosts:
-#   - chat.civicrm.org
+kvm_hosts:
+  - chat.civicrm.org

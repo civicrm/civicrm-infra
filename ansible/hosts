@@ -25,8 +25,7 @@ www-prod-2.civicrm.org # Linode
 [general_vm]
 backups-1.civicrm.org # Google
 botdylan.civicrm.org # bagel.civicrm.org OVH
-chat.civicrm.org # OSUOSL cluster
-cxnapp-2.civicrm.org ansible_ssh_host=146.148.42.42 # OSUOSL cluster
+chat.civicrm.org # bookworm, pretzel.civicrm.org OVH
 lab.civicrm.org # bookworm, bagel.civicrm.org OVH
 latest.civicrm.org # bagel.civicrm.org OVH
 manage.civicrm.osuosl.org # OSUOSL cluster
