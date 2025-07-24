@@ -17,11 +17,11 @@ Virtual Servers
     <tr>
       <td>chat</td>
       <td>civicrm.org</td>
-      <td>Ubuntu 18.04 LTS (Bionic)</td>
-      <td>140.211.167.153</td>
-      <td>2605:bc80:3010:102:0:3:3:0</td>
-      <th>cores=2 ram=2gb root=20gb (updated: 2016-04-23)</th>
-      <td>Mattermost, Nginx</td>
+      <td>Debian 13 Trixie</td>
+      <td>51.77.81.202</td>
+      <td>2001:41d0:725:7100:300::</td>
+      <th>cores=4 ram=4gb root=50gb (updated: 2025-07-24)</th>
+      <td>Mattermost, Nginx, MariaDB</td>
     </tr>
     <tr>
       <td>cxnapp-2</td>
