@@ -20,6 +20,9 @@ preseed_country: US
 preseed_locale: en_US.utf8
 preseed_timezone: Europe/Berlin
 
+# This host has postfix and DKIM
+host_postfix_myorigin: civicrm.org
+
 backupincludes:
     - /opt
 
