@@ -30,27 +30,21 @@ backupincludes:
 ufw_ipv4_allow_ssh: false
 
 ufw_extra:
-  mmostgithub:
-    proto: tcp
-    port: 5000
-    src: 192.30.252.0/22
-    rule: allow
-    description: "Allow Github webhooks for PR activity."
-  sshsushi:
+  sshvpn:
     proto: tcp
     port: 22
-    src: 140.211.166.28/32
+    src: 51.161.62.208/32
     rule: allow
-    description: "Allow inbound ssh for sushi, the main backup server."
-  sshbackup1:
+    description: "Allow inbound ssh for vpn.s.c"
+  sshvpn6:
     proto: tcp
     port: 22
-    src: 107.178.223.170/32
+    src: 2607:5300:203:7e04:1::/80
     rule: allow
-    description: "Allow inbound ssh for backups-1, the other backup server."
-  sshmanage:
+    description: "Allow inbound ssh v6 for vpn.s.c"
+  sshtim:
     proto: tcp
     port: 22
-    src: 140.211.167.144/32
+    src: 45.55.244.120/32
     rule: allow
-    description: "Allow inbound ssh for manage.c.o.o, in case someone does not have ipv6."
+    description: "Allow inbound ssh for rosemary.onebitwise.com"
