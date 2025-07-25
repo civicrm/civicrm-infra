@@ -32,12 +32,6 @@ unattended_origins_patterns:
   - o=LP-PPA-ondrej-php
   - o=deb.sury.org,a=${distro_codename}
 
-ufw_munin_allow_src:
-  - 162.13.43.63/32
-
-ufw_nrpe_allow_src:
-  - 162.13.43.63/32
-
 ufw_icinga_allow_src:
   - 2605:9000:402:6a17::61 # icinga.s.c
   - 205.204.73.202 # icinga.s.c
