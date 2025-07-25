@@ -1,5 +1,0 @@
-[Match]
-MACAddress={{ kvm_main_mac_address }}
-
-[Network]
-Bridge=br0

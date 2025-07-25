@@ -1,6 +1,0 @@
-# {{ ansible_managed }}
-deb http://ftp.ca.debian.org/debian/ {{ ansible_distribution_release }} main contrib
-deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib
-
-# previously known as 'volatile'
-deb http://ftp.ca.debian.org/debian/ {{ ansible_distribution_release }}-updates main

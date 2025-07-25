@@ -1,7 +1,0 @@
----
-# The VM user password is changed once the VM is booted, so this doesn't need to be saved
-kvm_preseed_password: "{{ lookup('password', '/dev/null chars=ascii_letters length=15') }}"
-
-kvm_preseed_language: en
-kvm_preseed_country: US
-kvm_preseed_locale: en_US

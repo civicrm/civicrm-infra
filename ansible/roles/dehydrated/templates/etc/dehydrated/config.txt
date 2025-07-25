@@ -1,3 +1,0 @@
-WELLKNOWN="/var/www/dehydrated"
-BASEDIR=/etc/dehydrated/
-HOOK="${BASEDIR}/hooks.sh"
