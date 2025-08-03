@@ -3,9 +3,6 @@ icinga2_main_node: icinga.symbiotic.coop
 promtail_push_url: https://icinga.symbiotic.coop:443/loki/api/prom/push
 common_all_motd_managed_by: security@civicrm.org
 
-borgmatic_backupserver: civicrm-sushi-spare.osuosl.org
-borgmatic_server_basedir: /srv/backups
-
 backupserver_hourly: civicrm-sushi-spare.osuosl.org
 backupserver_daily: backups-1.civicrm.org
 
@@ -38,6 +35,7 @@ ufw_icinga_allow_src:
 
 ufw_ipv4_allow_ssh: true
 
+borgmatic_server_basedir: /srv/backups
 borgmatic_backupserver: sushi.civicrm.org
 
 # Better than no password at all
