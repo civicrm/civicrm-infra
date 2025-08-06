@@ -25,10 +25,9 @@ www-prod-2.civicrm.org # Linode
 [general_vm]
 backups-1.civicrm.org # Google
 botdylan.civicrm.org # bagel.civicrm.org OVH
-chat.civicrm.org # bookworm, pretzel.civicrm.org OVH
+chat.civicrm.org ansible_ssh_host=51.77.81.202 # trixie, pretzel.civicrm.org OVH
 lab.civicrm.org # bookworm, bagel.civicrm.org OVH
 latest.civicrm.org # bagel.civicrm.org OVH
-manage.civicrm.osuosl.org # OSUOSL cluster
 test.civicrm.org # bookworm bagel.civicrm.org OVH
 test-1.civicrm.org # bookworm, bagel.civicrm.org OVH
 test-2.civicrm.org # bookworm, OSUOSL cluster
@@ -36,11 +35,8 @@ test-3.civicrm.org # bullseye, OVH baremetal
 test-4.us.to ansible_ssh_port=55 ## Firewalled/SSH-only access.
 test-5.port0.org ansible_ssh_port=56 ## Firewalled/SSH-only access.
 test-10.civicrm.org ansible_ssh_host=192.95.2.128 # bookworm, bagel.civicrm.org OVH
-www-cxn-2.civicrm.osuosl.org # OSUOSL cluster
-www-prod.civicrm.osuosl.org # OSUOSL cluster
+www-prod.civicrm.org ansible_ssh_host=51.77.81.200 # bookworm PHP 8.x pretzel.civicrm.org OVH
 www-demo.civicrm.org # bagel.civicrm.org OVH
-# not managed, but www is monitored by icinga
-# www-cxn-1.civicrm.org
 
 # #############################################################################
 #
@@ -54,7 +50,7 @@ chat.civicrm.org
 spark-1.civicrm.org
 spark-2.civicrm.org
 test.civicrm.org
-www-prod.civicrm.osuosl.org
+www-prod.civicrm.org
 www-prod-2.civicrm.org
 
 [apache_servers]
@@ -91,9 +87,7 @@ latest.civicrm.org
 botdylan.civicrm.org
 cxnapp-2.civicrm.org
 lab.civicrm.org
-manage.civicrm.osuosl.org
 test.civicrm.org
-www-cxn-2.civicrm.osuosl.org
 
 [servers:children]
 apache_servers
@@ -109,23 +103,17 @@ servers
 
 [php_servers]
 www-demo.civicrm.org
-www-prod.civicrm.osuosl.org
+www-prod.civicrm.org
 test.civicrm.org
 
 [mkdocs_servers]
-www-prod.civicrm.osuosl.org
+www-prod.civicrm.org
 
 [gitlab_servers]
 lab.civicrm.org
 
 [gitlab_runners]
 test-1.civicrm.org
-
-[ldap_servers]
-manage.civicrm.osuosl.org
-
-[ldapcivi_servers]
-www-prod-2.civicrm.org
 
 [aegir_managed:children]
 aegir_vm
@@ -139,11 +127,9 @@ chat.civicrm.org
 cxnapp-2.civicrm.org
 lab.civicrm.org
 latest.civicrm.org
-manage.civicrm.osuosl.org
 test.civicrm.org
-www-cxn-2.civicrm.osuosl.org
 www-demo.civicrm.org
-www-prod.civicrm.osuosl.org
+www-prod.civicrm.org
 
 [docker_servers]
 test-1.civicrm.org

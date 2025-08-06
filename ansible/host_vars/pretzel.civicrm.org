@@ -31,3 +31,4 @@ kvm_zfs_pool: zpretzel
 
 kvm_hosts:
   - chat.civicrm.org
+  - www-prod.civicrm.org
