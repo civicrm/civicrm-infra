@@ -13,10 +13,10 @@
 
 preseed_timezone: Europe/Berlin
 
-kvm_main_ipv4_address: 51.77.81.200
+kvm_main_ipv4_address: 57.129.86.113
 kvm_main_ipv4_netmask: 32
-kvm_main_ipv4_network: 51.77.81.200
-kvm_main_ipv4_broadcast: 51.77.81.255
+kvm_main_ipv4_network: 57.129.86.113
+kvm_main_ipv4_broadcast: 57.129.86.255
 kvm_main_ipv4_gateway: 100.64.0.1
 
 kvm_main_ipv6_address: "2001:41d0:725:7100::"
