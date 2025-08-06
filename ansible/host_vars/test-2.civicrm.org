@@ -2,7 +2,7 @@ preseed_parent: pretzel
 preseed_hostname: test-2
 preseed_domain: civicrm.org
 preseed_ram_mb: 8192
-preseed_macaddr: "02:00:00:5f:ca:69"
+preseed_macaddr: "02:00:00:09:14:3b"
 preseed_vcpus: 4
 preseed_network_interface: enp1s0
 preseed_ipv4_address: 51.77.81.204
