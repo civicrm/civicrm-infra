@@ -30,7 +30,7 @@ lab.civicrm.org # bookworm, bagel.civicrm.org OVH
 latest.civicrm.org # bagel.civicrm.org OVH
 test.civicrm.org # bookworm bagel.civicrm.org OVH
 test-1.civicrm.org # bookworm, bagel.civicrm.org OVH
-test-2.civicrm.org # bookworm, OSUOSL cluster
+test-2.civicrm.org # bookworm, pretzel.civicrm.org OVH
 test-3.civicrm.org # bullseye, OVH baremetal
 test-4.us.to ansible_ssh_port=55 ## Firewalled/SSH-only access.
 test-5.port0.org ansible_ssh_port=56 ## Firewalled/SSH-only access.
@@ -52,6 +52,10 @@ spark-2.civicrm.org
 test.civicrm.org
 www-prod.civicrm.org
 www-prod-2.civicrm.org
+
+# No need to duplicate info such as aegir servers
+[sql_servers]
+www-prod.civicrm.org
 
 [apache_servers]
 latest.civicrm.org
