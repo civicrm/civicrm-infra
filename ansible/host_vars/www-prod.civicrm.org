@@ -1,7 +1,7 @@
 preseed_parent: pretzel
 preseed_hostname: www-prod
 preseed_domain: civicrm.org
-preseed_ram_mb: 4096
+preseed_ram_mb: 8192
 preseed_macaddr: "02:00:00:97:2f:18"
 preseed_vcpus: 4
 preseed_network_interface: enp1s0
