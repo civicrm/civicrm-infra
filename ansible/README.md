@@ -1,55 +1,64 @@
 Ansible playbooks for the CiviCRM internal infrastructure. These playbooks
 are not for deploying CiviCRM itself, they are for managing the servers that
-run the civicrm.org website, the issue tracker, the wiki and the test servers.
-
-This is very much work in progress. Most of the servers are still managed by
-Puppet.
+run the civicrm.org website and other community services.
 
 ### Getting started
 
 Installing Ansible:
 
 ```
-sudo apt-get install ansible
+sudo apt-get install ansible-core
 ```
 
-Recommended: install Ansible 1.9 or higher. These playbooks are developed on Ansible 2.0.
+Recommended: install Ansible 2.0 or higher. These playbooks are developed using the Ansible
+version used by Debian "stable".
 
-Get a copy of this playbook:
+Get a copy of this inventory (the "~/repositories" is only an example to help with orientation in the file structure):
 
 ```
-git clone --recursive git@github.com:civicrm/civicrm-infra.git
+cd ~/repositories/
+git clone git@lab.civicrm.org:infra/ops.git civicrm-infra
 ```
 
-Get the private files for the CiviCRM infra. The files are in /etc/ansible/ of manage.c.o.o.
-This includes, for example, SSL certificates. Most of the inventory data is included in this
-playbook ('production' file) because it was already documented publicly in ../hosts.md.
+Get the private files for the CiviCRM infra. Ask bgm, totten or someone else.
+This includes mostly just ssh public keys for other sysadmins, the deploy.pub
+and a dhparams file for nginx.
+
+You will also need the ssh private key for the deploy user, and access to
+a permitted ssh JumpHost.
+
+Get the Symbiotic playbooks:
+
+```
+cd ~/repositories/
+git clone --recursive https://github.com/coopsymbiotic/coopsymbiotic-ansible/
+```
 
 Run a dry-run simulation of the playbook:
 
 ```
-cd civicrm-infra/ansible/
-ansible-playbook --check ./site.yml
+cd ~/repositories/coopsymbiotic-ansible/
+ansible-playbook --check -i ../civicrm-infra/ansible/hosts ./site.yml
 ```
 
 Run on a specific node:
 
 ```
-cd civicrm-infra/ansible/
-ansible-playbook --check -l log.civicrm.osuosl.org ./site.yml
+cd ~/repositories/coopsymbiotic-ansible/
+ansible-playbook --check -l log.civicrm.osuosl.org -i ../civicrm-infra/ansible/hosts ./site.yml
 ```
 
 Run on a specific node with a specific tag
 
 ```
-cd civicrm-infra/ansible/
-ansible-playbook --check -l log.civicrm.osuosl.org --tags logstash-servers ./site.yml
+cd ~/repositories/coopsymbiotic-ansible/
+ansible-playbook --check -l log.civicrm.osuosl.org --tags logstash-servers -i ../civicrm-infra/ansible/hosts ./site.yml
 ```
 
 Do an actual run (not simulated) on a specific node (you probably never want to run this globally):
 
 ```
-cd civicrm-infra/ansible/
+cd ~/repositories/coopsymbiotic-ansible/
 ansible-playbook -l log.civicrm.osuosl.org ./site.yml
 ```
 
