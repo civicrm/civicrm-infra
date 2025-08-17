@@ -34,6 +34,9 @@ cd ~/repositories/
 git clone --recursive https://github.com/coopsymbiotic/coopsymbiotic-ansible/
 ```
 
+(we use the same playbooks because both infrastructures are managed by the
+same person, more convenient that way)
+
 Run a dry-run simulation of the playbook:
 
 ```
