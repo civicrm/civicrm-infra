@@ -28,12 +28,12 @@ ufw_extra:
   statssql6:
     proto: tcp
     port: 3306
-    src: 2600:3c03::f03c:91ff:fe7b:2e21/128
+    src: 2001:41d0:725:7100:200::/128
     rule: allow
     description: "Allows civicrm.org to access stats (experimental)"
   statssql4:
     proto: tcp
     port: 3306
-    src: 45.79.135.8/32
+    src: 51.77.81.201/32
     rule: allow
     description: "Allows civicrm.org to access stats (experimental)"
