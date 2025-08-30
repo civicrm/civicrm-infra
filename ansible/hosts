@@ -10,7 +10,6 @@
 # #############################################################################
 
 [kvm_servers]
-paella.civicrm.org # OVH BHS baremetal
 bagel.civicrm.org # OVH BHS baremetal
 pretzel.civicrm.org # OVH Limburg baremetal
 
