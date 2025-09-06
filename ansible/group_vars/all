@@ -35,6 +35,7 @@ ufw_ipv4_allow_ssh: true
 borgmatic_server_basedir: "/."
 borgmatic_backupserver: "de4310.rsync.net"
 borgmatic_user: "de4310"
+borgmatic_remote_path: "borg1"
 
 # Better than no password at all
 # but too much complexity could also mean losing the backup key.
