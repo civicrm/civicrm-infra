@@ -33,8 +33,8 @@ ufw_icinga_allow_src:
 ufw_ipv4_allow_ssh: true
 
 borgmatic_server_basedir: "/."
-borgmatic_backupserver: "de4310.rsync.net"
-borgmatic_user: "de4310"
+borgmatic_backupserver: "zh5894.rsync.net"
+borgmatic_user: "zh5894"
 borgmatic_remote_path: "borg1"
 
 # Better than no password at all
