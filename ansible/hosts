@@ -13,9 +13,6 @@
 bagel.civicrm.org # OVH BHS baremetal
 pretzel.civicrm.org # OVH Limburg baremetal
 
-[general_bametal_servers]
-sushi.civicrm.org ansible_ssh_host=140.211.166.28 # OSUOSL baremetal
-
 [aegir_vm]
 spark-1.civicrm.org # bookworm PHP 8.2 bagel.civicrm.org OVH
 spark-2.civicrm.org # Linode
@@ -78,7 +75,6 @@ test.civicrm.org
 
 [backup_servers]
 backups-1.civicrm.org
-sushi.civicrm.org
 
 [mattermost_servers]
 chat.civicrm.org
