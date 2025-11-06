@@ -24,13 +24,13 @@ Virtual Servers
       <td>Mattermost, Nginx, MariaDB</td>
     </tr>
     <tr>
-      <td>cxnapp-2</td>
-      <td>Google Cloud</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>146.148.42.42</td>
-      <td></td>
-      <th>cores=1 ram=1gb root=10gb (updated: 2017-04-24)</th>
-      <td><tt>mycivi.org</tt> and <tt>dev.mycivi.org</tt> (<a href="https://github.com/civicrm/cxnapp">cxnapp</a>, configured to run <tt>org.civicrm.profile</tt> in <tt>/srv/buildkit</tt>)</td>
+      <td>connect</td>
+      <td>civicrm.org</td>
+      <td>Debian 13 Trixie</td>
+      <td>51.77.81.205</td>
+      <td>2001:41d0:725:7100:600::</td>
+      <th>cores=4 ram=4gb root=40gb (updated: 2025-11-06)</th>
+      <td>Nginx, PHP</td>
     </tr>
     <tr>
       <td>lab</td>
@@ -63,19 +63,10 @@ Virtual Servers
       <td>test</td>
       <td>civicrm.org</td>
       <td>Debian 12 (Bookworm)</td>
-      <td>35.226.128.213</td>
+      <td>192.95.2.131</td>
       <td></td>
       <th>cores=1 ram=3.5gb root=50gb (updated: 2024-11-01)</th>
-      <td>Jenkins (Master), Nginx (for HTTPS), PHP (for Duderino). Hosted on Google Cloud.</td>
-    </tr>
-    <tr>
-      <td>www-cxn-2</td>
-      <td>civicrm.osuosl.org</td>
-      <td>Ubuntu 16.04 LTS (Xenial)</td>
-      <td>140.211.167.175</td>
-      <td></td>
-      <th>cores=2 ram=1.5gb root=10gb (updated: 2015-09-20)</th>
-      <td>Apache, MySQL, PHP56</td>
+      <td>Jenkins (Master), Nginx (for HTTPS), PHP (for Duderino).</td>
     </tr>
     <tr>
       <td>www-demo</td>
@@ -139,10 +130,11 @@ Physical Servers
 
 | Host                | OS                 | Location          | IPv4              | IPv6                 | Resources         | Comments                                                                   |
 | ------------------- | ------------------ | ----------------- | ----------------  | -------------------- | ----------------- | -------------------------------------------------------------------------- |
-| test-3.civicrm.org  | Debian 11 bullseye | OVH BHS           | 15.235.112.148    | n/a                  | cores=8/16 (AMD 5800X) ram=128gb ssd=2x1tb (updated: 2023-04-17) | Previously barbecue |
 | sushi.civicrm.org   | Ubuntu 18.04       | OSUOSL            | 140.211.166.28    | n/a                  | cores=2(Pentium 1403v2) ram=32gb hdd=3x600gb(10k,2.5) | Backup server. 1+3yr wty (2015-2019?) |
 | paella.civicrm.org  | Debian 10 buster   | OVH BHS           | 51.161.13.19      | 2607:5300:203:6713:: | cores=12 (A2-E2136) ram=64gb ssd=2x500gb (updated: 2020-01-30) | Will be replaced by bagel.c.o |
 | bagel.civicrm.org   | Debian 12 bookworm | OVH BHS           | 148.113.217.125   | 2607:5300:21a:7d00:: | cores=8/16 Advanced-2 AMD EPYC 4344P 8c/16t - 3.8 GHz/5.3 GHz, 128 GB RAM, 2x1 TB NVMe disks | Will replace paella.c.o |
+| pretzel.civicrm.org | Debian 12 bookworm | OVH LIM           | 57.129.86.113     | 2001:41d0:725:7100:: | cores=8/16 Advanced-2 AMD EPYC 4344P 8c/16t - 3.8 GHz/5.3 GHz, 128 GB RAM, 2x1 TB NVMe disks | |
+| test-3.civicrm.org  | Debian 11 bullseye | OVH BHS           | 15.235.112.148    | n/a                  | cores=8/16 (AMD 5800X) ram=128gb ssd=2x1tb (updated: 2023-04-17) | Previously barbecue |
 | test-4.us.to        | Ubuntu 22.04 Jammy | Garage            | Dynamic           | n/a                  | cores=6c/12t (i5-12500t) ram=64gb ssd=1x250gb + 1x1tb (updated: 2024-12-03) | "install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 55 or Nebula (test-4.ab31.civi.io). vPro AMT via VPN. |
 | test-5.port0.org    | Ubuntu 22.04 Jammy | Garage            | Dynamic           | n/a                  | cores=6c+8c/20t (i5-13600t) ram=64gb ssd=1x1tb (updated: 2024-12-03) | "install-runner.sh". Jenkins worker. Behind NAT firewall. Use alt ssh port 56 or Nebula (test-5.ab31.civi.io). |
 
