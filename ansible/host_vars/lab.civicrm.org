@@ -31,6 +31,6 @@ backupexcludes:
   - /var/opt/gitlab/prometheus/data
   - /var/opt/gitlab/postgresql
   - /var/opt/gitlab/gitlab-ci/builds
-  - /var/opt/gitlab/nginx
+  - /var/opt/gitlab/nginx/proxy_temp
   - /var/opt/gitlab/redis
   - /var/opt/gitlab/grafana
