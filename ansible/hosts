@@ -19,7 +19,6 @@ spark-2.civicrm.org # Linode
 www-prod-2.civicrm.org # trixie, pretzel.civicrm.org OVH
 
 [general_vm]
-backups-1.civicrm.org # Google
 botdylan.civicrm.org # bagel.civicrm.org OVH
 chat.civicrm.org ansible_ssh_host=51.77.81.202 # trixie, pretzel.civicrm.org OVH
 lab.civicrm.org # bookworm, bagel.civicrm.org OVH
@@ -72,9 +71,6 @@ test-10.civicrm.org
 
 [jenkins_servers]
 test.civicrm.org
-
-[backup_servers]
-backups-1.civicrm.org
 
 [mattermost_servers]
 chat.civicrm.org

@@ -38,6 +38,3 @@ backupincludes:
     - /srv
 
 backups_mysqldump: false
-
-# borgmatic_backupserver_secondary: backups-1.civicrm.org
-# borgmatic_server_basedir_secondary: /backup

@@ -56,12 +56,6 @@ ufw_extra:
     src: 140.211.166.28/32
     rule: allow
     description: "Allow inbound ssh for sushi, the main backup server."
-  sshbackup1:
-    proto: tcp
-    port: 22
-    src: 107.178.223.170/32
-    rule: allow
-    description: "Allow inbound ssh for backups-1, the other backup server."
   sshmanage:
     proto: tcp
     port: 22
