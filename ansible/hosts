@@ -30,7 +30,7 @@ test-3.civicrm.org # bullseye, OVH baremetal
 test-4.us.to ansible_ssh_port=55 ## Firewalled/SSH-only access.
 test-5.port0.org ansible_ssh_port=56 ## Firewalled/SSH-only access.
 test-10.civicrm.org # trixie, bagel.civicrm.org OVH
-www-prod.civicrm.org # trixie PHP 8.x pretzel.civicrm.org OVH
+www-prod.civicrm.org # trixie pretzel.civicrm.org OVH
 www-demo.civicrm.org # bagel.civicrm.org OVH
 
 # #############################################################################

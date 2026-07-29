@@ -20,7 +20,7 @@ preseed_country: US
 preseed_locale: en_US.utf8
 preseed_timezone: Europe/Berlin
 
-phpversion: 8.2
+phpversion: 8.4
 
 # Reduce noize from bots
 ufw_ipv4_allow_ssh: false
