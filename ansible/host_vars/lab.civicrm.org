@@ -20,6 +20,8 @@ preseed_country: CA
 preseed_locale: en_US.utf8
 preseed_timezone: America/Toronto
 
+phpversion: 8.2
+
 # /var is included by default, so this does not seem necessary
 # backupincludes:
 #   - /var/opt/gitlab/backups
