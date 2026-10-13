@@ -23,8 +23,8 @@ preseed_timezone: Europe/Berlin
 # This host has postfix and DKIM
 host_postfix_myorigin: civicrm.org
 
-backups_mysqldump: false
-backups_postgresql: true
+borgmatic_mysql_dump: false
+borgmatic_postgresql: true
 
 backupincludes:
     - /opt
