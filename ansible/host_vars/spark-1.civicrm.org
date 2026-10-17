@@ -20,7 +20,7 @@ preseed_country: CA
 preseed_locale: en_US.utf8
 preseed_timezone: America/Toronto
 
-phpversion: 8.2
+phpversion: 8.4
 
 # Used for regenerating the icinga2 host file, with the inventory of CiviCRM sites
 icinga2_conf_host_import: tpl-civicrm-aegir-host
